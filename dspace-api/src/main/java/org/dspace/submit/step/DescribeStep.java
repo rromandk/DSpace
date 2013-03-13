@@ -139,7 +139,7 @@ public class DescribeStep extends AbstractProcessingStep
         DCInput[] inputs = null;
         try
         {
-            inputs = inputsReader.getInputs(c.getHandle()).getPageRows(
+            inputs = inputsReader.getInputs(c).getPageRows(
                     currentPage - 1,
                     subInfo.getSubmissionItem().hasMultipleTitles(),
                     subInfo.getSubmissionItem().isPublishedBefore());
@@ -409,19 +409,18 @@ public class DescribeStep extends AbstractProcessingStep
     public int getNumberOfPages(HttpServletRequest request,
             SubmissionInfo subInfo) throws ServletException
     {
-        // by default, use the "default" collection handle
-        String collectionHandle = DCInputsReader.DEFAULT_COLLECTION;
+        // by default, prepare to use the "default" form definition
+        Collection collection = null;
 
         if (subInfo.getSubmissionItem() != null)
         {
-            collectionHandle = subInfo.getSubmissionItem().getCollection()
-                    .getHandle();
+            collection = subInfo.getSubmissionItem().getCollection();
         }
 
         // get number of input pages (i.e. "Describe" pages)
         try
         {
-            return getInputsReader().getNumberInputPages(collectionHandle);
+            return getInputsReader().getNumberInputPages(collection);
         }
         catch (DCInputsReaderException e)
         {
