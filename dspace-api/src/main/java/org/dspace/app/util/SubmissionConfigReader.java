@@ -16,6 +16,7 @@ import javax.xml.parsers.*;
 
 import org.apache.log4j.Logger;
 import org.dspace.services.factory.DSpaceServicesFactory;
+import org.dspace.content.Collection;
 
 /**
  * Item Submission configuration generator for DSpace. Reads and parses the
@@ -151,12 +152,20 @@ public class SubmissionConfigReader
      * @throws ServletException
      *             if no default submission process configuration defined
      */
-    public SubmissionConfig getSubmissionConfig(String collectionHandle,
+    public SubmissionConfig getSubmissionConfig(Collection collection,
             boolean isWorkflow) throws ServletException
     {
         // get the name of the submission process config for this collection
-        String submitName = collectionToSubmissionConfig
-                .get(collectionHandle);
+    	String submitName;
+    	try 
+    	{
+    		submitName = Util.findDefinitionInMap(collection, collectionToSubmissionConfig);
+    	} 
+    	catch(Exception e) 
+    	{
+    		throw new ServletException("Error getting submission process definition", e);
+    	}
+    	
         if (submitName == null)
         {
             submitName = collectionToSubmissionConfig
@@ -309,13 +318,15 @@ public class SubmissionConfigReader
             Node nd = nl.item(i);
             if (nd.getNodeName().equals("name-map"))
             {
+            	// preserves the collection-handle attribute for backward compatibility
                 String id = getAttribute(nd, "collection-handle");
+                String handle = getAttribute(nd, "handle");
                 String value = getAttribute(nd, "submission-name");
                 String content = getValue(nd);
-                if (id == null)
+                if (id == null && handle == null)
                 {
                     throw new SAXException(
-                            "name-map element is missing collection-handle attribute in 'item-submission.xml'");
+                            "name-map element is missing handle attribute in 'item-submission.xml'");
                 }
                 if (value == null)
                 {
@@ -327,7 +338,7 @@ public class SubmissionConfigReader
                     throw new SAXException(
                             "name-map element has content in 'item-submission.xml', it should be empty.");
                 }
-                collectionToSubmissionConfig.put(id, value);
+                collectionToSubmissionConfig.put( handle != null ? handle : id , value);
             } // ignore any child node that isn't a "name-map"
         }
     }

@@ -9,10 +9,13 @@ package org.dspace.xmlworkflow;
 
 import org.apache.log4j.Logger;
 import org.apache.xpath.XPathAPI;
+import org.dspace.app.util.Util;
 import org.dspace.content.Collection;
 import org.dspace.services.ConfigurationService;
 import org.dspace.services.factory.DSpaceServicesFactory;
 import org.dspace.xmlworkflow.factory.XmlWorkflowFactory;
+import org.dspace.content.Community;
+import org.dspace.utils.DSpace;
 import org.dspace.xmlworkflow.state.Step;
 import org.dspace.xmlworkflow.state.actions.UserSelectionActionConfig;
 import org.dspace.xmlworkflow.state.Workflow;
@@ -27,6 +30,7 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.transform.TransformerException;
 import java.io.File;
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.*;
 
 /**
@@ -67,24 +71,22 @@ public class XmlWorkflowFactoryImpl implements XmlWorkflowFactory {
             workflowCache = new HashMap<>();
 
         // Attempt to retrieve our workflow object
-        if(workflowCache.get(collection.getHandle())==null){
+        if(!workflowCache.containsKey(collection.getHandle())){
             try{
                 // No workflow cache found for the collection, check if we have a workflowId for this collection
                 File xmlFile = new File(path);
                 Document input = DocumentBuilderFactory.newInstance().newDocumentBuilder().parse(xmlFile);
                 Node mainNode = input.getFirstChild();
-                Node workflowMap = XPathAPI.selectSingleNode(mainNode, "//workflow-map/name-map[@collection='"+collection.getHandle()+"']");
+                
+                Node workflowMap = findWorkflow(mainNode, collection);
                 if(workflowMap==null){
                     //No workflowId found for this collection, so retrieve & use the default workflow
-                    if(workflowCache.get("default")==null){
-                        String workflowID = XPathAPI.selectSingleNode(mainNode, "//workflow-map/name-map[@collection='default']").getAttributes().getNamedItem("workflow").getTextContent();
+                    if(!workflowCache.containsKey("default")){
+                        String workflowID = XPathAPI.selectSingleNode(mainNode, "workflow-map/name-map[@collection='default' or @handle='default']").getAttributes().getNamedItem("workflow").getTextContent();
                         if(workflowID==null){
                             throw new WorkflowConfigurationException("No mapping is present for collection with handle:" + collection.getHandle());
                         }
-                        Node workflowNode = XPathAPI.selectSingleNode(mainNode, "//workflow[@id='"+workflowID+"']");
-                        Workflow wf = new Workflow(workflowID, getRoles(workflowNode));
-                        Step step = createFirstStep(wf, workflowNode);
-                        wf.setFirstStep(step);
+                        Workflow wf = createWorkflow(mainNode, workflowID);
                         workflowCache.put("default", wf);
                         workflowCache.put(collection.getHandle(), wf);
                         return wf;
@@ -95,11 +97,8 @@ public class XmlWorkflowFactoryImpl implements XmlWorkflowFactory {
                 }else{
                     //We have a workflowID so retrieve it & resolve it to a workflow, also store it in our cache
                     String workflowID = workflowMap.getAttributes().getNamedItem("workflow").getTextContent();
+                    Workflow wf = createWorkflow(mainNode, workflowID);
 
-                    Node workflowNode = XPathAPI.selectSingleNode(mainNode, "//workflow[@id='"+workflowID+"']");
-                    Workflow wf = new Workflow(workflowID, getRoles(workflowNode));
-                    Step step = createFirstStep(wf, workflowNode);
-                    wf.setFirstStep(step);
                     workflowCache.put(collection.getHandle(), wf);
                     return wf;
                 }
@@ -112,7 +111,40 @@ public class XmlWorkflowFactoryImpl implements XmlWorkflowFactory {
         }
     }
 
-    protected Step createFirstStep(Workflow workflow, Node workflowNode) throws TransformerException, WorkflowConfigurationException {
+    private Workflow createWorkflow(Node mainNode, String workflowID) throws TransformerException, WorkflowConfigurationException
+    {
+        Node workflowNode = XPathAPI.selectSingleNode(mainNode, "workflow[@id='"+workflowID+"']");
+        Workflow wf = new Workflow(workflowID, getRoles(workflowNode));
+        Step step = createFirstStep(wf, workflowNode);
+        wf.setFirstStep(step);
+        return wf;
+    }
+    
+    private static Node findWorkflow(Node mainNode, Collection collection) throws TransformerException, WorkflowConfigurationException {
+        // preserves the collection attribute for backward compatibility
+        Node workflowMap = XPathAPI.selectSingleNode(mainNode, "workflow-map/name-map[@collection='"+collection.getHandle()+"' or @handle='"+collection.getHandle()+"']");
+    	if(workflowMap != null)
+    		return workflowMap;
+
+		// Search through the community hierarchy in ascending order
+		ArrayList<Community> communities;
+		try {
+			communities = (ArrayList<Community>)collection.getCommunities();
+		} catch (SQLException e) {
+			throw new WorkflowConfigurationException("Error getting communities from collection "+collection.getID()+": "+e.getMessage());
+		}
+
+		for(int i = 0 ; i < communities.size(); i++) {
+			workflowMap = XPathAPI.selectSingleNode(mainNode, "workflow-map/name-map[@collection='"+communities.get(i).getHandle()+"' or @handle='"+communities.get(i).getHandle()+"']");
+	    	if(workflowMap != null)
+	    		return workflowMap;
+		}
+		
+		// Couldn't find any match
+		return null;
+    }
+    
+    private Step createFirstStep(Workflow workflow, Node workflowNode) throws TransformerException, WorkflowConfigurationException {
         String firstStepID = workflowNode.getAttributes().getNamedItem("start").getTextContent();
         Node stepNode = XPathAPI.selectSingleNode(workflowNode, "step[@id='"+firstStepID+"']");
         if(stepNode == null){
@@ -169,7 +201,7 @@ public class XmlWorkflowFactoryImpl implements XmlWorkflowFactory {
             File xmlFile = new File(path);
             Document input = DocumentBuilderFactory.newInstance().newDocumentBuilder().parse(xmlFile);
             Node mainNode = input.getFirstChild();
-            Node stepNode = XPathAPI.selectSingleNode(mainNode, "//workflow[@id='"+workflow.getID()+"']/step[@id='"+stepID+"']");
+            Node stepNode = XPathAPI.selectSingleNode(mainNode, "workflow[@id='"+workflow.getID()+"']/step[@id='"+stepID+"']");
 
             if(stepNode == null){
                 throw new WorkflowConfigurationException("Step does not exist for workflow: "+workflow.getID());
