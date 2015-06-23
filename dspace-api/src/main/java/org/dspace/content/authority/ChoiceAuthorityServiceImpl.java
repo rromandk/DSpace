@@ -53,6 +53,9 @@ public final class ChoiceAuthorityServiceImpl implements ChoiceAuthorityService
 
     // map of field key to closed value
     protected Map<String,Boolean> closed = new HashMap<String,Boolean>();
+    
+    // map of field key to minLength value
+    private Map<String,Integer> minLength = new HashMap<String,Integer>();
 
     @Autowired(required = true)
     protected ConfigurationService configurationService;
@@ -62,6 +65,7 @@ public final class ChoiceAuthorityServiceImpl implements ChoiceAuthorityService
     private final String CHOICES_PLUGIN_PREFIX = "choices.plugin.";
     private final String CHOICES_PRESENTATION_PREFIX = "choices.presentation.";
     private final String CHOICES_CLOSED_PREFIX = "choices.closed.";
+    private final String CHOICES_MINlENGTh_PREFIX = "choices.minLength.";
 
     protected ChoiceAuthorityServiceImpl() {
     }
@@ -171,6 +175,12 @@ public final class ChoiceAuthorityServiceImpl implements ChoiceAuthorityService
     public boolean isClosed(String fieldKey)
     {
         return getClosedMap().containsKey(fieldKey) && getClosedMap().get(fieldKey);
+    }
+    
+    @Override
+    public Integer getMinLength(String fieldKey)
+    {
+        return getMinlengthMap().get(fieldKey);
     }
 
     @Override
@@ -293,6 +303,35 @@ public final class ChoiceAuthorityServiceImpl implements ChoiceAuthorityService
         }
 
         return closed;
+    }
+    
+    /**
+     * Return map of key to choised setting
+     * @return
+     */
+    private Map<String,Integer> getMinlengthMap()
+    {
+        // If empty, load from configuration
+        if(minLength.isEmpty())
+        {
+            // Get all configuration keys starting with a given prefix
+            List<String> propKeys = configurationService.getPropertyKeys(CHOICES_CLOSED_PREFIX);
+            Iterator<String> keyIterator = propKeys.iterator();
+            while(keyIterator.hasNext())
+            {
+                String key = keyIterator.next();
+
+                String fkey = config2fkey(key.substring(CHOICES_MINlENGTh_PREFIX.length()));
+                if (fkey == null)
+                {
+                    log.warn("Skipping invalid ChoiceAuthority configuration property: "+key+": does not have schema.element.qualifier");
+                    continue;
+                }
+                minLength.put(fkey, Integer.valueOf(configurationService.getProperty(key)));
+            }
+        }
+
+        return minLength;
     }
 
 }
