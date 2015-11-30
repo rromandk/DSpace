@@ -18,7 +18,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
-
 import org.dspace.app.util.DCInputsReader;
 import org.dspace.app.util.DCInputsReaderException;
 import org.dspace.app.util.DCInput;
@@ -752,6 +751,16 @@ public class DescribeStep extends AbstractProcessingStep
             String s = vals.get(i);
             if ((s != null) && !s.equals(""))
             {
+            	String editorToolbar=ConfigurationManager.getProperty("input-forms."+metadataField+".editorToolbar");
+                if(editorToolbar!=null)
+                {
+                	s=s.replace('"',' ');
+                	s=s.replace("<p>","");
+                	s=s.replace("</p>","\n\r");
+                	s=s.replaceAll("<img alt=","\\$latex");
+                	s=s.replaceAll("src= http://latex.codecogs.com/(.*) />", "\\$");
+                	s=s.replaceAll("&nbsp;", "");
+                }            	
                 if (isAuthorityControlled)
                 {
                     String authKey = auths.size() > i ? auths.get(i) : null;
