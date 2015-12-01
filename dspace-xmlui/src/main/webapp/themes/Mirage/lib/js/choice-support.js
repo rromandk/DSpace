@@ -95,7 +95,7 @@ function DSpaceSetupAutocomplete(formID, args) {
                         }
                     });
                     ac.data('authorities',authorities);
-                    response(options);
+                    response(options.sort(ordenarAlfabeticamente));
                 }));
                 },
             select: function(event, ui) {
@@ -135,7 +135,11 @@ function DSpaceSetupAutocomplete(formID, args) {
         }
 	});
 }
-
+function ordenarAlfabeticamente(elem1, elem2){
+	if(elem1.value>elem2.value){
+		return 1;
+	}else{return -1;}
+}
 // -------------------- support for Lookup Popup
 
 // Create popup window with authority choices for value of an input field.
