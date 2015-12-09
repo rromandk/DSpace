@@ -512,6 +512,10 @@ li.ds-artifact-item.community {
 	line-height: 1.8;
 }
 
+.metadata-dcterms_abstract .metadata-values span .MathJax span{
+	white-space: unset !important;
+}
+
 .metadata-dcterms_abstract .metadata-label {
 	background-color: #509296;
 	color: white;
