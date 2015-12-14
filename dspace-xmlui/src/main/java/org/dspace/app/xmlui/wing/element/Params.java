@@ -73,6 +73,9 @@ public class Params extends AbstractWingElement implements StructuralElement
     /** The name of the field to use for a list of choices */
     public static final String A_CHOICES_CLOSED = "choicesClosed";
 
+    /** Whether this field is internationalizable or not */
+    public static final String A_I18NABLE = "i18nable";
+
     /** Possible operations */
     public static final String OPERATION_ADD = "add";
 
@@ -140,9 +143,14 @@ public class Params extends AbstractWingElement implements StructuralElement
 
     /** Value of choicesClosed option */
     protected boolean choicesClosed = false;
+
+    /** if this field is i18nable */
+    protected boolean i18nable = false;
     
     /** Value that indicates that the editor will be applied to a textarea */
     protected String editorToolbar = null;
+    
+
     /**
      * Construct a new parameter's element
      *
@@ -371,6 +379,10 @@ public class Params extends AbstractWingElement implements StructuralElement
         this.choicesClosed = true;
     }
 
+    public void setI18nable()
+    {
+    	this.i18nable = true;
+    }
 
 	public void setEditorToolbar(String toolbar) {
 		this.editorToolbar=toolbar;
@@ -487,6 +499,10 @@ public class Params extends AbstractWingElement implements StructuralElement
         if (this.choicesClosed)
         {
             attributes.put(A_CHOICES_CLOSED, true);
+        }
+        if (this.i18nable)
+        {
+            attributes.put(A_I18NABLE, true);
         }
 
         if (this.autofocus != null)

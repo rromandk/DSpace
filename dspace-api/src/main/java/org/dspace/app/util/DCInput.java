@@ -42,7 +42,7 @@ public class DCInput
 
     /** is input required? */
     private boolean required = false;
-
+ 
     /** if required, text to display when missing */
     private String warning = null;
 
@@ -70,6 +70,9 @@ public class DCInput
     /** is the entry closed to vocabulary terms? */
     private boolean closedVocabulary = false;
 
+    /** if the field is internationalizable */
+    private boolean i18nable = false;
+    
     /** allowed document types */
     private List<String> typeBind = null;
 
@@ -128,6 +131,7 @@ public class DCInput
         required = (warning != null && warning.length() > 0);
         visibility = fieldMap.get("visibility");
         readOnly = fieldMap.get("readonly");
+
         vocabulary = fieldMap.get("vocabulary");
         String closedVocabularyStr = fieldMap.get("closedVocabulary");
         closedVocabulary = "true".equalsIgnoreCase(closedVocabularyStr)
@@ -151,6 +155,10 @@ public class DCInput
         	}
         }
         
+        // is i18nable ?
+        String i18nableStr = fieldMap.get("i18n");
+        i18nable = "true".equalsIgnoreCase(i18nableStr)
+                || "yes".equalsIgnoreCase(i18nableStr);
     }
 
     /**
@@ -433,6 +441,10 @@ public class DCInput
 		}
 		//If there is a type denied, and this input does not match with any denied type, then returns "true".
 		return (negateTypeBind || false);
+	}
+	
+	public boolean isI18nable() {
+		return i18nable;
 	}
 	
 }

@@ -2595,4 +2595,9 @@
     <message key="xmlui.mirage2.choice-authority-control.loading">Loading...</message>
 
     <message key="xmlui.mirage2.item-list.thumbnail">Thumbnail</message>
+    
+    <message key="xmlui.dri2xhtml.METS-1.0.locale.en">English</message>
+	<message key="xmlui.dri2xhtml.METS-1.0.locale.es">Spanish</message>
+	<message key="xmlui.dri2xhtml.METS-1.0.locale.de">German</message>
+    
 </catalogue>

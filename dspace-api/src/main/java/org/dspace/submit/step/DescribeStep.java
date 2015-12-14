@@ -163,21 +163,14 @@ public class DescribeStep extends AbstractProcessingStep
             {
                 continue;
             }
-	        if (inputs[i].getInputType().equals("qualdrop_value"))
-	        {
-		        @SuppressWarnings("unchecked") // This cast is correct
-		        List<String> pairs = inputs[i].getPairs();
-		        for (int j = 0; j < pairs.size(); j += 2)
-		        {
-			        String qualifier = pairs.get(j+1);
-			        item.clearMetadata(inputs[i].getSchema(), inputs[i].getElement(), qualifier, Item.ANY);
-		        }
-	        }
-	        else
-	        {
-		        String qualifier = inputs[i].getQualifier();
-		        item.clearMetadata(inputs[i].getSchema(), inputs[i].getElement(), qualifier, Item.ANY);
-	        }
+            String qualifier = inputs[i].getQualifier();
+            if (qualifier == null
+                    && inputs[i].getInputType().equals("qualdrop_value"))
+            {
+                qualifier = Item.ANY;
+            }
+            item.clearMetadata(inputs[i].getSchema(), inputs[i].getElement(),
+                    qualifier, Item.ANY);
         }
 
         // Clear required-field errors first since missing authority
@@ -278,7 +271,7 @@ public class DescribeStep extends AbstractProcessingStep
                     || (inputType.equals("textarea")))
             {
                 readText(request, item, schema, element, qualifier, inputs[j]
-                        .getRepeatable(), LANGUAGE_QUALIFIER);
+                        .getRepeatable(), inputs[j].isI18nable());
             }
             else
             {
@@ -677,7 +670,7 @@ public class DescribeStep extends AbstractProcessingStep
      *            language to set (ISO code)
      */
     protected void readText(HttpServletRequest request, Item item, String schema,
-            String element, String qualifier, boolean repeated, String lang)
+            String element, String qualifier, boolean repeated, boolean is18nable)
     {
         // FIXME: Of course, language should be part of form, or determined
         // some other way
@@ -689,12 +682,14 @@ public class DescribeStep extends AbstractProcessingStep
 
         // Values to add
         List<String> vals = null;
+        List<String> langs = null;
         List<String> auths = null;
         List<String> confs = null;
 
         if (repeated)
         {
             vals = getRepeatedParameter(request, metadataField, metadataField);
+            langs = getRepeatedParameter(request, metadataField, metadataField+"_lang");
             if (isAuthorityControlled)
             {
                 auths = getRepeatedParameter(request, metadataField, metadataField+"_authority");
@@ -714,6 +709,8 @@ public class DescribeStep extends AbstractProcessingStep
                         .substring(removeButton.length()));
 
                 vals.remove(valToRemove);
+                if(is18nable)
+                	langs.remove(valToRemove);
                 if(isAuthorityControlled)
                 {
                    auths.remove(valToRemove);
@@ -725,10 +722,16 @@ public class DescribeStep extends AbstractProcessingStep
         {
             // Just a single name
             vals = new LinkedList<String>();
+            langs = new LinkedList<String>();
             String value = request.getParameter(metadataField);
+            String selectedLang = LANGUAGE_QUALIFIER;
+            if(is18nable && request.getParameter(metadataField+"_lang") != null)
+            	selectedLang = request.getParameter(metadataField+"_lang");
+            
             if (value != null)
             {
                 vals.add(value.trim());
+                langs.add(selectedLang);
             }
             if (isAuthorityControlled)
             {
@@ -749,6 +752,10 @@ public class DescribeStep extends AbstractProcessingStep
         {
             // Add to the database if non-empty
             String s = vals.get(i);
+            String selectedLang = LANGUAGE_QUALIFIER;
+            if(is18nable)
+            	selectedLang = langs.get(i);
+            	
             if ((s != null) && !s.equals(""))
             {
                 if (isAuthorityControlled)
@@ -763,14 +770,14 @@ public class DescribeStep extends AbstractProcessingStep
                     }
                     else
                     {
-                        item.addMetadata(schema, element, qualifier, lang, s,
+                        item.addMetadata(schema, element, qualifier, selectedLang, s,
                                 authKey, (sconf != null && sconf.length() > 0) ?
                                         Choices.getConfidenceValue(sconf) : Choices.CF_ACCEPTED);
                     }
                 }
                 else
                 {
-                    item.addMetadata(schema, element, qualifier, lang, s);
+                    item.addMetadata(schema, element, qualifier, selectedLang, s);
                 }
             }
         }

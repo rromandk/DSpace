@@ -48,6 +48,7 @@ import org.dspace.content.authority.ChoiceAuthorityManager;
 import org.dspace.content.authority.Choice;
 import org.dspace.content.authority.Choices;
 import org.dspace.core.ConfigurationManager;
+import org.dspace.core.I18nUtil;
 
 import org.dspace.utils.DSpace;
 import org.xml.sax.SAXException;
@@ -879,6 +880,10 @@ public class DescribeStep extends AbstractSubmissionStep
                 {
                     textArea.setDisabled();
                 }
+                if(dcInput.isI18nable())
+                {
+                	textArea.setI18nable();
+                }
                 
                 // Setup the field's values
                 if (dcInput.isRepeatable() || dcValues.length > 1)
@@ -887,6 +892,11 @@ public class DescribeStep extends AbstractSubmissionStep
                         {
                                 Instance ti = textArea.addInstance();
                                 ti.setValue(dcValue.value);
+                                if(dcInput.isI18nable())
+                                {
+                                    ti.setLanguageValue(dcValue.language);
+                                }
+                                
                                 if (isAuth)
                                 {
                                     if (dcValue.authority == null || dcValue.authority.equals(""))
@@ -903,6 +913,11 @@ public class DescribeStep extends AbstractSubmissionStep
                 else if (dcValues.length == 1)
                 {
                         textArea.setValue(dcValues[0].value);
+                        if(dcInput.isI18nable())
+                        {
+    	                    textArea.setLanguageValue(dcValues[0].language);
+                        }
+                        
                         if (isAuth)
                         {
                             if (dcValues[0].authority == null || dcValues[0].authority.equals(""))
@@ -1196,7 +1211,7 @@ public class DescribeStep extends AbstractSubmissionStep
                     text.setChoicesClosed(ChoiceAuthorityManager.getManager().isClosed(fieldKey));
                     text.setChoicesMinLength(ChoiceAuthorityManager.getManager().getMinLength(fieldKey));
                 }
-
+                
                 if (dcInput.isRequired())
                 {
                     text.setRequired();
@@ -1220,7 +1235,11 @@ public class DescribeStep extends AbstractSubmissionStep
                 {
                     text.enableDeleteOperation();
                 }
-
+                if(dcInput.isI18nable())
+                {
+                	text.setI18nable();
+                }
+                
                 if (readonly)
                 {
                     text.setDisabled();
@@ -1233,6 +1252,11 @@ public class DescribeStep extends AbstractSubmissionStep
                         {
                                 Instance ti = text.addInstance();
                                 ti.setValue(dcValue.value);
+                                if (dcInput.isI18nable())
+                                {
+                                    ti.setLanguageValue(dcValue.language);
+                                }
+                                
                                 if (isAuth)
                                 {
                                     if (dcValue.authority == null || dcValue.authority.equals(""))
@@ -1249,6 +1273,10 @@ public class DescribeStep extends AbstractSubmissionStep
                 else if (dcValues.length == 1)
                 {
                         text.setValue(dcValues[0].value);
+                        if(dcInput.isI18nable())
+                        {
+    	                    text.setLanguageValue(dcValues[0].language);
+                        }                        
                         if (isAuth)
                         {
                             if (dcValues[0].authority == null || dcValues[0].authority.equals(""))
