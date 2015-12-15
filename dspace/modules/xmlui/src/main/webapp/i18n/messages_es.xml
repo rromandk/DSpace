@@ -2351,7 +2351,7 @@ Cuando se usa QDC para los elementos de DSpace se recomienda el uso de crosswalk
 
 	<message key="xmlui.dri2xhtml.METS-1.0.locale.en">Ingles</message>
 	<message key="xmlui.dri2xhtml.METS-1.0.locale.es">Español</message>
-	<message key="xmlui.dri2xhtml.METS-1.0.locale.de">Aleman</message>
+	<message key="xmlui.dri2xhtml.METS-1.0.locale.pt">Portuges</message>
 
     <!-- End Versioning -->     
 
