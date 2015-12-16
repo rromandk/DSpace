@@ -12,7 +12,7 @@
 		Caso contrario, se le envía al submit sobre la colección de Autoarchivo
 		Ver aspect "LocalConfigConfiguration"
 	-->	
-	<xsl:template match="dri:div[@n='unfinished-submisions']/dri:p/dri:hi/dri:xref" priority="1">
+	<xsl:template match="dri:div[@n='unfinished-submisions']/dri:p/dri:hi/dri:xref | dri:div[@n='start-submision']/dri:p/dri:hi/dri:xref" priority="1">
 		<a>
             <xsl:if test="@target">
                 <xsl:attribute name="href">
