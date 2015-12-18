@@ -372,8 +372,11 @@ public class XmlWorkflowManager {
 
         InstallItem.installItem(c, wfi);
 
-        //Notify
-        notifyOfArchive(c, item, collection);
+        //Notify the submitter if it's not the same that approves it
+        if(c.getCurrentUser().getID()!=item.getSubmitter().getID()){
+        	notifyOfArchive(c, item, collection);
+        }
+        
 
         //Clear any remaining workflow metadata
         item.clearMetadata(WorkflowRequirementsManager.WORKFLOW_SCHEMA, Item.ANY, Item.ANY, Item.ANY);
