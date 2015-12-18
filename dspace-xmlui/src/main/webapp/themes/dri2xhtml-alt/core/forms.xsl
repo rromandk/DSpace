@@ -493,6 +493,15 @@
                 <xsl:value-of select="dri:value[@type='raw']"/>
             </xsl:attribute>
         </input>
+        
+        <!-- we add the hidden input field for the language -->
+        <xsl:if test="../dri:params[@i18nable='yes']">
+	        <input type="hidden">
+	            <xsl:attribute name="name"><xsl:value-of select="concat(../@n,'_lang_',position())"/></xsl:attribute>
+	            <xsl:attribute name="value"><xsl:value-of select="dri:value[@type='lang']"/></xsl:attribute>
+	        </input>
+        </xsl:if>
+        
         <!-- XXX do we want confidence icon here?? -->
         <xsl:if test="dri:value[@type='authority']">
           <xsl:call-template name="authorityInputFields">
@@ -910,6 +919,7 @@
 									</script>
 								</xsl:if>
 
+				<xsl:apply-templates select="." mode="i18n-field"/>
 
               <!-- add place to store authority value -->
               <xsl:if test="dri:params/@authorityControlled">
@@ -1036,6 +1046,8 @@
                             <xsl:apply-templates />
                         </input>
 
+						<xsl:apply-templates select="." mode="i18n-field"/>
+						
                         <xsl:variable name="confIndicatorID" select="concat(@id,'_confidence_indicator')"/>
                         <xsl:if test="dri:params/@authorityControlled">
                           <xsl:variable name="confidence">
@@ -1210,5 +1222,53 @@
             </span>
         </xsl:if>
     </xsl:template>
+    
+    
+    <!-- control to select metadata's language (supports repetible fields if they are editable) -->
+	<xsl:template match="dri:field|dri:instance" mode="i18n-field">
+		<xsl:param name="position" select="''"/>
+		
+		<xsl:if test="dri:params[@i18nable = 'yes']|../dri:params[@i18nable = 'yes']">
+			<!-- this element's name -->
+			<xsl:variable name="name">
+				<xsl:choose>
+				 	<!-- assumes it's a dri:instance -->
+					<xsl:when test="../dri:params[@i18nable = 'yes']">
+						<xsl:value-of select="concat(../@n,'_lang')"/>					
+					</xsl:when>
+					<!-- assumes it's a dri:field -->
+					<xsl:otherwise>
+						<xsl:value-of select="concat(@n,'_lang')"/>
+					</xsl:otherwise>
+				</xsl:choose>
+				<xsl:if test="$position != ''">
+					<xsl:value-of select="concat('_',$position)"/>
+				</xsl:if>
+			</xsl:variable>
+
+			<select class="ds-select-field select-lang">
+				<xsl:attribute name="name"><xsl:value-of select="$name"/></xsl:attribute>
+				<!-- option list -->
+				<xsl:apply-templates select="/dri:document/dri:meta/dri:pageMeta/dri:metadata[@element='supported_locale']">
+					<xsl:with-param name="lang" select="dri:value[@type='lang']"/>
+				</xsl:apply-templates>
+			</select>
+			
+		</xsl:if>
+	</xsl:template>
+	
+	<!-- generates the language options for metadata lanugage selection -->
+	<xsl:template match="dri:metadata[@element='supported_locale']">
+		<xsl:param name="lang"/>
+		<option>
+			<xsl:attribute name="value">
+				<xsl:value-of select="."/>
+			</xsl:attribute>
+			<xsl:if test="string(.) = $lang">
+				<xsl:attribute name="selected">true</xsl:attribute>
+			</xsl:if>
+			<i18n:text>xmlui.dri2xhtml.METS-1.0.locale.<xsl:value-of select="."></xsl:value-of></i18n:text>
+		</option>
+	</xsl:template>
     
 </xsl:stylesheet>
