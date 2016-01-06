@@ -143,6 +143,10 @@ public class Navigation extends AbstractDSpaceTransformer implements CacheablePr
         {
 	        admin.addItemXref(contextPath+ "/admin/xmlworkflowoverview", T_xmlworkflow_overview);
         }
+        if(AuthorizeManager.isCicAdmin(this.context))
+        {
+        	admin.addItemXref(contextPath+ "/admin/xmlworkflowoverview", T_xmlworkflow_overview);
+        }
     }
 
     /**

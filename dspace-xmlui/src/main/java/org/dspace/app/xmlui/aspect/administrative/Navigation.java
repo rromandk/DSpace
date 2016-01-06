@@ -275,11 +275,15 @@ public class Navigation extends AbstractDSpaceTransformer implements CacheablePr
             context.addItemXref(contextPath+"/admin/community?createNew", T_context_create_community);
     	}
         
+    	//Only if the user is a CicAdmin or a SystemAdmin add the head
+    	//if is a CicAdmin it will only have the worflow Overview option
+        if(AuthorizeManager.isCicAdmin(this.context) || isSystemAdmin){
+        	admin.setHead(T_administrative_head);
+        }
         
         // System Administrator options!
         if (isSystemAdmin)
-        {
-            admin.setHead(T_administrative_head);
+        {            
 
             // Control panel
             admin.addItemXref(contextPath+"/admin/panel", T_administrative_control_panel);

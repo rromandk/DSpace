@@ -38,7 +38,7 @@ public class DeleteWorkflowItemsAction extends AbstractAction {
     public Map act(Redirector redirector, SourceResolver resolver, Map objectModel, String source, Parameters parameters) throws Exception {
         Request request = ObjectModelHelper.getRequest(objectModel);
         Context context = ContextUtil.obtainContext(request);
-        if(!AuthorizeManager.isAdmin(context)){
+        if(!AuthorizeManager.isAdmin(context) & !AuthorizeManager.isCicAdmin(context)){
             throw new AuthorizeException();
         }
 
