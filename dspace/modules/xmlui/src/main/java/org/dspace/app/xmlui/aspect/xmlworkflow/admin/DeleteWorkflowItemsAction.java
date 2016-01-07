@@ -17,6 +17,7 @@ import org.dspace.app.util.Util;
 import org.dspace.app.xmlui.utils.ContextUtil;
 import org.dspace.authorize.AuthorizeException;
 import org.dspace.authorize.AuthorizeManager;
+import org.dspace.content.WorkspaceItem;
 import org.dspace.core.Context;
 import org.dspace.xmlworkflow.XmlWorkflowManager;
 import org.dspace.xmlworkflow.storedcomponents.XmlWorkflowItem;
@@ -24,21 +25,20 @@ import org.dspace.xmlworkflow.storedcomponents.XmlWorkflowItem;
 import java.util.Map;
 
 /**
- * Action that sends all the workflow items in the request back to the submitter
+ * An action that allows administrators to delete items in the workflow
  *
  * @author Bram De Schouwer (bram.deschouwer at dot com)
  * @author Kevin Van de Velde (kevin at atmire dot com)
  * @author Ben Bosman (ben at atmire dot com)
  * @author Mark Diggory (markd at atmire dot com)
  */
-public class ReturnToSubmitterAction extends AbstractAction {
-
+public class DeleteWorkflowItemsAction extends AbstractAction {
 
     @Override
     public Map act(Redirector redirector, SourceResolver resolver, Map objectModel, String source, Parameters parameters) throws Exception {
         Request request = ObjectModelHelper.getRequest(objectModel);
         Context context = ContextUtil.obtainContext(request);
-        if(!AuthorizeManager.isAdmin(context)){
+        if(!AuthorizeManager.isAdmin(context) & !AuthorizeManager.isCicAdmin(context)){
             throw new AuthorizeException();
         }
 
@@ -47,10 +47,13 @@ public class ReturnToSubmitterAction extends AbstractAction {
             for (int workflowIdentifier : workflowIdentifiers) {
                 XmlWorkflowItem workflowItem = XmlWorkflowItem.find(context, workflowIdentifier);
                 if (workflowItem != null) {
-                    XmlWorkflowManager.sendWorkflowItemBackSubmission(context, workflowItem, context.getCurrentUser(), "Item sent back to the submisson process by admin", null);
+                    WorkspaceItem workspaceItem = XmlWorkflowManager.sendWorkflowItemBackSubmission(context, workflowItem, context.getCurrentUser(), "Item sent back to the submisson process by admin", null);
+                    //Delete the workspaceItem
+                    workspaceItem.deleteAll();
                 }
             }
         }
+
         return null;
     }
 }

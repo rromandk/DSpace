@@ -564,7 +564,7 @@ public class WorkspaceItem implements InProgressSubmission
          * original submitter or an administrator can delete a workspace item.
 
          */
-        if (!AuthorizeManager.isAdmin(ourContext)
+        if ((!AuthorizeManager.isAdmin(ourContext) & !AuthorizeManager.isCicAdmin(ourContext))
                 && ((ourContext.getCurrentUser() == null) || (ourContext
                         .getCurrentUser().getID() != item.getSubmitter()
                         .getID())))

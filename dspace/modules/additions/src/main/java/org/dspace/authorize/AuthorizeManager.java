@@ -295,7 +295,13 @@ public class AuthorizeManager
                 return true;
             }
         }
-
+        
+        //if the user is a CicAdmin and the action is delete
+        //return true
+        if(isCicAdmin(c) && action==4){
+        	return true;
+        }
+        
         // In case the dso is an bundle or bitstream we must ignore custom 
         // policies if it does not belong to at least one installed item (see 
         // DS-2614).
@@ -479,6 +485,35 @@ public class AuthorizeManager
         } else
         {
             return Group.isMember(c, 1);
+        }
+    }
+    
+    /**
+     * Check to see if the current user is a System Cic-Admin. Always return
+     * <code>true</code> if c.ignoreAuthorization is set. Anonymous users
+     * can't be Cic-Admins (EPerson set to NULL)
+     *
+     * @param c
+     *         current context
+     * @return <code>true</code> if user is an Cic-admin or ignore authorization
+     *         flag set
+     */
+    public static boolean isCicAdmin(Context c) throws SQLException
+    {
+        // if we're ignoring authorization, user is member of Cic-admin
+        if (c.ignoreAuthorization())
+        {
+            return true;
+        }
+
+        EPerson e = c.getCurrentUser();
+
+        if (e == null)
+        {
+            return false; // anonymous users can't be Cic-admins....
+        } else
+        {
+            return Group.isMember(c, 2);
         }
     }
 

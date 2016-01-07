@@ -89,7 +89,7 @@ public class WorkflowOverviewTransformer extends AbstractDSpaceTransformer {
 
     public void addBody(Body body) throws SAXException, WingException, SQLException, IOException, AuthorizeException {
         Context context = ContextUtil.obtainContext(ObjectModelHelper.getRequest(objectModel));
-        if(!AuthorizeManager.isAdmin(context)){
+        if(!AuthorizeManager.isAdmin(context) & !AuthorizeManager.isCicAdmin(context)){
             throw new AuthorizeException();
         }
         
