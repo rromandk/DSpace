@@ -323,7 +323,7 @@
 			</div><!-- 
 			 --><div id="logo-ba" class="hidden-xs col-sm-2 col-md-2">
 				<xsl:call-template name="build-img">
-					<xsl:with-param name="img.src">images/scioli.png</xsl:with-param>
+					<xsl:with-param name="img.src">images/logo_BA.png</xsl:with-param>
 					<xsl:with-param name="img.alt">Buenos Aires</xsl:with-param>
 				</xsl:call-template>
 			</div>
