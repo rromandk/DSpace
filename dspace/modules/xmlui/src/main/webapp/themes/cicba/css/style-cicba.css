@@ -825,3 +825,7 @@ height: 33px;
 #cic-body > #cic-trail > #invisible{
 	display:none;
 }
+
+#cic-sidebar ul{
+	margin-left: unset;
+}
