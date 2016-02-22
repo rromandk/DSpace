@@ -71,6 +71,7 @@
          <input-type>textarea</input-type>
          <hint>Título del documento tal y como aparece en la obra</hint>
          <required>Debe indicar el título del documento</required>
+         <i18n>true</i18n>
        </field>
      
 		<field>
@@ -81,6 +82,7 @@
          <label>Subtítulo</label>
          <input-type>textarea</input-type>
          <hint>Subtítulo del documento tal y como aparece en la obra</hint>
+         <i18n>true</i18n>
 		</field>     
      
      	<field>
@@ -90,6 +92,7 @@
          <label>Título alternativo</label>
          <input-type>onebox</input-type>
          <hint>Otros títulos de la obra, o traducciones del título en cualquier idioma que no sea el nativo de la obra</hint>
+         <i18n>true</i18n>
        </field>
 
      	<field>
@@ -169,6 +172,7 @@
          <label>Resumen</label>
          <input-type>textarea</input-type>
          <hint>Resumen de la obra. En caso de ser un Informe de Investigación generar un índice del mismo en función de los títulos del punto 6.</hint>
+         <i18n>true</i18n>
        </field>
      
 <!--      	<field> -->
@@ -234,6 +238,7 @@
          <label>Palabras clave</label>
          <input-type>twobox</input-type> <!-- TODO: lookup --> <!-- TODO: vocabulary -->
          <hint>Términos libres que describen el contenido de la obra.</hint>
+         <i18n>true</i18n>
        </field>
        
        <!-- TODO: Debe ofrecer el vocabulario TGN : http://www.getty.edu/research/tools/vocabularies/tgn/ -->
