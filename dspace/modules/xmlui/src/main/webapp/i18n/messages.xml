@@ -2292,6 +2292,7 @@
 	<message key="xmlui.dri2xhtml.METS-1.0.item-dcterms_relation">Related resources</message>
 	<message key="xmlui.dri2xhtml.METS-1.0.item-dcterms_isVersionOf">Is version of</message>
 	<message key="xmlui.dri2xhtml.METS-1.0.item-dcterms_license">Licence</message>
+	<message key="xmlui.dri2xhtml.METS-1.0.item-dcterms_hasPart">Includes</message>
 	
 	<!-- cic metadata -->
 	<message key="xmlui.dri2xhtml.METS-1.0.item-cic_version">Vesion</message>
