@@ -147,7 +147,8 @@ public class DescribeStep extends AbstractProcessingStep
         String documentType = "";
         if( (item.getMetadataByMetadataString("dc.type") != null) && (item.getMetadataByMetadataString("dc.type").length >0) )
         {
-            documentType = item.getMetadataByMetadataString("dc.type")[0].value;
+        	Metadatum mtd = item.getMetadataByMetadataString("dc.type")[0];
+            documentType = (ConfigurationManager.getBooleanProperty("inputforms.field.typebind.use_authority",false))? mtd.authority : mtd.value;
         }
         
         // Step 1:
