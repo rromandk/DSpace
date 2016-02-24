@@ -771,7 +771,9 @@ public class DescribeStep extends AbstractProcessingStep
                 {
                 	s=s.replace('"',' ');
                 	s=s.replace("<p>","");
-                	s=s.replace("</p>","\n\r");
+                	s=s.replace("</p>","");
+                	s=s.replace("<br />","");
+                	s=s.replace("\r\n\r\n","\r\n");
                 	s=s.replaceAll("<img alt=","\\$latex");
                 	s=s.replaceAll("src= http://latex.codecogs.com/(.*) />", "\\$");
                 	s=s.replaceAll("&nbsp;", "");
