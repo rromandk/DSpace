@@ -482,6 +482,7 @@
          <input-type>onebox</input-type>
          <hint>Título del documento tal y como aparece en la obra</hint>
          <required>Debe indicar el título del documento</required>
+         <i18n>true</i18n>
        </field>
      
      	<!-- TODO: Este debe conectarse con una base que contenga las autores registrados en CIC -->
@@ -514,6 +515,7 @@
          <label>Resumen</label>
          <input-type>textarea</input-type>
          <hint>Resumen de la obra. En caso de ser un Informe de Investigación generar un índice del mismo en función de los títulos del punto 6.</hint>
+         <i18n>true</i18n>
        </field>
      
      	<field>
@@ -543,6 +545,7 @@
          <label>Palabras clave</label>
          <input-type>twobox</input-type> <!-- TODO: lookup --> <!-- TODO: vocabulary -->
          <hint>Términos libres que describen el contenido de la obra.</hint>
+         <i18n>true</i18n>
        </field>
                      
  	</page>
