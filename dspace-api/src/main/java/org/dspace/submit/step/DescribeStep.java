@@ -766,6 +766,16 @@ public class DescribeStep extends AbstractProcessingStep
             	
             if ((s != null) && !s.equals(""))
             {
+            	String editorToolbar=ConfigurationManager.getProperty("input-forms."+metadataField+".editorToolbar");
+                if(editorToolbar!=null)
+                {
+                	s=s.replace('"',' ');
+                	s=s.replace("<p>","");
+                	s=s.replace("</p>","\n\r");
+                	s=s.replaceAll("<img alt=","\\$latex");
+                	s=s.replaceAll("src= http://latex.codecogs.com/(.*) />", "\\$");
+                	s=s.replaceAll("&nbsp;", "");
+                }            	
                 if (isAuthorityControlled)
                 {
                     String authKey = auths.size() > i ? auths.get(i) : null;
