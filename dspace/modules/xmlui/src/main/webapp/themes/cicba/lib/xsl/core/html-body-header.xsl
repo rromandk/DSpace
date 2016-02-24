@@ -318,7 +318,7 @@
 				</xsl:call-template>
 			</div><!-- 
 			 --><div id="banner-cic-digital"  class="hidden-xs col-sm-7 col-md-7">
-				<div class="">Repositorio de la Comisión de Investigaciones Científicas</div>
+				<div class="">Repositorio de la Comisión de Investigaciones Científicas de la Provincia de Buenos Aires</div>
 				<small>Ministerio de Producción, Ciencia y Tecnología</small>
 			</div><!-- 
 			 --><div id="logo-ba" class="hidden-xs col-sm-2 col-md-2">

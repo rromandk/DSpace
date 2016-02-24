@@ -55,14 +55,14 @@ ol {
 #cic-header  > #banner-cic-digital{
 	font-size: 1.5vw;
     vertical-align: middle;
-    padding: 25px 25px 0px;
+    padding: 0.9em 0.9em 0em;
     font-family: "sans-serif";
 }
 
 @media(width: 768px){
 	#cic-header  > #banner-cic-digital{
 		font-size: 1.8vw;
-		padding: 15px 25px 0px;
+		padding: 0.25em 0.9em 0em;
 	}
 }
 
