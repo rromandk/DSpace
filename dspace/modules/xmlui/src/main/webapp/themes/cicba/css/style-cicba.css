@@ -826,6 +826,6 @@ height: 33px;
 	display:none;
 }
 
-#cic-sidebar ul{
-	margin-left: unset;
+#cic-sidebar ul, div#aspect_artifactbrowser_CommunityViewer_div_community-view>ul, div#aspect_artifactbrowser_CommunityBrowser_div_comunity-browser>ul{
+  margin-left: unset;
 }
