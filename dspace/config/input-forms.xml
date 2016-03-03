@@ -295,10 +295,10 @@
          <dc-schema>dcterms</dc-schema>
          <dc-element>identifier</dc-element>
          <dc-qualifier>url</dc-qualifier>
-         <repeatable>true</repeatable>
+         <repeatable>false</repeatable>
          <label>Localización electrónica</label>
-         <input-type>twobox</input-type>
-         <hint>Dirección del recurso en la web (puede ser otro repositorio, página, sitio, revista, etc.).</hint>
+         <input-type>onebox</input-type>
+         <hint>Direccion donde se encuentra disponible el recurso (opcional). Puede ser un sitio web, repositorio, revista, etc.</hint>
        </field>
        
        <field>
@@ -565,10 +565,10 @@
          <dc-schema>dcterms</dc-schema>
          <dc-element>identifier</dc-element>
          <dc-qualifier>url</dc-qualifier>
-         <repeatable>true</repeatable>
+         <repeatable>false</repeatable>
          <label>Localización electrónica</label>
-         <input-type>twobox</input-type>
-         <hint>Dirección del recurso en la web (puede ser otro repositorio, página, sitio, revista, etc.).</hint>
+         <input-type>onebox</input-type>
+         <hint>Direccion donde se encuentra disponible el recurso (opcional). Puede ser un sitio web, repositorio, revista, etc.</hint>
        </field>
        
        <field>

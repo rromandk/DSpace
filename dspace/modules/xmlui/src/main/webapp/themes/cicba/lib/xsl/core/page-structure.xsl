@@ -230,6 +230,7 @@
 			//globals variables
 			var fieldIDPrefix = 'aspect_submission_StepTransformer_field_';
 			var fields = ['dc_type','dcterms_language','dcterms_license','dcterms_rights_embargoPeriod','dcterms_subject_area'];
+			var emptyAuthorityFields = ['dcterms_isPartOf_item','dcterms_isPartOf_issue','dcterms_relation','dcterms_hasPart','dcterms_isVersionOf', 'dcterms_identifier_url'];			
 			var oldTypeValue = $('#aspect_submission_StepTransformer_field_dc_type').val();
 			var oldLicenseValue = $('#aspect_submission_StepTransformer_field_dcterms_license').val();
 			//For each input field can put a function name, having as prefix the input field name. P.e. for the field "dcterms_abstract" we can add the function "dcterms_abstract_make_shorter". 
@@ -240,8 +241,17 @@
 			$(document).ready(function(){
 				fields.forEach(executePreprocessors);
 				fields.forEach(makeReadonly);
+				emptyAuthorityFields.forEach(setPlaceHolders);
 			});
 			
+			/**
+			* Set place holders for empty authorities inputs
+			*/
+			function setPlaceHolders(inputFieldName, index, array){
+				$('#'+ fieldIDPrefix + inputFieldName).prop("placeholder", "Descripción del recurso...");
+				$('#'+ fieldIDPrefix + inputFieldName + '_authority').prop("placeholder", "Dirección del recurso...");
+			}
+						
 			/**
 			* Executes a list of preprocessing functions declared for every DCInput. If the input is not the current page, then no function is applied.
 			*/

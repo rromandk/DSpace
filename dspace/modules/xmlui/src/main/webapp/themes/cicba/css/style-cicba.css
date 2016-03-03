@@ -1,3 +1,4 @@
+
 @
 namespace xml "http: //www.w3.org /XML/1998/namespace"
 	/* Estilo personalizado de CIC-DIGITAL */
@@ -829,3 +830,21 @@ height: 33px;
 #cic-sidebar ul, div#aspect_artifactbrowser_CommunityViewer_div_community-view>ul, div#aspect_artifactbrowser_CommunityBrowser_div_comunity-browser>ul{
   margin-left: unset;
 }
+
+::-webkit-input-placeholder { /* WebKit, Blink, Edge */
+    color:    #babdb6;
+}
+:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+    color:    #babdb6;
+   opacity:  1;
+}
+::-moz-placeholder { /* Mozilla Firefox 19+ */
+    color:    #babdb6;
+   opacity:  1;
+}
+:-ms-input-placeholder { /* Internet Explorer 10-11 */
+    color:    #babdb6;
+}
+:placeholder-shown { /* Standard (https://drafts.csswg.org/selectors-4/#placeholder) */
+    color:    #babdb6;
+}}
