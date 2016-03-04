@@ -831,6 +831,19 @@ height: 33px;
   margin-left: unset;
 }
 
+
+div#aspect_discovery_SimpleSearch_div_search-controls-gear > span:first-child{
+	color: #31708f;
+}
+
+div#aspect_discovery_SimpleSearch_div_search-controls-gear > span:first-child:hover{
+	text-decoration: underline;
+}
+
+.glyphicon-sort:before{
+	color:#31708f;
+}
+
 ::-webkit-input-placeholder { /* WebKit, Blink, Edge */
     color:    #babdb6;
 }

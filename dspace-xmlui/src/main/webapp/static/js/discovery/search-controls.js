@@ -17,7 +17,7 @@
         jQuery.each(gearControlsDivs, function(index, value) {
             var gearControlsDiv = $(value);
             var gearControls = gearControlsDiv.find('ul#aspect_discovery_SimpleSearch_list_sort-options');
-            var gearButton = $('<button class="discovery-controls-gear ds-button-field"><div class="gear-icon">&nbsp;</div></button>');
+            var gearButton = $('<span>Orden </span><button class="glyphicon glyphicon-sort discovery-controls-gear"></button>');
 
             gearButton.click(function(){
                 if(gearControls.is(':visible')){
