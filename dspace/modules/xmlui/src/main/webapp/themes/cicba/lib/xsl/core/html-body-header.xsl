@@ -4,8 +4,9 @@
 	version="1.0" xmlns:dim="http://www.dspace.org/xmlns/dspace/dim"
 	xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:mods="http://www.loc.gov/mods/v3"
 	xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:confman="org.dspace.core.ConfigurationManager"
+	xmlns:str="http://exslt.org/strings"
 	xmlns:xmlui="xalan://ar.edu.unlp.sedici.dspace.xmlui.util.XSLTHelper"
-	xmlns="http://www.w3.org/1999/xhtml" exclude-result-prefixes="i18n dri mets xlink xsl dim xhtml mods dc confman">
+	xmlns="http://www.w3.org/1999/xhtml" exclude-result-prefixes="i18n dri mets xlink xsl str dim xhtml mods dc confman">
 
 	<!-- Display language selection if more than 1 language is supported -->
 	<xsl:template name="languageSelection">
@@ -31,12 +32,45 @@
 								<xsl:when test="starts-with($request-uri, 'page/')">
 									<xsl:value-of select="xmlui:replaceAll($request-uri, '(_en|_es)', concat('_', $locale))" />							
 								</xsl:when>
+								
+								<!-- En el caso de admin/groups, en algunos casos al momento de cambiar el idioma se 
+								redirecciona a admin/group/(main | edit | delet ...) en lugar de admin/groups, y no se 
+								encuentra el recurso. para salvar este caso se parsea la uri recibida 
+								(mas informacion en el ticket 3815)-->
+								<xsl:when test="starts-with($request-uri, 'admin/')">
+									<xsl:variable name="section">
+										<xsl:choose>
+											<xsl:when test="starts-with(substring-before(substring-after($request-uri, 'admin/'), '/'), 'group')">
+												<xsl:value-of select="xmlui:replaceAll(substring-before(substring-after($request-uri, 'admin/'), '/'), 'group','groups')"/>
+											</xsl:when>
+											<xsl:otherwise>
+												<xsl:value-of select="substring-before(substring-after($request-uri, 'admin/'), '/')"/>
+											</xsl:otherwise>
+										</xsl:choose>
+									</xsl:variable>
+									<!-- <xsl:choose>
+										<xsl:when test="starts-with(substring-before(substring-after($request-uri, 'admin/'), '/'), 'group')">
+											<xsl:variable name="section" select="xmlui:replaceAll(substring-before(substring-after($request-uri, 'admin/'), '/'), 'group','groups')"/>
+										</xsl:when>
+										<xsl:otherwise>
+											<xsl:variable name="section" select="substring-before(substring-after($request-uri, 'admin/'), '/')"/>
+										</xsl:otherwise>
+									</xsl:choose> -->
+									<xsl:choose>
+										<xsl:when test="$section != ''">
+											<xsl:value-of select="concat('admin/', $section)"/>
+										</xsl:when>
+										<xsl:otherwise>
+											<xsl:value-of select="$request-uri"/>
+										</xsl:otherwise>
+									</xsl:choose>
+								</xsl:when>
 								<xsl:otherwise>
 									<xsl:value-of select="$current-uri" />
 								</xsl:otherwise>
 							</xsl:choose>
 							<xsl:text>?locale-attribute=</xsl:text>
-							<xsl:value-of select="$locale" />				
+							<xsl:value-of select="$locale" />
 							<xsl:if test="$queryString != '' ">
 								<xsl:value-of select="concat('&amp;', $queryString)"/>
 							</xsl:if>
