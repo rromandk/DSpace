@@ -347,8 +347,8 @@
             </div>
             
             <div class="col-md-2">
-            	<div class="row discovery-metadata-cic_lugarDeDesarrollo">
-	            	<!-- cic.lugarDesarrollo -->
+	            <!-- cic.lugarDesarrollo -->
+            	<!-- <div class="row discovery-metadata-cic_lugarDeDesarrollo">
 	                <xsl:if test="dri:list[@n=(concat($handle, ':cic.lugarDesarrollo')) and descendant::text()]">
 	                    <xsl:call-template name="renderDiscoveryField">
 	            	        <xsl:with-param name="value">
@@ -357,7 +357,8 @@
 	    	                <xsl:with-param name="classname" select="'metadata-cic_lugarDeDesarrollo'"/>
 		                </xsl:call-template>
 	                </xsl:if>
-                </div>
+                </div>-->
+                 
                 
                 <div class="row discovery-metadata-dc_type">
 	            	<!-- dc.type -->
