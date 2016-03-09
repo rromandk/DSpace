@@ -721,11 +721,15 @@ height: 33px;
 		color: #509296;
 		border-style: solid;
 		border-width: 1px;
-		margin-top: 1.5em;
-		margin-bottom: .5em;
-		padding-top: .5em;
-		padding-bottom: .5em;
+		padding: 1em;
+		text-align: center;
 	}
+	
+	#yearbox-container{
+		position: absolute;
+		bottom: 1em;
+	}
+	
 }
 
 .year-box h3 {

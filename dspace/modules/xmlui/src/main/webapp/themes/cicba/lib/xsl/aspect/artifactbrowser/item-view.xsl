@@ -205,9 +205,9 @@
 	
     <xsl:template name="itemSummaryView-DIM">
     	<xsl:for-each select="./mets:dmdSec/mets:mdWrap[@OTHERMDTYPE='DIM']/mets:xmlData/dim:dim">
-	    	<div class="row item-head, col-md-12">
-		    	<div class="col-md-8 col-md-push-3">
-		    		<div id="item-context">
+	    	<div class="row item-head, col-md-9">
+		    	<div class="col-md-10">
+	    			<div id="item-context">
 				    	<xsl:call-template name="render-metadata">
 				    		<xsl:with-param name="field" select="'dc.type'" />
 				    		<xsl:with-param name="show_label" select="'false'" />
@@ -247,20 +247,22 @@
 		    			<xsl:with-param name="is_linked_authority" select="'true'" />
 		    			<xsl:with-param name="local_browse_type" select="'author'" />
 		    		</xsl:call-template>
-		    		
+		    				    		
 				</div>
-				<div class="col-md-1 col-md-push-3 hidden-xs hidden-sm year-box">
-	    			<label id="año"><i18n:text>xmlui.ArtifactBrowser.ItemViewer.year</i18n:text><h3><xsl:value-of select="substring(//mets:dmdSec/mets:mdWrap/mets:xmlData/dim:dim/dim:field[@mdschema='dcterms'][@element='issued']/text(), 1, 4)"></xsl:value-of></h3></label>
-	    		</div>
-	    		<div class="col-md-1 col-md-push-3 visible-xs visible-sm year-box" id="year-box-small">
-	    			<label id="año"><i18n:text>xmlui.ArtifactBrowser.ItemViewer.year</i18n:text>: <xsl:value-of select="substring(//mets:dmdSec/mets:mdWrap/mets:xmlData/dim:dim/dim:field[@mdschema='dcterms'][@element='issued']/text(), 1, 4)"></xsl:value-of></label>
-	    		</div>
+				<div class="row col-md-2 col-md-push-10" id="yearbox-container">
+					<div class="hidden-xs hidden-sm year-box">
+		    			<label id="año"><i18n:text>xmlui.ArtifactBrowser.ItemViewer.year</i18n:text><h3><xsl:value-of select="substring(//mets:dmdSec/mets:mdWrap/mets:xmlData/dim:dim/dim:field[@mdschema='dcterms'][@element='issued']/text(), 1, 4)"></xsl:value-of></h3></label>
+		    		</div>
+		    		<div class="col-md-1 col-md-push-3 visible-xs visible-sm year-box" id="year-box-small">
+		    			<label id="año"><i18n:text>xmlui.ArtifactBrowser.ItemViewer.year</i18n:text>: <xsl:value-of select="substring(//mets:dmdSec/mets:mdWrap/mets:xmlData/dim:dim/dim:field[@mdschema='dcterms'][@element='issued']/text(), 1, 4)"></xsl:value-of></label>
+		    		</div>					
+				</div>
 	    		
 	    	</div>
 	    </xsl:for-each>
     	
     	<div class="row">
-	    	<div id="item-container" class="col-md-9 col-md-push-3">
+	    	<div id="item-container" class="col-md-9">
 	    	
 	    <!-- Generate the info about the item from the metadata section -->
 		        <xsl:apply-templates select="./mets:dmdSec/mets:mdWrap[@OTHERMDTYPE='DIM']/mets:xmlData/dim:dim"
@@ -269,7 +271,7 @@
 		    	
 	    	</div>
 	    	
-	    	<div class="col-md-3 col-md-pull-9" id="thumbnail-container">
+	    	<div class="col-md-3" id="thumbnail-container">
 	    	
 	    		<!-- Advertencia de embargo (por ahora esta deshabilitado) -->
 				<xsl:if test="has-embargo">
