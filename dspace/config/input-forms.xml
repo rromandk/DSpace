@@ -104,7 +104,6 @@
 		 <type-bind>Informe cientifico</type-bind>
          <input-type>textarea</input-type>
          <hint>Titulo/tema de una  investigacion segun se indica en los informes de investigación CIC, en el punto 2</hint>
-         <required>Debe indicar el título de la investigación</required>
        </field>
      
      	<!-- TODO: Este debe conectarse con una base que contenga las instituciones CIC -->
