@@ -77,9 +77,6 @@
 				</div>
 			</div>
 			<div class="col-md-5 hidden-xs hidden-sm">
-				<xsl:call-template name="build-img">
-					<xsl:with-param name="img.src">images/decorativa.png</xsl:with-param>
-				</xsl:call-template>
 			</div>
 		</div>
 		<div id="home-highlight" class="row">
