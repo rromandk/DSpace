@@ -280,9 +280,18 @@
                 		<div class="row">
                 			<div class="col-md-12">
                 				<xsl:for-each select="dri:list[@n=(concat($handle, ':dcterms.abstract'))]/dri:item[string-length(dri:hi) > 0]">
-		                            <xsl:apply-templates select="."/>
+		                            <xsl:for-each select="./child::node()">
+			                            <xsl:choose>
+			                            	<xsl:when test="self::text()">
+			                            		<xsl:value-of select="." disable-output-escaping="yes"/>
+			                            	</xsl:when>
+			                            	<xsl:otherwise>
+			                            		<xsl:apply-templates select="."/>
+			                            	</xsl:otherwise>
+			                            </xsl:choose>	
+		                            </xsl:for-each>
 		                            <xsl:text>...</xsl:text>
-		                            <br/>
+		                        	<br/>
 		                        </xsl:for-each>
                     		</div>
                     	</div>
@@ -305,7 +314,7 @@
                 	<xsl:otherwise>
                 		<div class="row">
                 			<div class="col-md-12">
-                				<xsl:value-of select="concat(substring(dri:list[@n=(concat($handle, ':dcterms.abstract'))]/dri:item,1,300),concat(substring-before(substring(dri:list[@n=(concat($handle, ':dcterms.abstract'))]/dri:item/text(),300,400),'.'), '.'))"/>
+                				<xsl:value-of select="concat(substring(dri:list[@n=(concat($handle, ':dcterms.abstract'))]/dri:item,1,300),concat(substring-before(substring(dri:list[@n=(concat($handle, ':dcterms.abstract'))]/dri:item/text(),300,400),'.'), '.'))" disable-output-escaping="yes"/>
 	                            <xsl:text>...</xsl:text>
 	                            <br/>
                     		</div>
