@@ -1,4 +1,3 @@
-
 @
 namespace xml "http: //www.w3.org /XML/1998/namespace"
 	/* Estilo personalizado de CIC-DIGITAL */
@@ -38,8 +37,8 @@ ol {
 #cic-header  > #logo-cic-digital{
 	/*background-image: url('../images/header_72.png');*/
 	padding: unset;
-	backgro	background-color: #4365a2; /* Azul */
-ign: center;
+	background-color: #4365a2; /* Azul */
+	text-align: center;
 }
 	
 #cic-header  > #logo-cic-digital a img{
@@ -368,7 +367,7 @@ li.ds-artifact-item.community {
 	text-decoration: none;
 }
 
-.navbar-nav > li > a:hover{
+.navbar-nav > li > a:hover, .navbar-nav > li > a:focus{
 	background-color: #C6C6C6 !important;
 }
 
