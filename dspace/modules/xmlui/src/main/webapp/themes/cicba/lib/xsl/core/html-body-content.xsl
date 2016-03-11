@@ -10,7 +10,7 @@
 		ds-body div and applies templates of the body's child elements (which consists 
 		entirely of dri:div tags). -->
 	<xsl:template match="dri:body">
-		<div id="cic-body" class="row">
+		<div id="cic-body" class="row container-fluid">
 			<xsl:call-template name="buildTrail" />
 			<!-- <div> -->
 			<xsl:if
