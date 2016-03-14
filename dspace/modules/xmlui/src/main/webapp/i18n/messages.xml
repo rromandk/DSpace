@@ -2272,7 +2272,7 @@
 	<message key="xmlui.dri2xhtml.METS-1.0.item-dcterms_creator_editor">Editor</message>
 	<message key="xmlui.dri2xhtml.METS-1.0.item-dcterms_contributor_director">Director</message>
 	<message key="xmlui.dri2xhtml.METS-1.0.item-dcterms_abstract">Abstract</message>
-	<message key="xmlui.dri2xhtml.METS-1.0.item-dcterms_abstract_trabajoRealizado">Developed work</message>
+<!-- 	<message key="xmlui.dri2xhtml.METS-1.0.item-dcterms_abstract_trabajoRealizado">Developed work</message> -->
 	<message key="xmlui.dri2xhtml.METS-1.0.item-dcterms_issued">Date issued</message>
 	<message key="xmlui.dri2xhtml.METS-1.0.item-dcterms_subject_materia">Subject</message>
 	<message key="xmlui.dri2xhtml.METS-1.0.item-dcterms_subject_area">Tematic area</message>

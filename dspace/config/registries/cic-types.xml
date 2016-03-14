@@ -98,12 +98,12 @@
 		<scope_note>Persona que dirige la realización de la tesis o quien dirige a un investigador, personal de apoyo o becario.</scope_note>
 	</dc-type>
 	
-	<dc-type>
+<!-- 	<dc-type>
 		<schema>dcterms</schema>
 		<element>abstract</element>
 		<qualifier>trabajoRealizado</qualifier>
 		<scope_note>Todo el texto incluido en el punto 6 del informe de investigación.</scope_note>
-	</dc-type>
+		</dc-type>  -->
 	
 	<dc-type>
 		<schema>cic</schema>
