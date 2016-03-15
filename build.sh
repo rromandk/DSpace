@@ -14,7 +14,8 @@ cwd=`pwd`
 DSPACE_SRC=$(dirname $(readlink -f $0))
 DSPACE_DIR=$DSPACE_SRC/install
 DSPACE_USER=`whoami`
-TOMCAT="tomcat7"
+TOMCAT="tomcat8"
+PG_SRV="http://localhost:5432"
 
 #/var/dspace/source
 #/var/dspace/install
@@ -35,10 +36,10 @@ install() {
 	#if db exists
 
 	#test: 
-	psql -h data.sedici.unlp.edu.ar -Udspace_cic -W
-	dropdb --username=pg_root --host=data.sedici.unlp.edu.ar dspace_cic --if-exists -i
+	psql -h $PG_SRV -Udspace_cic -W
+	dropdb --username=pg_root --host=$PG_SRV dspace_cic --if-exists -i
 #endif
-createdb --username=pg_root --encoding=UNICODE --owner=dspace_cic --host=data.sedici.unlp.edu.ar dspace_cic
+createdb --username=pg_root --encoding=UNICODE --owner=dspace_cic --host=$PG_SRV dspace_cic
 
 #En caso que sea una versión snapshot, se compila en el nivel base de dspace-src para que maven encuentre las dependencias
 cd $DSPACE_SRC
