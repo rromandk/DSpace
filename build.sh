@@ -15,7 +15,7 @@ DSPACE_SRC=$(dirname $(readlink -f $0))
 DSPACE_DIR=$DSPACE_SRC/install
 DSPACE_USER=`whoami`
 TOMCAT="tomcat8"
-PG_SRV="http://localhost:5432"
+PG_SRV="localhost"
 
 #/var/dspace/source
 #/var/dspace/install
