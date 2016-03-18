@@ -135,7 +135,11 @@ public class CCLicenseStep extends AbstractSubmissionStep
             	selectList.setOptionSelected(cclicense.getLicenseId());
         	}
 	    }
-	    selectList.addOption(T_no_license.getKey(), T_no_license);
+	    
+	    if (ConfigurationManager.getBooleanProperty("cc.license.allow_no_license", false))
+	    {
+	    	selectList.addOption(T_no_license.getKey(), T_no_license);
+		}
 	    if (selectedLicense  !=  null) {
 	    	// output the license fields chooser for the license class type
 	    	if (cclookup.getLicenseFields(selectedLicense, ccLocale) == null ) {
