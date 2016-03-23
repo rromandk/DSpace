@@ -97,7 +97,7 @@ function DSpaceSetupAutocomplete(formID, args) {
                     ac.data('authorities',authorities);
                     response(options.sort(ordenarAlfabeticamente));
                 }));
-                },
+                }, autoFocus:true,
             select: function(event, ui) {
                     // NOTE: lookup element late because it might not be in DOM
                     // at the time we evaluate the function..
