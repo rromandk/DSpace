@@ -22,7 +22,7 @@ CKEDITOR.plugins.add( 'eqneditor', {
 		// First make sure we have loaded the necessary scripts
   	CKEDITOR.scriptLoader.load( [
 		http+host+'/js/eq_config.js', 
-		http+host+'/js/eq_editor-lite-17.js',
+		http+host+'/js/eq_editor-lite-18.js',
 		]);
 		
 		// Load Additional CSS 
