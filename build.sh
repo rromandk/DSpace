@@ -82,9 +82,15 @@ update()
 	cd $DSPACE_SRC
 	git stash && git pull --rebase && git stash pop
 	
-	show_message "Empaquetamos dspace"
-	cd dspace 
-	$JAVA_OPTS mvn package $MVN_OPTS -P $MVN_PROFILES
+	if [ "$1" = "--full" ]; then
+		show_message "Instalamos los recursos"
+		$JAVA_OPTS mvn install $MVN_OPTS -P $MVN_PROFILES
+		cd dspace
+	else
+		show_message "Empaquetamos dspace"
+		cd dspace 
+		$JAVA_OPTS mvn package $MVN_OPTS -P $MVN_PROFILES
+	fi
 	
 	show_message "Paramos el tomcat"
 	sudo /etc/init.d/$TOMCAT stop
@@ -135,10 +141,14 @@ case "$1" in
 	install
         ;;
   update)
-	update
+	if [ "$#" -gt 1 ] && [ "$2" != "--full" ]; then
+		show_message "Argumento invalido: $2"
+		exit 5
+	fi
+	update "$2"
         ;;
   *)
-        echo "Usage: $0 {install|update}" >&2
+        echo "Usage: $0 {install|update [--full]}" >&2
         exit 3
         ;;
 esac
