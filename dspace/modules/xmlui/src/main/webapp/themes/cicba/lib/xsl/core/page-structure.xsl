@@ -571,6 +571,14 @@
 		</script>
 		
 		 <script type="text/javascript">
+		        
+				function scroll(){				
+					<xsl:if test="/dri:document/dri:meta/dri:pageMeta/dri:metadata[@element='page'][@qualifier='jumpTo']">
+						<xsl:variable name="field_id" select="concat('aspect_submission_StepTransformer_field_',/dri:document/dri:meta/dri:pageMeta/dri:metadata[@element='page'][@qualifier='jumpTo'])" />
+							$("body").animate({scrollTop: $("label[for='<xsl:value-of select="$field_id"/>']").parent().offset().top });
+							$(<xsl:value-of select="$field_id" />).focus();
+					</xsl:if>
+				}		        
 		        $(document).ready(function(){
 		        	 <xsl:if test="/dri:document/dri:body/dri:div[@id='aspect.submission.StepTransformer.div.submit-describe']/dri:list[@id='aspect.submission.StepTransformer.list.submit-describe']">
 		        		var path= "<xsl:value-of select="/dri:document/dri:meta/dri:pageMeta/dri:metadata[@element='contextPath']"/>";
@@ -578,6 +586,18 @@
 				        CKEDITOR.plugins.addExternal( 'eqneditor', path, 'plugin.js' );
 						CKEDITOR.config.extraPlugins = 'eqneditor';
 					</xsl:if>
+		<!-- Se realiza el scroll dependiendo de si existe un editor en pantalla. Si existe un editor, es necesario a que se instancie el mismo para luego hacer el scroll -->
+				<xsl:choose>
+					<xsl:when test="/dri:document/dri:body/dri:div[@id='aspect.submission.StepTransformer.div.submit-describe']/dri:list[@id='aspect.submission.StepTransformer.list.submit-describe']/dri:item/dri:field/dri:params[@editorToolbar]">
+					CKEDITOR.on( 'instanceReady', function(evt) {
+						scroll();				
+					});
+					</xsl:when>
+					<xsl:otherwise>
+						scroll();
+					</xsl:otherwise>
+				</xsl:choose>
+					
 				});
 		  </script>
 		
