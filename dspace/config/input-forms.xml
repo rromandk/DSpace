@@ -359,7 +359,7 @@
          <dc-schema>dcterms</dc-schema>
          <dc-element>isPartOf</dc-element>
          <dc-qualifier>item</dc-qualifier>
-         <repeatable>false</repeatable>
+         <repeatable>true</repeatable>
          <label>Libro/Informe</label>
          <input-type>onebox</input-type>
          <hint>1) Informe o libro del cual el documento actual es parte.</hint>
