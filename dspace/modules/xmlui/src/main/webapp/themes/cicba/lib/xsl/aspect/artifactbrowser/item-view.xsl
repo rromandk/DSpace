@@ -51,7 +51,7 @@
 		<xsl:param name="nodes"></xsl:param>
 		<xsl:param name="anchor"></xsl:param>
 		<xsl:param name="isDate"></xsl:param>
-		<xsl:param name="editor">False</xsl:param>
+		<xsl:param name="disableOutputEscaping">False</xsl:param>
 		<xsl:param name="reduced">False</xsl:param>
 		<xsl:param name="local_browse_type"></xsl:param>
 
@@ -102,11 +102,11 @@
 									<xsl:with-param name="isDate" select="$isDate"></xsl:with-param>									
 							</xsl:call-template>
 					</xsl:when>
-					<xsl:when test="($editor='True') and ($reduced='True')">
+					<xsl:when test="($disableOutputEscaping='True') and ($reduced='True')">
 						<xsl:value-of select="substring(text(),1,200)" disable-output-escaping="yes"/>
 						<xsl:value-of select="concat(substring-before(substring(text(),200,300),'.'), '.')" disable-output-escaping="yes"/>
 					</xsl:when>
-					<xsl:when test="$editor='True'">
+					<xsl:when test="$disableOutputEscaping='True'">
 						<xsl:value-of select="text()" disable-output-escaping="yes"/>
 					</xsl:when>
 					<xsl:otherwise>
@@ -160,7 +160,7 @@
 		<xsl:param name="container">div</xsl:param>
 		<xsl:param name="null_message"></xsl:param>
 		<xsl:param name="isDate"></xsl:param>
-		<xsl:param name="editor">False</xsl:param>
+		<xsl:param name="disableOutputEscaping">False</xsl:param>
 		<xsl:param name="reduced"></xsl:param>
 		<xsl:param name="local_browse_type"></xsl:param>
 				
@@ -194,7 +194,7 @@
 								<xsl:with-param name="isDate" select="$isDate"/>
 								<xsl:with-param name="anchor" select="$is_linked_authority"/>
 								<xsl:with-param name="reduced" select="$reduced"/>
-								<xsl:with-param name="editor" select="$editor"/>
+								<xsl:with-param name="disableOutputEscaping" select="$disableOutputEscaping"/>
 								<xsl:with-param name="local_browse_type" select="$local_browse_type"/>
 							</xsl:call-template>
 						</xsl:when>
@@ -245,6 +245,7 @@
 						<xsl:with-param name="field" select="'dcterms.title.subtitle'"/>
 						<xsl:with-param name="show_label" select="false"/>
 						<xsl:with-param name="container" select="'h4'"/>
+						<xsl:with-param name="disableOutputEscaping">True</xsl:with-param>
 		    		</xsl:call-template>
 			    	<xsl:call-template name="render-metadata">
 		    			<xsl:with-param name="field" select="'dcterms.creator.*'" />
@@ -484,14 +485,14 @@
 						<xsl:with-param name="field" select="'dcterms.abstract'" />
 						<xsl:with-param name="separator" select="''" />
 						<xsl:with-param name="reduced">True</xsl:with-param>
-						<xsl:with-param name="editor">True</xsl:with-param>
+						<xsl:with-param name="disableOutputEscaping">True</xsl:with-param>
 					</xsl:call-template>
 	      		</div>
 	       		<div class="col-md-12" id="abstract-xs-long">	       		
 		       		<xsl:call-template name="render-metadata">
 						<xsl:with-param name="field" select="'dcterms.abstract'" />
 						<xsl:with-param name="separator" select="''" />
-						<xsl:with-param name="editor">True</xsl:with-param>
+						<xsl:with-param name="disableOutputEscaping">True</xsl:with-param>
 					</xsl:call-template>
 	      		</div>
 	      		<div class="col-xs-4 col-xs-push-7">
