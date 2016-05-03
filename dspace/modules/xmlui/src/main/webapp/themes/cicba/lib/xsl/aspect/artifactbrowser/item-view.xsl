@@ -82,6 +82,13 @@
 									<xsl:with-param name="a.value" select="text()"/>
 								</xsl:call-template>
 							</xsl:when>
+							<!-- Si llega a este punto no tiene atributo authority
+								verifico el caso especial del metadato isPartOf issue,
+								sin authority no tiene que ser un link
+							 -->
+							<xsl:when test="@qualifier='issue' and @element='isPartOf'">
+								<xsl:value-of select="text()" />
+							</xsl:when>
 							<xsl:otherwise>
 								<xsl:call-template name="build-anchor">
 									<xsl:with-param name="a.href" select="text()"/>
