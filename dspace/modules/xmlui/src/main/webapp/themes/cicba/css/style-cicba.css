@@ -490,6 +490,9 @@ li.ds-artifact-item.community {
 	text-align: justify;
 }
 
+.metadata-values ul{
+	margin-bottom: 10px;
+}
 .metadata-dcterms_creator__ {
 	font-size: 120%;
 	font-style: italic;

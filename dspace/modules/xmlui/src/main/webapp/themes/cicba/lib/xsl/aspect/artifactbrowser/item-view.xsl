@@ -45,7 +45,76 @@
 		
 	</xsl:template>	
 
-	
+	<xsl:template name="render-one-metadata-value">
+		<xsl:param name="separator">;</xsl:param>
+		<xsl:param name="anchor"></xsl:param>
+		<xsl:param name="isDate"></xsl:param>
+		<xsl:param name="disableOutputEscaping">False</xsl:param>
+		<xsl:param name="reduced">False</xsl:param>
+		<xsl:param name="local_browse_type"></xsl:param>
+		<xsl:param name="isList"></xsl:param>
+
+		<xsl:if test="@language">
+			<xsl:attribute name="xml:lang" ><xsl:value-of select="@language"/></xsl:attribute>
+		</xsl:if>
+		<xsl:choose>
+			<xsl:when test="$anchor">
+				<xsl:choose>
+					<xsl:when test="$local_browse_type">
+						<xsl:choose>
+							<xsl:when test="@authority!=''">
+								<xsl:call-template name="build-anchor">
+									<xsl:with-param name="a.href" select="concat('http://digital.cic.gba.gob.ar/browse?authority=', encoder:encode(@authority), '&amp;', 'type=', $local_browse_type)"/>
+									<xsl:with-param name="a.value" select="text()"/>
+								</xsl:call-template>
+							</xsl:when>
+							<xsl:otherwise>
+								<xsl:value-of select="text()" />
+							</xsl:otherwise>
+						</xsl:choose>
+					</xsl:when>
+					<xsl:when test="@authority!=''">
+						<xsl:call-template name="build-anchor">
+							<xsl:with-param name="a.href" select="@authority"/>
+							<xsl:with-param name="a.value" select="text()"/>
+						</xsl:call-template>
+					</xsl:when>
+					<!-- Si llega a este punto no tiene atributo authority
+						verifico el caso especial del metadato isPartOf issue,
+						sin authority no tiene que ser un link
+					 -->
+					<xsl:when test="@qualifier='issue' and @element='isPartOf'">
+						<xsl:value-of select="text()" />
+					</xsl:when>
+					<xsl:otherwise>
+						<xsl:call-template name="build-anchor">
+							<xsl:with-param name="a.href" select="text()"/>
+							<xsl:with-param name="a.value" select="text()"/>
+						</xsl:call-template>
+					</xsl:otherwise>								
+					</xsl:choose>
+			</xsl:when>
+			<xsl:when test="$isDate">
+					<xsl:call-template name="cambiarFecha" >
+							<xsl:with-param name="isDate" select="$isDate"></xsl:with-param>									
+					</xsl:call-template>
+			</xsl:when>
+			<xsl:when test="($disableOutputEscaping='True') and ($reduced='True')">
+				<xsl:value-of select="substring(text(),1,200)" disable-output-escaping="yes"/>
+				<xsl:value-of select="concat(substring-before(substring(text(),200,300),'.'), '.')" disable-output-escaping="yes"/>
+			</xsl:when>
+			<xsl:when test="$disableOutputEscaping='True'">
+				<xsl:value-of select="text()" disable-output-escaping="yes"/>
+			</xsl:when>
+			<xsl:otherwise>
+				<xsl:copy-of select="text()"/>
+			</xsl:otherwise>				
+		</xsl:choose>
+		<xsl:if test="@qualifier='editor' or @qualifier='compilator'">
+			<span class='editor-label'>(<i18n:text>xmlui.dri2xhtml.METS-1.0.item-dcterms_creator_<xsl:value-of select="@qualifier" /></i18n:text>)</span>
+		</xsl:if>
+	</xsl:template>	
+
 	<xsl:template name="render-metadata-values">
 		<xsl:param name="separator">;</xsl:param>
 		<xsl:param name="nodes"></xsl:param>
@@ -54,73 +123,47 @@
 		<xsl:param name="disableOutputEscaping">False</xsl:param>
 		<xsl:param name="reduced">False</xsl:param>
 		<xsl:param name="local_browse_type"></xsl:param>
+		<xsl:param name="isList">False</xsl:param>
 
-		<xsl:for-each select="$nodes">
-			<span>
-				<xsl:if test="@language">
-					<xsl:attribute name="xml:lang" ><xsl:value-of select="@language"/></xsl:attribute>
-				</xsl:if>
-				<xsl:choose>
-					<xsl:when test="$anchor">
-						<xsl:choose>
-							<xsl:when test="$local_browse_type">
-								<xsl:choose>
-									<xsl:when test="@authority!=''">
-										<xsl:call-template name="build-anchor">
-											<xsl:with-param name="a.href" select="concat('http://digital.cic.gba.gob.ar/browse?authority=', encoder:encode(@authority), '&amp;', 'type=', $local_browse_type)"/>
-											<xsl:with-param name="a.value" select="text()"/>
-										</xsl:call-template>
-									</xsl:when>
-									<xsl:otherwise>
-										<xsl:value-of select="text()" />
-									</xsl:otherwise>
-								</xsl:choose>
-							</xsl:when>
-							<xsl:when test="@authority!=''">
-								<xsl:call-template name="build-anchor">
-									<xsl:with-param name="a.href" select="@authority"/>
-									<xsl:with-param name="a.value" select="text()"/>
+		<xsl:choose>
+			<xsl:when test="$nodes">
+					<xsl:if test="$isList">
+						<ul>
+						<xsl:for-each select="$nodes">
+							<li>
+								<span>							
+									<xsl:call-template name="render-one-metadata-value">
+										<xsl:with-param name="isDate" select="$isDate"/>
+										<xsl:with-param name="anchor" select="$anchor"/>
+										<xsl:with-param name="reduced" select="$reduced"/>
+										<xsl:with-param name="disableOutputEscaping">False</xsl:with-param>
+										<xsl:with-param name="local_browse_type" select="$local_browse_type"/>
+										<xsl:with-param name="isList" select="$isList" />
+									</xsl:call-template>
+								</span>
+							</li>
+						</xsl:for-each>
+						</ul>
+					</xsl:if>
+					<xsl:if test="not($isList)">
+						<xsl:for-each select="$nodes">
+							<span>							
+								<xsl:call-template name="render-one-metadata-value">
+									<xsl:with-param name="isDate" select="$isDate"/>
+									<xsl:with-param name="anchor" select="$anchor"/>
+									<xsl:with-param name="reduced" select="$reduced"/>
+									<xsl:with-param name="disableOutputEscaping">False</xsl:with-param>
+									<xsl:with-param name="local_browse_type" select="$local_browse_type"/>
+									<xsl:with-param name="isList" select="$isList" />
 								</xsl:call-template>
-							</xsl:when>
-							<!-- Si llega a este punto no tiene atributo authority
-								verifico el caso especial del metadato isPartOf issue,
-								sin authority no tiene que ser un link
-							 -->
-							<xsl:when test="@qualifier='issue' and @element='isPartOf'">
-								<xsl:value-of select="text()" />
-							</xsl:when>
-							<xsl:otherwise>
-								<xsl:call-template name="build-anchor">
-									<xsl:with-param name="a.href" select="text()"/>
-									<xsl:with-param name="a.value" select="text()"/>
-								</xsl:call-template>
-							</xsl:otherwise>								
-							</xsl:choose>
-					</xsl:when>
-					<xsl:when test="$isDate">
-							<xsl:call-template name="cambiarFecha" >
-									<xsl:with-param name="isDate" select="$isDate"></xsl:with-param>									
-							</xsl:call-template>
-					</xsl:when>
-					<xsl:when test="($disableOutputEscaping='True') and ($reduced='True')">
-						<xsl:value-of select="substring(text(),1,200)" disable-output-escaping="yes"/>
-						<xsl:value-of select="concat(substring-before(substring(text(),200,300),'.'), '.')" disable-output-escaping="yes"/>
-					</xsl:when>
-					<xsl:when test="$disableOutputEscaping='True'">
-						<xsl:value-of select="text()" disable-output-escaping="yes"/>
-					</xsl:when>
-					<xsl:otherwise>
-						<xsl:copy-of select="text()"/>
-					</xsl:otherwise>				
-				</xsl:choose>
-				<xsl:if test="@qualifier='editor' or @qualifier='compilator'">
-					<span class='editor-label'>(<i18n:text>xmlui.dri2xhtml.METS-1.0.item-dcterms_creator_<xsl:value-of select="@qualifier" /></i18n:text>)</span>
-				</xsl:if>
-			</span>
-			<xsl:if test="not(position()=last())">
-	        	<xsl:value-of select="$separator" /> 
-	        </xsl:if>
-		</xsl:for-each>
+							</span>
+							<xsl:if test="not(position()=last())">
+			    				<xsl:value-of select="$separator" /> 
+			    			</xsl:if>
+						</xsl:for-each>
+					</xsl:if>	
+			</xsl:when>
+		</xsl:choose>
 	</xsl:template>
 	
 <!-- 	<xsl:template name="render-metadata-group"> -->
@@ -163,6 +206,7 @@
 		<xsl:param name="disableOutputEscaping">False</xsl:param>
 		<xsl:param name="reduced"></xsl:param>
 		<xsl:param name="local_browse_type"></xsl:param>
+		<xsl:param name="isList"></xsl:param>
 				
 		<xsl:variable name="mp" select="str:split($field,'.')" />
 		<xsl:variable name="schema" select="$mp[1]"/>
@@ -196,6 +240,7 @@
 								<xsl:with-param name="reduced" select="$reduced"/>
 								<xsl:with-param name="disableOutputEscaping" select="$disableOutputEscaping"/>
 								<xsl:with-param name="local_browse_type" select="$local_browse_type"/>
+								<xsl:with-param name="isList" select="$isList" />
 							</xsl:call-template>
 						</xsl:when>
 						<xsl:when test="$null_message">
@@ -529,6 +574,7 @@
 						<xsl:with-param name="field" select="'dcterms.isPartOf.item'" />
 						<xsl:with-param name="container" select="'li'" />
 						<xsl:with-param name="is_linked_authority" select="'true'"/>
+						<xsl:with-param name="isList" select="'true'" />
 					</xsl:call-template>	
 					<xsl:call-template name="render-metadata">
 						<xsl:with-param name="field" select="'dcterms.identifier.isbn'" />
@@ -543,6 +589,7 @@
 						<xsl:with-param name="field" select="'dcterms.hasPart'" />
 						<xsl:with-param name="container" select="'li'" />
 						<xsl:with-param name="is_linked_authority" select="'true'"/>
+						<xsl:with-param name="isList" select="'true'" />
 					</xsl:call-template>
 					<xsl:call-template name="render-metadata">
 						<xsl:with-param name="field" select="'dcterms.isVersionOf'" />
