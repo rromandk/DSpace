@@ -52,7 +52,6 @@
 		<xsl:param name="disableOutputEscaping">False</xsl:param>
 		<xsl:param name="reduced">False</xsl:param>
 		<xsl:param name="local_browse_type"></xsl:param>
-		<xsl:param name="isList"></xsl:param>
 
 		<xsl:if test="@language">
 			<xsl:attribute name="xml:lang" ><xsl:value-of select="@language"/></xsl:attribute>
