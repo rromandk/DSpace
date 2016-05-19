@@ -372,7 +372,7 @@
          <dc-qualifier>series</dc-qualifier>
          <repeatable>false</repeatable>
          <label>Revista o evento</label>
-		 <type-bind>Articulo,Objeto de conferencia</type-bind>
+		 <type-bind>Articulo,Objeto de conferencia, Boletín</type-bind>
          <input-type>onebox</input-type> <!-- TODO: select/lookup -->
          <hint>
          Para objetos de conferencia: Nombre evento en la que este item fue presentado. 
@@ -962,6 +962,10 @@
 	<pair>
 		<displayed-value>Objeto de Aprendizaje</displayed-value>
 		<stored-value>cic:types/objetoDeAprendizaje/objetoDeAprendizaje</stored-value>
+	</pair>
+	<pair>
+		<displayed-value>Boletín</displayed-value>
+		<stored-value>cic:types/publicacionSeriada/boletin</stored-value>
 	</pair>
 </value-pairs>
     
