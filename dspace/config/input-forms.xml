@@ -372,7 +372,7 @@
          <dc-qualifier>series</dc-qualifier>
          <repeatable>false</repeatable>
          <label>Revista o evento</label>
-		 <type-bind>Articulo,Objeto de conferencia, Boletín</type-bind>
+		 <type-bind>Articulo,Objeto de conferencia, Boletín, Libro</type-bind>
          <input-type>onebox</input-type> <!-- TODO: select/lookup -->
          <hint>
          Para objetos de conferencia: Nombre evento en la que este item fue presentado. 
@@ -622,7 +622,7 @@
          <dc-qualifier>series</dc-qualifier>
          <repeatable>false</repeatable>
          <label>Revista o evento</label>
-		 <type-bind>Articulo,Objeto de conferencia</type-bind>
+		 <type-bind>Articulo,Objeto de conferencia, Libro</type-bind>
          <input-type>onebox</input-type> <!-- TODO: select/lookup -->
          <hint>
          Para objetos de conferencia: Nombre evento en la que este item fue presentado. 
