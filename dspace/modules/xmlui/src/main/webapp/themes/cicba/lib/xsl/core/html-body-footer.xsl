@@ -98,7 +98,7 @@
 					<br />
 					CP: 1900 - La Plata - Buenos Aires - Argentina
 					<br />
-					<a href="mailto:#">cic-digital@sedici.unlp.edu.ar</a>
+					<a href="mailto:#">repositorio@cic.gba.gob.ar</a>
 					<br />
 					
 					<abbr title="Phone"><i18n:text>mxlui.dri2xhtml.structural.cc-phone</i18n:text></abbr>
