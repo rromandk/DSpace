@@ -135,7 +135,7 @@
 										<xsl:with-param name="isDate" select="$isDate"/>
 										<xsl:with-param name="anchor" select="$anchor"/>
 										<xsl:with-param name="reduced" select="$reduced"/>
-										<xsl:with-param name="disableOutputEscaping">False</xsl:with-param>
+										<xsl:with-param name="disableOutputEscaping" select="$disableOutputEscaping"/>
 										<xsl:with-param name="local_browse_type" select="$local_browse_type"/>
 										<xsl:with-param name="isList" select="$isList" />
 									</xsl:call-template>
@@ -151,7 +151,7 @@
 									<xsl:with-param name="isDate" select="$isDate"/>
 									<xsl:with-param name="anchor" select="$anchor"/>
 									<xsl:with-param name="reduced" select="$reduced"/>
-									<xsl:with-param name="disableOutputEscaping">False</xsl:with-param>
+									<xsl:with-param name="disableOutputEscaping" select="$disableOutputEscaping"/>
 									<xsl:with-param name="local_browse_type" select="$local_browse_type"/>
 									<xsl:with-param name="isList" select="$isList" />
 								</xsl:call-template>
