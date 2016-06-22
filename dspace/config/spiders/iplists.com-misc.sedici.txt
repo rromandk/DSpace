@@ -3117,3 +3117,6 @@
 
 #yandex
 199.21.99
+
+#bot ruso sin identificar
+188.143.232
