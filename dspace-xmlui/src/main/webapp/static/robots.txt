@@ -13,7 +13,6 @@ User-agent: *
 #Disallow: /discover
 Disallow: /search-filter
 Disallow: /auth
-
 #
 # Optionally uncomment the following line ONLY if sitemaps are working
 # and you have verified that your site is being indexed correctly.
