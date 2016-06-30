@@ -132,7 +132,7 @@
 				<option value="-1"><fmt:message key="jsp.dspace-admin.batchmetadataimport.select"/></option>
  <% 
  		for (Collection collection : collections){
-				String selected = ((owningCollectionID != null) && (owningCollectionID == collection.getID())) ? "selected" : "";
+				String selected = ((owningCollectionID != null) && (owningCollectionID.equals(collection.getID()))) ? "selected" : "";
 %> 			
  				<option <%= selected %> value="<%= collection.getID() %>"><%= collection.getName() %></option>	
  <%
@@ -163,9 +163,15 @@
     <script>
 	    $( "#import-type" ).change(function() {
 	    	var index = $("#import-type").prop("selectedIndex");
-	    	if (index == 1){
-	    		$( "#input-file" ).hide();
-	    		$( "#input-url" ).show();
+	    	if (index <= 1){
+	    		if (index == 1) {
+	    			$( "#input-file" ).hide();
+	    			$( "#input-url" ).show();
+	    		}
+	    		else {
+		    		$( "#input-file" ).show();
+		    		$( "#input-url" ).hide();	    			
+	    		}
 	    		$( "#owning-collection-info" ).show();
 	    		$( "#owning-collection-optional" ).show();
 	    	}

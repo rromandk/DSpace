@@ -5,6 +5,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Iterator;
+import java.util.UUID;
 
 
 import org.dspace.app.xmlui.cocoon.AbstractDSpaceTransformer;
@@ -15,8 +16,8 @@ import org.dspace.authorize.AuthorizeException;
 import org.dspace.authorize.ResourcePolicy;
 import org.dspace.eperson.EPerson;
 import org.dspace.eperson.Group;
-import org.dspace.storage.rdbms.DatabaseManager;
-import org.dspace.storage.rdbms.TableRowIterator;
+import org.dspace.eperson.factory.EPersonServiceFactory;
+import org.dspace.eperson.service.GroupService;
 import org.xml.sax.SAXException;
 import org.dspace.core.Constants;
 
@@ -27,6 +28,8 @@ import org.dspace.core.Constants;
  */
 public class LocalConfigTransformer extends AbstractDSpaceTransformer {
 
+	protected GroupService groupService = EPersonServiceFactory.getInstance().getGroupService();
+	
 	@Override
 	public void addUserMeta(UserMeta userMeta) throws SAXException,
 			WingException, UIException, SQLException, IOException,
@@ -44,9 +47,9 @@ public class LocalConfigTransformer extends AbstractDSpaceTransformer {
 		ArrayList<Integer> actions = new ArrayList<Integer>();
         actions.add(Constants.ADD); actions.add(Constants.ADMIN);
         
-		for (Group g:Group.allMemberGroups(this.context, eperson)) {
-			if((hasAtLeastOneAction(-1,actions,g.getID(),true) || g.getID() == Group.ADMIN_ID)
-					&& g.getID() != Group.ANONYMOUS_ID){
+		for (Group g:groupService.allMemberGroups(this.context, eperson)) {
+			if((hasAtLeastOneAction(-1,actions,g.getID(),true) || g.getName() == Group.ADMIN)
+					&& g.getName() != Group.ANONYMOUS){
 				userMeta.addMetadata("identifier", "group").addContent(g.getName());
 			}
 		}
@@ -63,7 +66,7 @@ public class LocalConfigTransformer extends AbstractDSpaceTransformer {
 	 * 
 	 * @return TRUE cuando se encuentra al menos un ResourcePolicy que corresponda a los parámetros indicados. 
 	 */
-	private boolean hasAtLeastOneAction(int dsoType, ArrayList<Integer> actions, int eperson_id, boolean isGroup) 
+	private boolean hasAtLeastOneAction(int dsoType, ArrayList<Integer> actions, UUID eperson_id, boolean isGroup) 
 					throws SQLException{
 		
 		Iterator iterator = actions.iterator();
@@ -74,7 +77,7 @@ public class LocalConfigTransformer extends AbstractDSpaceTransformer {
 				 actionWhere += " OR ";
 			}
 		}
-		String queryText="SELECT * FROM resourcepolicy " +
+		/*String queryText="SELECT * FROM resourcepolicy " +
 				((isGroup)?"WHERE epersongroup_id= ? ":"WHERE eperson_id= ? ") +
 				"AND (" + actionWhere + ") " +
 				((dsoType != -1)?"AND resource_type_id = ? ":" ");
@@ -84,9 +87,9 @@ public class LocalConfigTransformer extends AbstractDSpaceTransformer {
 		}else{
 			tri = DatabaseManager.queryTable(this.context, "resourcepolicy",queryText,eperson_id);
 		}
-        return tri.hasNext();
+        return tri.hasNext();*/
+		return true;
 	}
 	
 	
 }
-

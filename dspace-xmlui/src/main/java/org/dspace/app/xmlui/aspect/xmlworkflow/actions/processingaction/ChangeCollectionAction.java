@@ -19,6 +19,7 @@ import org.dspace.app.xmlui.wing.element.Body;
 import org.dspace.app.xmlui.wing.element.Button;
 import org.dspace.app.xmlui.wing.element.Division;
 import org.dspace.content.Item;
+import org.dspace.content.service.CollectionService;
 import org.dspace.app.xmlui.wing.element.List;
 import org.dspace.app.xmlui.wing.element.Select;
 import org.dspace.authorize.AuthorizeException;
@@ -26,7 +27,7 @@ import org.dspace.content.Collection;
 import org.dspace.content.Community;
 import org.dspace.content.DSpaceObject;
 import org.dspace.core.Constants;
-import org.dspace.handle.HandleManager;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.xml.sax.SAXException;
 
 public class ChangeCollectionAction extends AbstractXMLUIAction {
@@ -40,15 +41,17 @@ public class ChangeCollectionAction extends AbstractXMLUIAction {
 	protected static final Message T_collection_default = message("xmlui.Submission.submit.SelectCollection.collection_default");
 	protected static final Message T_submit_next = message("xmlui.general.next");
 	protected static final Message T_submit_cancel = message("xmlui.general.cancel");
+	@Autowired(required = true)
+	private CollectionService collectionService;
 	@Override
 	public void addBody(Body body) throws SAXException, WingException,
 			SQLException, IOException, AuthorizeException {
         Collection collection = workflowItem.getCollection();
 		String actionURL = contextPath + "/handle/"+collection.getHandle() + "/xmlworkflow";
 		
-		Collection[] collections; // List of possible collections.
+		java.util.List<Collection> collections; // List of possible collections.
 		// Listado de colecciones disponibles
-		collections = Collection.findAuthorized(context, null, Constants.ADD);
+		collections = collectionService.findAuthorized(context, null, Constants.ADD);
         
 		// Formulario con la lista de colecciones
         Division div = body.addInteractiveDivision("change-collection",actionURL,Division.METHOD_POST,"primary submission");

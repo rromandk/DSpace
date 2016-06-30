@@ -17,7 +17,7 @@
    <parent>
       <groupId>org.dspace</groupId>
       <artifactId>modules</artifactId>
-      <version>5.5</version>
+      <version>6.0-rc2</version>
       <relativePath>..</relativePath>
    </parent>
 
@@ -42,30 +42,6 @@
             </dependency>
          </dependencies>
       </profile>
-
-      <!--
-         Using xpdf filters requires the inclusion
-         Of Sun dependencies these are not redistributable
-         and you will need to install them locally in your
-         maven repository prior to building your dspace instance
-      -->
-      <profile>
-         <id>xpdf-mediafilter-support</id>
-         <activation>
-            <activeByDefault>false</activeByDefault>
-         </activation>
-         <dependencies>
-            <dependency>
-               <groupId>com.sun.media</groupId>
-               <artifactId>jai_imageio</artifactId>
-            </dependency>
-            <dependency>
-               <groupId>javax.media</groupId>
-               <artifactId>jai_core</artifactId>
-            </dependency>
-         </dependencies>
-      </profile>
-
    </profiles>
 
    <!--
@@ -100,9 +76,33 @@
 	<dependency>
 		<groupId>org.apache.jena</groupId>
 		<artifactId>jena-arq</artifactId>
-		<version>2.12.1</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>com.fasterxml.jackson.core</groupId>
+                    <artifactId>jackson-core</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>com.fasterxml.jackson.core</groupId>
+                    <artifactId>jackson-databind</artifactId>
+                </exclusion>
+            </exclusions>		
+		<version>2.13.0</version>
 	</dependency>
-
+	<dependency>
+        <groupId>com.fasterxml.jackson.core</groupId>
+        <artifactId>jackson-core</artifactId>
+        <version>2.7.0</version>
+    </dependency>
+    <dependency>
+        <groupId>com.fasterxml.jackson.core</groupId>
+        <artifactId>jackson-databind</artifactId>
+        <version>2.7.0</version>
+    </dependency>
+    <dependency>
+        <groupId>com.fasterxml.jackson.core</groupId>
+        <artifactId>jackson-annotations</artifactId>
+        <version>2.7.0</version>
+    </dependency>
    </dependencies>
 
 </project>

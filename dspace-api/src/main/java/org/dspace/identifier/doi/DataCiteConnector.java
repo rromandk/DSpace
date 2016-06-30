@@ -11,7 +11,9 @@ import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.sql.SQLException;
+import java.util.HashMap;
 import java.util.Iterator;
+import java.util.Map;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.StatusLine;
@@ -30,9 +32,12 @@ import org.dspace.authorize.AuthorizeException;
 import org.dspace.content.DSpaceObject;
 import org.dspace.content.crosswalk.CrosswalkException;
 import org.dspace.content.crosswalk.DisseminationCrosswalk;
+import org.dspace.content.crosswalk.ParameterizedDisseminationCrosswalk;
+import org.dspace.content.factory.ContentServiceFactory;
+import org.dspace.content.service.DSpaceObjectService;
 import org.dspace.core.Context;
-import org.dspace.core.PluginManager;
-import org.dspace.handle.HandleManager;
+import org.dspace.core.factory.CoreServiceFactory;
+import org.dspace.handle.service.HandleService;
 import org.dspace.identifier.DOI;
 import org.dspace.services.ConfigurationService;
 import org.jdom.Document;
@@ -60,7 +65,15 @@ implements DOIConnector
     // Configuration property names
     static final String CFG_USER = "identifier.doi.user";
     static final String CFG_PASSWORD = "identifier.doi.password";
-    
+    private static final String CFG_PREFIX
+            = "identifier.doi.prefix";
+    private static final String CFG_PUBLISHER
+            = "crosswalk.dissemination.DataCite.publisher";
+    private static final String CFG_DATAMANAGER
+            = "crosswalk.dissemination.DataCite.dataManager";
+    private static final String CFG_HOSTINGINSTITUTION
+            = "crosswalk.dissemination.DataCite.hostingInstitution";
+
     /**
      * Stores the scheme used to connect to the DataCite server. It will be set
      * by spring dependency injection.
@@ -93,12 +106,14 @@ implements DOIConnector
      * {@link setDisseminationCrosswalk(String) setDisseminationCrosswalk} which
      * instantiates the crosswalk.
      */
-    protected DisseminationCrosswalk xwalk;
+    protected ParameterizedDisseminationCrosswalk xwalk;
     
     protected ConfigurationService configurationService;
     
     protected String USERNAME;
     protected String PASSWORD;
+    @Autowired
+    protected HandleService handleService;
     
     public DataCiteConnector()
     {
@@ -193,7 +208,7 @@ implements DOIConnector
         if (null != this.xwalk)
             return;
         
-        this.xwalk = (DisseminationCrosswalk) PluginManager.getNamedPlugin(
+        this.xwalk = (ParameterizedDisseminationCrosswalk) CoreServiceFactory.getInstance().getPluginService().getNamedPlugin(
                 DisseminationCrosswalk.class, this.CROSSWALK_NAME);
         
         if (this.xwalk == null)
@@ -234,14 +249,8 @@ implements DOIConnector
     }
 
     
-    public boolean isDOIReserved(Context context, String doi)
-            throws DOIIdentifierException
-    {
-        return isDOIReserved(context, null, doi);
-    }
-    
     @Override
-    public boolean isDOIReserved(Context context, DSpaceObject dso, String doi)
+    public boolean isDOIReserved(Context context, String doi)
             throws DOIIdentifierException
     {
         // get mds/metadata/<doi>
@@ -253,35 +262,7 @@ implements DOIConnector
             // if (200 && dso != null) -> compare url (out of response-content) with dso
             case (200) :
             {
-                // Do we check if doi is reserved generally or for a specified dso?
-                if (null == dso)
-                {
-                    return true;
-                }
-                
-                // check if doi belongs to dso
-                String doiHandle = null;
-                try
-                {
-                    doiHandle = extractAlternateIdentifier(context, resp.getContent());
-                }
-                catch (SQLException e)
-                {
-                    throw new RuntimeException(e);
-                }
-                
-                if (null == doiHandle)
-                {
-                    // we were unable to find a handle belonging to our repository
-                    return false;
-                }
-                
-                String dsoHandle = dso.getHandle();
-                if (null == dsoHandle)
-                {
-                    return false;
-                }
-                return dsoHandle.equals(doiHandle);
+                return true;
             }
                 
             // 404 "Not Found" means DOI is neither reserved nor registered.
@@ -297,14 +278,7 @@ implements DOIConnector
             // we will handle this as if it reserved for an unknown object.
             case (410) :
             {
-                if (null == dso)
-                {
-                    return true;
-                }
-                else
-                {
-                    return false;
-                }
+                return true;
             }
                 
             // Catch all other http status code in case we forgot one.
@@ -328,13 +302,6 @@ implements DOIConnector
     public boolean isDOIRegistered(Context context, String doi)
             throws DOIIdentifierException
     {
-        return isDOIRegistered(context, null, doi);
-    }
-    
-    @Override
-    public boolean isDOIRegistered(Context context, DSpaceObject dso, String doi)
-            throws DOIIdentifierException
-    {
         DataCiteResponse response = sendDOIGetRequest(doi);
         
         switch (response.getStatusCode())
@@ -342,46 +309,7 @@ implements DOIConnector
             // status code 200 means the doi is reserved and registered
             case (200) :
             {
-                // Do we check if doi is reserved generally or for a specified dso?
-                if (null == dso)
-                {
-                    return true;
-                }
-                
-                // DataCite returns the URL the DOI currently points to.
-                // To ensure that the DOI is registered for a specified dso it
-                // should be sufficient to compare the URL DataCite returns with
-                // the URL of the dso.
-                String doiUrl = response.getContent();
-                if (null == doiUrl)
-                {
-                    log.error("Received a status code 200 without a response content. DOI: {}.", doi);
-                    throw new DOIIdentifierException("Received a http status code 200 without a response content.",
-                            DOIIdentifierException.BAD_ANSWER);
-                }
-                
-                String dsoUrl = null;
-                try
-                {
-                    dsoUrl = HandleManager.resolveToURL(context, dso.getHandle());
-                }
-                catch (SQLException e)
-                {
-                    log.error("Error in database connection: " + e.getMessage());
-                    throw new RuntimeException(e);
-                }
-                
-                if (null == dsoUrl)
-                {
-                    // the handle of the dso was not found in our db?!
-                    log.error("The HandleManager was unable to find the handle "
-                            + "of a DSpaceObject in the database!?! "
-                            + "Type: {} ID: {}", dso.getTypeText(), dso.getID());
-                    throw new RuntimeException("The HandleManager was unable to "
-                            + "find the handle of a DSpaceObject in the database!");
-                }
-                
-                return (dsoUrl.equals(doiUrl));
+                return true;
             }
             // Status Code 204 "No Content" stands for a known DOI without URL.
             // A DOI that is known but does not have any associated URL is
@@ -389,7 +317,6 @@ implements DOIConnector
             case (204) :
             {
                 // we know it is reserved, but we do not know for which object.
-                // won't add this to the cache.
                 return false;
             }
             // 404 "Not Found" means DOI is neither reserved nor registered.
@@ -451,23 +378,10 @@ implements DOIConnector
     public void reserveDOI(Context context, DSpaceObject dso, String doi)
             throws DOIIdentifierException
     {   
-        // check if DOI is reserved at the registration agency
-        if (this.isDOIReserved(context, doi))
-        {
-            // if doi is registered for this object we still should check its
-            // status in our database (see below).
-            // if it is registered for another object we should notify an admin
-            if (!this.isDOIReserved(context, dso, doi))
-            {
-                log.warn("DOI {} is reserved for another object already.", doi);
-                throw new DOIIdentifierException(DOIIdentifierException.DOI_ALREADY_EXISTS);
-            }
-            // the DOI is reserved for this Object. We use {@code reserveDOI} to
-            // send metadata updates, so don't return here!
-        }
-
         this.prepareXwalk();
-        
+
+        DSpaceObjectService<DSpaceObject> dSpaceObjectService = ContentServiceFactory.getInstance().getDSpaceObjectService(dso);
+
         if (!this.xwalk.canDisseminate(dso))
         {
             log.error("Crosswalk " + this.CROSSWALK_NAME 
@@ -475,23 +389,39 @@ implements DOIConnector
                     + " and ID " + dso.getID() + ". Giving up reserving the DOI "
                     + doi + ".");
             throw new DOIIdentifierException("Cannot disseminate "
-                    + dso.getTypeText() + "/" + dso.getID()
+                    + dSpaceObjectService.getTypeText(dso) + "/" + dso.getID()
                     + " using crosswalk " + this.CROSSWALK_NAME + ".",
                     DOIIdentifierException.CONVERSION_ERROR);
         }
-        
+
+        // Set the transform's parameters.
+        // XXX Should the actual list be configurable?
+        Map<String, String> parameters = new HashMap<>();
+        if (configurationService.hasProperty(CFG_PREFIX))
+            parameters.put("prefix",
+                    configurationService.getProperty(CFG_PREFIX));
+        if (configurationService.hasProperty(CFG_PUBLISHER))
+            parameters.put("publisher",
+                    configurationService.getProperty(CFG_PUBLISHER));
+        if (configurationService.hasProperty(CFG_DATAMANAGER))
+            parameters.put("datamanager",
+                    configurationService.getProperty(CFG_DATAMANAGER));
+        if (configurationService.hasProperty(CFG_HOSTINGINSTITUTION))
+            parameters.put("hostinginstitution",
+                    configurationService.getProperty(CFG_HOSTINGINSTITUTION));
+
         Element root = null;
         try
         {
-            root = xwalk.disseminateElement(dso);
+            root = xwalk.disseminateElement(context, dso, parameters);
         }
         catch (AuthorizeException ae)
         {
             log.error("Caught an AuthorizeException while disseminating DSO "
                     + "with type " + dso.getType() + " and ID " + dso.getID()
                     + ". Giving up to reserve DOI " + doi + ".", ae);
-            throw new DOIIdentifierException("AuthorizeException occurred while "
-                    + "converting " + dso.getTypeText() + "/" + dso.getID()
+            throw new DOIIdentifierException("AuthorizeException occured while "
+                    + "converting " + dSpaceObjectService.getTypeText(dso) + "/" + dso.getID()
                     + " using crosswalk " + this.CROSSWALK_NAME + ".", ae,
                     DOIIdentifierException.CONVERSION_ERROR);
         }
@@ -500,18 +430,14 @@ implements DOIConnector
             log.error("Caught an CrosswalkException while reserving a DOI ("
                     + doi + ") for DSO with type " + dso.getType() + " and ID " 
                     + dso.getID() + ". Won't reserve the doi.", ce);
-            throw new DOIIdentifierException("CrosswalkException occurred while "
-                    + "converting " + dso.getTypeText() + "/" + dso.getID()
+            throw new DOIIdentifierException("CrosswalkException occured while "
+                    + "converting " + dSpaceObjectService.getTypeText(dso) + "/" + dso.getID()
                     + " using crosswalk " + this.CROSSWALK_NAME + ".", ce,
                     DOIIdentifierException.CONVERSION_ERROR);
         }
-        catch (IOException ioe)
+        catch (IOException | SQLException ex)
         {
-            throw new RuntimeException(ioe);
-        }
-        catch (SQLException se)
-        {
-            throw new RuntimeException(se);
+            throw new RuntimeException(ex);
         }
         
         String metadataDOI = extractDOI(root);
@@ -525,10 +451,14 @@ implements DOIConnector
         }
         else if (!metadataDOI.equals(doi.substring(DOI.SCHEME.length())))
         {
-            // FIXME: that's not an error. If at all, it is worth logging it.
-            throw new DOIIdentifierException("DSO with type " + dso.getTypeText()
-                    + " and id " + dso.getID() + " already has DOI "
-                    + metadataDOI + ". Won't reserve DOI " + doi + " for it.");
+            log.error("While reserving a DOI, the "
+                    + "crosswalk to generate the metadata used another DOI than "
+                    + "the DOI we're reserving. Cannot reserve DOI " + doi
+                    + " for " + dSpaceObjectService.getTypeText(dso) + " " 
+                    + dso.getID() + ".");
+            throw new IllegalStateException("An internal error occured while "
+                    + "generating the metadata. Unable to reserve doi, see logs "
+                    + "for further information.");
         }
         
         // send metadata as post to mds/metadata
@@ -572,39 +502,13 @@ implements DOIConnector
     public void registerDOI(Context context, DSpaceObject dso, String doi)
             throws DOIIdentifierException
     {
-        // check if the DOI is already registered online
-        if (this.isDOIRegistered(context, doi))
+        // DataCite wants us to reserve a DOI before we can register it
+        if (!this.isDOIReserved(context, doi))
         {
-            // if it is registered for another object we should notify an admin
-            if (!this.isDOIRegistered(context, dso, doi))
-            {
-                // DOI is reserved for another object
-                log.warn("DOI {} is registered for another object already.", doi);
-                throw new DOIIdentifierException(DOIIdentifierException.DOI_ALREADY_EXISTS);
-            }
-            // doi is registered for this object, we're done
-            return;
-        }
-        else
-        {
-            // DataCite wants us to reserve a DOI before we can register it
-            if (!this.isDOIReserved(context, dso, doi))
-            {
-                // check if doi is already reserved for another dso
-                if (this.isDOIReserved(context, doi))
-                {
-                    log.warn("Trying to register DOI {}, that is reserved for "
-                            + "another dso.", doi);
-                    throw new DOIIdentifierException("Trying to register a DOI "
-                            + "that is reserved for another object.",
-                            DOIIdentifierException.DOI_ALREADY_EXISTS);
-                }
-                
-                // the DOIIdentifierProvider should catch and handle this
-                throw new DOIIdentifierException("You need to reserve a DOI "
-                        + "before you can register it.",
-                        DOIIdentifierException.RESERVE_FIRST);
-            }
+            // the DOIIdentifierProvider should catch and handle this
+            throw new DOIIdentifierException("You need to reserve a DOI "
+                    + "before you can register it.",
+                    DOIIdentifierException.RESERVE_FIRST);
         }
 
         // send doi=<doi>\nurl=<url> to mds/doi
@@ -612,7 +516,7 @@ implements DOIConnector
         try
         {
             resp = this.sendDOIPostRequest(doi, 
-                    HandleManager.resolveToURL(context, dso.getHandle()));
+                    handleService.resolveToURL(context, dso.getHandle()));
         }
         catch (SQLException e)
         {
@@ -667,15 +571,6 @@ implements DOIConnector
     public void updateMetadata(Context context, DSpaceObject dso, String doi) 
             throws DOIIdentifierException
     { 
-        // check if doi is reserved for another object
-        if (!this.isDOIReserved(context, dso, doi) && this.isDOIReserved(context, doi))
-        {
-            log.warn("Trying to update metadata for DOI {}, that is reserved"
-                    + " for another dso.", doi);
-            throw new DOIIdentifierException("Trying to update metadta for "
-                    + "a DOI that is reserved for another object.",
-                    DOIIdentifierException.DOI_ALREADY_EXISTS);
-        }
         // We can use reserveDOI to update metadata. Datacite API uses the same
         // request for reservartion as for updating metadata.
         this.reserveDOI(context, dso, doi);
@@ -854,7 +749,7 @@ implements DOIConnector
      * @param req
      * @param doi
      * @return
-     * @throws DOIIdentifierException 
+     * @throws DOIIdentifierException if DOI error
      */
     protected DataCiteResponse sendHttpRequest(HttpUriRequest req, String doi)
             throws DOIIdentifierException
@@ -1014,7 +909,7 @@ implements DOIConnector
             Element alternateIdentifier = it.next();
             try
             {
-                handle = HandleManager.resolveUrlToHandle(context,
+                handle = handleService.resolveUrlToHandle(context,
                         alternateIdentifier.getText());
             }
             catch (SQLException e)
@@ -1036,7 +931,7 @@ implements DOIConnector
         {
             return root;
         }
-        Element identifier = new Element("identifier", "http://datacite.org/schema/kernel-2.2");
+        Element identifier = new Element("identifier", "http://datacite.org/schema/kernel-3");
         identifier.setAttribute("identifierType", "DOI");
         identifier.addContent(doi.substring(DOI.SCHEME.length()));
         return root.addContent(0, identifier);

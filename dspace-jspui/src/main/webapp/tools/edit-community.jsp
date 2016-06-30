@@ -15,8 +15,11 @@
   -                  is null, we are creating one.
   --%>
 
+<%@page import="org.dspace.content.factory.ContentServiceFactory"%>
+<%@page import="org.dspace.content.service.CommunityService"%>
 <%@ page contentType="text/html;charset=UTF-8" %>
 
+<%@ page import="java.util.UUID" %> 
 <%@ page import="javax.servlet.jsp.jstl.fmt.LocaleSupport" %>
 
 <%@ page import="org.dspace.app.webui.servlet.admin.EditCommunitiesServlet" %>
@@ -30,8 +33,10 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 
 <%
+	CommunityService comServ = ContentServiceFactory.getInstance().getCommunityService();
     Community community = (Community) request.getAttribute("community");
-    int parentID = UIUtil.getIntParameter(request, "parent_community_id");
+	Community parentCommunity = (Community) request.getAttribute("parent");
+    UUID parentID = (parentCommunity != null ? parentCommunity.getID() : null);
     // Is the logged in user a sys admin
     Boolean admin = (Boolean)request.getAttribute("is.admin");
     boolean isAdmin = (admin == null ? false : admin.booleanValue());
@@ -61,11 +66,11 @@
     
     if (community != null)
     {
-        name = community.getMetadata("name");
-        shortDesc = community.getMetadata("short_description");
-        intro = community.getMetadata("introductory_text");
-        copy = community.getMetadata("copyright_text");
-        side = community.getMetadata("side_bar_text");
+        name = comServ.getMetadata(community, "name");
+        shortDesc = comServ.getMetadata(community, "short_description");
+        intro = comServ.getMetadata(community, "introductory_text");
+        copy = comServ.getMetadata(community, "copyright_text");
+        side = comServ.getMetadata(community, "side_bar_text");
         logo = community.getLogo();
         admins = community.getAdministrators();
     }
