@@ -31,6 +31,7 @@ import org.dspace.content.Item;
 import org.dspace.content.factory.ContentServiceFactory;
 import org.dspace.content.service.CollectionService;
 import org.dspace.content.service.CommunityService;
+import org.dspace.content.service.DSpaceObjectService;
 import org.dspace.content.service.ItemService;
 import org.dspace.content.service.MetadataFieldService;
 import org.dspace.core.Constants;
@@ -43,6 +44,7 @@ import org.dspace.discovery.configuration.DiscoverySortConfiguration.SORT_ORDER;
 import org.dspace.discovery.configuration.DiscoverySortFieldConfiguration;
 import org.dspace.handle.factory.HandleServiceFactory;
 import org.dspace.handle.service.HandleService;
+import org.dspace.services.factory.DSpaceServicesFactory;
 import org.xml.sax.SAXException;
 
 import java.io.IOException;
@@ -55,7 +57,7 @@ import java.util.List;
  * This is an abstract search page. It is a collection of search methods that
  * are common between different search implementation. An implementer must
  * implement at least three methods: addBody(), getQuery(), and generateURL().
- * <p>
+ * <p/>
  * See the SimpleSearch implementation.
  *
  * @author Kevin Van de Velde (kevin at atmire dot com)
@@ -121,12 +123,11 @@ public abstract class AbstractSearch extends AbstractDSpaceTransformer implement
     protected MetadataExposureService metadataExposureService = UtilServiceFactory.getInstance().getMetadataExposureService();
     protected HandleService handleService = HandleServiceFactory.getInstance().getHandleService();
 
+
     /**
      * Generate the unique caching key.
      * This key must be unique inside the space of this component.
-     * @return the key.
      */
-    @Override
     public Serializable getKey() {
         try {
             String key = "";
@@ -151,7 +152,7 @@ public abstract class AbstractSearch extends AbstractDSpaceTransformer implement
             return HashUtil.hash(key);
         } catch (RuntimeException re) {
             throw re;
-        } catch (SQLException | UIException e) {
+        } catch (Exception e) {
             // Ignore all errors and just don't cache.
             return "0";
         }
@@ -159,32 +160,30 @@ public abstract class AbstractSearch extends AbstractDSpaceTransformer implement
 
     /**
      * Generate the cache validity object.
-     * <p>
+     * <p/>
      * This validity object should never "over cache" because it will
      * perform the search, and serialize the results using the
      * DSpaceValidity object.
-     * @return the validity.
      */
-    @Override
     public SourceValidity getValidity() {
         if (this.validity == null) {
             try {
-                DSpaceValidity newValidity = new DSpaceValidity();
+                DSpaceValidity validity = new DSpaceValidity();
 
                 DSpaceObject scope = getScope();
-                newValidity.add(context, scope);
+                validity.add(context, scope);
 
                 performSearch(scope);
 
                 List<DSpaceObject> results = this.queryResults.getDspaceObjects();
 
                 if (results != null) {
-                    newValidity.add("total:"+this.queryResults.getTotalSearchResults());
-                    newValidity.add("start:"+this.queryResults.getStart());
-                    newValidity.add("size:" + results.size());
+                    validity.add("total:"+this.queryResults.getTotalSearchResults());
+                    validity.add("start:"+this.queryResults.getStart());
+                    validity.add("size:" + results.size());
 
                     for (DSpaceObject dso : results) {
-                        newValidity.add(context, dso);
+                        validity.add(context, dso);
                     }
                 }
 
@@ -193,15 +192,15 @@ public abstract class AbstractSearch extends AbstractDSpaceTransformer implement
                     List<DiscoverResult.FacetResult> facetValues = facetResults.get(facetField);
                     for (DiscoverResult.FacetResult facetResult : facetValues)
                     {
-                        newValidity.add(facetField + facetResult.getAsFilterQuery() + facetResult.getCount());
+                        validity.add(facetField + facetResult.getAsFilterQuery() + facetResult.getCount());
                     }
                 }
 
-                this.validity = newValidity.complete();
+                this.validity = validity.complete();
             } catch (RuntimeException re) {
                 throw re;
             }
-            catch (SQLException | UIException | SearchServiceException e) {
+            catch (Exception e) {
                 this.validity = null;
             }
 
@@ -215,14 +214,7 @@ public abstract class AbstractSearch extends AbstractDSpaceTransformer implement
 
     /**
      * Build the resulting search DRI document.
-     * @throws org.xml.sax.SAXException whenever.
-     * @throws org.dspace.app.xmlui.wing.WingException whenever.
-     * @throws org.dspace.app.xmlui.utils.UIException whenever.
-     * @throws java.sql.SQLException whenever.
-     * @throws java.io.IOException whenever.
-     * @throws org.dspace.authorize.AuthorizeException whenever.
      */
-    @Override
     public abstract void addBody(Body body) throws SAXException, WingException,
             UIException, SQLException, IOException, AuthorizeException;
 
@@ -231,8 +223,6 @@ public abstract class AbstractSearch extends AbstractDSpaceTransformer implement
      * This form will be used for all discovery queries, filters, ....
      * At the moment however this form is only used to track search result hits
      * @param searchDiv the division to add the form to
-     * @throws org.dspace.app.xmlui.wing.WingException passed through.
-     * @throws java.sql.SQLException passed through.
      */
     protected void buildMainForm(Division searchDiv) throws WingException, SQLException {
         Request request = ObjectModelHelper.getRequest(objectModel);
@@ -293,10 +283,6 @@ public abstract class AbstractSearch extends AbstractDSpaceTransformer implement
      * which contains results for this search query.
      *
      * @param search The search division to contain the search-results division.
-     * @throws java.io.IOException passed through.
-     * @throws java.sql.SQLException passed through.
-     * @throws org.dspace.app.xmlui.wing.WingException passed through.
-     * @throws org.dspace.discovery.SearchServiceException passed through.
      */
     protected void buildSearchResultsDivision(Division search)
             throws IOException, SQLException, WingException, SearchServiceException {
@@ -312,7 +298,7 @@ public abstract class AbstractSearch extends AbstractDSpaceTransformer implement
             log.error(e.getMessage(), e);
             queryResults = null;
         }
-        catch (SQLException | UIException | SearchServiceException e) {
+        catch (Exception e) {
             log.error(e.getMessage(), e);
             queryResults = null;
         }
@@ -358,9 +344,9 @@ public abstract class AbstractSearch extends AbstractDSpaceTransformer implement
             //    lastItemIndex = itemsTotal;
             int currentPage = this.queryResults.getStart() / this.queryResults.getMaxResults() + 1;
             int pagesTotal = (int) ((this.queryResults.getTotalSearchResults() - 1) / this.queryResults.getMaxResults()) + 1;
-            Map<String, String> urlParameters = new HashMap<>();
-            urlParameters.put("page", "{pageNum}");
-            String pageURLMask = generateURL(urlParameters);
+            Map<String, String> parameters = new HashMap<String, String>();
+            parameters.put("page", "{pageNum}");
+            String pageURLMask = generateURL(parameters);
             pageURLMask = addFilterQueriesToUrl(pageURLMask);
 
             results.setMaskedPagination(itemsTotal, firstItemIndex,
@@ -373,8 +359,8 @@ public abstract class AbstractSearch extends AbstractDSpaceTransformer implement
             dspaceObjectsList = results.addList("search-results-repository",
                     org.dspace.app.xmlui.wing.element.List.TYPE_DSO_LIST, "repository-search-results");
 
-            List<DSpaceObject> commCollList = new ArrayList<>();
-            List<Item> itemList = new ArrayList<>();
+            List<DSpaceObject> commCollList = new ArrayList<DSpaceObject>();
+            List<Item> itemList = new ArrayList<Item>();
             for (DSpaceObject resultDso : queryResults.getDspaceObjects())
             {
                 if(resultDso.getType() == Constants.COMMUNITY || resultDso.getType() == Constants.COLLECTION)
@@ -393,21 +379,7 @@ public abstract class AbstractSearch extends AbstractDSpaceTransformer implement
                 commCollWingList.setHead(T_result_head_2);
                 for (DSpaceObject dso : commCollList)
                 {
-                    DiscoverResult.DSpaceObjectHighlightResult highlightedResults = queryResults.getHighlightedResults(dso);
-                    if(dso.getType() == Constants.COMMUNITY)
-                    {
-                        //Render our community !
-                        org.dspace.app.xmlui.wing.element.List communityMetadata = commCollWingList.addList(dso.getHandle() + ":community");
-
-                        renderCommunity((Community) dso, highlightedResults, communityMetadata);
-                    }else
-                    if(dso.getType() == Constants.COLLECTION)
-                    {
-                        //Render our collection !
-                        org.dspace.app.xmlui.wing.element.List collectionMetadata = commCollWingList.addList(dso.getHandle() + ":collection");
-
-                        renderCollection((Collection) dso, highlightedResults, collectionMetadata);
-                    }
+                	renderDSO(dso,commCollWingList);
                 }
             }
 
@@ -421,8 +393,7 @@ public abstract class AbstractSearch extends AbstractDSpaceTransformer implement
                 }
                 for (Item resultDso : itemList)
                 {
-                    DiscoverResult.DSpaceObjectHighlightResult highlightedResults = queryResults.getHighlightedResults(resultDso);
-                    renderItem(itemWingList, resultDso, highlightedResults);
+                	renderDSO( resultDso, itemWingList);
                 }
             }
 
@@ -455,61 +426,23 @@ public abstract class AbstractSearch extends AbstractDSpaceTransformer implement
     }
 
     /**
-     * Render the given item, all metadata is added to the given list, which metadata will be rendered where depends on the xsl
-     * @param dspaceObjectsList a list of DSpace objects
-     * @param item the DSpace item to be rendered
+     * Render the given item, add all snippets to the list 
      * @param highlightedResults the highlighted results
-     * @throws WingException passed through.
+     * @param item the DSpace item to be rendered
+     * @param dsoMetadata a list of DSpace objects  
+     * @throws WingException
      * @throws SQLException Database failure in services this calls
      */
-    protected void renderItem(org.dspace.app.xmlui.wing.element.List dspaceObjectsList, Item item, DiscoverResult.DSpaceObjectHighlightResult highlightedResults) throws WingException, SQLException {
-        org.dspace.app.xmlui.wing.element.List itemList = dspaceObjectsList.addList(item.getHandle() + ":item");
-
-        List<MetadataField> metadataFields = metadataFieldService.findAll(context);
-        for (MetadataField metadataField : metadataFields)
+    protected void renderItem(Item item, DiscoverResult.DSpaceObjectHighlightResult highlightedResults, org.dspace.app.xmlui.wing.element.List dsoMetadata ) throws WingException, SQLException {
+    	if(highlightedResults != null)
         {
-            //Retrieve the schema for this field
-            String schema = metadataField.getMetadataSchema().getName();
-            //Check if our field isn't hidden
-            if (!metadataExposureService.isHidden(context, schema, metadataField.getElement(), metadataField.getQualifier()))
-            {
-                //Check if our metadata field is highlighted
-                StringBuilder metadataKey = new StringBuilder();
-                metadataKey.append(schema).append(".").append(metadataField.getElement());
-                if (metadataField.getQualifier() != null)
-                {
-                    metadataKey.append(".").append(metadataField.getQualifier());
-                }
-
-                StringBuilder itemName = new StringBuilder();
-                itemName.append(item.getHandle()).append(":").append(metadataKey.toString());
-
-
-                List<MetadataValue> itemMetadata = itemService.getMetadata(item, schema, metadataField.getElement(), metadataField.getQualifier(), Item.ANY);
-                if(!CollectionUtils.isEmpty(itemMetadata))
-                {
-                    org.dspace.app.xmlui.wing.element.List metadataFieldList = itemList.addList(itemName.toString());
-                    for (MetadataValue metadataValue : itemMetadata)
-                    {
-                        String value = metadataValue.getValue();
-                        addMetadataField(highlightedResults, metadataKey.toString(), metadataFieldList, value);
-                    }
-                }
-            }
-        }
-
-        //Check our highlighted results, we may need to add non-metadata (like our full text)
-        if(highlightedResults != null)
-        {
-            //Also add the full text snippet (if available !)
+            //Add the full text snippet (if available !)
             List<String> fullSnippets = highlightedResults.getHighlightResults("fulltext");
             if(CollectionUtils.isNotEmpty(fullSnippets))
             {
                 StringBuilder itemName = new StringBuilder();
                 itemName.append(item.getHandle()).append(":").append("fulltext");
-
-                org.dspace.app.xmlui.wing.element.List fullTextFieldList = itemList.addList(itemName.toString());
-
+                org.dspace.app.xmlui.wing.element.List fullTextFieldList = dsoMetadata.addList(itemName.toString());
                 for (String snippet : fullSnippets)
                 {
                     addMetadataField(fullTextFieldList, snippet);
@@ -519,115 +452,90 @@ public abstract class AbstractSearch extends AbstractDSpaceTransformer implement
     }
 
     /**
-     * Render the given collection, all collection metadata is added to the list
+     * Render the given collection, add the collection's parent to the list 
+     * @param highlightedResults
      * @param collection the collection to be rendered
-     * @param highlightedResults the highlighted results
-     * @param collectionMetadata list of metadata values.
-     * @throws WingException passed through.
+     * @param dsoMetadata
+     * @throws WingException
+     * @throws SQLException
      */
-    protected void renderCollection(Collection collection,
-            DiscoverResult.DSpaceObjectHighlightResult highlightedResults,
-            org.dspace.app.xmlui.wing.element.List collectionMetadata)
-            throws WingException {
-
-        String description = collectionService.getMetadata(collection, "introductory_text");
-        String description_abstract = collectionService.getMetadata(collection, "short_description");
-        String description_table = collectionService.getMetadata(collection, "side_bar_text");
-        String identifier_uri = "http://hdl.handle.net/" + collection.getHandle();
-        String provenance = collectionService.getMetadata(collection, "provenance_description");
-        String rights = collectionService.getMetadata(collection, "copyright_text");
-        String rights_license = collectionService.getMetadata(collection, "license");
-        String title = collection.getName();
-
-        if(StringUtils.isNotBlank(description))
-        {
-            addMetadataField(highlightedResults, "dc.description", collectionMetadata.addList(collection.getHandle() + ":dc.description"), description);
-        }
-        if(StringUtils.isNotBlank(description_abstract))
-        {
-            addMetadataField(highlightedResults, "dc.description.abstract", collectionMetadata.addList(collection.getHandle() + ":dc.description.abstract"), description_abstract);
-        }
-        if(StringUtils.isNotBlank(description_table))
-        {
-            addMetadataField(highlightedResults, "dc.description.tableofcontents", collectionMetadata.addList(collection.getHandle() + ":dc.description.tableofcontents"), description_table);
-        }
-        if(StringUtils.isNotBlank(identifier_uri))
-        {
-            addMetadataField(highlightedResults, "dc.identifier.uri", collectionMetadata.addList(collection.getHandle() + ":dc.identifier.uri"), identifier_uri);
-        }
-        if(StringUtils.isNotBlank(provenance))
-        {
-            addMetadataField(highlightedResults, "dc.provenance", collectionMetadata.addList(collection.getHandle() + ":dc.provenance"), provenance);
-        }
-        if(StringUtils.isNotBlank(rights))
-        {
-            addMetadataField(highlightedResults, "dc.rights", collectionMetadata.addList(collection.getHandle() + ":dc.rights"), rights);
-        }
-        if(StringUtils.isNotBlank(rights_license))
-        {
-            addMetadataField(highlightedResults, "dc.rights.license", collectionMetadata.addList(collection.getHandle() + ":dc.rights.license"), rights_license);
-        }
-        if(StringUtils.isNotBlank(title))
-        {
-            addMetadataField(highlightedResults, "dc.title", collectionMetadata.addList(collection.getHandle() + ":dc.title"), title);
-        }
+    protected void renderCollection(Collection collection, DiscoverResult.DSpaceObjectHighlightResult highlightedResults, org.dspace.app.xmlui.wing.element.List dsoMetadata ) throws WingException, SQLException {
+    	String parent = collection.getCommunities().get(0).getName();
+    	addMetadataField(dsoMetadata.addList(collection.getHandle() + ":parent"), parent);
     }
 
     /**
-     * Render the given collection, all collection metadata is added to the list
+     * Render the given community, add the community's parent to the list
+     * @param highlightedResults
      * @param community the community to be rendered
-     * @param highlightedResults the highlighted results
-     * @param communityMetadata list of metadata values.
-     * @throws WingException passed through.
+     * @param dsoMetadata
+     * @throws WingException
+     * @throws SQLException
      */
-
-    protected void renderCommunity(Community community,
-            DiscoverResult.DSpaceObjectHighlightResult highlightedResults,
-            org.dspace.app.xmlui.wing.element.List communityMetadata)
-            throws WingException {
-        String description = communityService.getMetadata(community, "introductory_text");
-        String description_abstract = communityService.getMetadata(community, "short_description");
-        String description_table = communityService.getMetadata(community, "side_bar_text");
-        String identifier_uri = "http://hdl.handle.net/" + community.getHandle();
-        String rights = communityService.getMetadata(community, "copyright_text");
-        String title = community.getName();
-
-        if(StringUtils.isNotBlank(description))
-        {
-            addMetadataField(highlightedResults, "dc.description",
-                    communityMetadata.addList(community.getHandle() + ":dc.description"),
-                    description);
-        }
-        if(StringUtils.isNotBlank(description_abstract))
-        {
-            addMetadataField(highlightedResults, "dc.description.abstract",
-                    communityMetadata.addList(community.getHandle() + ":dc.description.abstract"),
-                    description_abstract);
-        }
-        if(StringUtils.isNotBlank(description_table))
-        {
-            addMetadataField(highlightedResults, "dc.description.tableofcontents",
-                    communityMetadata.addList(community.getHandle() + ":dc.description.tableofcontents"),
-                    description_table);
-        }
-        if(StringUtils.isNotBlank(identifier_uri))
-        {
-            addMetadataField(highlightedResults, "dc.identifier.uri",
-                    communityMetadata.addList(community.getHandle() + ":dc.identifier.uri"),
-                    identifier_uri);
-        }
-        if(StringUtils.isNotBlank(rights))
-        {
-            addMetadataField(highlightedResults, "dc.rights",
-                    communityMetadata.addList(community.getHandle() + ":dc.rights"),
-                    rights);
-        }
-        if(StringUtils.isNotBlank(title))
-        {
-            addMetadataField(highlightedResults, "dc.title",
-                    communityMetadata.addList(community.getHandle() + ":dc.title"),
-                    title);
-        }
+    protected void renderCommunity(Community community, DiscoverResult.DSpaceObjectHighlightResult highlightedResults, org.dspace.app.xmlui.wing.element.List dsoMetadata ) throws WingException, SQLException {
+		if(!(community.getParentCommunities().isEmpty())){
+		     String parent = community.getParentCommunities().get(0).getName();
+		     addMetadataField(dsoMetadata.addList(community.getHandle() + ":parent"), parent);
+		}
+	}
+    
+    /**Render the given dso, call a more specific render, add all dso metadata to the list, which metadata will be rendered where depends on the xsl  
+     * @param dso
+     * @param dsoMetadata
+     * @throws WingException
+     * @throws SQLException
+     */
+    protected void renderDSO(DSpaceObject dso, org.dspace.app.xmlui.wing.element.List dsoMetadata) throws WingException, SQLException 
+    {    		
+    	DSpaceObjectService<DSpaceObject> dsoService = ContentServiceFactory.getInstance().getDSpaceObjectService(dso);
+    	List<MetadataValue> allMetadata = dsoService.getMetadata(dso, "*", "*", "*", "*");
+    	DiscoverResult.DSpaceObjectHighlightResult highlightedResults = queryResults.getHighlightedResults(dso);
+    	dsoMetadata = dsoMetadata.addList(dso.getHandle() + ":" + dsoService.getTypeText(dso).toLowerCase());
+		if(dso.getType() == Constants.ITEM)
+    	{
+    		renderItem((Item)dso,highlightedResults,dsoMetadata);
+    	}
+    	else if(dso.getType() == Constants.COLLECTION) 
+    	{
+    		renderCollection((Collection)dso,highlightedResults,dsoMetadata);
+    	}
+    	else if(dso.getType() == Constants.COMMUNITY)
+    	{
+    		renderCommunity((Community)dso,highlightedResults,dsoMetadata);
+    	}//else is another kind of dso
+		
+		//add all metadata
+        addAllMetadataFields(allMetadata,dso,highlightedResults,dsoMetadata);
+		
+        //check if this dso has a dc.identifier.uri, else I create it based on its handle
+        String identifier_uri=dsoService.getMetadataFirstValue(dso, "dc", "identifier", "uri", "*");
+        if(identifier_uri == null && dso.getHandle() != null)
+		{
+			String handlePrefix = DSpaceServicesFactory.getInstance().getConfigurationService().getProperty("handle.canonical.prefix");
+			addMetadataField(dsoMetadata.addList(dso.getHandle() + ":dc.identifier.uri"), handlePrefix +dso.getHandle());
+		}		
+    }
+    
+    
+    /**Add all metadata from the dso, if not hidden, to the list
+     * 
+     * @param allMetadata
+     * @param dso
+     * @param highlightedResults
+     * @param dsoMetadata
+     * @throws WingException
+     * @throws SQLException
+     */
+    private void addAllMetadataFields(List<MetadataValue> allMetadata,DSpaceObject dso,DiscoverResult.DSpaceObjectHighlightResult highlightedResults,org.dspace.app.xmlui.wing.element.List dsoMetadata ) throws WingException, SQLException
+    {
+    	for(MetadataValue data : allMetadata){
+    		MetadataField theMetadatafield = data.getMetadataField();
+    		if(StringUtils.isNotBlank(data.getValue())
+    			&& !metadataExposureService.isHidden(context, theMetadatafield.getMetadataSchema().getName() , theMetadatafield.getElement(), theMetadatafield.getQualifier()))
+    		{
+    			addMetadataField(highlightedResults, theMetadatafield.toString('.'), dsoMetadata.addList(dso.getHandle() +":"+theMetadatafield.toString('.')), data.getValue());
+    		}
+    	}
     }
 
     /**
@@ -636,14 +544,9 @@ public abstract class AbstractSearch extends AbstractDSpaceTransformer implement
      * @param metadataKey the metadata key {schema}.{element}.{qualifier}
      * @param metadataFieldList the wing list we need to add the metadata value to
      * @param value the metadata value
-     * @throws WingException passed through.
+     * @throws WingException
      */
-    protected void addMetadataField(
-            DiscoverResult.DSpaceObjectHighlightResult highlightedResults,
-            String metadataKey,
-            org.dspace.app.xmlui.wing.element.List metadataFieldList,
-            String value)
-            throws WingException {
+    protected void addMetadataField(DiscoverResult.DSpaceObjectHighlightResult highlightedResults, String metadataKey, org.dspace.app.xmlui.wing.element.List metadataFieldList, String value) throws WingException {
         if(value == null){
             //In the unlikely event that the value is null, do not attempt to render this
             return;
@@ -686,12 +589,10 @@ public abstract class AbstractSearch extends AbstractDSpaceTransformer implement
     }
 
     /**
-     * Add our metadata value.  This value will might contain the highlight
-     * ("{@code <em></em>}") tags.  These will be removed and rendered as highlight WING fields.
-     *
-     * @param metadataFieldList the metadata list we need to add the value to.
+     * Add our metadata value, this value will might contain the highlight ("<em></em>") tags, these will be removed & rendered as highlight wing fields.
+     * @param metadataFieldList the metadata list we need to add the value to
      * @param value the metadata value to be rendered
-     * @throws WingException passed through.
+     * @throws WingException
      */
     protected void addMetadataField(org.dspace.app.xmlui.wing.element.List metadataFieldList, String value) throws WingException {
         //We need to put everything in <em> tags in a highlight !
@@ -717,19 +618,18 @@ public abstract class AbstractSearch extends AbstractDSpaceTransformer implement
     /**
      * Add options to the search scope field. This field determines in which
      * communities or collections to search for the query.
-     * <p>
+     * <p/>
      * The scope list will depend upon the current search scope. There are three
      * cases:
-     * <ul>
-     *  <li>No current scope: All top level communities are listed.
-     *  <li>The current scope is a community: All collections contained within the
-     *      community are listed.
-     *  <li>The current scope is a collection: All parent communities are listed.
-     * </ul>
+     * <p/>
+     * No current scope: All top level communities are listed.
+     * <p/>
+     * The current scope is a community: All collections contained within the
+     * community are listed.
+     * <p/>
+     * The current scope is a collection: All parent communities are listed.
      *
      * @param scope The current scope field.
-     * @throws java.sql.SQLException passed through.
-     * @throws org.dspace.app.xmlui.wing.WingException passed through.
      */
     protected void buildScopeList(Select scope) throws SQLException,
             WingException {
@@ -770,16 +670,10 @@ public abstract class AbstractSearch extends AbstractDSpaceTransformer implement
     /**
      *  Prepare DiscoverQuery given the current scope and query string
      * 
-     * @param scope the dspace object parent
-     * @param query the query.
-     * @param fqs the filter queries.
-     * @return the prepared query.
-     * @throws org.dspace.app.xmlui.utils.UIException passed through.
-     * @throws org.dspace.discovery.SearchServiceException passed through.
+     *  @param scope the dspace object parent
      */
-    public DiscoverQuery prepareQuery(DSpaceObject scope, String query, String[] fqs)
-            throws UIException, SearchServiceException {
-
+    public DiscoverQuery prepareQuery(DSpaceObject scope, String query, String[] fqs) throws UIException, SearchServiceException {
+    	
     	this.queryArgs = new DiscoverQuery();
     	
     	int page = getParameterPage();
@@ -787,7 +681,7 @@ public abstract class AbstractSearch extends AbstractDSpaceTransformer implement
     	// Escape any special characters in this user-entered query
         query = DiscoveryUIUtils.escapeQueryChars(query);
 
-    	List<String> filterQueries = new ArrayList<>();
+    	List<String> filterQueries = new ArrayList<String>();
 
         if (fqs != null) {
             filterQueries.addAll(Arrays.asList(fqs));
@@ -882,9 +776,8 @@ public abstract class AbstractSearch extends AbstractDSpaceTransformer implement
      * Query DSpace for a list of all items / collections / or communities that
      * match the given search query.
      *
+     *
      * @param scope the dspace object parent
-     * @throws org.dspace.app.xmlui.utils.UIException passed through.
-     * @throws org.dspace.discovery.SearchServiceException passed through.
      */
     public void performSearch(DSpaceObject scope) throws UIException, SearchServiceException {
 
@@ -902,7 +795,7 @@ public abstract class AbstractSearch extends AbstractDSpaceTransformer implement
     protected Map<String, String[]> getParameterFilterQueries()
     {
         try {
-            Map<String, String[]> result = new HashMap<>();
+            Map<String, String[]> result = new HashMap<String, String[]>();
             result.put("fq", ObjectModelHelper.getRequest(objectModel).getParameterValues("fq"));
             return result;
         }
@@ -982,12 +875,11 @@ public abstract class AbstractSearch extends AbstractDSpaceTransformer implement
     /**
      * Determine if the scope of the search should fixed or is changeable by the
      * user.
-     * <p>
-     * The search scope when performed by URL, i.e. they are at the URL handle/xxxx/xx/search
+     * <p/>
+     * The search scope when performed by url, i.e. they are at the url handle/xxxx/xx/search
      * then it is fixed. However at the global level the search is variable.
      *
      * @return true if the scope is variable, false otherwise.
-     * @throws java.sql.SQLException passed through.
      */
     protected boolean variableScope() throws SQLException {
         return (HandleUtil.obtainHandle(objectModel) == null);
@@ -995,31 +887,33 @@ public abstract class AbstractSearch extends AbstractDSpaceTransformer implement
 
     /**
      * Extract the query string. Under most implementations this will be derived
-     * from the URL parameters.
+     * from the url parameters.
      *
      * @return The query string.
-     * @throws org.dspace.app.xmlui.utils.UIException whenever.
      */
     protected abstract String getQuery() throws UIException;
 
     /**
-     * Generate a URL to the given search implementation with the associated
+     * Generate a url to the given search implementation with the associated
      * parameters included.
      *
-     * @param parameters URL query parameters.
+     * @param parameters
      * @return The post URL
-     * @throws org.dspace.app.xmlui.utils.UIException whenever.
      */
     protected abstract String generateURL(Map<String, String> parameters)
             throws UIException;
 
-    @Override
+
+    /**
+     * Recycle
+     */
     public void recycle() {
         this.queryArgs = null;
         this.queryResults = null;
         this.validity = null;
         super.recycle();
     }
+
 
     protected void buildSearchControls(Division div)
             throws WingException, SQLException {
@@ -1090,7 +984,6 @@ public abstract class AbstractSearch extends AbstractDSpaceTransformer implement
      * specified then null is returned.
      *
      * @return The current scope.
-     * @throws java.sql.SQLException passed through.
      */
     protected DSpaceObject getScope() throws SQLException {
         Request request = ObjectModelHelper.getRequest(objectModel);
