@@ -95,14 +95,6 @@ public class TextArea extends Field
     {
         this.params.enableDeleteOperation();
     }
-    
-    /**
-     * Sets this textarea field as a i18nable field
-     */
-    public void setI18nable() 
-    {
-    	this.params.setI18nable();
-    }
 
     /** ******************************************************************** */
     /** Raw Values * */
@@ -171,7 +163,8 @@ public class TextArea extends Field
      */
     public Value setAuthorityValue(String characters, String confidence) throws WingException
     {
-        this.removeValueOfType(Value.TYPE_AUTHORITY);
+
+    	this.removeValueOfType(Value.TYPE_AUTHORITY);
         Value value = new Value(context, Value.TYPE_AUTHORITY, confidence);
         value.addContent(characters);
         values.add(value);

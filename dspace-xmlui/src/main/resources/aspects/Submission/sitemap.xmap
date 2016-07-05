@@ -145,10 +145,6 @@
             <map:transform type="Submissions"/>
           </map:match>
           
-          <!-- Adds supported locales information to pageMeta -->
-          <map:match type="regexp" pattern="submit|workflow_edit_metadata">
-      		<map:transform type="SupportedLocales"/>
-          </map:match>
           
           
           
