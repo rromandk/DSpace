@@ -170,7 +170,7 @@ public class TextArea extends Field
         values.add(value);
         return value;
     }
-
+    
     /**
      * Add a field instance.
      *
@@ -188,4 +188,16 @@ public class TextArea extends Field
 		this.params.setEditorToolbar(editorToolbar);
 		
 	}
+
+    /**
+     * Set the value's language
+     */
+     public Value setLanguageValue(String lang) throws WingException
+     {
+     	this.removeValueOfType(Value.TYPE_LANG);
+     	Value value = new Value(context, Value.TYPE_LANG);
+     	value.addContent(lang);
+     	values.add(value);
+     	return value;
+     }
 }

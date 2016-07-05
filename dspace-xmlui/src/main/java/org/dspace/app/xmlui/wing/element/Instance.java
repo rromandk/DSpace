@@ -243,20 +243,19 @@ public class Instance extends Container
         contents.add(value);
         value.addContent(characters);
     }
-    
-//    /**
-//     * Set the value's language
-//     */
-//    public Value setLanguageValue(String lang) throws WingException
-//    {
-//        this.removeValueOfType(Value.TYPE_LANG);
-//        Value value = new Value(context, Value.TYPE_LANG);
-//        value.addContent(lang);
-//        contents.add(value);
-//        return value;
-//    }
-//    
-    
+
+    /**
+     * Set the value's language
+     */
+    public Value setLanguageValue(String lang) throws WingException
+    {
+        this.removeValueOfType(Value.TYPE_LANG);
+        Value value = new Value(context, Value.TYPE_LANG);
+        value.addContent(lang);
+        contents.add(value);
+        return value;
+    }
+
     /**
      * Translate this element and all contained elements into SAX events. The
      * events should be routed to the contentHandler found in the WingContext.
