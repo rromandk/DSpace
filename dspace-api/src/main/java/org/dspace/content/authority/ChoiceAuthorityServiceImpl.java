@@ -315,7 +315,7 @@ public final class ChoiceAuthorityServiceImpl implements ChoiceAuthorityService
         if(minLength.isEmpty())
         {
             // Get all configuration keys starting with a given prefix
-            List<String> propKeys = configurationService.getPropertyKeys(CHOICES_CLOSED_PREFIX);
+            List<String> propKeys = configurationService.getPropertyKeys(CHOICES_MINlENGTh_PREFIX);
             Iterator<String> keyIterator = propKeys.iterator();
             while(keyIterator.hasNext())
             {
@@ -327,7 +327,7 @@ public final class ChoiceAuthorityServiceImpl implements ChoiceAuthorityService
                     log.warn("Skipping invalid ChoiceAuthority configuration property: "+key+": does not have schema.element.qualifier");
                     continue;
                 }
-                minLength.put(fkey, Integer.valueOf(configurationService.getProperty(key)));
+                minLength.put(fkey, Integer.valueOf(configurationService.getIntProperty(key)));
             }
         }
 
