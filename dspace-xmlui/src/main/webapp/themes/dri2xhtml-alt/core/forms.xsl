@@ -1257,7 +1257,6 @@
             </span>
         </xsl:if>
     </xsl:template>
-<<<<<<< HEAD
     
     
     <!-- control to select metadata's language (supports repetible fields if they are editable) -->
@@ -1292,22 +1291,6 @@
 			
 		</xsl:if>
 	</xsl:template>
-	
-	<!-- generates the language options for metadata lanugage selection -->
-	<xsl:template match="dri:metadata[@element='supported_locale']">
-		<xsl:param name="lang"/>
-		<option>
-			<xsl:attribute name="value">
-				<xsl:value-of select="."/>
-			</xsl:attribute>
-			<xsl:if test="string(.) = $lang">
-				<xsl:attribute name="selected">true</xsl:attribute>
-			</xsl:if>
-			<i18n:text>xmlui.dri2xhtml.METS-1.0.locale.<xsl:value-of select="."></xsl:value-of></i18n:text>
-		</option>
-	</xsl:template>
-    
-=======
-   
->>>>>>> DS-3141
+
+
 </xsl:stylesheet>

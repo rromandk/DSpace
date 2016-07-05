@@ -29,8 +29,7 @@
       <map:transformer name="SaveOrRemoveStep" src="org.dspace.app.xmlui.aspect.submission.submit.SaveOrRemoveStep"/>
       <map:transformer name="RemovedStep" src="org.dspace.app.xmlui.aspect.submission.submit.RemovedStep"/>
       <map:transformer name="CompletedStep" src="org.dspace.app.xmlui.aspect.submission.submit.CompletedStep"/>
-      <map:transformer name="ControlledVocabularyTransformer" src="org.dspace.app.xmlui.aspect.submission.ControlledVocabularyTransformer"/>
-      <map:transformer name="SupportedLocales" src="org.dspace.app.xmlui.aspect.submission.SupportedLocales"/>	
+      <map:transformer name="ControlledVocabularyTransformer" src="org.dspace.app.xmlui.aspect.submission.ControlledVocabularyTransformer"/>	
     </map:transformers>
     
     <map:selectors>
