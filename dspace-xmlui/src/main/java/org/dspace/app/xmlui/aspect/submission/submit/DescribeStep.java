@@ -484,6 +484,8 @@ public class DescribeStep extends AbstractSubmissionStep
                     fullName.setChoices(fieldKey);
                     fullName.setChoicesPresentation(choiceAuthorityService.getPresentation(fieldKey));
                     fullName.setChoicesClosed(choiceAuthorityService.isClosed(fieldKey));
+                    fullName.setChoicesMinLength(choiceAuthorityService.getMinLength(fieldKey));
+
                 }
 
                 // Setup the first and last name
@@ -854,6 +856,7 @@ public class DescribeStep extends AbstractSubmissionStep
                     textArea.setChoices(fieldKey);
                     textArea.setChoicesPresentation(choiceAuthorityService.getPresentation(fieldKey));
                     textArea.setChoicesClosed(choiceAuthorityService.isClosed(fieldKey));
+                    textArea.setChoicesMinLength(choiceAuthorityService.getMinLength(fieldKey));
                 }
                 if (dcInput.isRequired())
                 {
@@ -1209,6 +1212,7 @@ public class DescribeStep extends AbstractSubmissionStep
                     text.setChoices(fieldKey);
                     text.setChoicesPresentation(choiceAuthorityService.getPresentation(fieldKey));
                     text.setChoicesClosed(choiceAuthorityService.isClosed(fieldKey));
+                    text.setChoicesMinLength(choiceAuthorityService.getMinLength(fieldKey));
                 }
 
                 if (dcInput.isRequired())
