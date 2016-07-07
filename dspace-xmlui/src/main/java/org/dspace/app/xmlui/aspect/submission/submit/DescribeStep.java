@@ -195,11 +195,19 @@ public class DescribeStep extends AbstractSubmissionStep
 
                 // Fetch the document type (dc.type)
                 String documentType = "";
-                if( (itemService.getMetadataByMetadataString(item, "dc.type") != null) && (itemService.getMetadataByMetadataString(item, "dc.type").size() >0) )
+                boolean useAuthority = DSpaceServicesFactory.getInstance().getConfigurationService().getBooleanProperty("inputforms.field.typebind.use_authority",false);
+                java.util.List<MetadataValue> mtd = itemService.getMetadataByMetadataString(item, "dc.type");
+                if( (mtd != null) && (mtd.size() >0) )
                 {
-                    documentType = itemService.getMetadataByMetadataString(item, "dc.type").get(0).getValue();
+                	if(useAuthority)
+                	{
+                		documentType = mtd.get(0).getAuthority();
+                	}
+                	else{
+                	
+	                    documentType = mtd.get(0).getValue();
+	                }
                 }
-                
                 // Iterate over all inputs and add it to the form.
                 for(DCInput dcInput : inputs)
                 {
