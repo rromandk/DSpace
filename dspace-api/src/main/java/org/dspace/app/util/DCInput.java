@@ -12,6 +12,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import org.dspace.core.ConfigurationManager;
+import org.dspace.services.factory.DSpaceServicesFactory;
+
 import java.util.regex.Pattern;
 import java.util.regex.Matcher;
 
@@ -465,7 +467,7 @@ public class DCInput
 			return true;
 		
 		//checks if the pattern must considerate the CASE_SENSITIVE option 
-		boolean is_case_sensitive = ConfigurationManager.getBooleanProperty("inputforms.field.typebind.case_sensitive", false);
+		boolean is_case_sensitive = DSpaceServicesFactory.getInstance().getConfigurationService().getBooleanProperty("inputforms.field.typebind.case_sensitive", false);
 		
 		for(int i=0;i<typeBind.size();i++){
 			//build a regular expression
