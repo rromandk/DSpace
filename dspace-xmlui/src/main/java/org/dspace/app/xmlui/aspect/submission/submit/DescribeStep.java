@@ -43,6 +43,7 @@ import org.dspace.content.*;
 import org.dspace.content.MetadataValue;
 import org.dspace.content.authority.Choice;
 import org.dspace.content.authority.Choices;
+import org.dspace.core.ConfigurationManager;
 
 import org.dspace.content.authority.factory.ContentAuthorityServiceFactory;
 import org.dspace.content.authority.service.ChoiceAuthorityService;
@@ -836,7 +837,13 @@ public class DescribeStep extends AbstractSubmissionStep
         		// Plain old Textarea
                 TextArea textArea = form.addItem().addTextArea(fieldName,"submit-textarea");
                 org.dspace.app.xmlui.wing.element.Item item = form.addItem();
-                
+
+                String editorToolbar=ConfigurationManager.getProperty("input-forms."+fieldName+".editorToolbar");
+                if(editorToolbar!=null)
+                {
+                	textArea.setEditorToolbar(editorToolbar);
+                }
+
                 // Setup the text area
                 textArea.setLabel(dcInput.getLabel());
                 textArea.setHelp(cleanHints(dcInput.getHints()));
