@@ -31,7 +31,7 @@
 				<dc:type><xsl:value-of select="concat('info:ar-repo/semantics/',.)" /></dc:type>
 			</xsl:for-each>
 			<!-- cic.version -->
-			<xsl:for-each select="doc:metadata/doc:element[@name='cic']/doc:element[@name='type-version']/doc:element[@name='driver']/doc:field[@name='value']">
+			<xsl:for-each select="doc:metadata/doc:element[@name='dc']/doc:element[@name='type-version']/doc:element[@name='driver']/doc:field[@name='value']">
 				<dc:type><xsl:value-of select="." /></dc:type>
 			</xsl:for-each>
 			<!-- dc.title -->
@@ -116,7 +116,7 @@
 <!-- 			</xsl:for-each> -->
 			<!-- dc.rights -->
 			<!-- Como solo mostramos items OPEN, esto se harcodea -->
-			<dc:rights>info:eu-repo/semantics/OPEN</dc:rights>
+			<dc:rights>info:eu-repo/semantics/open</dc:rights>
 			<!-- dcterms.license -->
 			<xsl:for-each select="doc:metadata/doc:element[@name='dcterms']/doc:element[@name='license']/doc:element/doc:field[@name='value']">
 				<dc:rights><xsl:value-of select="." /></dc:rights>

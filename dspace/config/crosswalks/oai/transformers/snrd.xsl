@@ -32,15 +32,11 @@
 		<xsl:call-template name="type-snrd">
 			<xsl:with-param name="theValue" select="$type"/>
 		</xsl:call-template>
-		
-	</xsl:template>
-	<xsl:template match="/doc:metadata">
-		<xsl:variable name="version" select="./doc:element[@name='cic']/doc:element[@name='version']/doc:element/doc:field/text()"/>		
+		<xsl:variable name="version" select="../../doc:element[@name='cic']/doc:element[@name='version']/doc:element/doc:field/text()"/>
 		<xsl:call-template name="type-driver-version">
 			<xsl:with-param name="theValue" select="$version"/>
 		</xsl:call-template>
 	</xsl:template>
-
 	
 	<!-- Formatting dc.date.issued--> 
 	<xsl:template match="/doc:metadata/doc:element[@name='dcterms']/doc:element[@name='issued']/doc:element/doc:field[@name='value']/text()">
@@ -119,9 +115,9 @@
 	<!-- Removing unwanted -->
 	<xsl:template match="/doc:metadata/doc:element[@name='dc']/doc:element[@name='rights']/doc:element/doc:element" />
 	<!-- Replacing -->
-	<xsl:template match="/doc:metadata/doc:element[@name='dc']/doc:element[@name='rights']/doc:element/doc:field/text()">
-		<xsl:text>info:eu-repo/semantics/openAccess</xsl:text>
-	</xsl:template>
+<!-- 	<xsl:template match="/doc:metadata/doc:element[@name='dc']/doc:element[@name='rights']/doc:element/doc:field/text()"> -->
+<!-- 		<xsl:text>info:eu-repo/semantics/openAccess</xsl:text> -->
+<!-- 	</xsl:template> -->
 	
 
 
