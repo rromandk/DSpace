@@ -15,7 +15,7 @@
 
  <form-map>
    <!-- Poner handle de la 'colección de autoarchivo' en el repositorio -->
-   <name-map collection-handle="123456789/2" form-name="autoarchive" />
+   <name-map collection-handle="11746/2" form-name="autoarchive" />
    <name-map collection-handle="default" form-name="traditional" />
  </form-map>
 
