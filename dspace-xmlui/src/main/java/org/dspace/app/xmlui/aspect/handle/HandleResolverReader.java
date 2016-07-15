@@ -30,11 +30,12 @@ import org.apache.cocoon.reading.AbstractReader;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
+import org.dspace.handle.factory.HandleServiceFactory;
+import org.dspace.handle.service.HandleService;
 import org.xml.sax.SAXException;
 import org.dspace.app.xmlui.utils.ContextUtil;
-import org.dspace.core.ConfigurationManager;
+import org.dspace.services.factory.DSpaceServicesFactory;
 import org.dspace.core.Context;
-import org.dspace.handle.HandleManager;
 
 
 /**
@@ -52,7 +53,8 @@ public class HandleResolverReader extends AbstractReader implements Recyclable {
     private String action;
     private String handle;
     private String prefix;
-    
+
+    protected HandleService handleService = HandleServiceFactory.getInstance().getHandleService();
     
     public void setup(SourceResolver resolver, Map objectModel, String src,
             Parameters par) throws ProcessingException, SAXException,
@@ -88,7 +90,7 @@ public class HandleResolverReader extends AbstractReader implements Recyclable {
                     resp.sendError(HttpServletResponse.SC_BAD_REQUEST);
                     return;
                 }
-                String url = HandleManager.resolveToURL(context, handle);
+                String url = handleService.resolveToURL(context, handle);
                 // Only an array or an abject is valid JSON. A simple string
                 // isn't. An object always uses key value pairs, so we use an
                 // array.
@@ -104,12 +106,11 @@ public class HandleResolverReader extends AbstractReader implements Recyclable {
             else if (action.equals("listprefixes"))
             {
                 List<String> prefixes = new ArrayList<String>();
-                prefixes.add(HandleManager.getPrefix());
-                String additionalPrefixes = ConfigurationManager
-                        .getProperty("handle.additional.prefixes");
-                if (StringUtils.isNotBlank(additionalPrefixes))
+                prefixes.add(handleService.getPrefix());
+                String[] additionalPrefixes = DSpaceServicesFactory.getInstance().getConfigurationService().getArrayProperty("handle.additional.prefixes");
+                if (additionalPrefixes != null)
                 {
-                    for (String apref : additionalPrefixes.split(","))
+                    for (String apref : additionalPrefixes)
                     {
                         prefixes.add(apref.trim());
                     }
@@ -118,7 +119,7 @@ public class HandleResolverReader extends AbstractReader implements Recyclable {
             }
             else if (action.equals("listhandles"))
             {
-                if (ConfigurationManager.getBooleanProperty(
+                if (DSpaceServicesFactory.getInstance().getConfigurationService().getBooleanProperty(
                         "handle.hide.listhandles", true))
                 {
                     resp.sendError(HttpServletResponse.SC_NOT_FOUND);
@@ -131,13 +132,19 @@ public class HandleResolverReader extends AbstractReader implements Recyclable {
                     return;
                 }
 
-                List<String> handlelist = HandleManager.getHandlesForPrefix(
+                List<String> handlelist = handleService.getHandlesForPrefix(
                         context, prefix);
                 String[] handles = handlelist.toArray(new String[handlelist.size()]);
                 jsonString = gson.toJson(handles);
             }
         } catch (SQLException e) {
             log.error("SQLException: ", e);
+            return;
+        }
+        if(jsonString == null)
+        {
+            //No handle found bad request
+            resp.sendError(HttpServletResponse.SC_BAD_REQUEST);
             return;
         }
         

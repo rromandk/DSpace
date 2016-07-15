@@ -19,7 +19,9 @@ import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
+import java.util.UUID;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -30,13 +32,15 @@ import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.TransformerConfigurationException;
 
 import org.apache.log4j.Logger;
-import org.dspace.content.ItemIterator;
 import org.dspace.authorize.AuthorizeException;
 import org.dspace.content.DSpaceObject;
 import org.dspace.content.Item;
+import org.dspace.content.factory.ContentServiceFactory;
+import org.dspace.content.service.ItemService;
 import org.dspace.core.Context;
-import org.dspace.handle.HandleManager;
 
+import org.dspace.handle.factory.HandleServiceFactory;
+import org.dspace.handle.service.HandleService;
 import org.w3c.dom.Document;
 
 
@@ -48,24 +52,28 @@ public class ItemArchive {
     private static final Logger log = Logger.getLogger(ItemArchive.class); 
 
 	public static final String DUBLIN_CORE_XML = "dublin_core.xml";
-	
-    private static DocumentBuilder builder = null;
-    private static Transformer transformer = null;
-   
-	private List<DtoMetadata> dtomList = null; 
-	private List<DtoMetadata> undoDtomList = new ArrayList<DtoMetadata>();
-	
-	private List<Integer> undoAddContents = new ArrayList<Integer>(); // for undo of add
-	
-	private Item item;
-	private File dir;  // directory name in source archive for this item
-	private String dirname; //convenience
-	
+
+    protected static DocumentBuilder builder = null;
+    protected Transformer transformer = null;
+
+    protected List<DtoMetadata> dtomList = null;
+    protected List<DtoMetadata> undoDtomList = new ArrayList<DtoMetadata>();
+
+    protected List<UUID> undoAddContents = new ArrayList<>(); // for undo of add
+
+    protected Item item;
+    protected File dir;  // directory name in source archive for this item
+    protected String dirname; //convenience
+
+    protected HandleService handleService;
+    protected ItemService itemService;
+
 //constructors
-	private ItemArchive() 
+    protected ItemArchive()
 	{
-		// nothing
-	}	
+        handleService = HandleServiceFactory.getInstance().getHandleService();
+        itemService = ContentServiceFactory.getInstance().getItemService();
+	}
 	
 /** factory method
  * 
@@ -77,6 +85,8 @@ public class ItemArchive {
  *  @param dir     - The directory File in the source archive
  *  @param itemField - The metadata field in which the Item identifier is located
  *                     if null, the default is the handle in the dc.identifier.uri field
+ *  @return ItemArchive object
+ *  @throws Exception if error
  * 
  */
 	public static ItemArchive create(Context context, File dir, String itemField)
@@ -119,7 +129,7 @@ public class ItemArchive {
 		return itarch;
 	}
 		
-	private static DocumentBuilder getDocumentBuilder()
+	protected static DocumentBuilder getDocumentBuilder()
 	throws ParserConfigurationException
 	{
 		if (builder == null)
@@ -128,8 +138,13 @@ public class ItemArchive {
 		}
 		return builder;
 	}
-	
-	private static Transformer getTransformer()
+
+    /**
+     * Getter for Transformer
+     * @return Transformer
+     * @throws TransformerConfigurationException if config error
+     */
+    protected Transformer getTransformer()
 	throws TransformerConfigurationException
 	{
 		if (transformer == null)
@@ -168,7 +183,7 @@ public class ItemArchive {
 	
 	/**
 	 *   Add metadata field to undo list
-	 * @param dtom
+	 * @param dtom DtoMetadata (represents metadata field)
 	 */
 	public void addUndoMetadataField(DtoMetadata dtom)
 	{
@@ -186,9 +201,9 @@ public class ItemArchive {
 	
 	/**
 	 *   Add bitstream id to delete contents file
-	 * @param bitstreamId
+	 * @param bitstreamId bitstream ID
 	 */
-	public void addUndoDeleteContents(int bitstreamId)
+	public void addUndoDeleteContents(UUID bitstreamId)
 	{
 		this.undoAddContents.add(bitstreamId);
 	}
@@ -199,7 +214,9 @@ public class ItemArchive {
      *   This is the default implementation
      *   that uses the dc.identifier.uri metadatafield 
      *   that contains the item handle as its value  
-     *   
+     *   @param context DSpace Context
+     *   @throws SQLException if database error
+     *   @throws Exception if error
      */
     private Item itemFromHandleInput(Context context)
     throws SQLException, Exception
@@ -222,7 +239,7 @@ public class ItemArchive {
     	
     	String handle = uri.substring(ItemUpdate.HANDLE_PREFIX.length());
     		
-		DSpaceObject dso = HandleManager.resolveToObject(context, handle);  
+		DSpaceObject dso = handleService.resolveToObject(context, handle);
 		if (dso instanceof Item)
 		{
 			item =  (Item) dso;
@@ -242,8 +259,8 @@ public class ItemArchive {
      * 
      * @param context   - the DSpace context
      * @param itemField - the compound form of the metadata element <schema>.<element>.<qualifier>
-     * @throws SQLException
-     * @throws Exception
+     * @throws SQLException if database error
+     * @throws Exception if error
      */
     private Item itemFromMetadataField(Context context, String itemField)
     throws SQLException, AuthorizeException, Exception
@@ -260,16 +277,14 @@ public class ItemArchive {
 
     	this.addUndoMetadataField(dtom);  //seed the undo list with the identifier field
     	
-	    ItemIterator itr = Item.findByMetadataField(context, dtom.schema, dtom.element, dtom.qualifier, dtom.value);
+	    Iterator<Item> itr = itemService.findByMetadataField(context, dtom.schema, dtom.element, dtom.qualifier, dtom.value);
 		int count = 0;
 		while (itr.hasNext())
 		{
 			item = itr.next();
 			count++;
 		}
-		
-		itr.close(); 
-		
+
 		ItemUpdate.prv("items matching = " + count );
 		
 		if (count != 1)
@@ -279,7 +294,11 @@ public class ItemArchive {
         
     	return item;    	
     }  
-    
+    /**
+     * Get DtoMetadata field
+     * @param compoundForm compound form
+     * @return DtoMetadata field
+     */
     private DtoMetadata  getMetadataField(String compoundForm)
     {
     	for (DtoMetadata dtom : dtomList)
@@ -295,8 +314,12 @@ public class ItemArchive {
     /**
      * write undo directory and files to Disk in archive format
      * 
-     * 
      * @param undoDir - the root directory of the undo archive
+     * @throws IOException if IO error
+     * @throws ParserConfigurationException if config error
+     * @throws TransformerConfigurationException if transformer config error
+     * @throws TransformerException if transformer error
+     * @throws FileNotFoundException if file not found
      */
 	public void writeUndo(File undoDir)
 	throws IOException, ParserConfigurationException, TransformerConfigurationException, 
@@ -325,7 +348,7 @@ public class ItemArchive {
                 {
                     File f = new File(dir, ItemUpdate.DELETE_CONTENTS_FILE);
                     pw = new PrintWriter(new BufferedWriter(new FileWriter(f)));
-                    for (Integer i : undoAddContents)
+                    for (UUID i : undoAddContents)
                     {
                         pw.println(i);
                     }

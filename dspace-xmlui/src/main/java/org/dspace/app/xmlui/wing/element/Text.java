@@ -35,6 +35,7 @@ public class Text extends Field
      * @param rend
      *            (May be null) a rendering hint used to override the default
      *            display of the element.
+     * @throws org.dspace.app.xmlui.wing.WingException passed through.
      */
     protected Text(WingContext context, String name, String rend)
             throws WingException
@@ -75,6 +76,7 @@ public class Text extends Field
      * Enable the add operation for this field. When this is enabled the
      * front end will add a button to add more items to the field.
      *
+     * @throws org.dspace.app.xmlui.wing.WingException passed through.
      */
     public void enableAddOperation() throws WingException
     {
@@ -86,26 +88,21 @@ public class Text extends Field
      * the front end will provide a way for the user to select fields (probably
      * checkboxes) along with a submit button to delete the selected fields.
      *
+     * @throws org.dspace.app.xmlui.wing.WingException passed through.
      */
     public void enableDeleteOperation()throws WingException
     {
         this.params.enableDeleteOperation();
     }
-    
-    /**
-     * Sets this text field as a i18nable field
-     */
-    public void setI18nable() 
-    {
-    	this.params.setI18nable();
-    }
-    
+
     /** ******************************************************************** */
     /** Raw Values * */
     /** ******************************************************************** */
 
     /**
      * Set the raw value of the field removing any previous raw values.
+     * @return the new value.
+     * @throws org.dspace.app.xmlui.wing.WingException passed through.
      */
     public Value setValue() throws WingException
     {
@@ -120,6 +117,7 @@ public class Text extends Field
      *
      * @param characters
      *            (May be null) Field value as a string
+     * @throws org.dspace.app.xmlui.wing.WingException passed through.
      */
     public void setValue(String characters) throws WingException
     {
@@ -133,6 +131,7 @@ public class Text extends Field
      * @param message
      *            (Required) A key into the i18n catalogue for translation into
      *            the user's preferred language.
+     * @throws org.dspace.app.xmlui.wing.WingException passed through.
      */
     public void setValue(Message message) throws WingException
     {
@@ -143,6 +142,8 @@ public class Text extends Field
     /**
      * Set the authority value of the field removing any previous authority values.
      * Initialized to an empty value.
+     * @return the new value.
+     * @throws org.dspace.app.xmlui.wing.WingException passed through.
      */
     public Value setAuthorityValue() throws WingException
     {
@@ -152,6 +153,10 @@ public class Text extends Field
     /**
      * Set the authority value of the field removing any previous authority values.
      * Initialized to an empty value.
+     * @param characters new value.
+     * @param confidence confidence in this value
+     * @return the new value.
+     * @throws org.dspace.app.xmlui.wing.WingException passed through.
      */
     public Value setAuthorityValue(String characters, String confidence) throws WingException
     {
@@ -163,25 +168,26 @@ public class Text extends Field
     }
     
     /**
-	 * Set the value's language
-	 */
-	public Value setLanguageValue(String lang) throws WingException
-	{
-		this.removeValueOfType(Value.TYPE_LANG);
-		Value value = new Value(context, Value.TYPE_LANG);
-		value.addContent(lang);
-		values.add(value);
-		return value;
-	}
-    
-    /**
      * Add a field instance
      * @return instance
+     * @throws org.dspace.app.xmlui.wing.WingException passed through.
      */
     public Instance addInstance() throws WingException
     {
         Instance instance = new Instance(context);
         instances.add(instance);
         return instance;
+    }
+    
+    /**
+    * Set the value's language
+    */
+    public Value setLanguageValue(String lang) throws WingException
+    {
+    	this.removeValueOfType(Value.TYPE_LANG);
+    	Value value = new Value(context, Value.TYPE_LANG);
+    	value.addContent(lang);
+    	values.add(value);
+    	return value;
     }
 }

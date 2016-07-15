@@ -14,23 +14,32 @@
                xmlns="http://www.lyncode.com/XOAIConfiguration">
 
     <Contexts>
+    
+    	<Context baseurl="snrd" name="srnd context">
+    	    <Transformer ref="snrdTransformer"/>
+    		<Filter ref="snrdFilter"/>
+    		<Set ref="snrdSet"/>
+    		<Format ref="oaidc"/>
+    		<Format ref="xoai"/>
+    		
+    		<Description>
+    			This context complies with SNRD rules.
+    		</Description>
+    	</Context>
+    
         <Context baseurl="request" name="Default Context">
             <!-- Restrict access to hidden items by default -->
             <Filter ref="defaultFilter" />
 
             <Format ref="oaidc"/>
+            <!-- 
             <Format ref="mets"/>
             <Format ref="xoai"/>
             <Format ref="didl"/>
             <Format ref="dim"/>
             <Format ref="ore"/>
             <Format ref="rdf"/>
-            <Format ref="etdms"/>
-            <Format ref="mods"/>
-            <Format ref="qdc"/>
-            <Format ref="marc"/>
-            <Format ref="uketd_dc"/>
-            <!--<Format ref="junii2" />-->
+            -->
             <Description>
                 This is the default context of the DSpace OAI-PMH data provider.
             </Description>
@@ -55,7 +64,7 @@
             <Format ref="mets"/>
             <Format ref="didl"/>
             <Description>
-                This contexts complies with Driver rules.
+                This context complies with Driver rules.
             </Description>
         </Context>
 
@@ -79,7 +88,7 @@
             <Format ref="oaidc"/>
             <Format ref="mets"/>
             <Description>
-                This contexts complies with OpenAIRE rules.
+                This context complies with OpenAIRE rules.
             </Description>
         </Context>
     </Contexts>
@@ -88,7 +97,7 @@
     <Formats>
         <Format id="oaidc">
             <Prefix>oai_dc</Prefix>
-            <XSLT>metadataFormats/oai_dc.xsl</XSLT>
+            <XSLT>metadataFormats/cic_oai_dc.xsl</XSLT>
             <Namespace>http://www.openarchives.org/OAI/2.0/oai_dc/</Namespace>
             <SchemaLocation>http://www.openarchives.org/OAI/2.0/oai_dc.xsd</SchemaLocation>
         </Format>
@@ -176,10 +185,30 @@
         <Transformer id="openaireTransformer">
             <XSLT>transformers/openaire.xsl</XSLT>
         </Transformer>
+        <Transformer id="snrdTransformer">
+            <XSLT>transformers/snrd.xsl</XSLT>
+        </Transformer>
     </Transformers>
 
 
     <Filters>
+    
+    	<Filter id="snrdFilter">
+    		<Definition>
+    			<And>
+    				<LeftCondition>
+						<Custom ref="snrdDocumentsubtypeFilter"/>
+    				</LeftCondition>
+    				<RightCondition>
+<!--						REVISAR 
+						<Custom ref="dateExistsCondition"/>-->
+						<Custom ref="anonymousAccesAllow"/>
+    				</RightCondition>
+    			</And>
+    		</Definition>
+    	</Filter>
+    
+    
         <!-- DRIVER filter for records returned by OAI-PMH.
              By default, return an Item record:
                * If a Title & Author field both exist
@@ -219,7 +248,14 @@
                                         </Or>
                                     </LeftCondition>
                                     <RightCondition>
-                                        <Custom ref="driverAccessCondition"/>
+                                    	<And>
+                                    		<LeftCondition>
+                                    			<Custom ref="anonymousAccesAllow"/>
+                                    		</LeftCondition>
+                                    		<RightCondition>
+                                    			<Custom ref="driverAccessCondition"/>
+                                    		</RightCondition>
+                                    	</And>                                        
                                     </RightCondition>
                                 </And>
                             </RightCondition>
@@ -320,6 +356,11 @@
                 <string name="value">Thesis</string>
             </Configuration>
         </CustomCondition>
+        
+        <!-- This condition determines if the Item is accessible for anonymous -->        
+        <CustomCondition id="anonymousAccesAllow">
+            <Class>org.dspace.xoai.filter.DSpaceAuthorizationFilter</Class>
+        </CustomCondition>
 
         <!-- This condition determines if an Item has a "dc.contributor.author" -->
         <CustomCondition id="authorExistsCondition">
@@ -364,6 +405,49 @@
                 </list>
             </Configuration>
         </CustomCondition>
+        
+        <CustomCondition id="snrdDocumentsubtypeFilter">
+			<Class>org.dspace.xoai.filter.DSpaceAtLeastOneMetadataFilter</Class>
+			<Configuration>
+				<string name="field">dc.type</string>
+				<string name="operator">equal</string>
+				<list name="values">
+					<string>Documento de trabajo</string>
+					<string>Articulo</string>
+					<string>Artículo</string>
+					<string>Revision</string>
+					<string>Revisión</string>
+					<string>Informe técnico/Reporte</string>
+					<string>Informe tecnico/Reporte</string>
+					<string>Tesis de doctorado</string>
+					<string>Tesis de maestria</string>
+					<string>Tesis de maestría</string>
+					<string>Tesis de grado</string>
+					<string>Trabajo final de grado</string>
+					<string>Libro</string>
+					<string>Parte de libro</string>										
+					<string>Documento de conferencia</string>
+					<string>fotografia</string>
+					<string>fotografía</string>
+					<string>Publicacion periodica</string>
+					<string>Publicación periodica</string>
+					<string>Publicación periódica</string>
+					<string>Publicacion periódica</string>
+					<string>Comunicacion</string>
+					<string>Comunicación</string>
+					<string>Contribucion a revista</string>
+					<string>Contribución a revista</string>
+					<string>Informe de investigador</string>
+					<string>Informe de becario</string>
+					<string>Informe de personal de apoyo</string>
+					<string>Trabajo de especializacion</string>
+					<string>Trabajo de especialización</string>
+					<string>Informe tecnico</string>
+					<string>Informe técnico</string>					
+				</list>
+			</Configuration>			
+		</CustomCondition>
+        
 
         <!-- This condition determines if an Item has a "dc.rights" field
              specifying "open access", which is required for DRIVER
@@ -371,15 +455,56 @@
         <CustomCondition id="driverAccessCondition">
             <Class>org.dspace.xoai.filter.DSpaceAtLeastOneMetadataFilter</Class>
             <Configuration>
-                <string name="field">dc.rights</string>
+             <string name="field">dc.rights</string>
                 <string name="operator">contains</string>
-                <list>
+                <list name="values">
                     <string>open access</string>
                     <string>openAccess</string>
                 </list>
             </Configuration>
         </CustomCondition>
-
+                
+       <!-- This condition determines if an Item has a "dcterms.creator.author" -->
+        <CustomCondition id="creatorExistsCondition">
+            <Class>org.dspace.xoai.filter.DSpaceMetadataExistsFilter</Class>
+            <Configuration>
+                <string name="field">dcterms.creator.author</string>
+            </Configuration>
+        </CustomCondition>
+        
+        <!-- This condition determines if an Item has a "dcterms.publisher" -->
+        <CustomCondition id="publisherExistsCondition">
+            <Class>org.dspace.xoai.filter.DSpaceMetadataExistsFilter</Class>
+            <Configuration>
+                <string name="field">dcterms.publisher</string>
+            </Configuration>
+        </CustomCondition>
+        
+        <!-- This condition determines if an Item has a "dcterms.issued" -->
+        <CustomCondition id="dateExistsCondition">
+            <Class>org.dspace.xoai.filter.DSpaceMetadataExistsFilter</Class>
+            <Configuration>
+                <string name="field">dcterms.issued</string>
+            </Configuration>
+        </CustomCondition>
+        
+       
+        <!-- This condition determines if an Item has a "dc.identifier.uri" -->
+        <CustomCondition id="identifierExistsCondition">
+            <Class>org.dspace.xoai.filter.DSpaceMetadataExistsFilter</Class>
+            <Configuration>
+                <string name="field">dc.identifier.uri</string>
+            </Configuration>
+        </CustomCondition>
+        
+        <!-- This condition determines if an Item has a "dcterms.language" -->
+        <CustomCondition id="languageExistsCondition">
+            <Class>org.dspace.xoai.filter.DSpaceMetadataExistsFilter</Class>
+            <Configuration>
+                <string name="field">dcterms.language</string>
+            </Configuration>
+        </CustomCondition>
+               
         <!-- This condition determines if an Item is publicly accessible. -->
         <CustomCondition id="itemAccessCondition">
             <Class>org.dspace.xoai.filter.DSpaceAuthorizationFilter</Class>
@@ -400,7 +525,7 @@
             <Configuration>
                 <string name="field">dc.relation</string>
                 <string name="operator">starts_with</string>
-                <string name="value">info:eu-repo/grantAgreement/EC/FP</string>
+                <string name="value">info:eu-repo/grantAgreement/EC</string>
             </Configuration>
         </CustomCondition>
     </Filters>
@@ -414,6 +539,11 @@
         <Set id="openaireSet">
             <Spec>ec_fundedresources</Spec>
             <Name>EC_fundedresources set</Name>
+            <!-- Just an alias -->
+        </Set>
+        <Set id="snrdSet">
+            <Spec>SNRD</Spec>
+            <Name>SNRD</Name>
             <!-- Just an alias -->
         </Set>
     </Sets>

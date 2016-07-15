@@ -30,7 +30,7 @@
  <!-- Each form set contains an ordered set of pages; each page defines    -->
  <!-- one submission metadata entry screen. Each page has an ordered list  -->
  <!-- of field definitions, Each field definition corresponds to one       -->
- <!-- metatdata entry (a so-called row), which has a DC element name, a    -->
+ <!-- metadata entry (a so-called row), which has a DC element name, a    -->
  <!-- displayed label, a text string prompt which is called a hint, and    -->
  <!-- an input-type. Each field also may hold optional elements: DC        -->
  <!-- qualifier name, a repeatable flag, and a text string whose presence  -->
@@ -66,33 +66,33 @@
      	<field>
          <dc-schema>dc</dc-schema>
          <dc-element>title</dc-element>
+         <language value-pairs-name="cic_common_languages">true</language>
          <repeatable>false</repeatable>
          <label>Título</label>
          <input-type>textarea</input-type>
          <hint>Título del documento tal y como aparece en la obra</hint>
          <required>Debe indicar el título del documento</required>
-         <i18n>true</i18n>
        </field>
      
 		<field>
 		 <dc-schema>dcterms</dc-schema>
          <dc-element>title</dc-element>
          <dc-qualifier>subtitle</dc-qualifier>
+         <language value-pairs-name="cic_common_languages">true</language>
          <repeatable>false</repeatable>
          <label>Subtítulo</label>
          <input-type>textarea</input-type>
          <hint>Subtítulo del documento tal y como aparece en la obra</hint>
-         <i18n>true</i18n>
 		</field>     
      
      	<field>
          <dc-schema>dcterms</dc-schema>
          <dc-element>alternative</dc-element>
+         <language value-pairs-name="cic_common_languages">true</language>
          <repeatable>true</repeatable>
          <label>Título alternativo</label>
          <input-type>onebox</input-type>
          <hint>Otros títulos de la obra, o traducciones del título en cualquier idioma que no sea el nativo de la obra</hint>
-         <i18n>true</i18n>
        </field>
 
      	<field>
@@ -167,11 +167,11 @@
      	<field>
          <dc-schema>dcterms</dc-schema>
          <dc-element>abstract</dc-element>
+         <language value-pairs-name="cic_common_languages">true</language>
          <repeatable>true</repeatable>
          <label>Resumen</label>
          <input-type>textarea</input-type>
          <hint>Resumen de la obra. En caso de ser un Informe de Investigación generar un índice del mismo en función de los títulos del punto 6.</hint>
-         <i18n>true</i18n>
        </field>
      
 <!--      	<field> -->
@@ -233,11 +233,11 @@
      	<field>
          <dc-schema>dcterms</dc-schema>
          <dc-element>subject</dc-element>
+         <language value-pairs-name="cic_common_languages">true</language>
          <repeatable>true</repeatable>
          <label>Palabras clave</label>
          <input-type>twobox</input-type> <!-- TODO: lookup --> <!-- TODO: vocabulary -->
          <hint>Términos libres que describen el contenido de la obra.</hint>
-         <i18n>true</i18n>
        </field>
        
        <!-- TODO: Debe ofrecer el vocabulario TGN : http://www.getty.edu/research/tools/vocabularies/tgn/ -->
@@ -476,12 +476,12 @@
      	<field>
          <dc-schema>dc</dc-schema>
          <dc-element>title</dc-element>
+         <language value-pairs-name="cic_common_languages">true</language>
          <repeatable>false</repeatable>
          <label>Título</label>
          <input-type>onebox</input-type>
          <hint>Título del documento tal y como aparece en la obra</hint>
          <required>Debe indicar el título del documento</required>
-         <i18n>true</i18n>
        </field>
      
      	<!-- TODO: Este debe conectarse con una base que contenga las autores registrados en CIC -->
@@ -510,11 +510,11 @@
      	<field>
          <dc-schema>dcterms</dc-schema>
          <dc-element>abstract</dc-element>
+         <language value-pairs-name="cic_common_languages">true</language>
          <repeatable>true</repeatable>
          <label>Resumen</label>
          <input-type>textarea</input-type>
          <hint>Resumen de la obra. En caso de ser un Informe de Investigación generar un índice del mismo en función de los títulos del punto 6.</hint>
-         <i18n>true</i18n>
        </field>
      
      	<field>
@@ -540,11 +540,11 @@
      	<field>
          <dc-schema>dcterms</dc-schema>
          <dc-element>subject</dc-element>
+         <language value-pairs-name="cic_common_languages">true</language>
          <repeatable>true</repeatable>
          <label>Palabras clave</label>
          <input-type>twobox</input-type> <!-- TODO: lookup --> <!-- TODO: vocabulary -->
          <hint>Términos libres que describen el contenido de la obra.</hint>
-         <i18n>true</i18n>
        </field>
                      
  	</page>

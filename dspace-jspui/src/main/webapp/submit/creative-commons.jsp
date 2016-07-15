@@ -24,8 +24,9 @@
 <%@ page import="org.dspace.submit.AbstractProcessingStep" %>
 <%@ page import="org.dspace.app.util.SubmissionInfo" %>
 <%@ page import="org.dspace.app.webui.util.UIUtil" %>
-<%@ page import="org.dspace.license.CreativeCommons" %>
+<%@ page import="org.dspace.license.CreativeCommonsServiceImpl" %>
 <%@ page import="org.dspace.core.ConfigurationManager" %>
+<%@ page import="org.dspace.license.factory.LicenseServiceFactory" %>
 
 <%@ taglib uri="http://www.dspace.org/dspace-tags.tld" prefix="dspace" %>
 
@@ -47,7 +48,7 @@
     Boolean lExists = (Boolean)request.getAttribute("cclicense.exists");
     boolean licenseExists = (lExists == null ? false : lExists.booleanValue());
 
-    String jurisdiction = ConfigurationManager.getProperty("webui.submit.cc-jurisdiction");
+    String jurisdiction = ConfigurationManager.getProperty("cc.license.jurisdiction");
     if ((jurisdiction != null) && (!"".equals(jurisdiction)))
     {
         jurisdiction = "&amp;jurisdiction=" + jurisdiction.trim();
@@ -59,7 +60,7 @@
 
     String licenseURL = "";
     if(licenseExists)
-        licenseURL = CreativeCommons.getLicenseURL(subInfo.getSubmissionItem().getItem());
+        licenseURL = LicenseServiceFactory.getInstance().getCreativeCommonsService().getLicenseURL(context, subInfo.getSubmissionItem().getItem());
 %>
 
 <dspace:layout style="submission"

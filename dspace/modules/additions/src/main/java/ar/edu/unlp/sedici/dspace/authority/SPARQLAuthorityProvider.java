@@ -11,6 +11,7 @@ import org.dspace.content.authority.Choice;
 import org.dspace.content.authority.ChoiceAuthority;
 import org.dspace.content.authority.Choices;
 import org.dspace.core.ConfigurationManager;
+import org.dspace.content.Collection;
 
 import com.hp.hpl.jena.query.ParameterizedSparqlString;
 import com.hp.hpl.jena.query.Query;
@@ -45,7 +46,7 @@ public abstract class SPARQLAuthorityProvider implements ChoiceAuthority {
 	protected abstract String getSparqlEndpoint();
 
 	@Override
-	public Choices getMatches(String field, String text, int collection,
+	public Choices getMatches(String field, String text, Collection collection,
 			int start, int limit, String locale) {
 		if (text == null)
 			text = "";
@@ -62,7 +63,7 @@ public abstract class SPARQLAuthorityProvider implements ChoiceAuthority {
 
 	@Override
 	public final Choices getBestMatch(String field, String text,
-			int collection, String locale) {
+			Collection collection, String locale) {
 		return this.getMatches(field, text, collection, 0, 1, locale);
 	}
 
@@ -180,7 +181,7 @@ public abstract class SPARQLAuthorityProvider implements ChoiceAuthority {
 			}
 		};
 
-		Choices cs = s.getMatches("dc.title", "some", 0, 0, 10, "en");
+		Choices cs = s.getMatches("dc.title", "some", null, 0, 10, "en");
 		for (Choice c : cs.values) {
 			System.out.println("AUTHORITY=" + c.authority + ",LABEL=" + c.label
 					+ ",VALUE=" + c.value);

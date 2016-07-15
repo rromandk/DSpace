@@ -21,12 +21,19 @@ import org.xml.sax.ContentHandler;
 import org.xml.sax.SAXException;
 import org.xml.sax.ext.LexicalHandler;
 import org.xml.sax.helpers.NamespaceSupport;
+
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
+import java.util.List;
 
 public class Params extends AbstractWingElement implements StructuralElement
 {
     /** The name of the params element */
     public static final String E_PARAMS = "params";
+    
+    /** The name of the param elements inside params */
+    public static final String E_PARAM = "param";
 
     /** The name of the operations attribute */
     public static final String A_OPERATIONS = "operations";
@@ -73,9 +80,9 @@ public class Params extends AbstractWingElement implements StructuralElement
     /** The name of the field to use for a list of choices */
     public static final String A_CHOICES_CLOSED = "choicesClosed";
 
-    /** Whether this field is internationalizable or not */
-    public static final String A_I18NABLE = "i18nable";
-
+    /** The name of the attribute that identifies a param element */
+    public static final String A_PARAM_NAME =  "name";
+       
     /** Possible operations */
     public static final String OPERATION_ADD = "add";
 
@@ -144,12 +151,11 @@ public class Params extends AbstractWingElement implements StructuralElement
     /** Value of choicesClosed option */
     protected boolean choicesClosed = false;
 
-    /** if this field is i18nable */
-    protected boolean i18nable = false;
-    
     /** Value that indicates that the editor will be applied to a textarea */
     protected String editorToolbar = null;
-    
+
+    /** language options if metadata is internationalizable */
+    protected Collection<Option> langOptions = new ArrayList<Option>();
 
     /**
      * Construct a new parameter's element
@@ -157,6 +163,7 @@ public class Params extends AbstractWingElement implements StructuralElement
      * @param context
      *            (Required) The context this element is contained in, such as
      *            where to route SAX events and what i18n catalogue to use.
+     * @throws org.dspace.app.xmlui.wing.WingException passed through.
      *
      */
     protected Params(WingContext context) throws WingException
@@ -168,6 +175,7 @@ public class Params extends AbstractWingElement implements StructuralElement
      * Enable the add operation for this field set. When this is enabled the
      * front end will add a button to add more items to the field.
      *
+     * @throws org.dspace.app.xmlui.wing.WingException never.
      */
     public void enableAddOperation() throws WingException
     {
@@ -179,6 +187,7 @@ public class Params extends AbstractWingElement implements StructuralElement
      * the front end will provide a way for the user to select fields (probably
      * checkboxes) along with a submit button to delete the selected fields.
      *
+     * @throws org.dspace.app.xmlui.wing.WingException never.
      */
     public void enableDeleteOperation()throws WingException
     {
@@ -319,7 +328,7 @@ public class Params extends AbstractWingElement implements StructuralElement
     /**
      * Set the field's autofocus attribute, an HTML5 feature.
      * Valid input values to enable autofocus are: autofocus, and empty string.
-     * @param value
+     * @param value "autofocus" or empty.
      */
     public void setAutofocus(String value)
     {
@@ -340,6 +349,7 @@ public class Params extends AbstractWingElement implements StructuralElement
      * select vs. suggest.  Value must match one of the PRESENTATIONS.
      *
      * @param value pre-determined metadata field key
+     * @throws org.dspace.app.xmlui.wing.WingException passed through.
      */
     public void setChoicesPresentation(String value)
         throws WingException
@@ -370,18 +380,23 @@ public class Params extends AbstractWingElement implements StructuralElement
     {
         this.choicesClosed = value;
     }
-
+    
+    /**
+     * add a new language option
+     * 
+     * @param option
+     */
+    public void setLanguageOptions(List<Option> langOptions )
+    {
+       	this.langOptions=langOptions;
+    }
+    
     /**
      * Sets whether choices are "closed" to the set returned by plugin.
      */
     public void setChoicesClosed()
     {
         this.choicesClosed = true;
-    }
-
-    public void setI18nable()
-    {
-    	this.i18nable = true;
     }
 
 	public void setEditorToolbar(String toolbar) {
@@ -402,7 +417,9 @@ public class Params extends AbstractWingElement implements StructuralElement
      * @param namespaces
      *            (Required) SAX Helper class to keep track of namespaces able
      *            to determine the correct prefix for a given namespace URI.
+     * @throws org.xml.sax.SAXException passed through.
      */
+    @Override
     public void toSAX(ContentHandler contentHandler,
             LexicalHandler lexicalHandler, NamespaceSupport namespaces)
             throws SAXException
@@ -438,8 +455,6 @@ public class Params extends AbstractWingElement implements StructuralElement
             attributes.put(A_OPERATIONS, operations);
         }
 
-        
-        
         if (this.returnValue != null)
         {
             attributes.put(A_RETURN_VALUE, this.returnValue);
@@ -449,7 +464,6 @@ public class Params extends AbstractWingElement implements StructuralElement
         {
             attributes.put(A_SIZE, this.size);
         }
-
 
         if (!this.evtBehavior.equals(""))
         {
@@ -500,10 +514,6 @@ public class Params extends AbstractWingElement implements StructuralElement
         {
             attributes.put(A_CHOICES_CLOSED, true);
         }
-        if (this.i18nable)
-        {
-            attributes.put(A_I18NABLE, true);
-        }
 
         if (this.autofocus != null)
         {
@@ -516,6 +526,23 @@ public class Params extends AbstractWingElement implements StructuralElement
         }
 
         startElement(contentHandler, namespaces, E_PARAMS, attributes);
+        
+        /**
+         * if the metadata is internationalizable builds a param element inside 
+         * params with the diferent language options
+         */
+        if (langOptions.size()>0)
+        {
+        	AttributeMap  langAttributes = new AttributeMap();
+        	langAttributes.put(A_PARAM_NAME, "langs");
+        	startElement(contentHandler, namespaces, E_PARAM, langAttributes);
+        	for (Option option : langOptions)
+            {
+                option.toSAX(contentHandler, lexicalHandler, namespaces);
+            }
+        	endElement(contentHandler, namespaces, E_PARAM);
+        }
+        
         endElement(contentHandler, namespaces, E_PARAMS);
     }
 

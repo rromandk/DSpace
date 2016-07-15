@@ -12,6 +12,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import org.dspace.core.ConfigurationManager;
+import org.dspace.services.factory.DSpaceServicesFactory;
+
 import java.util.regex.Pattern;
 import java.util.regex.Matcher;
 
@@ -33,6 +35,15 @@ public class DCInput
 
     /** the DC namespace schema */
     private String dcSchema = null;
+    
+    /** the input language */
+    private boolean language = false;
+    
+    /** the language code use for the input */
+    private static final String LanguageName = "cic_common_languages";
+
+    /** the language list and their value */
+    private List<String> valueLanguageList = null;
 
     /** a label describing input */
     private String label = null;
@@ -70,9 +81,7 @@ public class DCInput
     /** is the entry closed to vocabulary terms? */
     private boolean closedVocabulary = false;
 
-    /** if the field is internationalizable */
-    private boolean i18nable = false;
-    
+
     /** allowed document types */
     private List<String> typeBind = null;
 
@@ -114,6 +123,14 @@ public class DCInput
             dcSchema = MetadataSchema.DC_SCHEMA;
         }
 
+        //check if the input have a language tag
+        language = Boolean.valueOf(fieldMap.get("language"));
+        valueLanguageList = new ArrayList();
+        if (language)
+        {
+            valueLanguageList = listMap.get(LanguageName);
+        }
+        
         String repStr = fieldMap.get("repeatable");
         repeatable = "true".equalsIgnoreCase(repStr)
                 || "yes".equalsIgnoreCase(repStr);
@@ -155,10 +172,6 @@ public class DCInput
         	}
         }
         
-        // is i18nable ?
-        String i18nableStr = fieldMap.get("i18n");
-        i18nable = "true".equalsIgnoreCase(i18nableStr)
-                || "yes".equalsIgnoreCase(i18nableStr);
     }
 
     /**
@@ -282,6 +295,16 @@ public class DCInput
     {
         return dcQualifier;
     }
+    
+    /**
+     * Get the language for this form row.
+     * 
+     * @return the language state
+     */
+    public boolean getLanguage()
+    {
+        return language;
+    }
 
     /**
      * Get the hint for this form row, formatted for an HTML table
@@ -323,6 +346,17 @@ public class DCInput
         return valueList;
     }
 
+    /**
+     * Get the list of language tags 
+     * 
+     * @return the list of language
+     */
+
+    public List<String> getValueLanguageList() 
+    {
+        return valueLanguageList;
+    }
+    
     /**
      * Get the name of the controlled vocabulary that is associated with this
      * field
@@ -404,12 +438,12 @@ public class DCInput
 	 * The closed attribute of the vocabulary tag for this field as set in 
 	 * input-forms.xml
 	 * 
-	 * <code> 
+	 * {@code 
 	 * <field>
 	 *     .....
 	 *     <vocabulary closed="true">nsrc</vocabulary>
 	 * </field>
-	 * </code>
+	 * }
 	 * @return the closedVocabulary flags: true if the entry should be restricted 
 	 *         only to vocabulary terms, false otherwise
 	 */
@@ -427,7 +461,7 @@ public class DCInput
 			return true;
 		
 		//checks if the pattern must considerate the CASE_SENSITIVE option 
-		boolean is_case_sensitive = ConfigurationManager.getBooleanProperty("inputforms.field.typebind.case_sensitive", false);
+		boolean is_case_sensitive = DSpaceServicesFactory.getInstance().getConfigurationService().getBooleanProperty("inputforms.field.typebind.case_sensitive", false);
 		
 		for(int i=0;i<typeBind.size();i++){
 			//build a regular expression
@@ -441,10 +475,6 @@ public class DCInput
 		}
 		//If there is a type denied, and this input does not match with any denied type, then returns "true".
 		return (negateTypeBind || false);
-	}
-	
-	public boolean isI18nable() {
-		return i18nable;
 	}
 	
 }

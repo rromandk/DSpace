@@ -1,5 +1,6 @@
 package ar.edu.unlp.sedici.dspace.content.authority;
 
+import org.dspace.content.Collection;
 import org.dspace.content.authority.Choice;
 import org.dspace.content.authority.Choices;
 import org.dspace.content.authority.DCInputAuthority;
@@ -17,7 +18,7 @@ public class CICBADCInputAuthority extends DCInputAuthority {
 		super();
 	}
 	
-	public Choices getBestMatch(String field, String text, int collection, String locale)
+	public Choices getBestMatch(String field, String text, Collection collection, String locale)
 	{
 		Choices choices = super.getBestMatch(field, text, collection, locale);
 		for(Choice c : choices.values){
@@ -26,7 +27,7 @@ public class CICBADCInputAuthority extends DCInputAuthority {
 		return choices;
 	}
 	
-	public Choices getMatches(String field, String query, int collection, int start, int limit, String locale){
+	public Choices getMatches(String field, String query, Collection collection, int start, int limit, String locale){
 		Choices choices = super.getMatches(field, query, collection, start, limit, locale);
 		for(Choice c : choices.values){
 			copyLabelValue(c);

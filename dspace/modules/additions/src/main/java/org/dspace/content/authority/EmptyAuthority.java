@@ -1,5 +1,7 @@
 package org.dspace.content.authority;
 
+import org.dspace.content.Collection;
+
 /**
  * This authority will be used if you want to use and edit the authority hidden inputs,
  * without using a set of authorities predefined in some place. In combination
@@ -14,7 +16,7 @@ public class EmptyAuthority implements ChoiceAuthority {
 	 * @return empty Choices.
 	 */
 	@Override
-	public Choices getMatches(String field, String text, int collection,
+	public Choices getMatches(String field, String text, Collection collection,
 			int start, int limit, String locale) {
 		Choice v[]= new Choice[1];
 		v[0]= new Choice("0",text,"0");
@@ -22,7 +24,7 @@ public class EmptyAuthority implements ChoiceAuthority {
 	}
 
 	@Override
-	public Choices getBestMatch(String field, String text, int collection,
+	public Choices getBestMatch(String field, String text, Collection collection,
 			String locale) {
 		return getMatches(field, text, collection, 0, 0, locale);
 	}
