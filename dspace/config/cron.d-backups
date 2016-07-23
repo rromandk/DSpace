@@ -18,7 +18,7 @@ NFS_STORE = "127.0.0.1"
 ##################################################################################
 
 #backups de la base de datos postgres de CIC-DIGITAL dspace_cic@data-pg.sedici.unlp.edu.ar (todos los días de la semana a las 20:00hs)
-0 20 * * 1,2,3,4,5      root    sh $DSPACE_BACKUP_DIR/do_pgdump.sh
+0 20 * * 1,2,3,4,5      root    sh $DSPACE_BACKUP_DIR/do_pgdump.sh -q
 
 #backup de la base de datos mysql local con las autoridades de CIC-DIGITAL (de lunes a viernes a las 1230)
 30 12 * * 1,2,3,4,5     root    mysqldump --add-drop-table --routines --events --add-drop-table --all-databases --force | gzip -c > $DSPACE_BACKUP_DIR/all-databases.sql.tgz
@@ -34,7 +34,7 @@ NFS_STORE = "127.0.0.1"
 38 4 2 * *      root    tar -czf $DSPACE_BACKUP_DIR/config/config.backup.$($DATESTR).tgz $DSPACE_INSTALL_DIR/config/
 
 #backups de drupal para autoridades de CIC-DIGITAL (de lunes a viernes a las 4:50AM)
-50 4 * * 1,2,3,4,5      root    tar -czf $DSPACE_BACKUP_DIR/auth/auth.htdocs.mes-$(date +%m).tgz /var/www/auth/
+50 4 * * 1,2,3,4,5      root    tar -czf $DSPACE_BACKUP_DIR/auth/auth.htdocs.mes-`date +%m`.tgz /var/www/auth/
 
 ##################################################################################
 ##  SOLR
