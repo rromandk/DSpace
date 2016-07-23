@@ -24,7 +24,7 @@ NFS_STORE = "127.0.0.1"
 30 12 * * 1,2,3,4,5     root    mysqldump --add-drop-table --routines --events --add-drop-table --all-databases --force | gzip -c > $DSPACE_BACKUP_DIR/all-databases.sql.tgz
 
 #Backup en AIP una vez por semana
-5 23 * * sun    dspace  date && $DSPACE/bin/dspace packager -d -a -t AIP -e alira@sedici.unlp.edu.ar -u -i 11746/0 $DSPACE/backups/aip/aip-site.zip && date
+5 23 * * sun    dspace  date && $DSPACE_INSTALL_DIR/bin/dspace packager -d -a -t AIP -e alira@sedici.unlp.edu.ar -u -i 11746/0 $DSPACE_BACKUP_DIR/backups/aip/aip-site.zip && date
 
 ##################################################################################
 ##  AUTH AUTH AUTH AUTH AUTH AUTH AUTH AUTH AUTH AUTH AUTH AUTH AUTH AUTH AUTH ##
