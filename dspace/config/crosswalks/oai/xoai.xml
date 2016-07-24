@@ -542,8 +542,8 @@
             <!-- Just an alias -->
         </Set>
         <Set id="snrdSet">
-            <Spec>SNRD</Spec>
-            <Name>SNRD</Name>
+            <Spec>snrd</Spec>
+            <Name>Sistema Nacional de Repositorios Digitales</Name>
             <!-- Just an alias -->
         </Set>
     </Sets>
