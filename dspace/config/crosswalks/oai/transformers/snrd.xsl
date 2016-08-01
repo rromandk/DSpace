@@ -306,13 +306,13 @@
 					informe técnico
 				</xsl:when>				
 				<xsl:when test="$theValue='Informe de investigador'">
-					informe científico
+					informe técnico
 				</xsl:when>
 				<xsl:when test="$theValue='Informe de becario'">
-					informe científico
+					informe técnico
 				</xsl:when>
 				<xsl:when test="$theValue='Informe de personal de apoyo'">
-					informe científico
+					informe técnico
  				</xsl:when>
 				<xsl:when test="$theValue='Tesis de doctorado'">
 					tesis doctoral
