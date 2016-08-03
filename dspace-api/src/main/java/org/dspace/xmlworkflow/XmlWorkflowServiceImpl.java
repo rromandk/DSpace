@@ -479,8 +479,10 @@ public class XmlWorkflowServiceImpl implements XmlWorkflowService {
 
         installItemService.installItem(context, wfi);
 
-        //Notify
-        notifyOfArchive(context, item, collection);
+        //Notify the submitter if it's not the same that approves it
+        if(context.getCurrentUser().getID()!=item.getSubmitter().getID()){
+        	notifyOfArchive(context, item, collection);
+        }
 
         //Clear any remaining workflow metadata
         itemService.clearMetadata(context, item, WorkflowRequirementsService.WORKFLOW_SCHEMA, Item.ANY, Item.ANY, Item.ANY);
