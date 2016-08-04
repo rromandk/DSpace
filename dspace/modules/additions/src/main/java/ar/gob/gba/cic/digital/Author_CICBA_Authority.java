@@ -15,7 +15,7 @@ public class Author_CICBA_Authority extends CICBAAuthority {
 		pqs.setNsPrefix("foaf", NS_FOAF);
 		pqs.setNsPrefix("dc", NS_DC);
 
-		pqs.setCommandText("SELECT ?person ?name ?surname ?id ?affiliation\n");
+		pqs.setCommandText("SELECT ?person ?name ?surname ?affiliation\n");
 		pqs.append("WHERE {\n");
 		pqs.append("?person a foaf:Person ; foaf:givenName ?name ; foaf:familyName ?surname .\n");
 		pqs.append("OPTIONAL { ?person foaf:Organization ?a ; dc:identifier ?id . ?a a foaf:Organization ; dc:title ?affiliation }\n");
@@ -34,7 +34,7 @@ public class Author_CICBA_Authority extends CICBAAuthority {
 		pqs.setNsPrefix("foaf", NS_FOAF);
 		pqs.setNsPrefix("dc", NS_DC);
 
-		pqs.setCommandText("SELECT ?person ?name ?surname ?id ?affiliation\n");
+		pqs.setCommandText("SELECT ?person ?name ?surname  ?affiliation\n");
 		pqs.append("WHERE {\n");
 		pqs.append("?person a foaf:Person ; foaf:givenName ?name ; foaf:familyName ?surname .\n");
 		pqs.append("OPTIONAL { ?person foaf:Organization ?a ; dc:identifier ?id . ?a a foaf:Organization ; dc:title ?affiliation }\n");
