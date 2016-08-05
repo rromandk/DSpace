@@ -173,10 +173,10 @@
 					review
 				</xsl:when>
 				<xsl:when test="$theValue ='Contribucion a revista'">
-					contributionToPeriodical
+					other
 				</xsl:when>
 				<xsl:when test="$theValue ='Contribución a revista'">
-					contributionToPeriodical
+					other
 				</xsl:when>
 				<xsl:when test="$theValue ='Informe tecnico/Reporte'">
 					report
@@ -252,6 +252,12 @@
 				</xsl:when>
 				<xsl:when test="$theValue ='Audio'">
 					other
+				</xsl:when>
+				<xsl:when test="$theValue='Informe tecnico'">
+					report
+				</xsl:when>
+				<xsl:when test="$theValue='Informe técnico'">
+					report
 				</xsl:when>
 				<!-- No se exporta 
 				<xsl:when test="$value='Objeto de Aprendizaje'">
