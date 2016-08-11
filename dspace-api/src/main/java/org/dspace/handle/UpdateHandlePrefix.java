@@ -110,11 +110,11 @@ public class UpdateHandlePrefix
                         System.out.print("Updating metadatavalues table... ");
                         MetadataValueService metadataValueService = ContentServiceFactory.getInstance().getMetadataValueService();
                         int updMeta = 0;
-                        for(String prefix : allHdlPrefixes){
-                            List<MetadataValue> metadataValues = metadataValueService.findByValueLike(context, prefix);
+                        for(String handlePrefix : allHdlPrefixes){
+                            List<MetadataValue> metadataValues = metadataValueService.findByValueLike(context, handlePrefix);
                             updMeta = updMeta + metadataValues.size();
                             for (MetadataValue metadataValue : metadataValues) {
-                                metadataValue.setValue(prefix + newH);
+                            	metadataValue.setValue(metadataValue.getValue().replace(handlePrefix + "handle/"+ oldH, handlePrefix + "handle/" + newH));
                                 metadataValueService.update(context, metadataValue, true);
                             }
                         }
