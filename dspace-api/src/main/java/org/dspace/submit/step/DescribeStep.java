@@ -768,14 +768,7 @@ public class DescribeStep extends AbstractProcessingStep
             	String editorToolbar=configurationService.getProperty("input-forms."+metadataField+".editorToolbar");
                 if(editorToolbar!=null)
                 {
-                	s=s.replace('"',' ');
-                	s=s.replace("<p>","");
-                	s=s.replace("</p>","");
-                	s=s.replace("<br />","");
-                	s=s.replace("\r\n\r\n","\r\n");
-                	s=s.replaceAll("<img alt=","\\$latex");
-                	s=s.replaceAll("src= http://latex.codecogs.com/(.*) />", "\\$");
-                	s=s.replaceAll("&nbsp;", "");
+                	s=this.sanitizarTexto(s);
                 } 
             
                 if (hasLanguageTag && !repeated && key == 0) 
@@ -814,6 +807,25 @@ public class DescribeStep extends AbstractProcessingStep
             }
             i++;
         }
+    }
+    
+    private String sanitizarTexto(String s){
+    	s=s.replace('"',' ');
+    	s=s.replace("<p>","");
+    	s=s.replace("</p>","");
+    	s=s.replace("<br />","");
+    	s=s.replace("&ntilde;","ñ");
+    	s=s.replace("&#39;","'");
+    	s=s.replace("&aacute;","á");
+    	s=s.replace("&eacute;","é");
+    	s=s.replace("&iacute;","í");
+    	s=s.replace("&oacute;","ó");
+    	s=s.replace("&uacute;","ú");
+    	s=s.replace("\r\n\r\n","\r\n");
+    	s=s.replaceAll("<img alt=","\\$latex");
+    	s=s.replaceAll("src= http://latex.codecogs.com/(.*) />", "\\$");
+    	s=s.replaceAll("&nbsp;", "");
+    	return s;
     }
 
     /**
