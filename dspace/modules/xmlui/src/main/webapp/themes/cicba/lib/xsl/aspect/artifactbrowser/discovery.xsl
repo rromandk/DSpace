@@ -273,57 +273,9 @@
                     <xsl:with-param name="classname" select="'dcterms-creators'"/>
                 </xsl:call-template>
                 </div></div>
-                
-                <!-- description -->
-               <xsl:choose>
-                	<xsl:when test="dri:list[@n=(concat($handle, ':dcterms.abstract'))]/dri:item/dri:hi">
-                		<div class="row">
-                			<div class="col-md-12">
-                				<xsl:for-each select="dri:list[@n=(concat($handle, ':dcterms.abstract'))]/dri:item[string-length(dri:hi) > 0]">
-		                            <xsl:for-each select="./child::node()">
-			                            <xsl:choose>
-			                            	<xsl:when test="self::text()">
-			                            		<xsl:value-of select="." disable-output-escaping="yes"/>
-			                            	</xsl:when>
-			                            	<xsl:otherwise>
-			                            		<xsl:apply-templates select="."/>
-			                            	</xsl:otherwise>
-			                            </xsl:choose>	
-		                            </xsl:for-each>
-		                            <xsl:text>...</xsl:text>
-		                        	<br/>
-		                        </xsl:for-each>
-                    		</div>
-                    	</div>
-                	</xsl:when >
-                	<!-- Muestra el fulltext, excepto el item que contiene la informacion tecnica -->
-                	<xsl:when test="dri:list[@n=(concat($handle, ':fulltext'))]/dri:item/dri:hi and (substring(dri:list[@n=(concat($handle, ':fulltext'))]/dri:item, 5, 13) != 'stream_source')">
-                		 <div class="row">
-                		 	<div class="col-md-12">
-                		 		 <xsl:for-each select="dri:list[@n=(concat($handle, ':fulltext'))]/dri:item">
-                		 		 	<xsl:if test="(substring(., 5, 13) != 'stream_source')">
-			                            <xsl:apply-templates select="."/>
-			                            <xsl:text>...</xsl:text>
-			                            <br/>
-		                            </xsl:if>
-		                        </xsl:for-each>                         
-		                    </div>
-                    	</div>
-                	</xsl:when>
-                	<!-- si no tiene abstract o fulltext con hi muestra el campo abstract -->
-                	<xsl:otherwise>
-                		<div class="row">
-                			<div class="col-md-12">
-                				<xsl:value-of select="concat(substring(dri:list[@n=(concat($handle, ':dcterms.abstract'))]/dri:item,1,300),concat(substring-before(substring(dri:list[@n=(concat($handle, ':dcterms.abstract'))]/dri:item/text(),300,400),'.'), '.'))" disable-output-escaping="yes"/>
-	                            <xsl:text>...</xsl:text>
-	                            <br/>
-                    		</div>
-                    	</div>
-                	</xsl:otherwise>
-                </xsl:choose>
-                
+                                
                 <!-- dcterms.abstract -->
-               <!-- <xsl:if test="dri:list[@n=(concat($handle, ':dcterms.abstract'))]/dri:item/dri:hi">
+               	<xsl:if test="dri:list[@n=(concat($handle, ':dcterms.abstract'))]/dri:item/dri:hi">
                 	<div class="row"><div class="col-md-12">
                         <xsl:for-each select="dri:list[@n=(concat($handle, ':dcterms.abstract'))]/dri:item[string-length(dri:hi) > 0]">
                             <xsl:apply-templates select="."/>
@@ -340,7 +292,7 @@
                             <br/>
                         </xsl:for-each>
                     </div></div>
-                </xsl:if>  -->
+                </xsl:if>
                 
                 
                 <!-- Generate COinS with empty content per spec but force Cocoon to not create a minified tag  -->
