@@ -592,7 +592,6 @@ ul.item-file-list{
 }
 
 .item-file-list a.thumbnail_file > img:FIRST-CHILD {
-	height: 54px;
 	width: 60px;
 }
 

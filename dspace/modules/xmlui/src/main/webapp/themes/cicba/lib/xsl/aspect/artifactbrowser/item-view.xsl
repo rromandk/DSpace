@@ -369,7 +369,9 @@
 		            </xsl:otherwise>
 		        </xsl:choose>
 		        <!-- Campo dcterms.identifier.url -->
-		        <xsl:apply-templates select="./mets:dmdSec/mets:mdWrap/mets:xmlData/dim:dim" mode="dctermsIdentifierUrl"/>		        
+            	<ul class="media-list item-file-list">
+			        <xsl:apply-templates select="./mets:dmdSec/mets:mdWrap/mets:xmlData/dim:dim" mode="dctermsIdentifierUrl"/>		        
+		        </ul>
 		        <!-- optional: Altmeric.com badge and PlumX widget -->
 		        <xsl:if test='confman:getProperty("altmetrics", "altmetric.enabled") and ($identifier_doi or $identifier_handle)'>
 		            <xsl:call-template name='impact-altmetric'/>
@@ -418,6 +420,7 @@
     </xsl:template>
 	
 	<xsl:template match="mets:file" priority="10">
+		<h3><i18n:text>xmlui.ArtifactBrowser.ItemViewer.downloads</i18n:text></h3>
 		<li class="media">
 			<xsl:variable name="documentTitle">
 				<xsl:value-of select="xmlui:replaceAll(substring-after(/mets:METS/@ID,':'), '\/', '_')"/>
@@ -436,6 +439,7 @@
 					<xsl:choose>
 						<xsl:when test="$file_type = 'image'">mime_img.png</xsl:when>
 						<xsl:when test="$file_subtype = 'pdf'">mime_pdf.png</xsl:when>
+						<xsl:when test="$file_subtype = 'vnd.ms-excel'">mime_msexcel.png</xsl:when>
 						<xsl:when test="$file_subtype = 'msword'">mime_msword.png</xsl:when>
 						<xsl:otherwise>mime.png</xsl:otherwise>
 					</xsl:choose>
@@ -493,11 +497,19 @@
 	</xsl:template>
 	
 	<xsl:template match="dim:dim" mode="dctermsIdentifierUrl">
+		<li class="media">
+			<a class="media-left thumbnail_file">
+				<img alt="Icon" src="{concat($theme-path, '/images/', 'externo.png')}" />
+			</a>
+			<div class="media-body">
 				<xsl:call-template name="render-metadata">
 					<xsl:with-param name="field" select="'dcterms.identifier.url'" />
 					<xsl:with-param name="container" select="'h5'" />
 					<xsl:with-param name="is_linked_authority" select="'true'"/>
+					<xsl:with-param name="show_label" select="'false'" />
 				</xsl:call-template>
+			</div>
+		</li>
 	</xsl:template>
 	
 	 <xsl:template match="dim:dim" mode="itemSummaryView-DIM">
