@@ -14,6 +14,7 @@ CKEDITOR.editorConfig = function( config ) {
 	//config.entities=false;
 	//config.extraAllowedContent ='';
 	//config.disallowedContent= 'h1';
+	config.entities = false;
 	config.plugins =
 		'about,' +
 		'a11yhelp,' +
