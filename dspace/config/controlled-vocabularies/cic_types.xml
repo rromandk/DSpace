@@ -5,6 +5,7 @@
 		<node id="cic:types/articulo/articulo" label="Artículo"/>
 		<node id="cic:types/articulo/comunicación" label="Comunicacion"/>
 		<node id="cic:types/articulo/revision" label="Revisión"/>
+		<node id="cic:types/articulo/resumen" label="Resumen"/>
 		<node id="cic:types/articulo/contribucionARevista" label="Contribucion a revista"/>
 		<node id="cic:types/articulo/informeTecnico" label="Informe técnico"/>
 		<node id="cic:types/informeCientifico/informeDeInvestigador" label="Informe de investigador"/>

@@ -884,6 +884,10 @@
 		<stored-value>cic:types/articulo/revision</stored-value>
 	</pair>
 	<pair>
+		<displayed-value>Resumen</displayed-value>
+		<stored-value>cic:types/articulo/resumen</stored-value>
+	</pair>
+	<pair>
 		<displayed-value>Contribucion a revista</displayed-value>
 		<stored-value>cic:types/articulo/contribucionARevista</stored-value>
 	</pair>
