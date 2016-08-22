@@ -9,7 +9,7 @@
     xmlns:java="http://xml.apache.org/xalan/java"
     xmlns:encoder="xalan://java.net.URLEncoder"
 	xmlns:helper="ar.edu.unlp.sedici.dspace.util.HelperFunctions" 
-	xmlns:confman="org.dspace.services.ConfigurationService"
+	xmlns:confman="org.dspace.core.ConfigurationManager"
     xmlns:math="http://exslt.org/math"
     xmlns:sets="http://exslt.org/sets"
     xmlns:common="http://exslt.org/common"
