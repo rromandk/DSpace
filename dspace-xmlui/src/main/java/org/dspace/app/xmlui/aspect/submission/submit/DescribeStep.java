@@ -199,13 +199,21 @@ public class DescribeStep extends AbstractSubmissionStep
                 java.util.List<MetadataValue> mtd = itemService.getMetadataByMetadataString(item, "dc.type");
                 if( (mtd != null) && (mtd.size() >0) )
                 {
+                	MetadataValue mtv = mtd.get(0);
                 	if(useAuthority)
                 	{
-                		documentType = mtd.get(0).getAuthority();
+                		if(mtv.getAuthority() != null)
+                		{
+                			documentType = mtv.getAuthority();
+                		}else{
+                			if(! mtv.getValue().isEmpty()){
+                				getLogger().warn("'dc.type' has a value assigned but no authority (inputforms.field.typebind.use_authority property set to true).");
+                			} 
+                		}
                 	}
                 	else{
                 	
-	                    documentType = mtd.get(0).getValue();
+	                    documentType = mtv.getValue();
 	                }
                 }
                 // Iterate over all inputs and add it to the form.

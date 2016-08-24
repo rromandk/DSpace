@@ -151,10 +151,27 @@ public class DescribeStep extends AbstractProcessingStep
 
         // Fetch the document type (dc.type)
         String documentType = "";
-        if( (itemService.getMetadataByMetadataString(item, "dc.type") != null) && (itemService.getMetadataByMetadataString(item, "dc.type").size() >0) )
+        boolean useAuthority = configurationService.getBooleanProperty("inputforms.field.typebind.use_authority",false);
+        java.util.List<MetadataValue> mtdList = itemService.getMetadataByMetadataString(item, "dc.type");
+        if( mtdList != null && mtdList.size() >0 )
         {
-        	MetadataValue mtv = itemService.getMetadataByMetadataString(item, "dc.type").get(0);
-            documentType = (configurationService.getBooleanProperty("inputforms.field.typebind.use_authority",false))? mtv.getAuthority() : mtv.getValue();
+        	MetadataValue mtv = mtdList.get(0);
+            if(useAuthority)
+        	{
+        		if(mtv.getAuthority() != null)
+        		{
+        			documentType = mtv.getAuthority();
+        		}else{
+        			if(! mtv.getValue().isEmpty()){
+        				log.warn("'dc.type' has a value assigned but no authority (inputforms.field.typebind.use_authority property set to true).");
+        			} 
+        			
+        		}
+        	}
+        	else{
+        	
+                documentType = mtv.getValue();
+            }
         }
         
         // Step 1:
