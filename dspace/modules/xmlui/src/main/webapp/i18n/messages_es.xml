@@ -705,6 +705,7 @@
 <message key="xmlui.Submission.submit.DescribeStep.controlledvocabulary.filter.button">Filtrar</message>
 <message key="xmlui.Submission.submit.DescribeStep.controlledvocabulary.loading">Espere mientras se carga el vocabulario controlado.</message>
 <message key="xmlui.Submission.submit.DescribeStep.controlledvocabulary.error">Hubo algún error en la carga del vocabulario controlado, por favor, inténtelo de nuevo más adelante.</message>
+<message key="xmlui.Submission.submit.DescribeStep.authority.required">Debe configurarse la autoridad de este metadato debido a que es requerida.</message>
  
 	<!-- org.dspace.app.xmlui.Submission.submit.AccessStep -->
     <message key="xmlui.Submission.submit.AccessStep.head">Ajuste de Accesos</message>

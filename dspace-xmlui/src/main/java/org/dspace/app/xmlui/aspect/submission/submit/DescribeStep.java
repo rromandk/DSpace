@@ -87,6 +87,8 @@ public class DescribeStep extends AbstractSubmissionStep
         message("xmlui.Submission.submit.DescribeStep.series_name");
     protected static final Message T_report_no=
         message("xmlui.Submission.submit.DescribeStep.report_no");
+    protected static final Message T_authority_required=
+    	message("xmlui.Submission.submit.DescribeStep.authority.required");
         
     /**
      * A shared resource of the inputs reader. The 'inputs' are the
@@ -470,17 +472,9 @@ public class DescribeStep extends AbstractSubmissionStep
                 {
                     fullName.setRequired();
                 }
-                if (isFieldInError(fieldName))
-                {
-                    if (dcInput.getWarning() != null && dcInput.getWarning().length() > 0)
-                    {
-                        fullName.addError(dcInput.getWarning());
-                    }
-                    else
-                    {
-                        fullName.addError(T_required_field);
-                    }
-                }
+                
+                checkForErrors(fieldName, dcInput, fullName);
+                
                 if (dcInput.isRepeatable() && !readonly)
                 {
                     fullName.enableAddOperation();
@@ -591,17 +585,9 @@ public class DescribeStep extends AbstractSubmissionStep
                 {
                     fullDate.setRequired();
                 }
-                if (isFieldInError(fieldName))
-                {
-                    if (dcInput.getWarning() != null && dcInput.getWarning().length() > 0)
-                    {
-                        fullDate.addError(dcInput.getWarning());
-                    }
-                    else
-                    {
-                        fullDate.addError(T_required_field);
-                    }
-                }
+                
+                checkForErrors(fieldName, dcInput, fullDate);
+                
                 if (dcInput.isRepeatable() && !readonly)
                 {
                     fullDate.enableAddOperation();
@@ -699,17 +685,9 @@ public class DescribeStep extends AbstractSubmissionStep
                 {
                     fullSeries.setRequired();
                 }
-                if (isFieldInError(fieldName))
-                {
-                    if (dcInput.getWarning() != null && dcInput.getWarning().length() > 0)
-                    {
-                        fullSeries.addError(dcInput.getWarning());
-                    }
-                    else
-                    {
-                        fullSeries.addError(T_required_field);
-                    }
-                }
+                
+                checkForErrors(fieldName, dcInput, fullSeries);
+                
                 if (dcInput.isRepeatable() && !readonly)
                 {
                     fullSeries.enableAddOperation();
@@ -780,17 +758,9 @@ public class DescribeStep extends AbstractSubmissionStep
                 {
                     qualdrop.setRequired();
                 }
-                if (isFieldInError(fieldName))
-                {
-                    if (dcInput.getWarning() != null && dcInput.getWarning().length() > 0)
-                    {
-                        qualdrop.addError(dcInput.getWarning());
-                    }
-                    else
-                    {
-                        qualdrop.addError(T_required_field);
-                    }
-                }
+                
+                checkForErrors(fieldName, dcInput, qualdrop);
+                
                 if (dcInput.isRepeatable() && !readonly)
                 {
                     qualdrop.enableAddOperation();
@@ -885,17 +855,9 @@ public class DescribeStep extends AbstractSubmissionStep
                 {
                     textArea.setRequired();
                 }
-                if (isFieldInError(fieldName))
-                {
-                    if (dcInput.getWarning() != null && dcInput.getWarning().length() > 0)
-                    {
-                        textArea.addError(dcInput.getWarning());
-                    }
-                    else
-                    {
-                        textArea.addError(T_required_field);
-                    }
-                }
+                
+                checkForErrors(fieldName, dcInput, textArea);
+                
                 if (dcInput.isRepeatable() && !readonly)
                 {
                     textArea.enableAddOperation();
@@ -988,17 +950,9 @@ public class DescribeStep extends AbstractSubmissionStep
                 {
                     select.setRequired();
                 }
-                if (isFieldInError(fieldName))
-                {
-                    if (dcInput.getWarning() != null && dcInput.getWarning().length() > 0)
-                    {
-                        select.addError(dcInput.getWarning());
-                    }
-                    else
-                    {
-                        select.addError(T_required_field);
-                    }
-                }
+                
+                checkForErrors(fieldName, dcInput, select);
+                
                 if (dcInput.isRepeatable() || dcValues.size() > 1)
                 {
                         // Use the multiple functionality from the HTML
@@ -1058,17 +1012,9 @@ public class DescribeStep extends AbstractSubmissionStep
                 {
                     select.setRequired();
                 }
-                if (isFieldInError(fieldName))
-                {
-                    if (dcInput.getWarning() != null && dcInput.getWarning().length() > 0)
-                    {
-                        select.addError(dcInput.getWarning());
-                    }
-                    else
-                    {
-                        select.addError(T_required_field);
-                    }
-                }
+                
+                checkForErrors(fieldName, dcInput, select);
+                
                 if (dcInput.isRepeatable() || dcValues.size() > 1)
                 {
                         // Use the multiple functionality from the HTML
@@ -1143,17 +1089,8 @@ public class DescribeStep extends AbstractSubmissionStep
                 {
                     listField.setRequired();
                 }
-                if (isFieldInError(fieldName))
-                {
-                    if (dcInput.getWarning() != null && dcInput.getWarning().length() > 0)
-                    {
-                        listField.addError(dcInput.getWarning());
-                    }
-                    else
-                    {
-                        listField.addError(T_required_field);
-                    }
-                }
+                
+                checkForErrors(fieldName, dcInput, listField);
 
         
                 //Setup each of the possible options
@@ -1242,17 +1179,9 @@ public class DescribeStep extends AbstractSubmissionStep
                 {
                     text.setRequired();
                 }
-                if (isFieldInError(fieldName))
-                {
-                    if (dcInput.getWarning() != null && dcInput.getWarning().length() > 0)
-                    {
-                        text.addError(dcInput.getWarning());
-                    }
-                    else
-                    {
-                        text.addError(T_required_field);
-                    }
-                }
+                
+                checkForErrors(fieldName, dcInput, text);
+                
                 if (dcInput.isRepeatable() && !readonly)
                 {
                     text.enableAddOperation();
@@ -1358,6 +1287,43 @@ public class DescribeStep extends AbstractSubmissionStep
                 return clean;
         }
 
+        /**
+		 * 
+		 * Check for inconsistency errors and add warnings if:
+		 * - field is in the errorField list
+		 * 
+		 * @param fieldName: the name of the field to check for errors
+		 * @param dcInput: the DCInput object corresponding that fieldName
+		 * @param field: the Wing Object corresponding to that fieldName in form
+		 * @throws WingException
+		 */
+		private void checkForErrors(String fieldName, DCInput dcInput, Field field) throws WingException {
+			if (isFieldInError(fieldName))
+            {
+				if (dcInput.getWarning() != null && dcInput.getWarning().length() > 0)
+				{
+				    field.addError(dcInput.getWarning());
+				}
+				else
+				{
+				    field.addError(T_required_field);
+				}
+            }
+			
+			java.util.List<MetadataValue> mdtList = itemService.getMetadata(submission.getItem(),dcInput.getSchema(),dcInput.getElement(), dcInput.getQualifier(),"*");
+			if(mdtList.size() > 0){
+				MetadataValue mdt = mdtList.get(0);
+				if (metadataAuthorityService.isAuthorityRequired(
+						metadataAuthorityService.makeFieldKey(mdt.getMetadataField())) &&
+	                    (mdt.getAuthority() == null || mdt.getAuthority().isEmpty() || 
+	                    	(mdt.getAuthority().equals(Choices.getConfidenceText(Choices.CF_NOVALUE)) &&
+	                    			mdt.getConfidence() == Choices.CF_NOVALUE)))
+	            {
+					field.addError(T_authority_required);
+	            }
+			}
+		}
+        
         public void addLanguageOptions(Field field, DCInput dcInput) throws WingException
         {
         	if(dcInput.getLanguage())

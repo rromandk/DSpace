@@ -805,17 +805,18 @@ public class DescribeStep extends AbstractProcessingStep
                     String authKey = auths.size() > i ? auths.get(i) : null;
                     String sconf = (authKey != null && confs.size() > i) ? confs.get(i) : null;
                     if (metadataAuthorityService.isAuthorityRequired(fieldKey) &&
-                            (authKey == null || authKey.length() == 0))
+                            (authKey == null || authKey.length() == 0 || (authKey.equals(Choices.getConfidenceText(Choices.CF_NOVALUE)) &&
+                            		Choices.getConfidenceValue(sconf) == Choices.CF_NOVALUE)))
                     {
                         log.warn("Skipping value of "+metadataField+" because the required Authority key is missing or empty.");
                         addErrorField(request, metadataField);
+                        //The authKey is set as empty to avoid the metadata loss
+                        authKey=Choices.getConfidenceText(Choices.CF_NOVALUE);
+                        sconf= Choices.getConfidenceText(Choices.CF_NOVALUE);
                     }
-                    else
-                    {
                         itemService.addMetadata(context, item, schema, element, qualifier, lang, s,
                                 authKey, (sconf != null && sconf.length() > 0) ?
                                         Choices.getConfidenceValue(sconf) : Choices.CF_ACCEPTED);
-                    }
                 }
                 else
                 {
