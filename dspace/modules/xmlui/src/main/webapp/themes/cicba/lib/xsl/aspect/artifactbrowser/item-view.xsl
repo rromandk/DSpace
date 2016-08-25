@@ -369,9 +369,11 @@
 		            </xsl:otherwise>
 		        </xsl:choose>
 		        <!-- Campo dcterms.identifier.url -->
-            	<ul class="media-list item-file-list">
-			        <xsl:apply-templates select="./mets:dmdSec/mets:mdWrap/mets:xmlData/dim:dim" mode="dctermsIdentifierUrl"/>		        
-		        </ul>
+		        <xsl:if test="//mets:dmdSec/mets:mdWrap/mets:xmlData/dim:dim/dim:field[@mdschema='dcterms' and @element='identifier' and @qualifier='url']">
+					<ul class="media-list item-file-list">
+				        <xsl:apply-templates select="./mets:dmdSec/mets:mdWrap/mets:xmlData/dim:dim" mode="dctermsIdentifierUrl"/>		        
+			        </ul>
+			    </xsl:if>
 		        <!-- optional: Altmeric.com badge and PlumX widget -->
 		        <xsl:if test='confman:getProperty("altmetrics", "altmetric.enabled") and ($identifier_doi or $identifier_handle)'>
 		            <xsl:call-template name='impact-altmetric'/>
