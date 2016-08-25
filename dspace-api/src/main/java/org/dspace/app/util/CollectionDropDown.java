@@ -62,9 +62,7 @@ public class CollectionDropDown {
             //add one more level of community
             List<Community> parentCommunities=com.getParentCommunities();
             for(Community c : parentCommunities){
-            	if(!c.getName().equals("Centros") && !c.getName().equals("CICBA") && !c.getName().equals("Investigadores en Universidades Nacionales de la provincia de Buenos Aires") && !c.getName().equals("Otras Instituciones")){
-            		name.insert(0, c.getName() + separator);
-            	}            	
+            	name.insert(0, c.getName() + separator);            	            	
             }
         }
 
