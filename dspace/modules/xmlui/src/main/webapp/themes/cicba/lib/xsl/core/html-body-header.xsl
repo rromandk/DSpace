@@ -285,16 +285,18 @@
 		<div id="cic-header" class="container">
 		
 			<div class="row">
-			<div id="logo-cic-digital" class="col-xs-12 col-md-3 col-md-offset-3">
+				<div id="logo-cic-digital" class="col-xs-12 col-sm-4 col-md-4">
 				<xsl:call-template name="build-anchor">
 					<xsl:with-param name="img.src">images/Header_cic.png</xsl:with-param>
 					<xsl:with-param name="img.alt">CIC-DIGITAL</xsl:with-param>
+					<xsl:with-param name="img.class">img-responsive</xsl:with-param>
 				</xsl:call-template>
 			</div> 
-			<div id="banner-cic-digital"  class="hidden-xs col-md-3">
+				<div id="banner-cic-digital"  class="hidden-xs col-sm-8 col-md-8">
 				<xsl:call-template name="build-anchor">
 					<xsl:with-param name="img.src">images/Header_cic2.png</xsl:with-param>
 					<xsl:with-param name="img.alt">CIC-DIGITAL</xsl:with-param>
+					<xsl:with-param name="img.class">img-responsive</xsl:with-param>
 				</xsl:call-template>
 			</div> 
 			</div>

@@ -323,6 +323,10 @@ li.ds-artifact-item.community {
 	text-decoration: none;
 }
 
+#cic-menu .navbar-nav > li > a {
+	text-shadow: unset;
+}
+
 .navbar-nav > li > a:hover, .navbar-nav > li > a:focus{
 	background-color: #C6C6C6 !important;
 }

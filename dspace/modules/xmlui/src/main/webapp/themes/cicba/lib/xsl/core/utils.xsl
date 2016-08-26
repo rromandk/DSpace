@@ -30,6 +30,7 @@
 		<xsl:param name="a.class"></xsl:param>
 		<xsl:param name="img.src"></xsl:param>
 		<xsl:param name="img.alt"></xsl:param>
+		<xsl:param name="img.class"></xsl:param>
 		<a>
 			<xsl:attribute name="href">
 				<xsl:if test="starts-with($a.href, 'http://') or starts-with($a.href, 'https://')">
@@ -50,6 +51,7 @@
 				<xsl:call-template name="build-img">	
 					<xsl:with-param name="img.src" select="$img.src"/>
 					<xsl:with-param name="img.alt" select="$img.alt"/>
+					<xsl:with-param name="img.class" select="$img.class"/>
 				</xsl:call-template>
 			</xsl:if>
 			<xsl:if test="not($img.src) or ($a.value != $a.href)">
@@ -61,7 +63,8 @@
 	<xsl:template name="build-img">
 		<xsl:param name="img.src"></xsl:param>
 		<xsl:param name="img.alt">image</xsl:param>
-		<img alt="{$img.alt}">
+		<xsl:param name="img.class"></xsl:param>
+		<img alt="{$img.alt}" class="{$img.class}">
 			<xsl:attribute name="src">
 				<xsl:choose>
 					<xsl:when test="starts-with($img.src,'http') or starts-with($img.src,'https')">
