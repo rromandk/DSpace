@@ -10,9 +10,8 @@
 		ds-body div and applies templates of the body's child elements (which consists 
 		entirely of dri:div tags). -->
 	<xsl:template match="dri:body">
-		<div id="cic-body" class="row container-fluid">
+		<div id="cic-body" class="container">
 			<xsl:call-template name="buildTrail" />
-			<!-- <div> -->
 			<xsl:if
 				test="/dri:document/dri:meta/dri:pageMeta/dri:metadata[@element='alert'][@qualifier='message']">
 				<div id="ds-system-wide-alert">
@@ -54,13 +53,12 @@
 				</xsl:when>
 				<!-- Otherwise use default handling of body -->
 				<xsl:otherwise>
-					<div class="container-fluid">
+
 						<xsl:apply-templates />
-					</div>
+
 				</xsl:otherwise>
 			</xsl:choose>
 
-			<!-- </div> -->
 		</div>
 	</xsl:template>
 
@@ -68,7 +66,7 @@
 	<xsl:template name="buildHome">
 
 		<div class="row">
-			<div class="col-md-7 hidden-xs" id="welcome-panel">
+			<div class="col-md-12 hidden-xs" id="welcome-panel">
 				<div class="bs-callout bs-callout-info">
 					<xsl:for-each select="dri:div[@n='news']">
 						<!-- <h1><xsl:copy-of select="dri:head" /></h1> -->
@@ -76,14 +74,12 @@
 					</xsl:for-each>
 				</div>
 			</div>
-			<div class="col-md-5 hidden-xs hidden-sm">
-			</div>
-		</div>
+		</div>		
 		<div id="home-highlight" class="row">
 			<!-- <div id="home-highlight-img"> -->
 			<!-- <xsl:text> </xsl:text> -->
 			<!-- </div> -->
-			<div id="home-highlight-content" class="col-md-7">
+			<div id="home-highlight-content" class="col-md-12">
 				<form id="home-search-form" class="form-inline" role="form">
 					<xsl:attribute name="action"><xsl:value-of select="$search-url" /></xsl:attribute>
 				   <label for="q">
@@ -127,21 +123,8 @@
 						</a>
 					</div>
 				</div>
-			</div><!--
-    		--><div id="home-autoarchivo" class="col-md-5">
-<!-- 				<h3> -->
-					<xsl:call-template name="build-anchor">
-						<xsl:with-param name="a.href">/submissions</xsl:with-param>
-						<xsl:with-param name="a.value">
-							 <xsl:text> </xsl:text><i18n:text>xmlui.cicdigital.home.subir-material</i18n:text>
-						</xsl:with-param>
-						<xsl:with-param name="img.src">images/flecha_subir.png</xsl:with-param>
-					</xsl:call-template>
-<!-- 				</h3> -->
-				<p>
-					<i18n:text>xmlui.cicdigital.home.subir-material-descripcion</i18n:text>
-				</p>
 			</div>
+			
 		</div>
 		<div class="row">
 			<div class="col-md-7">
@@ -161,10 +144,23 @@
 
 				</xsl:for-each>
 			</div>
-			
+			<div id="home-autoarchivo" class="col-md-5">
+					<xsl:call-template name="build-anchor">
+						<xsl:with-param name="a.href">/submissions</xsl:with-param>
+						<xsl:with-param name="a.value">
+							 <xsl:text> </xsl:text><i18n:text>xmlui.cicdigital.home.subir-material</i18n:text>
+						</xsl:with-param>
+						<xsl:with-param name="img.src">images/flecha_subir.png</xsl:with-param>
+					</xsl:call-template>
+				<p>
+					<i18n:text>xmlui.cicdigital.home.subir-material-descripcion</i18n:text>
+				</p>
+			</div>
 		</div>
+			
 
 	</xsl:template>
+		
 
 	<!-- The header (distinct from the HTML head element) contains the title, 
 		subtitle, login box and various placeholders for header images -->

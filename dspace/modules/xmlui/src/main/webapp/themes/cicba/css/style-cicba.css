@@ -29,62 +29,36 @@ ol {
 
 #cic-header {
 	/*background-image: url('../images/header_72.png');*/
-	padding: 0px;
+/* 	padding: 0px; */
 	color: #4365a2;
 }
 
-
-#cic-header  > #logo-cic-digital{
-	/*background-image: url('../images/header_72.png');*/
-	padding: unset;
-	background-color: #4365a2; /* Azul */
-	text-align: center;
-}
-	
-#cic-header  > #logo-cic-digital a img{
-	width: 100%;
-}
-
 @media(max-width: 500px){
-	#cic-header  > #logo-cic-digital{
-		/*background-image: url('../images/header_72.png');*/
-		padding: unset;
-		background-color: #4365a2; /* Azul */
-		text-align: center;
-	}
+/* 	#logo-cic-digital{ */
+/* 		background-image: url('../images/header_72.png'); */
+/* 		padding: unset; */
+/* 		background-color: #4365a2; Azul */
+/* 		text-align: center; */
+/* 	} */
 }
 
-#cic-header  > #banner-cic-digital{
+#banner-cic-digital{
 	font-size: 1.5vw;
     vertical-align: middle;
-    padding: 0.9em 0.9em 0em;
+/*     padding: 0.9em 0.9em 0em; */
     font-family: "sans-serif";
 }
 
 @media(width: 768px){
-	#cic-header  > #banner-cic-digital{
+	#banner-cic-digital{
 		font-size: 1.8vw;
 		padding: 0.25em 0.9em 0em;
 	}
 }
 
-#cic-header  > #banner-cic-digital .small{
+#banner-cic-digital .small{
   font-size: 70%;
 }
-
-
-#cic-header  > #logo-ba{
-	
-  text-align: right;
-	padding: unset;
-	
-}
-
-#cic-header  > #logo-ba img{
-	width: 100%;
-	margin-top: 2%
-}
-
 
 .datepickerImage{
     background: url("../images/calendar.png") no-repeat scroll right center rgba(0, 0, 0, 0);
@@ -110,14 +84,6 @@ ol {
 	/* 	background-image: url('../images/logo_72.png'); */
 	/* 	background-repeat: no-repeat; */
 }
-body > .container-fluid {
-/* 	padding:0px; */
-}
-
-#cic-body>div {
-	padding-left: 25px;
-	padding-right: 25px;
-}
 
 #cic-trail>ol.breadcrumb{
 	padding-left: 25px;
@@ -140,9 +106,6 @@ body > .container-fluid {
 
 #cic-body {
 	min-height: 50%;
-}
-
-#cic-trail {
 }
 
 #cic-footer {
@@ -170,14 +133,6 @@ body > .container-fluid {
 	  padding-top: 0px;
 	  padding-bottom: 40px;
 	}
-}
-
-
-#home-highlight {
-/*	height: 270px;*/
-	margin-bottom: 20px;
-	
-/*  margin-top: 20px; */
 }
 
 #home-highlight-img {
@@ -319,6 +274,7 @@ body > .container-fluid {
 	padding: 40px;
 	color:black;
 	background-color: #F8F8F8;
+	margin-top: 30px;
 
 }
 #home-autoarchivo > a{
@@ -356,14 +312,14 @@ li.ds-artifact-item.community {
 }
 
 
-#cic-menu > nav{
+#cic-menu{
 	background-color: #E6E6E5;
 	background-image: none;
 }
 
 .navbar-nav > li > a {
 	color: black !important;
-	text-transform: uppercase;
+/* 	text-transform: uppercase; */
 	text-decoration: none;
 }
 

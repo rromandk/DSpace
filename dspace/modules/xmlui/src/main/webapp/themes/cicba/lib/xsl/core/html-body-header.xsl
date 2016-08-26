@@ -90,39 +90,21 @@
 	<!-- The header (distinct from the HTML head element) contains the title, 
 		subtitle, login box and various placeholders for header images -->
 	<xsl:template name="buildTopSidebar">
-		<div class="row" id="cic-menu">
-			<nav class="navbar navbar-inverse" role="navigation">
-				<div class="container-fluid">
-				<div class="row">
-					<div class="navbar-header" id="navbar-brand-dspace">
-				      <div class="col-xs-2">
-					      <div class="row">
-						      <button type="button" id="navbar-toggle-button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-label="menu">
+			<nav class="navbar navbar-inverse" role="navigation" id="cic-menu">
+				<div class="navbar-header" id="navbar-brand-dspace">
+				      <div class="row">
+						  <div class="col-xs-2">
+					          <button type="button" id="navbar-toggle-button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-label="menu">
 						        <span class="sr-only">Toggle navigation</span>
 						        <span class="glyphicon glyphicon-menu-hamburger" aria-hidden="true"></span>
-		<!-- 					      <xsl:call-template name="build-img"> -->
-		<!-- 					      	<xsl:with-param name="img.src">images/dspace-logo-only.png</xsl:with-param> -->
-		<!-- 					      	<xsl:with-param name="img.alt">DSpace</xsl:with-param> -->
-		<!-- 					      </xsl:call-template> -->
 						      </button>
 					      </div>
 				      </div>
-<!-- 				      <div class="col-xs-9 col-xs-pull-3"> -->
-<!-- 				      <a class="navbar-brand visible-xs" href="#"> -->
-<!-- 				      	Repositorio CIC-DIGITAL -->
-<!-- 					  </a> -->
-<!-- 					  </div> -->
 				    </div>
-					<!-- Collect the nav links, forms, and other content for toggling -->
- 					<div id="bs-example-navbar-collapse-1" class="collapse navbar-collapse" >
+				<!-- Collect the nav links, forms, and other content for toggling -->
+ 				<div id="bs-example-navbar-collapse-1" class="collapse navbar-collapse" >
+					<div class="container">
 						<ul class="nav navbar-nav">
-<!-- 							<li class="link-ba"> -->
-<!-- 							    <xsl:call-template name="build-anchor"> -->
-<!-- 									<xsl:with-param name="a.href">http://www.gba.gob.ar</xsl:with-param> -->
-<!-- 									<xsl:with-param name="img.src">images/header_ba-10.png</xsl:with-param> -->
-<!-- 									<xsl:with-param name="img.alt">BA</xsl:with-param> -->
-<!-- 								</xsl:call-template> -->
-<!-- 							</li> -->
 							<li>
 								<xsl:call-template name="build-anchor">
 									<xsl:with-param name="a.href">/</xsl:with-param>
@@ -199,9 +181,6 @@
 							</li>
 							
 						</ul>
-<!-- 					</div> -->
-						
-<!-- 					<div id="bs-example-navbar-collapse-2">class="collapse navbar-collapse"  -->
 
 						<ul class="nav navbar-nav navbar-right">
 							<li>
@@ -214,55 +193,15 @@
 									<xsl:call-template  name="buildMenuItemAsTree"   />
 								</xsl:if>
 							</xsl:for-each>
-<!-- 							<li> -->
-<!-- 								<xsl:choose> -->
-<!-- 									<xsl:when -->
-<!-- 										test="/dri:document/dri:meta/dri:userMeta/@authenticated = 'yes'"> -->
-<!-- 										<a class="dropdown-toggle" id="dropdownMenu1" data-toggle="dropdown"> -->
-<!-- 											<xsl:value-of -->
-<!-- 												select="/dri:document/dri:meta/dri:userMeta/ -->
-<!--                                     dri:metadata[@element='identifier' and @qualifier='firstName']" /> -->
-<!-- 											<xsl:text> </xsl:text> -->
-<!-- 											<xsl:value-of -->
-<!-- 												select="/dri:document/dri:meta/dri:userMeta/ -->
-<!--                                     dri:metadata[@element='identifier' and @qualifier='lastName']" /> -->
-<!-- 											<span class="caret"></span> -->
-<!-- 										</a> -->
-<!-- 										<ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1"> -->
-<!-- 											<li role="presentation"> -->
-<!-- 												<xsl:for-each -->
-<!-- 													select="//dri:options/dri:list[@n='account']/dri:item/dri:xref"> -->
-<!-- 													<a role="menuitem" tabindex="-1"> -->
-<!-- 														<xsl:attribute name="href"><xsl:value-of -->
-<!-- 															select="@target" /></xsl:attribute> -->
-<!-- 														<xsl:copy-of select="." /> -->
-<!-- 													</a> -->
-<!-- 												</xsl:for-each> -->
-<!-- 											</li> -->
-<!-- 										</ul> -->
-<!-- 									</xsl:when> -->
-<!-- 									<xsl:otherwise> -->
-<!-- 										<a> -->
-<!-- 											<xsl:attribute name="href"> -->
-<!-- 	                        	<xsl:value-of -->
-<!-- 												select="/dri:document/dri:meta/dri:userMeta/dri:metadata[@element='identifier' and @qualifier='loginURL']" /> -->
-<!-- 							</xsl:attribute> -->
-<!-- 											<i18n:text>xmlui.dri2xhtml.structural.login</i18n:text> -->
-<!-- 										</a> -->
-<!-- 									</xsl:otherwise> -->
-<!-- 								</xsl:choose> -->
-<!-- 							</li> -->
 							<li>
 								<xsl:call-template name="languageSelection" />
 
 							</li>
 						</ul>
-						
-					</div><!-- /.navbar-collapse -->
-				</div>
-				</div><!-- /.container-fluid -->
+					
+					</div>		
+				</div><!-- /.navbar-collapse -->
 			</nav>
-		</div>
 	</xsl:template>
 
 	<xsl:template name="buildMenuItemAsList">
@@ -342,27 +281,25 @@
 	<!-- The header (distinct from the HTML head element) contains the title, 
 		subtitle, login box and various placeholders for header images -->
 	<xsl:template name="buildHeader">
-		<div id="cic-header" class="row">
+		<header>
+		<div id="cic-header" class="container">
 		
-			
-			<div id="logo-cic-digital" class="col-xs-12 col-sm-3 col-md-3">
+			<div class="row">
+			<div id="logo-cic-digital" class="col-xs-12 col-md-3 col-md-offset-3">
 				<xsl:call-template name="build-anchor">
 					<xsl:with-param name="img.src">images/Header_cic.png</xsl:with-param>
 					<xsl:with-param name="img.alt">CIC-DIGITAL</xsl:with-param>
 				</xsl:call-template>
-			</div><!-- 
-			 --><div id="banner-cic-digital"  class="hidden-xs col-sm-7 col-md-7">
-				<div class="">Repositorio de la Comisión de Investigaciones Científicas de la Provincia de Buenos Aires</div>
-				<small>Ministerio de Producción, Ciencia y Tecnología</small>
-			</div><!-- 
-			 --><div id="logo-ba" class="hidden-xs col-sm-2 col-md-2">
-				<xsl:call-template name="build-img">
-					<xsl:with-param name="img.src">images/logo_BA.png</xsl:with-param>
-					<xsl:with-param name="img.alt">Buenos Aires</xsl:with-param>
+			</div> 
+			<div id="banner-cic-digital"  class="hidden-xs col-md-3">
+				<xsl:call-template name="build-anchor">
+					<xsl:with-param name="img.src">images/Header_cic2.png</xsl:with-param>
+					<xsl:with-param name="img.alt">CIC-DIGITAL</xsl:with-param>
 				</xsl:call-template>
+			</div> 
 			</div>
 		</div>
-		
+		</header>
 			<xsl:call-template name="buildTopSidebar" />
 	</xsl:template>
 </xsl:stylesheet>
