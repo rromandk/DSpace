@@ -10,9 +10,9 @@
 	<!-- Like the header, the footer contains various miscellaneous text, links, 
 		and image placeholders -->
 	<xsl:template name="buildFooter">
-	<footer class="footer">
-		<div class="row" id="cic-footer">
-			<div class="col-md-2 col-md-offset-2">
+	<footer class="footer container">
+		<div class="row text-center" id="cic-footer">
+			<div class="col-md-3">
 			<xsl:call-template name="build-anchor">
 					<xsl:with-param name="a.href">
 						<xsl:text>http://sedici.unlp.edu.ar</xsl:text>
@@ -25,22 +25,7 @@
 					</xsl:with-param>
 				</xsl:call-template>
 			</div>
-
-			<div class="col-md-2">
-				<xsl:call-template name="build-anchor">
-					<xsl:with-param name="a.href">
-						<xsl:text>http://www.cic.gba.gob.ar</xsl:text>
-					</xsl:with-param>
-					<xsl:with-param name="img.src">
-						images/logo_cic_footer.png
-					</xsl:with-param>
-					<xsl:with-param name="img.alt">
-						CIC
-					</xsl:with-param>
-				</xsl:call-template>
-			</div>
-		
-			<div class="col-md-5 col-md-offset-1">
+			<div class="col-md-6">
 				<address>
 					<strong>Comisión de Investigaciones Científicas</strong>
 					<br />
@@ -58,6 +43,21 @@
 					+54 (0221) 421-7374 / 482-3795 (CIC-Central)
 				</address>
 			</div>
+
+			<div class="col-md-3">
+				<xsl:call-template name="build-anchor">
+					<xsl:with-param name="a.href">
+						<xsl:text>http://www.cic.gba.gob.ar</xsl:text>
+					</xsl:with-param>
+					<xsl:with-param name="img.src">
+						images/logo_cic_footer.png
+					</xsl:with-param>
+					<xsl:with-param name="img.alt">
+						CIC
+					</xsl:with-param>
+				</xsl:call-template>
+			</div>
+		
 		</div>
 	</footer>
 	</xsl:template>

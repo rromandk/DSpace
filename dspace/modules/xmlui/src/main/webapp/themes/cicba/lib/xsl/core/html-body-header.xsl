@@ -104,8 +104,8 @@
 				<!-- Collect the nav links, forms, and other content for toggling -->
  				<div id="bs-example-navbar-collapse-1" class="collapse navbar-collapse" >
 					<div class="container">
-						<ul class="nav navbar-nav">
-							<li>
+						<ul class="nav navbar-nav row">
+							<li class="col">
 								<xsl:call-template name="build-anchor">
 									<xsl:with-param name="a.href">/</xsl:with-param>
 									<xsl:with-param name="a.value">
@@ -117,7 +117,7 @@
 								<xsl:call-template  name="buildMenuItemAsList"   />
 							</xsl:for-each>
 							
-							<li>
+							<li class="col">
 								<xsl:call-template name="build-anchor">
 									<xsl:with-param name="a.href">/submissions</xsl:with-param>
 									<xsl:with-param name="a.value">
@@ -126,7 +126,7 @@
 								</xsl:call-template>
 							</li>
 							
-							<li class="dropdown">
+							<li class="dropdown col">
 								<a href="#" class="dropdown-toggle" data-toggle="dropdown"
 									role="button" aria-expanded="false">
 									<i18n:text>xmlui.cicdigital.home.mas-informacion</i18n:text>
@@ -143,25 +143,25 @@
 											</xsl:attribute>  -->
 											<i18n:text>xmlui.cicdigital.title.que-es-cic-digital</i18n:text>
 									</li>
-									<li>
+									<li class="col">
 										<a href="xmlui.cicdigital.staticPage.reposiotry-policies.uri" i18n:attr="href"/>
 											<!--<xsl:attribute name="href">
 												<xsl:value-of select="concat($context-path,'/page/politicas-del-repositorio')"></xsl:value-of>
 											</xsl:attribute> -->
 											<i18n:text>xmlui.cicdigital.title.politicas-del-repositorio</i18n:text>	
 									</li>
-									<li class="divider"></li>
-									<li class="dropdown-header">
+									<li class="divider col"></li>
+									<li class="dropdown-header col">
 										<i18n:text>xmlui.cicdigital.home.informacion-autores</i18n:text>
 									</li>
-									<li>
+									<li class="col">
 										<a href="xmlui.cicdigital.staticPage.how-to-contribute-material.uri" i18n:attr="href"/>
 											<!-- <xsl:attribute name="href">
 												<xsl:value-of select="concat($context-path,'/page/como-aportar-material')"></xsl:value-of>
 											</xsl:attribute>-->
 											<i18n:text>xmlui.cicdigital.title.como-aportar-material</i18n:text>	 
 									</li>
-									<li>
+									<li class="col">
 										<a>
 											<xsl:attribute name="href">
 												<xsl:value-of select="concat($context-path,'/register')"></xsl:value-of>
@@ -171,7 +171,7 @@
 									</li>
 								</ul>
 							</li>
-							<li>
+							<li class="col">
 								<xsl:call-template name="build-anchor">
 									<xsl:with-param name="a.href">/feedback</xsl:with-param>
 									<xsl:with-param name="a.value">
@@ -182,8 +182,8 @@
 							
 						</ul>
 
-						<ul class="nav navbar-nav navbar-right">
-							<li>
+						<ul class="nav navbar-nav navbar-right row">
+							<li class="col">
 								<a>
 									<span class="glyphicon glyphicon-user" aria-hidden="true"></span>
 								</a>
@@ -193,7 +193,7 @@
 									<xsl:call-template  name="buildMenuItemAsTree"   />
 								</xsl:if>
 							</xsl:for-each>
-							<li>
+							<li class="col">
 								<xsl:call-template name="languageSelection" />
 
 							</li>
@@ -284,21 +284,19 @@
 		<header>
 		<div id="cic-header" class="container">
 		
-			<div class="row">
-				<div id="logo-cic-digital" class="col-xs-12 col-sm-4 col-md-4">
+			<div class="row text-center">
+				<span id="logo-cic-digital">
 				<xsl:call-template name="build-anchor">
 					<xsl:with-param name="img.src">images/Header_cic.png</xsl:with-param>
 					<xsl:with-param name="img.alt">CIC-DIGITAL</xsl:with-param>
-					<xsl:with-param name="img.class">img-responsive</xsl:with-param>
 				</xsl:call-template>
-			</div> 
-				<div id="banner-cic-digital"  class="hidden-xs col-sm-8 col-md-8">
+			</span> 
+				<span id="banner-cic-digital"  class="hidden-xs">
 				<xsl:call-template name="build-anchor">
 					<xsl:with-param name="img.src">images/Header_cic2.png</xsl:with-param>
 					<xsl:with-param name="img.alt">CIC-DIGITAL</xsl:with-param>
-					<xsl:with-param name="img.class">img-responsive</xsl:with-param>
 				</xsl:call-template>
-			</div> 
+			</span> 
 			</div>
 		</div>
 		</header>
