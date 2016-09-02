@@ -14,6 +14,7 @@ import org.dspace.content.Community;
 import org.dspace.content.Item;
 import org.dspace.core.Context;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -123,11 +124,19 @@ public interface MediaFilterService {
 
     public void setForce(boolean isForce);
 
-    public void setMax2Process(int max2Process);
+    public void setMaxItems2Process(int maxItems2Process);
+    
+    public void setMaxBitStreams2Process(int maxBitStreams2Process);
+    
+    public void setDuration(Date duration);
 
     public void setFilterClasses(List<FormatFilter> filterClasses);
 
     public void setSkipList(List<String> skipList);
 
     public void setFilterFormats(Map<String, List<String>> filterFormats);
+
+	public void appendToFinishReason(String finishReason);
+
+	public String getFinishReason();
 }

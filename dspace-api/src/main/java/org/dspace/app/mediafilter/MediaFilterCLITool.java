@@ -17,9 +17,11 @@ import org.dspace.content.Item;
 import org.dspace.core.Constants;
 import org.dspace.core.Context;
 import org.dspace.core.SelfNamedPlugin;
+import org.dspace.core.Utils;
 import org.dspace.core.factory.CoreServiceFactory;
 import org.dspace.handle.factory.HandleServiceFactory;
 
+import java.text.ParseException;
 import java.util.*;
 import org.apache.commons.lang.ArrayUtils;
 import org.dspace.services.factory.DSpaceServicesFactory;
@@ -64,8 +66,15 @@ public class MediaFilterCLITool {
                 "force all bitstreams to be processed");
         options.addOption("i", "identifier", true,
                 "ONLY process bitstreams belonging to identifier");
-        options.addOption("m", "maximum", true,
+        options.addOption("m", "maximum items", true,
                 "process no more than maximum items");
+        options.addOption("b", "maximum bitstreams", true,
+                "process no more than maximum bitstreams");
+        options.addOption("d", "duration", true,
+                "process no more time than the specified \nSpecify a duration for checker process, using s(seconds),"
+                        + "m(minutes), or h(hours): ChecksumChecker -d 30s"
+                        + " OR ChecksumChecker -d 30m"
+                        + " OR ChecksumChecker -d 2h");
         options.addOption("h", "help", false, "help");
 
         //create a "plugin" option (to specify specific MediaFilter plugins to run)
@@ -95,7 +104,9 @@ public class MediaFilterCLITool {
         boolean isQuiet = false;
         boolean isForce = false; // default to not forced
         String identifier = null; // object scope limiter
-        int max2Process = Integer.MAX_VALUE;
+        int maxItems2Process = Integer.MAX_VALUE;
+        int maxBitStreams2Process = Integer.MAX_VALUE;
+        Date duration = new Date(0);
         Map<String, List<String>> filterFormats = new HashMap<>();
 
         CommandLine line = null;
@@ -138,13 +149,42 @@ public class MediaFilterCLITool {
 
         if (line.hasOption('m'))
         {
-            max2Process = Integer.parseInt(line.getOptionValue('m'));
-            if (max2Process <= 1)
+            maxItems2Process = Integer.parseInt(line.getOptionValue('m'));
+            if (maxItems2Process <= 1)
             {
                 System.out.println("Invalid maximum value '" +
                         line.getOptionValue('m') + "' - ignoring");
-                max2Process = Integer.MAX_VALUE;
+                maxItems2Process = Integer.MAX_VALUE;
             }
+        }
+        
+        if(line.hasOption('b'))
+        {
+        	try{
+        		maxBitStreams2Process = Integer.parseInt(line.getOptionValue('b'));
+        		if(maxBitStreams2Process <= 1){
+        			System.out.println("Invalid maximum value '" +
+                            line.getOptionValue('b') + "' - ignoring");
+            		maxBitStreams2Process = Integer.MAX_VALUE;
+        		}
+        	}
+        	catch (NumberFormatException e){
+        		System.out.println("Invalid value '" +
+                        line.getOptionValue('b') + "' - ignoring");
+        		maxBitStreams2Process = Integer.MAX_VALUE;
+        	}
+        }
+        
+        if(line.hasOption('d'))
+        {
+        	try{
+        		duration = new Date( System.currentTimeMillis()
+                            + Utils.parseDuration(line.getOptionValue('d')));
+        	}
+        	catch (ParseException e){
+        		System.out.println("Couldn't parse " + line.getOptionValue('d')
+                + " as a duration: " + e);
+        	}
         }
 
         String filterNames[] = null;
@@ -172,7 +212,9 @@ public class MediaFilterCLITool {
         mediaFilterService.setForce(isForce);
         mediaFilterService.setQuiet(isQuiet);
         mediaFilterService.setVerbose(isVerbose);
-        mediaFilterService.setMax2Process(max2Process);
+        mediaFilterService.setMaxItems2Process(maxItems2Process);
+        mediaFilterService.setMaxBitStreams2Process(maxBitStreams2Process);
+        mediaFilterService.setDuration(duration);
 
         //initialize an array of our enabled filters
         List<FormatFilter> filterList = new ArrayList<FormatFilter>();
@@ -317,11 +359,13 @@ public class MediaFilterCLITool {
                 }
             }
 
+            System.out.println(mediaFilterService.getFinishReason());
             c.complete();
             c = null;
         }
         catch (Exception e)
         {
+        	e.printStackTrace();
             status = 1;
         }
         finally

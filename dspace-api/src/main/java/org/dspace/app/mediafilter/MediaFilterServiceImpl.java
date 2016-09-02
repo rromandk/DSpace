@@ -54,9 +54,15 @@ public class MediaFilterServiceImpl implements MediaFilterService, InitializingB
     @Autowired(required = true)
     protected ConfigurationService configurationService;
 
-    protected int max2Process = Integer.MAX_VALUE;  // maximum number items to process
+    protected int maxItems2Process = Integer.MAX_VALUE;  // maximum number items to process
     
-    protected int processed = 0;   // number items processed
+    private int maxBitstreams2Process = Integer.MAX_VALUE; // maximum number bitstreams to process
+    
+	private long duration = Long.MAX_VALUE; // duration of the process
+    
+    protected int processedItems = 0;   // number items processed
+    
+    protected int processedBT = 0;   // number items processed
     
     protected Item currentItem = null;   // current item being processed
 
@@ -71,6 +77,8 @@ public class MediaFilterServiceImpl implements MediaFilterService, InitializingB
     protected boolean isVerbose = false;
     protected boolean isQuiet = false;
     protected boolean isForce = false; // default to not forced
+    
+    protected String finishReason = "Processing stoped because ";
 
     protected MediaFilterServiceImpl()
     {
@@ -105,7 +113,7 @@ public class MediaFilterServiceImpl implements MediaFilterService, InitializingB
         {
             //otherwise, just find every item and process
             Iterator<Item> itemIterator = itemService.findAll(context);
-            while (itemIterator.hasNext() && processed < max2Process)
+            while (itemIterator.hasNext() && !this.stopProcessesing("item","bitstream","duration"))
             {
                 applyFiltersItem(context, itemIterator.next());
             }
@@ -138,7 +146,7 @@ public class MediaFilterServiceImpl implements MediaFilterService, InitializingB
         if(!inSkipList(collection.getHandle()))
         {
             Iterator<Item> itemIterator = itemService.findAllByCollection(context, collection);
-            while (itemIterator.hasNext() && processed < max2Process)
+            while (itemIterator.hasNext() && !this.stopProcessesing("item","bitstream","duration"))
             {
                 applyFiltersItem(context, itemIterator.next());
             }
@@ -158,7 +166,7 @@ public class MediaFilterServiceImpl implements MediaFilterService, InitializingB
           if (filterItem(c, item))
           {
               // increment processed count
-              ++processed;
+              ++processedItems;
           }
           // clear item objects from context cache and internal cache
           currentItem = null;
@@ -176,7 +184,9 @@ public class MediaFilterServiceImpl implements MediaFilterService, InitializingB
             List<Bitstream> myBitstreams = myBundle.getBitstreams();
 
             for (Bitstream myBitstream : myBitstreams) {
-                done |= filterBitstream(context, myItem, myBitstream);
+            	if(!this.stopProcessesing("bitstream","duration")){
+            		done |= filterBitstream(context, myItem, myBitstream);
+            	}
             }
         }
         return done;
@@ -228,6 +238,8 @@ public class MediaFilterServiceImpl implements MediaFilterService, InitializingB
                     // Printout helpful information to find the errored bitstream.
                     System.out.println("ERROR filtering, skipping bitstream:\n");
                     System.out.println("\tItem Handle: " + handle);
+                    System.out.println(e);
+                    e.printStackTrace();
                     for (Bundle bundle : bundles) {
                         System.out.println("\tBundle Name: " + bundle.getName());
                     }
@@ -294,6 +306,9 @@ public class MediaFilterServiceImpl implements MediaFilterService, InitializingB
                     }
                 }
             }
+        }
+        if(filtered){
+        	processedBT ++;
         }
         return filtered;
     }
@@ -448,6 +463,32 @@ public class MediaFilterServiceImpl implements MediaFilterService, InitializingB
             return false;
         }
     }
+    
+    private boolean stopProcessesing(String... checkFor){
+    	for(String option : checkFor){
+    		switch (option){
+    			case "item":
+    				if(processedItems >= maxItems2Process){
+    					this.appendToFinishReason("it has reached the maximum number of Items at: "+new Date());
+    					return true;
+    				}
+    				break;
+    			case "bitstream":
+    				if(processedBT >= maxBitstreams2Process){
+    					this.appendToFinishReason("it has reached the maximum number of BitStreams at: "+new Date());
+    					return true;
+    				}
+    				break;
+    			case "duration":
+    				if(System.currentTimeMillis() > duration){
+    					this.appendToFinishReason("it has reached the maximum duration time at: "+new Date());
+    					return true;
+    				}
+    				break;
+    		}
+    	}
+    	return false;
+    }
 
     @Override
     public void setVerbose(boolean isVerbose) {
@@ -465,9 +506,21 @@ public class MediaFilterServiceImpl implements MediaFilterService, InitializingB
     }
 
     @Override
-    public void setMax2Process(int max2Process) {
-        this.max2Process = max2Process;
+    public void setMaxItems2Process(int maxItems2Process) {
+        this.maxItems2Process = maxItems2Process;
     }
+    
+	@Override
+	public void setMaxBitStreams2Process(int maxBitStreams2Process) {
+		this.maxBitstreams2Process = maxBitStreams2Process;
+	}
+	
+	@Override
+	public void setDuration(Date duration) {
+		if(duration.compareTo(new Date(0))!=0){
+			this.duration=duration.getTime();
+		}		
+	}
 
     @Override
     public void setFilterClasses(List<FormatFilter> filterClasses) {
@@ -483,4 +536,15 @@ public class MediaFilterServiceImpl implements MediaFilterService, InitializingB
     public void setFilterFormats(Map<String, List<String>> filterFormats) {
         this.filterFormats = filterFormats;
     }
+    
+    @Override
+    public void appendToFinishReason(String finishReason) {
+        this.finishReason+=(finishReason);
+    }
+    
+    @Override
+    public String getFinishReason() {
+        return this.finishReason;
+    }
+
 }
