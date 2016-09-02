@@ -43,7 +43,7 @@ public class FOS_CICBA_Authority extends CICBAAuthority{
 			pqs.setLiteral("text", text);
 		}
 		pqs.append("}\n");	
-		pqs.append("ORDER BY ASC(?label)\n");
+		pqs.append("ORDER BY ?label ?concept\n");
 
 		return pqs;
 	}
