@@ -278,7 +278,16 @@
                	<xsl:if test="dri:list[@n=(concat($handle, ':dcterms.abstract'))]/dri:item/dri:hi">
                 	<div class="row"><div class="col-md-12">
                         <xsl:for-each select="dri:list[@n=(concat($handle, ':dcterms.abstract'))]/dri:item[string-length(dri:hi) > 0]">
-                            <xsl:apply-templates select="."/>
+		                            <xsl:for-each select="./child::node()">
+			                            <xsl:choose>
+			                            	<xsl:when test="self::text()">
+			                            		<xsl:value-of select="." disable-output-escaping="yes"/>
+			                            	</xsl:when>
+			                            	<xsl:otherwise>
+			                            		<xsl:apply-templates select="."/>
+			                            	</xsl:otherwise>
+			                            </xsl:choose>	
+		                            </xsl:for-each>
                             <xsl:text>...</xsl:text>
                             <br/>
                         </xsl:for-each>
@@ -287,7 +296,16 @@
                 <xsl:if test="dri:list[@n=(concat($handle, ':fulltext'))]">
                     <div class="row"><div class="col-md-12">
                         <xsl:for-each select="dri:list[@n=(concat($handle, ':fulltext'))]/dri:item">
-                            <xsl:apply-templates select="."/>
+		                            <xsl:for-each select="./child::node()">
+			                            <xsl:choose>
+			                            	<xsl:when test="self::text()">
+			                            		<xsl:value-of select="." disable-output-escaping="yes"/>
+			                            	</xsl:when>
+			                            	<xsl:otherwise>
+			                            		<xsl:apply-templates select="."/>
+			                            	</xsl:otherwise>
+			                            </xsl:choose>	
+		                            </xsl:for-each>
                             <xsl:text>...</xsl:text>
                             <br/>
                         </xsl:for-each>
