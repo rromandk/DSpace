@@ -361,7 +361,8 @@
 		        <xsl:choose>
 		            <xsl:when test="./mets:fileSec/mets:fileGrp[@USE='CONTENT' or @USE='ORIGINAL']/mets:file">
 		            	<ul class="media-list item-file-list">
-		                <xsl:apply-templates select="./mets:fileSec/mets:fileGrp[@USE='CONTENT' or @USE='ORIGINAL']/mets:file" />
+		                	<h3><i18n:text>xmlui.ArtifactBrowser.ItemViewer.downloads</i18n:text></h3>
+							<xsl:apply-templates select="./mets:fileSec/mets:fileGrp[@USE='CONTENT' or @USE='ORIGINAL']/mets:file" />
 		                </ul>
 		            </xsl:when>
 		            <xsl:otherwise>
@@ -422,7 +423,6 @@
     </xsl:template>
 	
 	<xsl:template match="mets:file" priority="10">
-		<h3><i18n:text>xmlui.ArtifactBrowser.ItemViewer.downloads</i18n:text></h3>
 		<li class="media">
 			<xsl:variable name="documentTitle">
 				<xsl:value-of select="xmlui:replaceAll(substring-after(/mets:METS/@ID,':'), '\/', '_')"/>
