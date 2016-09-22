@@ -34,9 +34,9 @@ public class Author_CICBA_Authority extends CICBAAuthority {
 		pqs.setNsPrefix("foaf", NS_FOAF);
 		pqs.setNsPrefix("dc", NS_DC);
 
-		pqs.setCommandText("SELECT ?person ?name ?surname  ?affiliation\n");
+		pqs.setCommandText("SELECT ?person ?name ?surname ?mail  ?affiliation\n");
 		pqs.append("WHERE {\n");
-		pqs.append("?person a foaf:Person ; foaf:givenName ?name ; foaf:familyName ?surname .\n");
+		pqs.append("?person a foaf:Person ; foaf:givenName ?name ; foaf:mbox ?mail ; foaf:familyName ?surname .\n");
 		pqs.append("OPTIONAL { ?person foaf:Organization ?a ; dc:identifier ?id . ?a a foaf:Organization ; dc:title ?affiliation }\n");
 		if (!"".equals(text)) {
 			String[] tokens = text.split(",");
@@ -76,4 +76,22 @@ public class Author_CICBA_Authority extends CICBAAuthority {
 		
 		return new Choice(key, label, value);
 	}
+	
+	public ParameterizedSparqlString getSparqlEmailByTextQuery(String field,
+			String text, String locale) {
+		return  this.getSparqlSearchByTextQuery(field,text,locale);		
+	}
+	
+	
+	/**
+	 * @param solution
+	 * @return return and array with the email in the 0 position and the name in the 1 position
+	 */
+	public String[] extractNameAndEmail(QuerySolution solution){
+		String[] respuesta = new String[2];
+		respuesta[0] = solution.getLiteral("mail").getString();
+		respuesta[1] = solution.getLiteral("name").getString();
+		return respuesta;
+	}
+	
 }
