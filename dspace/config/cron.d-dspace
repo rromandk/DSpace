@@ -62,7 +62,7 @@ JAVA_OPTS="-Xmx1024M -Dfile.encoding=UTF-8"
 # Run the checksum checker at 04:00 every Sunday
 # By default it runs through every file (-l) and also prunes old results (-p)
 # (This re-verifies the checksums of all files stored in DSpace. If any files have been changed/corrupted, checksums will differ.)
-0 4 * * * $DSPACE/bin/dspace checker -l -p -d 1h 
+0 4 * * * $DSPACE/bin/dspace checker -p -d 1h 
   
 # Mail the results of the checksum checker (see above) to the configured "mail.admin" at 05:00 every Sunday.
 # (This ensures the system administrator is notified whether any checksums were found to be different.)
