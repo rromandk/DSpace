@@ -129,14 +129,14 @@
             </xsl:if>
             <br/>
 	        <!-- Show parent of community/collection -->
-	        <xsl:if test="dri:list[@n=(concat($handle, ':dc.other')) and descendant::text()]">
-	        	<div class="show_parent" title="{dri:list[@n=(concat($handle, ':dc.other'))]/dri:item}">
+	        <xsl:if test="dri:list[@n=(concat($handle, ':parent')) and descendant::text()]">
+	        	<div class="show_parent" title="{dri:list[@n=(concat($handle, ':parent'))]/dri:item}">
 	        		<xsl:choose >
-	        			<xsl:when test="string-length(dri:list[@n=(concat($handle, ':dc.other'))]/dri:item) &gt; 60">
-	        				<xsl:value-of select="concat(substring(dri:list[@n=(concat($handle, ':dc.other'))]/dri:item,1,56),'...')"/>
+	        			<xsl:when test="string-length(dri:list[@n=(concat($handle, ':parent'))]/dri:item) &gt; 60">
+	        				<xsl:value-of select="concat(substring(dri:list[@n=(concat($handle, ':parent'))]/dri:item,1,56),'...')"/>
 	        			</xsl:when>
 	        			<xsl:otherwise>
-	        				<xsl:value-of select="dri:list[@n=(concat($handle, ':dc.other'))]/dri:item"/>
+	        				<xsl:value-of select="dri:list[@n=(concat($handle, ':parent'))]/dri:item"/>
 	        			</xsl:otherwise>
 	        		</xsl:choose>
 	        	</div>
@@ -173,14 +173,14 @@
         </xsl:if>
         <br/>
         <!-- Show parent of community/collection -->
-        <xsl:if test="dri:list[@n=(concat($handle, ':dc.other')) and descendant::text()]">
-        	<div class="show_parent" title="{dri:list[@n=(concat($handle, ':dc.other'))]/dri:item}">
+        <xsl:if test="dri:list[@n=(concat($handle, ':parent')) and descendant::text()]">
+        	<div class="show_parent" title="{dri:list[@n=(concat($handle, ':parent'))]/dri:item}">
         		<xsl:choose >
-        			<xsl:when test="string-length(dri:list[@n=(concat($handle, ':dc.other'))]/dri:item) &gt; 60">
-        				<xsl:value-of select="concat(substring(dri:list[@n=(concat($handle, ':dc.other'))]/dri:item,1,56),'...')"/>
+        			<xsl:when test="string-length(dri:list[@n=(concat($handle, ':parent'))]/dri:item) &gt; 60">
+        				<xsl:value-of select="concat(substring(dri:list[@n=(concat($handle, ':parent'))]/dri:item,1,56),'...')"/>
         			</xsl:when>
         			<xsl:otherwise>
-        				<xsl:value-of select="dri:list[@n=(concat($handle, ':dc.other'))]/dri:item"/>
+        				<xsl:value-of select="dri:list[@n=(concat($handle, ':parent'))]/dri:item"/>
         			</xsl:otherwise>
         		</xsl:choose>
         	</div>

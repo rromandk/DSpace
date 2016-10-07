@@ -460,8 +460,9 @@ public abstract class AbstractSearch extends AbstractDSpaceTransformer implement
      * @throws SQLException
      */
     protected void renderCollection(Collection collection, DiscoverResult.DSpaceObjectHighlightResult highlightedResults, org.dspace.app.xmlui.wing.element.List dsoMetadata ) throws WingException, SQLException {
-    	String parent = collection.getCommunities().get(0).getName();
-    	addMetadataField(dsoMetadata.addList(collection.getHandle() + ":parent"), parent);
+    	Community parent = collection.getCommunities().get(0);
+    	org.dspace.app.xmlui.wing.element.List parents = dsoMetadata.addList(collection.getHandle() + ":parent");
+    	addMetadataField(parents, this.addDSOParent(parent));    	
     }
 
     /**
@@ -473,11 +474,18 @@ public abstract class AbstractSearch extends AbstractDSpaceTransformer implement
      * @throws SQLException
      */
     protected void renderCommunity(Community community, DiscoverResult.DSpaceObjectHighlightResult highlightedResults, org.dspace.app.xmlui.wing.element.List dsoMetadata ) throws WingException, SQLException {
-		if(!(community.getParentCommunities().isEmpty())){
-		     String parent = community.getParentCommunities().get(0).getName();
-		     addMetadataField(dsoMetadata.addList(community.getHandle() + ":parent"), parent);
-		}
+    	org.dspace.app.xmlui.wing.element.List parents = dsoMetadata.addList(community.getHandle() + ":parent");
+    	addMetadataField(parents, this.addDSOParent(community));    	
 	}
+    
+    private String addDSOParent(Community community){
+    	String toReturn = community.getName();
+    	if(!(community.getParentCommunities().isEmpty())){
+    		String parentName = addDSOParent(community.getParentCommunities().get(0));
+    		toReturn = parentName + " > " +toReturn;
+		}
+    	return toReturn;
+    }
     
     /**Render the given dso, call a more specific render, add all dso metadata to the list, which metadata will be rendered where depends on the xsl  
      * @param dso
