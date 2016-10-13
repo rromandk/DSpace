@@ -606,30 +606,15 @@
                         <xsl:with-param name="confidence" select="$confidence"/>
                         <xsl:with-param name="id" select="$confidenceIndicatorID"/>
                     </xsl:call-template>
-                    <xsl:choose>
-                    	<xsl:when test="dri:params[@choicesPresentation='raw']">
-		                    <xsl:call-template name="authorityInputFields">
-		                        <xsl:with-param name="name" select="@n"/>
-		                        <xsl:with-param name="id" select="@id"/>
-		                        <xsl:with-param name="authValue" select="dri:value[@type='authority']/text()"/>
-		                        <xsl:with-param name="confValue" select="dri:value[@type='authority']/@confidence"/>
-		                        <xsl:with-param name="confIndicatorID" select="$confidenceIndicatorID"/>
-		                        <xsl:with-param name="unlockButton" select="'yes'"/>
-		                        <xsl:with-param name="unlockHelp" select="dri:value[@type='authority']/dri:field[@rend='ds-authority-lock']/dri:help"/>
-		                    </xsl:call-template>
-		                </xsl:when>
-		                <xsl:otherwise>
-		                	<xsl:call-template name="authorityInputFields">
-		                        <xsl:with-param name="name" select="@n"/>
-		                        <xsl:with-param name="id" select="@id"/>
-		                        <xsl:with-param name="authValue" select="dri:value[@type='authority']/text()"/>
-		                        <xsl:with-param name="confValue" select="dri:value[@type='authority']/@confidence"/>
-		                        <xsl:with-param name="confIndicatorID" select="$confidenceIndicatorID"/>
-		                        <xsl:with-param name="unlockButton" select="dri:value[@type='authority']/dri:field[@rend='ds-authority-lock']/@n"/>
-		                        <xsl:with-param name="unlockHelp" select="dri:value[@type='authority']/dri:field[@rend='ds-authority-lock']/dri:help"/>
-		                    </xsl:call-template>
-		                </xsl:otherwise>
-	                </xsl:choose>
+                    <xsl:call-template name="authorityInputFields">
+                        <xsl:with-param name="name" select="@n"/>
+                        <xsl:with-param name="id" select="@id"/>
+                        <xsl:with-param name="authValue" select="dri:value[@type='authority']/text()"/>
+                        <xsl:with-param name="confValue" select="dri:value[@type='authority']/@confidence"/>
+                        <xsl:with-param name="confIndicatorID" select="$confidenceIndicatorID"/>
+                        <xsl:with-param name="unlockButton" select="dri:value[@type='authority']/dri:field[@rend='ds-authority-lock']/@n"/>
+                        <xsl:with-param name="unlockHelp" select="dri:value[@type='authority']/dri:field[@rend='ds-authority-lock']/dri:help"/>
+                    </xsl:call-template>
                 </xsl:if>
                 <!-- add choice mechanisms -->
                 <xsl:choose>
@@ -731,25 +716,12 @@
                         <xsl:with-param name="confidence" select="$confidence"/>
                         <xsl:with-param name="id" select="$confidenceIndicatorID"/>
                     </xsl:call-template>
-                    <xsl:choose>
-                    	<xsl:when test="dri:params[@choicesPresentation='raw']">
-		                    <xsl:call-template name="authorityInputFields">
-		                        <xsl:with-param name="name" select="@n"/>
-		                        <xsl:with-param name="id" select="@id"/>
-		                        <xsl:with-param name="authValue" select="dri:value[@type='authority']/text()"/>
-		                        <xsl:with-param name="confValue" select="dri:value[@type='authority']/@confidence"/>
-		                        <xsl:with-param name="unlockButton" select="'yes'"/>
-		                    </xsl:call-template>
-		                </xsl:when>
-		                <xsl:otherwise>
-		                	<xsl:call-template name="authorityInputFields">
-		                        <xsl:with-param name="name" select="@n"/>
-		                        <xsl:with-param name="id" select="@id"/>
-		                        <xsl:with-param name="authValue" select="dri:value[@type='authority']/text()"/>
-		                        <xsl:with-param name="confValue" select="dri:value[@type='authority']/@confidence"/>
-		                    </xsl:call-template>
-		                </xsl:otherwise>
-	                </xsl:choose>
+                    <xsl:call-template name="authorityInputFields">
+                        <xsl:with-param name="name" select="@n"/>
+                        <xsl:with-param name="id" select="@id"/>
+                        <xsl:with-param name="authValue" select="dri:value[@type='authority']/text()"/>
+                        <xsl:with-param name="confValue" select="dri:value[@type='authority']/@confidence"/>
+                    </xsl:call-template>
                 </xsl:if>
                 <xsl:choose>
                     <xsl:when test="dri:params/@choicesPresentation = 'suggest'">

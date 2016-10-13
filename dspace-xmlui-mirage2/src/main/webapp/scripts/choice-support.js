@@ -60,20 +60,12 @@ function DSpaceSetupAutocomplete(formID, args) {
 
         var ac = $('#' + inputID);
         ac.autocomplete({
-        	minLength: args.minLength,
-        	delay: 200,
             source: function(request, response) {
-            	// abort previous request
-            	var previous_request = $(this.element).data("jqXHR");
-                if (previous_request) {
-                	previous_request.abort();
-                }
-            	
                 var reqUrl = choiceURL;
                 if(request && request.term) {
                     reqUrl += "&query=" + request.term;
                         }
-                $(this.element).data("jqXHR", $.get(reqUrl, function(xmldata) {
+                $.get(reqUrl, function(xmldata) {
                     var options = [];
                     var authorities = [];
                     $(xmldata).find('Choice').each(function() {
@@ -95,9 +87,9 @@ function DSpaceSetupAutocomplete(formID, args) {
                         }
                     });
                     ac.data('authorities',authorities);
-                    response(options.sort(ordenarAlfabeticamente));
-                }));
-                }, autoFocus:true,
+                    response(options);
+                });
+                },
             select: function(event, ui) {
                     // NOTE: lookup element late because it might not be in DOM
                     // at the time we evaluate the function..
@@ -127,21 +119,9 @@ function DSpaceSetupAutocomplete(formID, args) {
                 }
 		}).autocomplete( "widget").addClass( 'dropdown-menu' );
         $(".ui-helper-hidden-accessible").hide();
-        
-        // if minLength is set to 0, then make a search with a single space when the user clicks
-        if (args.minLength == 0) {
-        	ac.click(function() { 
-        		ac.autocomplete("search", " ");
-    		});
-        }
-        
 	});
 }
-function ordenarAlfabeticamente(elem1, elem2){
-	if(elem1.value>elem2.value){
-		return 1;
-	}else{return -1;}
-}
+
 // -------------------- support for Lookup Popup
 
 // Create popup window with authority choices for value of an input field.

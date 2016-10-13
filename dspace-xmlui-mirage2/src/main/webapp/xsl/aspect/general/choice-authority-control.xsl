@@ -74,9 +74,7 @@
           <!-- Collection ID for context -->
           <xsl:choose>
             <xsl:when test="/dri:document/dri:meta/dri:pageMeta/dri:metadata[@element='choice'][@qualifier='collection']">
-            	<xsl:text>'</xsl:text>
-              	<xsl:value-of select="/dri:document/dri:meta/dri:pageMeta/dri:metadata[@element='choice'][@qualifier='collection']"/>
-              	<xsl:text>'</xsl:text>
+              <xsl:value-of select="/dri:document/dri:meta/dri:pageMeta/dri:metadata[@element='choice'][@qualifier='collection']"/>
             </xsl:when>
             <xsl:otherwise>
               <xsl:text>-1</xsl:text>
@@ -244,14 +242,6 @@
         <xsl:with-param name="containerID"   select="concat(translate(@id,'.','_'),'_container')"/>
         <xsl:with-param name="indicatorID"   select="concat(translate(@id,'.','_'),'_indicator')"/>
         <xsl:with-param name="isClosed"      select="contains(dri:params/@choicesClosed,'true')"/>
-        <xsl:with-param name="minLength">
-        	<xsl:choose>
-		        <xsl:when test="string-length(dri:params/@choicesMinLength) > 0">
-		        	<xsl:value-of select="dri:params/@choicesMinLength"></xsl:value-of>
-		        </xsl:when>
-		        <xsl:otherwise>1</xsl:otherwise>
-	    	</xsl:choose>
-        </xsl:with-param>
         <xsl:with-param name="confidenceIndicatorID" select="$confidenceIndicatorID"/>
         <xsl:with-param name="confidenceName" select="$confidenceName"/>
         <xsl:with-param name="collectionID">
@@ -279,7 +269,6 @@
       <xsl:param name="indicatorID" select="'missing value'"/>
       <xsl:param name="confidenceIndicatorID" select="''"/>
       <xsl:param name="confidenceName" select="''"/>
-      <xsl:param name="minLength" select="'1'"/>
       <xsl:param name="isClosed" select="'false'"/>
 
 
@@ -319,8 +308,6 @@
                     <xsl:value-of select="$formID"/>
                     <xsl:text>', { metadataField: '</xsl:text>
                     <xsl:value-of select="$metadataField"/>
-                    <xsl:text>', minLength: '</xsl:text>
-                    <xsl:value-of select="$minLength"/>
                     <xsl:text>', isClosed: '</xsl:text>
                     <xsl:value-of select="$isClosed"/>
                     <xsl:text>', inputName: '</xsl:text>
@@ -335,9 +322,9 @@
                     <xsl:value-of select="$confidenceIndicatorID"/>
                     <xsl:text>', confidenceName: '</xsl:text>
                     <xsl:value-of select="$confidenceName"/>
-                    <xsl:text>', collection: '</xsl:text>
+                    <xsl:text>', collection: </xsl:text>
                     <xsl:value-of select="$collectionID"/>
-                    <xsl:text>', contextPath: '</xsl:text>
+                    <xsl:text>, contextPath: '</xsl:text>
                     <xsl:value-of select="/dri:document/dri:meta/dri:pageMeta/dri:metadata[@element='contextPath'][not(@qualifier)]"/>
                 <xsl:text>'});</xsl:text>
             <xsl:text>});</xsl:text>

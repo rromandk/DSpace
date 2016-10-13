@@ -28,7 +28,6 @@
 	exclude-result-prefixes="i18n dri mets xlink xsl dim xhtml mods dc">
 
     <!--<xsl:import href="../dri2xhtml-alt/dri2xhtml.xsl"/>-->
-    <xsl:import href="core/constants.xsl"/>
     <xsl:import href="aspect/artifactbrowser/artifactbrowser.xsl"/>
     <xsl:import href="core/global-variables.xsl"/>
     <xsl:import href="core/elements.xsl"/>
@@ -36,7 +35,6 @@
     <xsl:import href="core/page-structure.xsl"/>
     <xsl:import href="core/navigation.xsl"/>
     <xsl:import href="core/attribute-handlers.xsl"/>
-    <xsl:import href="core/utils_cic.xsl"/>
     <xsl:import href="core/utils.xsl"/>
     <xsl:import href="aspect/general/choice-authority-control.xsl"/>
     <xsl:import href="aspect/general/vocabulary-support.xsl"/>
