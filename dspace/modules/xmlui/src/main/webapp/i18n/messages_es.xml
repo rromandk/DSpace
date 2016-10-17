@@ -1904,6 +1904,12 @@
 
 <message key="xmlui.administrative.ControlPanel.select_panel">Utilizar las pestañas de arriba para seleccionar la información que se mostrará</message>
 
+<message key="xmlui.administrative.ControlPanel.tabs.Java Information">Información de Java</message>
+<message key="xmlui.administrative.ControlPanel.tabs.Configuration">Configuración</message>
+<message key="xmlui.administrative.ControlPanel.tabs.SystemWide Alerts">Alertas del sistema</message>
+<message key="xmlui.administrative.ControlPanel.tabs.Harvesting">Harvesting</message>
+<message key="xmlui.administrative.ControlPanel.tabs.Current Activity">Actividad reciente</message>
+
 	<!-- org.dspace.app.xmlui.administrative.SystemwideAlerts -->
 <message key="xmlui.administrative.SystemwideAlerts.countdown"><strong>En {0} minutos</strong>:</message>
 
