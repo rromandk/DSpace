@@ -229,4 +229,27 @@
 			</xsl:otherwise>
 		</xsl:choose>
 	</xsl:template> 
+	
+	<xsl:template name="add-static-page-anchor">
+		<xsl:param name="static-page-i18n-key-uri"/>
+		<xsl:param name="static-page-i18n-key-title"/>
+		
+		<xsl:if test="$static-page-i18n-key-uri">
+			 <a i18n:attr="href">
+			 	<xsl:attribute name="href">
+			 		<xsl:value-of select="$static-page-i18n-key-uri"/>
+			 	</xsl:attribute>
+<!-- 			 	<xsl:attribute name="href"> -->
+<!-- 			 		<xsl:value-of select="$static-page-prefix"/> -->
+<!-- 			 		<i18n:text> -->
+<!-- 						<xsl:value-of select="$static-page-i18n-key-uri"/> -->
+<!-- 					</i18n:text> -->
+<!-- 			 	</xsl:attribute> -->
+			 	<i18n:text>
+			 		<xsl:value-of select="$static-page-i18n-key-title"/>
+			 	</i18n:text>
+			</a>
+		</xsl:if>
+	</xsl:template>
+	
  </xsl:stylesheet>

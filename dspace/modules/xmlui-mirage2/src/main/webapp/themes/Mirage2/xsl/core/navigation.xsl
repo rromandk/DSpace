@@ -135,6 +135,12 @@
                 </div>
 
             </xsl:if>
+            
+            <!-- Ejemplo sobre cómo agregar un enlace a una StaticPage -->
+            <xsl:call-template name="add-static-page-anchor">
+            	<xsl:with-param name="static-page-i18n-key-uri">xmlui.unerdigital.staticPage.test.uri</xsl:with-param>
+				<xsl:with-param name="static-page-i18n-key-title">xmlui.unerdigital.title.test</xsl:with-param>
+            </xsl:call-template>
         </div>
     </xsl:template>
 

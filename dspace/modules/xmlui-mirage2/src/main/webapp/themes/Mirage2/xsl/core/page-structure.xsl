@@ -30,7 +30,8 @@
                 xmlns:mods="http://www.loc.gov/mods/v3"
                 xmlns:dc="http://purl.org/dc/elements/1.1/"
                 xmlns:confman="org.dspace.core.ConfigurationManager"
-                exclude-result-prefixes="i18n dri mets xlink xsl dim xhtml mods dc confman">
+				xmlns:xmlui="xalan://ar.edu.unlp.sedici.dspace.xmlui.util.XSLTHelper"
+                exclude-result-prefixes="i18n dri mets xlink xsl dim xhtml mods dc confman xmlui">
 
     <xsl:output method="xml" encoding="UTF-8" indent="yes"/>
 
@@ -276,20 +277,7 @@
             <script src="{concat($theme-path, 'vendor/modernizr/modernizr.js')}">&#160;</script>
 
             <!-- Add the title in -->
-            <xsl:variable name="page_title" select="/dri:document/dri:meta/dri:pageMeta/dri:metadata[@element='title'][last()]" />
-            <title>
-                <xsl:choose>
-                    <xsl:when test="starts-with($request-uri, 'page/about')">
-                        <i18n:text>xmlui.mirage2.page-structure.aboutThisRepository</i18n:text>
-                    </xsl:when>
-                    <xsl:when test="not($page_title)">
-                        <xsl:text>  </xsl:text>
-                    </xsl:when>
-                    <xsl:otherwise>
-                        <xsl:copy-of select="$page_title/node()" />
-                    </xsl:otherwise>
-                </xsl:choose>
-            </title>
+			<xsl:call-template name="addPageTitle"/>
 
             <!-- Head metadata in item pages -->
             <xsl:if test="/dri:document/dri:meta/dri:pageMeta/dri:metadata[@element='xhtml_head_item']">
@@ -770,15 +758,14 @@
                 </div>
             </xsl:if>
 
-            <!-- Check for the custom pages -->
             <xsl:choose>
-                <xsl:when test="starts-with($request-uri, 'page/about')">
-                    <div class="hero-unit">
-                        <h1><i18n:text>xmlui.mirage2.page-structure.heroUnit.title</i18n:text></h1>
-                        <p><i18n:text>xmlui.mirage2.page-structure.heroUnit.content</i18n:text></p>
-                    </div>
-                </xsl:when>
-                <!-- Otherwise use default handling of body -->
+				<!-- Handler for Static pages -->
+				<xsl:when test="starts-with($request-uri, 'page/')">
+					<div class="static-page">
+						<xsl:copy-of select="document(concat('../../',$request-uri,'.xhtml') )" />
+					</div>
+				</xsl:when>                
+				<!-- Otherwise use default handling of body -->
                 <xsl:otherwise>
                     <xsl:apply-templates />
                 </xsl:otherwise>
@@ -925,6 +912,25 @@
                 </ul>
             </li>
         </xsl:if>
+    </xsl:template>
+    
+    <xsl:template name="addPageTitle">
+    	<xsl:variable name="page_title" select="/dri:document/dri:meta/dri:pageMeta/dri:metadata[@element='title'][last()]" />
+            <title>
+                <xsl:choose>
+                    <xsl:when test="starts-with($request-uri, 'page/')">
+                        <i18n:text>
+                        	<xsl:value-of select="concat('xmlui.unerdigital.title.', xmlui:replaceAll(substring-after($request-uri,'/'), '(_en|_es)', ''))"/>
+                        </i18n:text>
+                    </xsl:when>
+                    <xsl:when test="not($page_title)">
+                        <xsl:text>  </xsl:text>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <xsl:copy-of select="$page_title/node()" />
+                    </xsl:otherwise>
+                </xsl:choose>
+            </title>
     </xsl:template>
 
 </xsl:stylesheet>
