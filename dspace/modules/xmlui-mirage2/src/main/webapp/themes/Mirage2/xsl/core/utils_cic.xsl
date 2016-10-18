@@ -239,12 +239,6 @@
 			 	<xsl:attribute name="href">
 			 		<xsl:value-of select="$static-page-i18n-key-uri"/>
 			 	</xsl:attribute>
-<!-- 			 	<xsl:attribute name="href"> -->
-<!-- 			 		<xsl:value-of select="$static-page-prefix"/> -->
-<!-- 			 		<i18n:text> -->
-<!-- 						<xsl:value-of select="$static-page-i18n-key-uri"/> -->
-<!-- 					</i18n:text> -->
-<!-- 			 	</xsl:attribute> -->
 			 	<i18n:text>
 			 		<xsl:value-of select="$static-page-i18n-key-title"/>
 			 	</i18n:text>
