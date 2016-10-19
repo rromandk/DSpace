@@ -166,7 +166,10 @@
         <!-- <theme name="Atmire Mirage Theme" regex=".*" path="Mirage/" /> -->
         
         <!-- CICBA Theme (Mirage extension) -->
-		<theme name="CICBA" regex=".*" path="cicba/" />
+	<!--	<theme name="CICBA" regex=".*" path="cicba/" /> -->
+
+	<!-- Mirage 2 -->
+	<theme name="Mirage 2" regex=".*" path="Mirage2/" />
 		
         <!-- Reference theme, the default Manakin XMLUI layout up to DSpace 1.8 -->
         <!-- <theme name="Default Reference Theme" regex=".*" path="Reference/" /> -->

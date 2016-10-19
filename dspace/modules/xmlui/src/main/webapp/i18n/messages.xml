@@ -80,10 +80,13 @@
 <message key="xmlui.cicdigital.title.como-aportar-material">¿How to contribute material?</message>
 <message key="xmlui.cicdigital.title.que-es-cic-digital">¿What is CIC-Digital?</message>
 <message key="xmlui.cicdigital.title.politicas-del-repositorio">Repository policies</message>
+<message key="xmlui.unerdigital.title.test">Test Page</message>
 	<!-- Static pages trail -->
 <message key="xmlui.cicdigital.trail.como-aportar-material">¿How to contribute material?</message>
 <message key="xmlui.cicdigital.trail.que-es-cic-digital">¿What is CIC-Digital?</message>
 <message key="xmlui.cicdigital.trail.politicas-del-repositorio">Repository policies</message>
+<message key="xmlui.unerdigital.trail.test">Página de prueba</message>
+
 	<!-- Home messages -->
 <message key="xmlui.cicdigital.home.centros">centers</message>
 <message key="xmlui.cicdigital.home.subir-material">Upload material</message>
@@ -107,6 +110,7 @@
 <message key="xmlui.cicdigital.staticPage.what-is-cic-digital.uri">/page/que-es-cic-digital_en</message>
 <message key="xmlui.cicdigital.staticPage.reposiotry-policies.uri">/page/politicas-del-repositorio_en</message>
 <message key="xmlui.cicdigital.staticPage.how-to-contribute-material.uri">/page/como-aportar-material_en</message>
+<message key="xmlui.unerdigital.staticPage.test.uri">/page/test_en</message>
 	<!--!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
 		             ArtifactBrowser Aspect
