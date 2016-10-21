@@ -1,15 +1,34 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <wf-config>
+	<!-- 
+		UNER-Digital tiene el siguiente esquema de worklow
+		1. **++ COMUNIDAD DEPENDIENTE (default)**: este es el circuito por defecto, y presenta
+				un flujo de trabajo mediado, primero, por una COMMUNITY-ADMIN y, luego, por un
+				UNER-ADMIN, centralizando la decisión de publicar un item en manos de un UNER-ADMIN.
+		2. **++ COMUNIDAD INDEPENDIENTE  **: este circuito confiere poder de publicación directa
+				a los administradores de comunidad (COMMUNITY-ADMINS), sin necesitar de una
+				revisión central por parte de un UNER-ADMIN.
+		3.  **++ AUTOARCHIVO (AA)**: un usuario registrado sin ningún privilegio envía un
+				item al repositorio (implícitamente a la coleccion "Autoarchivo"), 
+				y luego es revisado por un UNER-ADMIN.
+	
+	-->
     <workflow-map>
+        <!--Comunidad Dependiente  -->
         <name-map collection="default" workflow="default"/>
+        
+        <!-- Comunidad Indepeniente -->
+        <!-- <name-map collection="123456789/XXXX" workflow="comm_workflow_independiente"/> -->
+        
+        <!-- Comunidad Autoarchivo -->
         <name-map collection="11746/2" workflow="autoarchive"/>
     </workflow-map>
 
-	<workflow start="CIC-ADMIN_review" id="autoarchive">
+	<workflow start="UNER-ADMIN-review" id="autoarchive">
 		<roles>
-			<role id="Administrador_CIC" name="CIC-ADMIN" scope="repository" description="Rol asigando para las personas encargadas de gestionar el repositorio, principalmente a partir de la carga."/>
+			<role id="Administrador_UNER" name="UNER-ADMIN" scope="repository" description="Rol asigando para las personas encargadas de gestionar el repositorio, principalmente a partir de la carga."/>
 		</roles>
-		<step id="CIC-ADMIN_review" role="Administrador_CIC" userSelectionMethod="claimaction">
+		<step id="UNER-ADMIN-review" role="Administrador_UNER" userSelectionMethod="claimaction">
 			<actions>
 				<action id="changecollection"/>
 				<action id="editaction"/>
@@ -17,11 +36,34 @@
 		</step>
 	</workflow>
 	
-	<workflow start="CIC-ADMIN_review" id="default">
+	<workflow start="COMMUNITY-ADMIN-review" id="comm_workflow_independiente">
 		<roles>
-			<role id="Administrador_CIC" name="CIC-ADMIN" scope="repository" description="Rol asigando para las personas encargadas de gestionar el repositorio, principalmente a partir de la carga."/>
+			<role id="Administradores_de_Comunidad" name="COMMUNITY-ADMINS" scope="repository" description="Rol asignado para los usuarios pertenecientes al grupo de ADMINISTRATORS de alguna comunidad."/>
 		</roles>
-		<step id="CIC-ADMIN_review" role="Administrador_CIC" userSelectionMethod="rejectrole">
+		<step id="COMMUNITY-ADMIN-review" role="Administradores_de_Comunidad" userSelectionMethod="rejectrole">
+			<actions>
+				<action id="editaction"/>
+			</actions>
+		</step>
+	</workflow>
+	
+	
+	<workflow start="COMMUNITY-ADMIN-review" id="default">
+		<roles>
+			<role id="Administrador_UNER" name="UNER-ADMIN" scope="repository" description="Rol asigando para las personas encargadas de gestionar el repositorio, principalmente a partir de la carga."/>
+			<role id="Administradores_de_Comunidad" name="COMMUNITY-ADMINS" scope="repository" description="Rol asignado para los usuarios pertenecientes al grupo de ADMINISTRATORS de alguna comunidad."/>
+		</roles>
+		<!-- TODO: NO FUNCIONA el atributo nextStep!!!! Reportarlo como bug a DSpace -->
+		<!-- <step id="COMMUNITY-ADMIN_review" nextStep="UNER-ADMIN_review" role="Administrador_UNER_Facultad" userSelectionMethod="rejectrole"> -->
+		<step id="COMMUNITY-ADMIN-review" role="Administradores_de_Comunidad" userSelectionMethod="rejectrole">
+			<outcomes>
+     			<step status="0">UNER-ADMIN-review</step>
+			</outcomes>
+			<actions>
+				<action id="editaction"/>
+			</actions>
+		</step>
+		<step id="UNER-ADMIN-review" role="Administrador_UNER" userSelectionMethod="rejectrole">
 			<actions>
 				<action id="editaction"/>
 			</actions>
