@@ -320,7 +320,7 @@ public class DSpaceWorkspaceItemOutputGenerator implements OutputGenerator
             {
                 return true;
             }
-            return getDCInput(formName, md[0], md[1], md[2]) != null;
+            return getDCInput(collection, md[0], md[1], md[2]) != null;
         }
         catch (Exception e)
         {
@@ -329,10 +329,10 @@ public class DSpaceWorkspaceItemOutputGenerator implements OutputGenerator
         return false;
     }
 
-    protected DCInput getDCInput(String formName, String schema, String element,
+    protected DCInput getDCInput(Collection collection, String schema, String element,
             String qualifier) throws DCInputsReaderException
     {
-        DCInputSet dcinputset = new DCInputsReader().getInputs(formName);
+        DCInputSet dcinputset = new DCInputsReader().getInputs(collection);
         for (int idx = 0; idx < dcinputset.getNumberPages(); idx++)
         {
             for (DCInput dcinput : dcinputset.getPageRows(idx, true, true))
@@ -354,7 +354,7 @@ public class DSpaceWorkspaceItemOutputGenerator implements OutputGenerator
     {
         try
         {
-            DCInput dcinput = getDCInput(formName, md[0], md[1], md[2]);
+            DCInput dcinput = getDCInput(collection, md[0], md[1], md[2]);
             if (dcinput != null)
             {
                 return dcinput.isRepeatable();

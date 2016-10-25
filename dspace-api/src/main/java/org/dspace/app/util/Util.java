@@ -562,10 +562,10 @@ public class Util {
     	else
     	{
 			// Search through the community hierarchy in ascending order
-    		ArrayList<Community> communities;
+    		List<Community> communities;
     		try 
     		{
-    			communities = (ArrayList<Community>)collection.getCommunities();
+    			communities = (List<Community>)collection.getCommunities();
 			}
 			catch (SQLException e)
 			{
