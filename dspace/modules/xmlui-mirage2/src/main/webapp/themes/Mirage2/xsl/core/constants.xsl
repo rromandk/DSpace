@@ -65,6 +65,13 @@
 	
 	<xsl:variable name="handle-autoarchive">
 		<xsl:value-of select="/dri:document/dri:meta/dri:repositoryMeta/dri:repository/@repositoryID"/>
-		<xsl:text>/2</xsl:text>
+		<xsl:text>/3</xsl:text>
 	</xsl:variable>
+	
+	<xsl:variable name="url-autoarchive">
+		<xsl:text>/metadata/handle/</xsl:text>
+		<xsl:value-of select="$handle-autoarchive"/>
+		<xsl:text>/mets.xml</xsl:text>
+	</xsl:variable>
+	
 </xsl:stylesheet>

@@ -96,12 +96,17 @@
         moved to the list model. A special theme, called TableTheme, has beeen created for the purpose of
         preserving the pioneer model. -->
     <xsl:template match="dri:referenceSet[@type = 'summaryList']" priority="2">
-        <xsl:apply-templates select="dri:head"/>
+        <xsl:choose>
+            <xsl:when test="count(./dri:reference[@url != $url-autoarchive]) &gt; 0">
+                <xsl:apply-templates select="dri:head"/>
+            </xsl:when>
+        </xsl:choose>
+
         <!-- Here we decide whether we have a hierarchical list or a flat one -->
         <xsl:choose>
             <xsl:when test="descendant-or-self::dri:referenceSet/@rend='hierarchy' or ancestor::dri:referenceSet/@rend='hierarchy'">
                 <ul class="ds-artifact-list list-unstyled">
-                    <xsl:apply-templates select="*[not(name()='head')]" mode="summaryList"/>
+                    <xsl:apply-templates select="*[not(name()='head')][@url != $url-autoarchive]" mode="summaryList"/>
                 </ul>
             </xsl:when>
             <xsl:otherwise>
