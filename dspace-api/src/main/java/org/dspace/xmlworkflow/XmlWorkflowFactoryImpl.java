@@ -127,9 +127,9 @@ public class XmlWorkflowFactoryImpl implements XmlWorkflowFactory {
     		return workflowMap;
 
 		// Search through the community hierarchy in ascending order
-		ArrayList<Community> communities;
+		List<Community> communities;
 		try {
-			communities = (ArrayList<Community>)collection.getCommunities();
+			communities = (List<Community>)collection.getCommunities();
 		} catch (SQLException e) {
 			throw new WorkflowConfigurationException("Error getting communities from collection "+collection.getID()+": "+e.getMessage());
 		}
