@@ -1,0 +1,77 @@
+<?xml version="1.0"?>
+
+<!--
+  - uner-types.xml
+  -
+  - Version:  $Revision$
+  -
+  - Date:     $Date$
+  -e
+  - 
+  - <dc-type>
+  -   <schema></schema>
+  -   <element></element>
+  -   
+  -   <scope_note></scope_note>
+  - </dc-type>
+  -->
+
+<!-- start of XML -->
+
+<dspace-dc-types>
+
+  <dspace-header>
+    <title>UNER Registry</title>
+    <date.created>$Date$</date.created>
+    <description>$Log$</description>
+    <description.version>$Revision$</description.version>
+  </dspace-header>
+
+	<dc-schema>
+		<name>thesis</name>
+		<namespace>http://www.ndltd.org/standards/metadata/etdms/1.1/</namespace>
+	</dc-schema>
+
+	<dc-type>
+		<schema>dc</schema>
+		<element>type</element>
+		<qualifier>version</qualifier>
+		<scope_note>Version de la obra  (ver https://guidelines.openaire.eu/en/latest/literature/field_publicationversion.html)</scope_note>
+	</dc-type>
+	
+	<dc-type>
+		<schema>thesis</schema>
+		<element>degree</element>
+		<qualifier>name</qualifier>
+		<scope_note>Grado al que se aspira con el trabajo de tesis realizado</scope_note>
+	</dc-type>
+
+	<dc-type>
+		<schema>thesis</schema>
+		<element>degree</element>
+		<qualifier>grantor</qualifier>
+		<scope_note>Insitución que otorgó el título</scope_note>
+	</dc-type>
+
+	<dc-type>
+		<schema>dc</schema>
+		<element>description</element>
+		<qualifier>fulltext</qualifier>
+		<scope_note>Indica si el recurso está disponible a texto completo en uno o más de los archivos que tiene asociados en el repositorio.</scope_note>
+	</dc-type>
+
+	<dc-type>
+		<schema>dcterms</schema>
+		<element>isPartOf</element>
+		<qualifier>project</qualifier>
+		<scope_note>En caso que la obra haya sido generada en el marco de un proyecto de financiamiento, indicar identificación del mismo. Ej: CONICET/PIP/11220130100320CO/AR</scope_note>
+	</dc-type>
+
+	<dc-type>
+		<schema>dcterms</schema>
+		<element>relation</element>
+		<qualifier>dataset</qualifier>
+		<scope_note>Conjunto de datos fuente utilizado para la realización de la presente obra.</scope_note>
+	</dc-type>
+
+</dspace-dc-types>
