@@ -40,7 +40,7 @@ public class DCInput
     private boolean language = false;
     
     /** the language code use for the input */
-    private static final String LanguageName = "cic_common_languages";
+    private static final String LanguageName = "uner_common_languages";
 
     /** the language list and their value */
     private List<String> valueLanguageList = null;

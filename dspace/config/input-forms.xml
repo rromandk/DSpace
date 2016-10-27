@@ -15,7 +15,7 @@
 
  <form-map>
    <!-- Poner handle de la 'colección de autoarchivo' en el repositorio -->
-   <name-map collection-handle="11746/2" form-name="autoarchive" />
+   <name-map collection-handle="123456789/3" form-name="autoarchive" />
    <name-map collection-handle="default" form-name="traditional" />
  </form-map>
 
@@ -66,7 +66,7 @@
      	<field>
          <dc-schema>dc</dc-schema>
          <dc-element>title</dc-element>
-         <language value-pairs-name="cic_common_languages">true</language>
+         <language value-pairs-name="uner_common_languages">true</language>
          <repeatable>false</repeatable>
          <label>Título</label>
          <input-type>textarea</input-type>
@@ -78,7 +78,7 @@
 		 <dc-schema>dcterms</dc-schema>
          <dc-element>title</dc-element>
          <dc-qualifier>subtitle</dc-qualifier>
-         <language value-pairs-name="cic_common_languages">true</language>
+         <language value-pairs-name="uner_common_languages">true</language>
          <repeatable>false</repeatable>
          <label>Subtítulo</label>
          <input-type>textarea</input-type>
@@ -88,7 +88,7 @@
      	<field>
          <dc-schema>dcterms</dc-schema>
          <dc-element>alternative</dc-element>
-         <language value-pairs-name="cic_common_languages">true</language>
+         <language value-pairs-name="uner_common_languages">true</language>
          <repeatable>true</repeatable>
          <label>Título alternativo</label>
          <input-type>onebox</input-type>
@@ -167,7 +167,7 @@
      	<field>
          <dc-schema>dcterms</dc-schema>
          <dc-element>abstract</dc-element>
-         <language value-pairs-name="cic_common_languages">true</language>
+         <language value-pairs-name="uner_common_languages">true</language>
          <repeatable>true</repeatable>
          <label>Resumen</label>
          <input-type>textarea</input-type>
@@ -233,7 +233,7 @@
      	<field>
          <dc-schema>dcterms</dc-schema>
          <dc-element>subject</dc-element>
-         <language value-pairs-name="cic_common_languages">true</language>
+         <language value-pairs-name="uner_common_languages">true</language>
          <repeatable>true</repeatable>
          <label>Palabras clave</label>
          <input-type>twobox</input-type> <!-- TODO: lookup --> <!-- TODO: vocabulary -->
@@ -459,31 +459,30 @@
    </form>
    
    	<!-- ###############################		FOMULARIO AUTOARCHIVO		############################### -->
-   
    <form name="autoarchive">
      <page number="1">
-     
+<!-- 1.1 -->
      	<field>
          <dc-schema>dc</dc-schema>
          <dc-element>type</dc-element>
          <repeatable>false</repeatable>
          <label>Tipo</label>
-		<input-type>onebox</input-type>
-         <hint>Tipo de documento (artículo, tesis, libro, etc.).</hint>
+		 <input-type>onebox</input-type>
+         <hint>Tipo de documento.</hint>
          <required>Debe seleccionar una tipología documental</required>
-       </field>
-     
+        </field>
+<!-- 1.2 -->
      	<field>
          <dc-schema>dc</dc-schema>
          <dc-element>title</dc-element>
-         <language value-pairs-name="cic_common_languages">true</language>
+         <language value-pairs-name="uner_common_languages">true</language>
          <repeatable>false</repeatable>
          <label>Título</label>
          <input-type>onebox</input-type>
-         <hint>Título del documento tal y como aparece en la obra</hint>
+         <hint>Título principal del documento tal y como aparece en la obra.</hint>
          <required>Debe indicar el título del documento</required>
        </field>
-     
+<!-- 1.3 -->
      	<!-- TODO: Este debe conectarse con una base que contenga las autores registrados en CIC -->
      	<field>
          <dc-schema>dcterms</dc-schema>
@@ -491,42 +490,10 @@
          <dc-qualifier>author</dc-qualifier>
          <repeatable>true</repeatable>
          <label>Autor</label>
-         <input-type>twobox</input-type> <!-- TODO: suggest, lo mismo para todos los tipos de autores -->
-         <hint>Persona física creadora del contenido intelectual de la obra</hint>
-       </field>
-          
-     	<!-- TODO: Este debe conectarse con una base que contenga las autores registrados en CIC -->
-     	<field>
-         <dc-schema>dcterms</dc-schema>
-         <dc-element>contributor</dc-element>
-         <dc-qualifier>director</dc-qualifier>
-         <repeatable>true</repeatable>
-         <label>Director</label>
-		 <type-bind>Tesis,Informe cientifico</type-bind>
-         <input-type>twobox</input-type>
-         <hint>Persona que dirige la realización de la tesis o quien dirige a un investigador, personal de apoyo o becario.</hint>
-       </field>
-     
-     	<field>
-         <dc-schema>dcterms</dc-schema>
-         <dc-element>abstract</dc-element>
-         <language value-pairs-name="cic_common_languages">true</language>
-         <repeatable>true</repeatable>
-         <label>Resumen</label>
-         <input-type>textarea</input-type>
-         <hint>Resumen de la obra. En caso de ser un Informe de Investigación generar un índice del mismo en función de los títulos del punto 6.</hint>
-       </field>
-     
-     	<field>
-         <dc-schema>cic</dc-schema>
-         <dc-element>lugarDesarrollo</dc-element>
-         <repeatable>true</repeatable>
-         <label>Lugar de desarrollo</label>
          <input-type>onebox</input-type>
-         <hint>Institución, departamento y/o unidad en la cual se desarrolló el trabajo. En el caso de informes de investigación, corresponde al punto 4.</hint>
-         <required>Debe indicar el lugar o lugares donde se desarrolló el trabajo.</required>
-       </field>
-     
+         <hint>Autor de la obra. En caso de ser varios autores indicarlos de a uno.</hint>
+        </field>
+<!-- 1.4 -->
      	<field>
          <dc-schema>dcterms</dc-schema>
          <dc-element>issued</dc-element>
@@ -534,102 +501,86 @@
          <label>Fecha de publicación</label>
          <input-type>date</input-type>
          <hint>Fecha de publicación, distribución o exposición. En caso de no haber difundido nunca su obra por ningún medio, indique la fecha de hoy como fecha de publicación.</hint>
-       </field>
-     
-     	<!-- TODO: Este debe ofrecer un multi-vocabulario controlado decs+ACM -->
+         <required>Debe indicar la fecha de publicación.</required>
+        </field>
+<!-- 1.5 -->
+     	<!-- TODO: Este debe conectarse con una base que contenga las autores registrados en CIC -->
+     	<field>
+         <dc-schema>dcterms</dc-schema>
+         <dc-element>contributor</dc-element>
+         <dc-qualifier>director</dc-qualifier>
+         <repeatable>true</repeatable>
+         <label>Director</label>
+		 <type-bind>Tesis</type-bind>
+         <input-type>onebox</input-type>
+         <hint>Persona que dirige la realización de la tesis.</hint>
+         <required>Debe indicar el director de la tesis.</required>
+        </field>
+<!-- 1.6 -->
+     	<field>
+         <dc-schema>thesis</dc-schema>
+         <dc-element>degree</dc-element>
+         <dc-qualifier>name</dc-qualifier>
+         <repeatable>true</repeatable>
+         <label>Grado alcanzado</label>
+		 <type-bind>Tesis</type-bind>
+         <input-type>onebox</input-type>
+         <hint>Grado al que se aspira con el trabajo de tesis realizado.</hint>
+         <required>Debe indicar el grado al que se aspira.</required>
+        </field>
+<!-- 1.7 -->
+     	<field>
+         <dc-schema>thesis</dc-schema>
+         <dc-element>degree</dc-element>
+         <dc-qualifier>grantor</dc-qualifier>
+         <repeatable>true</repeatable>
+         <label>Emisor del título</label>
+		 <type-bind>Tesis</type-bind>
+         <input-type>onebox</input-type>
+         <hint>Insitución que otorgó el título.</hint>
+         <required>Debe indicar la institución que emite el título.</required>
+        </field>
+<!-- 1.8 -->
+     	<field>
+         <dc-schema>dcterms</dc-schema>
+         <dc-element>abstract</dc-element>
+         <language value-pairs-name="uner_common_languages">true</language>
+         <repeatable>true</repeatable>
+         <label>Resumen</label>
+         <input-type>textarea</input-type>
+         <hint>Resumen de la obra. .</hint>
+        </field>
+<!-- 1.9 -->
      	<field>
          <dc-schema>dcterms</dc-schema>
          <dc-element>subject</dc-element>
-         <language value-pairs-name="cic_common_languages">true</language>
+         <language value-pairs-name="uner_common_languages">true</language>
          <repeatable>true</repeatable>
          <label>Palabras clave</label>
-         <input-type>twobox</input-type> <!-- TODO: lookup --> <!-- TODO: vocabulary -->
+         <input-type>onebox</input-type>
          <hint>Términos libres que describen el contenido de la obra.</hint>
-       </field>
-                     
- 	</page>
- 	<page number="2">
-
-<!--        <field> -->
-<!--          <dc-schema>dcterms</dc-schema> -->
-<!--          <dc-element>rights</dc-element> -->
-<!--          <dc-qualifier>embargoPeriod</dc-qualifier> -->
-<!--          <repeatable>false</repeatable> -->
-<!--          <label>Período de embargo</label> -->
-<!--          <input-type>onebox</input-type> -->
-<!--          <hint>Período de tiempo en el que el archivo de un item estará oculto por razones de confidencialidad o similares.</hint> -->
-<!--        </field> -->
-       
+        </field>
+<!-- 1.10 -->
        <field>
          <dc-schema>dcterms</dc-schema>
-         <dc-element>identifier</dc-element>
-         <dc-qualifier>url</dc-qualifier>
+         <dc-element>source</dc-element>
          <repeatable>false</repeatable>
          <label>Localización electrónica</label>
          <input-type>onebox</input-type>
-         <hint>Direccion donde se encuentra disponible el recurso (opcional). Puede ser un sitio web, repositorio, revista, etc.</hint>
-       </field>
-       
-       <field>
-         <dc-schema>dcterms</dc-schema>
-         <dc-element>identifier</dc-element>
-         <dc-qualifier>isbn</dc-qualifier>
-         <repeatable>false</repeatable>
-         <label>ISBN</label>
-		 <type-bind>Libro</type-bind>
-         <input-type>onebox</input-type>
-         <hint>ISBN correspondiente al libro.</hint>
-       </field>
-       
-       <field>
-         <dc-schema>cic</dc-schema>
-         <dc-element>thesis</dc-element>
-         <dc-qualifier>degree</dc-qualifier>
-         <repeatable>false</repeatable>
-         <label>Grado alcanzado</label>
-		 <type-bind>Tesis</type-bind>
-         <input-type>textarea</input-type>
-         <hint>Grado al que se aspira con el trabajo de tesis realizado.</hint>
-         <required>Debe indicar el grado aspirado mediante la realización de la Tesis.</required>
-       </field>
-       
-       <!-- TODO: debe ofrecer todas las posibles instituciones en CIC (cic:instituciones) -->
-       <field>
-         <dc-schema>cic</dc-schema>
-         <dc-element>thesis</dc-element>
-         <dc-qualifier>grantor</dc-qualifier>
-         <repeatable>false</repeatable>
-         <label>Emisor del título</label>
-		 <type-bind>Tesis</type-bind>
-         <input-type>onebox</input-type> <!-- TODO: select/lookup -->
-         <hint>Insitución que otorga el título.</hint>
-         <required>Debe indicar la institución emisora del título.</required>
-       </field>
-       
-       <field>
-         <dc-schema>dcterms</dc-schema>
-         <dc-element>description</dc-element>
-         <repeatable>false</repeatable>
-         <label>Notas</label>
-         <input-type>textarea</input-type>
-         <hint>Toda otra aclaración que resulte pertinente para la mejor catalogación y recuperación de la obra. En este campo se puede  indicar por ejemplo: - si la fecha de publicación indicada es aproximada, - si el documento no fue publicado aún y esta en etapa de revisión o pre-publicación, etc.</hint>
-       </field>
-       
-       <!-- TODO: debe ofrecer un conjunto de series (revistas o eventos) a seleccionar (cic:series) -->
+         <hint>Dirección del recurso en la web (puede ser otro repositorio, página, sitio, revista, etc.)</hint>
+        </field>       
+<!-- 1.11.1 -->
        <field>
          <dc-schema>dcterms</dc-schema>
          <dc-element>isPartOf</dc-element>
-         <dc-qualifier>series</dc-qualifier>
+         <dc-qualifier>item</dc-qualifier>
          <repeatable>false</repeatable>
-         <label>Revista o evento</label>
-		 <type-bind>Articulo,Objeto de conferencia, Libro</type-bind>
-         <input-type>onebox</input-type> <!-- TODO: select/lookup -->
-         <hint>
-         Para objetos de conferencia: Nombre evento en la que este item fue presentado. 
-         Para artículos: Titulo de la revista en la que este item fue publicado.  
-		</hint>
-       </field>
-              
+         <label>Libro</label>
+		 <type-bind></type-bind>
+         <input-type>onebox</input-type>
+         <hint>Informe o libro del cual el documento actual es parte.</hint>
+        </field>       
+<!-- 1.11.2 -->
        <field>
          <dc-schema>dcterms</dc-schema>
          <dc-element>isPartOf</dc-element>
@@ -638,28 +589,73 @@
          <label>Volumen/Instancia de Evento</label>
 		 <type-bind>Articulo,Objeto de conferencia</type-bind>
          <input-type>onebox</input-type>
-         <hint>
-         Para objetos de conferencia: Nombre de la edicion del evento en la que este item fue presentado. Ej: XII Jornada Argenitna de Economia.  
-         Para artículos: Número y volumen de la revista en la que este item fue presentado. Ej: Vol. III, Nro 4.
-         Si la edición tiene una web (pública o no)  indicar su enlace.          
-		</hint>
+         <hint>Identificacion del issue (con vol+nro+tomo y link) que contiene el artículo de revista) o 2) Nombre del evento (congreso, seminario, jornada, etc.) en el que este item fue presentado con link.</hint>
+         </field>
+<!-- 1.11.3 -->
+       <field>
+         <dc-schema>dcterms</dc-schema>
+         <dc-element>isPartOf</dc-element>
+         <dc-qualifier>series</dc-qualifier>
+         <repeatable>false</repeatable>
+         <label>Revista o evento</label>
+		 <type-bind>Articulo,Objeto de conferencia, Libro</type-bind>
+         <input-type>onebox</input-type> <!-- TODO: select/lookup -->
+         <hint>Titulo de la revista o nombre del evento en la que este item fue publicado /presentado.</hint>
+        </field>
+<!-- 1.11.4 -->
+       <field>
+         <dc-schema>dcterms</dc-schema>
+         <dc-element>isPartOf</dc-element>
+         <dc-qualifier>project</dc-qualifier>
+         <repeatable>false</repeatable>
+         <label>Proyecto contenedor</label>
+         <input-type>onebox</input-type> <!-- TODO: select/lookup -->
+         <hint>En caso que la obra haya sido generada en el marco de un proyecto de financiamiento, indicar identificación del mismo. Ej: CONICET/PIP/11220130100320CO/AR</hint>
+        </field>
+<!-- 1.12 -->
+       <field>
+         <dc-schema>dcterms</dc-schema>
+         <dc-element>relation</dc-element>
+         <dc-qualifier>dataset</dc-qualifier>
+         <repeatable>true</repeatable>
+         <label>Conjunto de datos fuente</label>
+         <input-type>onebox</input-type> <!-- TODO: select/lookup -->
+         <hint>Conjunto de datos fuente utilizado para la realización de la presente obra.</hint>
+        </field>
+<!-- 1.13 -->
+       <field>
+         <dc-schema>dcterms</dc-schema>
+         <dc-element>relation</dc-element>
+         <repeatable>true</repeatable>
+         <label>Recursos relacionado</label>
+		 <type-bind>Objeto de conferencia</type-bind>
+         <input-type>onebox</input-type> <!-- TODO: select/lookup -->
+         <hint>Si lo desea puede indicar aqui enlaces a otras obras relacionadas a la obra que esta cargando.</hint>
+        </field>
+<!-- 1.14 -->
+       <field>
+         <dc-schema>dcterms</dc-schema>
+         <dc-element>description</dc-element>
+         <repeatable>true</repeatable>
+         <label>Audiencia</label>
+         <input-type>onebox</input-type> <!-- TODO: select/lookup -->
+         <hint>Público al cual está orientado la obra.</hint>
        </field>
-       
+<!-- 3 -->
+       <field>
+         <dc-schema>dcterms</dc-schema>
+         <dc-element>license</dc-element>
+         <repeatable>false</repeatable>
+         <label>Licencia Creative Commons</label>
+         <input-type>onebox</input-type>
+         <hint>Elija la licencia Creative Commons adecuada para el ítem.</hint>
+         <required>Debe asignarle una licencia Creative Commons al item.</required>
+       </field>
   	</page>
-<!--   	<page number="3"> -->
-<!--   		<field> -->
-<!--          <dc-schema>dcterms</dc-schema> -->
-<!--          <dc-element>license</dc-element> -->
-<!--          <repeatable>false</repeatable> -->
-<!--          <label>Licencia Creative Commons</label> -->
-<!-- 		<input-type>onebox</input-type> -->
-<!--          <hint>Elija la licencia Creative Commons adecuada para el ítem.</hint> -->
-<!--          <required>Debe asignarle una licencia Creative Commons al item.</required> -->
-<!--        </field> -->
-<!--   	</page> -->
    </form>
 
- </form-definitions>
+
+</form-definitions>
 
 
  <!-- form-value-pairs populate dropdown and qualdrop-value lists.          -->
@@ -688,7 +684,7 @@
      </pair>
    </value-pairs>
    
-   <value-pairs value-pairs-name="cic_common_languages" dc-term="language">
+   <value-pairs value-pairs-name="uner_common_languages" dc-term="language">
      <pair>
        <displayed-value>Español</displayed-value>
        <stored-value>es</stored-value>
@@ -741,77 +737,77 @@
     	</pair>
     </value-pairs>
     
-    <value-pairs value-pairs-name="cic_cc_licences" dc-term="dcterms_license">
+    <value-pairs value-pairs-name="uner_cc_licences" dc-term="dcterms_license">
 		<pair>
-			<displayed-value>Attribution 4.0 International (BY 4.0)</displayed-value>
+			<displayed-value>Creative Commons Atribución 4.0 Internacional</displayed-value>
 			<stored-value>http://creativecommons.org/licenses/by/4.0/</stored-value>
 		</pair>
 		<pair>
-			<displayed-value>Attribution-ShareAlike 4.0 International (BY-SA 4.0)</displayed-value>
+			<displayed-value>Creative Commons Atribución - Compartir Igual 4.0 Internacional</displayed-value>
 			<stored-value>http://creativecommons.org/licenses/by-sa/4.0/</stored-value>
 		</pair>
 		<pair>
-			<displayed-value>Attribution-NoDerivatives  4.0 International (BY-ND 4.0)</displayed-value>
+			<displayed-value>Creative Commons Atribución - Sin Obra Derivada 4.0 Internacional</displayed-value>
 			<stored-value>http://creativecommons.org/licenses/by-nd/4.0/</stored-value>
 		</pair>
 		<pair>
-			<displayed-value>Attribution-NonCommercial 4.0 International (BY-NC 4.0)</displayed-value>
+			<displayed-value>Creative Commons Atribución - No Comercial 4.0 Internacional</displayed-value>
 			<stored-value>http://creativecommons.org/licenses/by-nc/4.0/</stored-value>
 		</pair>
 		<pair>
-			<displayed-value>Attribution-NonCommercial-ShareAlike 4.0 International (BY-NC-SA 4.0)</displayed-value>
+			<displayed-value>Creative Commons Atribución - No comercial - Compartir Igual 4.0 Internacional</displayed-value>
 			<stored-value>http://creativecommons.org/licenses/by-nc-sa/4.0/</stored-value>
 		</pair>
 		<pair>
-			<displayed-value>Attribution-NonCommercial-NoDerivatives 4.0 International (BY-NC-ND 4.0)</displayed-value>
+			<displayed-value>Creative Commons Atribución - No Comercial - Sin Obra Derivada 4.0 Internacional</displayed-value>
 			<stored-value>http://creativecommons.org/licenses/by-nc-nd/4.0/</stored-value>
 		</pair>
 		<pair>
-			<displayed-value>Attribution 3.0 Unported (BY 3.0)</displayed-value>
+			<displayed-value>3.0</displayed-value>
 			<stored-value>http://creativecommons.org/licenses/by/3.0/</stored-value>
 		</pair>
 		<pair>
-			<displayed-value>Attribution-ShareAlike 3.0 Unported (BY-SA 3.0)</displayed-value>
+			<displayed-value>3.0</displayed-value>
 			<stored-value>http://creativecommons.org/licenses/by-sa/3.0/</stored-value>
 		</pair>
 		<pair>
-			<displayed-value>Attribution-NoDerivs  3.0 Unported (BY-ND 3.0)</displayed-value>
+			<displayed-value>3.0</displayed-value>
 			<stored-value>http://creativecommons.org/licenses/by-nd/3.0/</stored-value>
 		</pair>
 		<pair>
-			<displayed-value>Attribution-NonCommercial 3.0 Unported (BY-NC 3.0)</displayed-value>
+			<displayed-value>3.0</displayed-value>
 			<stored-value>http://creativecommons.org/licenses/by-nc/3.0/</stored-value>
 		</pair>
 		<pair>
-			<displayed-value>Attribution-NonCommercial-ShareAlike 3.0 Unported (BY-NC-SA 3.0)</displayed-value>
+			<displayed-value>3.0</displayed-value>
 			<stored-value>http://creativecommons.org/licenses/by-nc-sa/3.0/</stored-value>
 		</pair>
 		<pair>
-			<displayed-value>Attribution-NonCommercial-NoDerivs  3.0 Unported (BY-NC-ND 3.0)</displayed-value>
+			<displayed-value>3.0</displayed-value>
 			<stored-value>http://creativecommons.org/licenses/by-nc-nd/3.0/</stored-value>
 		</pair>
 		<pair>
-			<displayed-value>Attribution 2.5 (BY 2.5 Argentina)</displayed-value>
+			<displayed-value>2.5 - Argentina</displayed-value>
 			<stored-value>http://creativecommons.org/licenses/by/2.5/ar/</stored-value>
 		</pair>
 		<pair>
-			<displayed-value>Attribution-ShareAlike 2.5 (BY-SA 2.5 Argentina)</displayed-value>
+			<displayed-value>2.5 - Argentina</displayed-value>
 			<stored-value>http://creativecommons.org/licenses/by-sa/2.5/ar/</stored-value>
 		</pair>
 		<pair>
-			<displayed-value>Attribution-NoDerivs  2.5 (BY-ND 2.5 Argentina)</displayed-value>
+			<displayed-value>2.5 - Argentina</displayed-value>
 			<stored-value>http://creativecommons.org/licenses/by-nd/2.5/ar/</stored-value>
 		</pair>
 		<pair>
-			<displayed-value>Attribution-NonCommercial 2.5 (BY-NC 2.5 Argentina)</displayed-value>
+			<displayed-value>2.5 - Argentina</displayed-value>
 			<stored-value>http://creativecommons.org/licenses/by-nc/2.5/ar/</stored-value>
 		</pair>
 		<pair>
-			<displayed-value>Attribution-NonCommercial-ShareAlike 2.5 (BY-NC-SA 2.5 Argentina)</displayed-value>
+			<displayed-value>2.5 - Argentina</displayed-value>
 			<stored-value>http://creativecommons.org/licenses/by-nc-sa/2.5/ar/</stored-value>
 		</pair>
 		<pair>
-			<displayed-value>Attribution-NonCommercial-NoDerivs  2.5 (BY-NC-ND 2.5 Argentina)</displayed-value>
+			<displayed-value>2.5 - Argentina</displayed-value>
 			<stored-value>http://creativecommons.org/licenses/by-nc-nd/2.5/ar/</stored-value>
 		</pair>
 	</value-pairs>
@@ -866,113 +862,105 @@
 	</pair>
 </value-pairs>
 
-<value-pairs value-pairs-name="cic_types" dc-term="dc_type">
+<value-pairs value-pairs-name="uner_types" dc-term="dc_type">
 	<pair>
 		<displayed-value>Documento de trabajo</displayed-value>
-		<stored-value>cic:types/articulo/documentoDeTrabajo</stored-value>
+		<stored-value>uner:types/articulo/documento_de_trabajo</stored-value>
 	</pair>
 	<pair>
 		<displayed-value>Artículo</displayed-value>
-		<stored-value>cic:types/articulo/articulo</stored-value>
+		<stored-value>uner:types/articulo</stored-value>
 	</pair>
 	<pair>
-		<displayed-value>Comunicacion</displayed-value>
-		<stored-value>cic:types/articulo/comunicación</stored-value>
+		<displayed-value>Comunicación</displayed-value>
+		<stored-value>uner:types/articulo/comunicacion</stored-value>
 	</pair>
 	<pair>
 		<displayed-value>Revisión</displayed-value>
-		<stored-value>cic:types/articulo/revision</stored-value>
+		<stored-value>uner:types/articulo/revision</stored-value>
 	</pair>
 	<pair>
-		<displayed-value>Resumen</displayed-value>
-		<stored-value>cic:types/articulo/resumen</stored-value>
+		<displayed-value>Contribución a revista</displayed-value>
+		<stored-value>uner:types/articulo/contribucion_a_revista</stored-value>
 	</pair>
 	<pair>
-		<displayed-value>Contribucion a revista</displayed-value>
-		<stored-value>cic:types/articulo/contribucionARevista</stored-value>
+		<displayed-value>Comunicación</displayed-value>
+		<stored-value>uner:types/articulo/comunicación</stored-value>
 	</pair>
 	<pair>
-		<displayed-value>Informe técnico</displayed-value>
-		<stored-value>cic:types/articulo/informeTecnico</stored-value>
-	</pair>
-	<pair>
-		<displayed-value>Informe de investigador</displayed-value>
-		<stored-value>cic:types/informeCientifico/informeDeInvestigador</stored-value>
-	</pair>
-	<pair>
-		<displayed-value>Informe de becario</displayed-value>
-		<stored-value>cic:types/informeCientifico/informeDeBecario</stored-value>
-	</pair>
-	<pair>
-		<displayed-value>Informe de personal de apoyo</displayed-value>
-		<stored-value>cic:types/informeCientifico/informeDePersonalDeApoyo</stored-value>
+		<displayed-value>Reporte</displayed-value>
+		<stored-value>uner:types/reporte</stored-value>
 	</pair>
 	<pair>
 		<displayed-value>Tesis de doctorado</displayed-value>
-		<stored-value>cic:types/tesis/tesisDeDoctorado</stored-value>
+		<stored-value>uner:types/tesis/doctorado</stored-value>
 	</pair>
 	<pair>
 		<displayed-value>Tesis de maestría</displayed-value>
-		<stored-value>cic:types/tesis/tesisDeMaestria</stored-value>
+		<stored-value>uner:types/tesis/maestria</stored-value>
 	</pair>
 	<pair>
-		<displayed-value>Trabajo de especializacion</displayed-value>
-		<stored-value>cic:types/tesis/trabajoDeEspecializacion</stored-value>
+		<displayed-value>Trabajo de especialización</displayed-value>
+		<stored-value>uner:types/tesis/especializacion</stored-value>
 	</pair>
 	<pair>
 		<displayed-value>Tesis de grado</displayed-value>
-		<stored-value>cic:types/tesis/tesisDeGrado</stored-value>
+		<stored-value>uner:types/tesis/grado</stored-value>
 	</pair>
 	<pair>
 		<displayed-value>Trabajo final de Grado</displayed-value>
-		<stored-value>cic:types/tesis/trabajoFinalDeGrado</stored-value>
+		<stored-value>uner:types/tesis/trabajo_final</stored-value>
 	</pair>
 	<pair>
 		<displayed-value>Libro</displayed-value>
-		<stored-value>cic:types/libro/libro</stored-value>
+		<stored-value>uner:types/libro</stored-value>
 	</pair>
 	<pair>
 		<displayed-value>Parte de libro</displayed-value>
-		<stored-value>cic:types/libro/parteDeLibro</stored-value>
+		<stored-value>uner:types/libro/capitulo_de_libro</stored-value>
 	</pair>
 	<pair>
 		<displayed-value>Documento de conferencia</displayed-value>
-		<stored-value>cic:types/objetoDeConferencia/documentoDeConferencia</stored-value>
+		<stored-value>uner:types/documento_conferencia</stored-value>
+	</pair>
+	<pair>
+		<displayed-value>Documentación Institucional</displayed-value>
+		<stored-value>uner:types/documento_institucional</stored-value>
 	</pair>
 	<pair>
 		<displayed-value>Resolucion</displayed-value>
-		<stored-value>cic:types/documentoInstitucional/resolucion</stored-value>
+		<stored-value>uner:types/documento_institucional/resolucion</stored-value>
 	</pair>
 	<pair>
-		<displayed-value>Actas de directorio</displayed-value>
-		<stored-value>cic:types/documentoInstitucional/actasDeDirectorio</stored-value>
-	</pair>
-	<pair>
-		<displayed-value>Legislación</displayed-value>
-		<stored-value>cic:types/documentoInstitucional/legislacion</stored-value>
-	</pair>
-	<pair>
-		<displayed-value>Convenio</displayed-value>
-		<stored-value>cic:types/documentoInstitucional/convenio</stored-value>
+		<displayed-value>Actas de Consejo Superior</displayed-value>
+		<stored-value>uner:types/documento_institucional/actas</stored-value>
 	</pair>
 	<pair>
 		<displayed-value>Fotografía</displayed-value>
-		<stored-value>cic:types/imagen/fotografia</stored-value>
+		<stored-value>uner:types/imagen/fotografia</stored-value>
+	</pair>
+	<pair>
+		<displayed-value>Video</displayed-value>
+		<stored-value>uner:types/imagen/video</stored-value>
+	</pair>
+	<pair>
+		<displayed-value>Material de Aprendizaje</displayed-value>
+		<stored-value>uner:types/material_aprendizaje</stored-value>
 	</pair>
 	<pair>
 		<displayed-value>Audio</displayed-value>
-		<stored-value>cic:types/audio/audio</stored-value>
+		<stored-value>uner:types/audio</stored-value>
 	</pair>
 	<pair>
-		<displayed-value>Objeto de Aprendizaje</displayed-value>
-		<stored-value>cic:types/objetoDeAprendizaje/objetoDeAprendizaje</stored-value>
+		<displayed-value>Conjunto de datos</displayed-value>
+		<stored-value>uner:types/dataset</stored-value>
 	</pair>
 	<pair>
-		<displayed-value>Publicación periódica</displayed-value>
-		<stored-value>cic:types/publicacionSeriada/publicacionPeriodica</stored-value>
+		<displayed-value>Software</displayed-value>
+		<stored-value>uner:types/software</stored-value>
 	</pair>
 </value-pairs>
     
- </form-value-pairs>
+</form-value-pairs>
 
 </input-forms>
