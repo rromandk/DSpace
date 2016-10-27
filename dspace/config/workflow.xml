@@ -45,6 +45,14 @@
 				<action id="editaction"/>
 			</actions>
 		</step>
+		
+		<!-- Paso aislado, NO SE EJECUTA en el flujo normal del "comm_workflow_independiente", sino que está por
+			compatiblidad con el workflow de "autoarchive". -->
+		<step id="UNER-ADMIN-review" role="Administrador_UNER" userSelectionMethod="rejectrole">
+			<actions>
+				<action id="editaction"/>
+			</actions>
+		</step>
 	</workflow>
 	
 	
