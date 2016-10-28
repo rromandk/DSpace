@@ -576,7 +576,6 @@
          <dc-qualifier>item</dc-qualifier>
          <repeatable>false</repeatable>
          <label>Libro</label>
-		 <type-bind></type-bind>
          <input-type>onebox</input-type>
          <hint>Informe o libro del cual el documento actual es parte.</hint>
         </field>       
@@ -763,52 +762,52 @@
 			<stored-value>http://creativecommons.org/licenses/by-nc-nd/4.0/</stored-value>
 		</pair>
 		<pair>
-			<displayed-value>3.0</displayed-value>
-			<stored-value>http://creativecommons.org/licenses/by/3.0/</stored-value>
+			<displayed-value>Creative Commons Atribución 3.0 Genérica</displayed-value>
+			<stored-value>http://creativecommons.org/licenses/by/4.0/</stored-value>
 		</pair>
 		<pair>
-			<displayed-value>3.0</displayed-value>
-			<stored-value>http://creativecommons.org/licenses/by-sa/3.0/</stored-value>
+			<displayed-value>Creative Commons Atribución - Compartir Igual 3.0 Genérica</displayed-value>
+			<stored-value>http://creativecommons.org/licenses/by-sa/4.0/</stored-value>
 		</pair>
 		<pair>
-			<displayed-value>3.0</displayed-value>
-			<stored-value>http://creativecommons.org/licenses/by-nd/3.0/</stored-value>
+			<displayed-value>Creative Commons Atribución - Sin Obra Derivada 3.0 Genérica</displayed-value>
+			<stored-value>http://creativecommons.org/licenses/by-nd/4.0/</stored-value>
 		</pair>
 		<pair>
-			<displayed-value>3.0</displayed-value>
-			<stored-value>http://creativecommons.org/licenses/by-nc/3.0/</stored-value>
+			<displayed-value>Creative Commons Atribución - No Comercial 3.0 Genérica</displayed-value>
+			<stored-value>http://creativecommons.org/licenses/by-nc/4.0/</stored-value>
 		</pair>
 		<pair>
-			<displayed-value>3.0</displayed-value>
-			<stored-value>http://creativecommons.org/licenses/by-nc-sa/3.0/</stored-value>
+			<displayed-value>Creative Commons Atribución - No comercial - Compartir Igual 3.0 Genérica</displayed-value>
+			<stored-value>http://creativecommons.org/licenses/by-nc-sa/4.0/</stored-value>
 		</pair>
 		<pair>
-			<displayed-value>3.0</displayed-value>
-			<stored-value>http://creativecommons.org/licenses/by-nc-nd/3.0/</stored-value>
+			<displayed-value>Creative Commons Atribución - No Comercial - Sin Obra Derivada 3.0 Genérica</displayed-value>
+			<stored-value>http://creativecommons.org/licenses/by-nc-nd/4.0/</stored-value>
 		</pair>
 		<pair>
-			<displayed-value>2.5 - Argentina</displayed-value>
-			<stored-value>http://creativecommons.org/licenses/by/2.5/ar/</stored-value>
+			<displayed-value>Creative Commons Atribución 2.5 Genérica</displayed-value>
+			<stored-value>http://creativecommons.org/licenses/by/4.0/</stored-value>
 		</pair>
 		<pair>
-			<displayed-value>2.5 - Argentina</displayed-value>
-			<stored-value>http://creativecommons.org/licenses/by-sa/2.5/ar/</stored-value>
+			<displayed-value>Creative Commons Atribución - Compartir Igual 2.5 Genérica</displayed-value>
+			<stored-value>http://creativecommons.org/licenses/by-sa/4.0/</stored-value>
 		</pair>
 		<pair>
-			<displayed-value>2.5 - Argentina</displayed-value>
-			<stored-value>http://creativecommons.org/licenses/by-nd/2.5/ar/</stored-value>
+			<displayed-value>Creative Commons Atribución - Sin Obra Derivada 2.5 Genérica</displayed-value>
+			<stored-value>http://creativecommons.org/licenses/by-nd/4.0/</stored-value>
 		</pair>
 		<pair>
-			<displayed-value>2.5 - Argentina</displayed-value>
-			<stored-value>http://creativecommons.org/licenses/by-nc/2.5/ar/</stored-value>
+			<displayed-value>Creative Commons Atribución - No Comercial 2.5 Genérica</displayed-value>
+			<stored-value>http://creativecommons.org/licenses/by-nc/4.0/</stored-value>
 		</pair>
 		<pair>
-			<displayed-value>2.5 - Argentina</displayed-value>
-			<stored-value>http://creativecommons.org/licenses/by-nc-sa/2.5/ar/</stored-value>
+			<displayed-value>Creative Commons Atribución - No comercial - Compartir Igual 2.5 Genérica</displayed-value>
+			<stored-value>http://creativecommons.org/licenses/by-nc-sa/4.0/</stored-value>
 		</pair>
 		<pair>
-			<displayed-value>2.5 - Argentina</displayed-value>
-			<stored-value>http://creativecommons.org/licenses/by-nc-nd/2.5/ar/</stored-value>
+			<displayed-value>Creative Commons Atribución - No Comercial - Sin Obra Derivada 2.5 Genérica</displayed-value>
+			<stored-value>http://creativecommons.org/licenses/by-nc-nd/4.0/</stored-value>
 		</pair>
 	</value-pairs>
     
