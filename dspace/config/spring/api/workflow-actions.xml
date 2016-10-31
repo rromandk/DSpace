@@ -27,7 +27,8 @@
     <bean id="noUserSelectionActionAPI" class="org.dspace.xmlworkflow.state.actions.userassignment.NoUserSelectionAction" scope="prototype"/>
     <bean id="assignoriginalsubmitteractionAPI" class="org.dspace.xmlworkflow.state.actions.userassignment.AssignOriginalSubmitterAction" scope="prototype"/>
 	<bean id="rejectroleAPI" class="ar.edu.unlp.sedici.dspace.xmlworkflow.state.actions.userassignment.RejectRole" scope="prototype"/>
-
+	<bean id="rejectroleandclaimauthorizedonlyAPI" class="ar.edu.unlp.sedici.dspace.xmlworkflow.state.actions.userassignment.RejectRoleAndClaimAuthorizedOnly" scope="prototype"/>
+	
     <bean id="reviewaction" class="org.dspace.xmlworkflow.state.actions.WorkflowActionConfig" scope="prototype">
         <constructor-arg type="java.lang.String" value="reviewaction"/>
         <property name="processingAction" ref="reviewactionAPI"/>
@@ -109,6 +110,12 @@
     <bean id="rejectrole" class="org.dspace.xmlworkflow.state.actions.UserSelectionActionConfig" scope="prototype">
     	<constructor-arg type="java.lang.String" value="rejectrole"/>
     	<property name="processingAction" ref="rejectroleAPI"/>
+    	<property name="requiresUI" value="true"/>
+    </bean>
+    
+    <bean id="rejectroleandclaimauthorizedonly" class="org.dspace.xmlworkflow.state.actions.UserSelectionActionConfig" scope="prototype">
+    	<constructor-arg type="java.lang.String" value="rejectroleandclaimauthorizedonly"/>
+    	<property name="processingAction" ref="rejectroleandclaimauthorizedonlyAPI"/>
     	<property name="requiresUI" value="true"/>
     </bean>
 

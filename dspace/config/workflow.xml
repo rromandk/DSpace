@@ -40,7 +40,7 @@
 		<roles>
 			<role id="Administradores_de_Comunidad" name="COMMUNITY-ADMINS" scope="repository" description="Rol asignado para los usuarios pertenecientes al grupo de ADMINISTRATORS de alguna comunidad."/>
 		</roles>
-		<step id="COMMUNITY-ADMIN-review" role="Administradores_de_Comunidad" userSelectionMethod="rejectrole">
+		<step id="COMMUNITY-ADMIN-review" role="Administradores_de_Comunidad" userSelectionMethod="rejectroleandclaimauthorizedonly">
 			<actions>
 				<action id="editaction"/>
 			</actions>
@@ -63,7 +63,7 @@
 		</roles>
 		<!-- TODO: NO FUNCIONA el atributo nextStep!!!! Reportarlo como bug a DSpace -->
 		<!-- <step id="COMMUNITY-ADMIN_review" nextStep="UNER-ADMIN_review" role="Administrador_UNER_Facultad" userSelectionMethod="rejectrole"> -->
-		<step id="COMMUNITY-ADMIN-review" role="Administradores_de_Comunidad" userSelectionMethod="rejectrole">
+		<step id="COMMUNITY-ADMIN-review" role="Administradores_de_Comunidad" userSelectionMethod="rejectroleandclaimauthorizedonly">
 			<outcomes>
      			<step status="0">UNER-ADMIN-review</step>
 			</outcomes>

@@ -262,7 +262,8 @@ public class Submissions extends AbstractDSpaceTransformer
 
         if (pooledItems.size() > 0)
         {
-
+        	//flag to check if there is any pooltask available for current user depending on isAuthorized method of the processingAction.
+        	boolean isAnyPoolTaskAuthorized = false;
         	for (PoolTask pooled : pooledItems)
         	{
                 String stepID = pooled.getStepID();
@@ -270,45 +271,50 @@ public class Submissions extends AbstractDSpaceTransformer
                 try {
                     XmlWorkflowItem item = pooled.getWorkflowItem();
                     Workflow wf = workflowFactory.getWorkflow(item.getCollection());
-                    String url = contextPath+"/handle/"+item.getCollection().getHandle()+"/xmlworkflow?workflowID="+item.getID()+"&stepID="+stepID+"&actionID="+actionID;
-                    String title = item.getItem().getName();
-                    String collectionName = item.getCollection().getName();
-                    EPerson submitter = item.getSubmitter();
-                    String submitterName = submitter.getFullName();
-                    String submitterEmail = submitter.getEmail();
-
-    //        		Message state = getWorkflowStateMessage(pooled);
-
-
-                    Row row = table.addRow();
-
-                    CheckBox claimTask = row.addCell().addCheckBox("workflowID");
-                    claimTask.setLabel("selected");
-                    claimTask.addOption(item.getID());
-
-                    // The task description
-//                    row.addCell().addXref(url,message("xmlui.Submission.Submissions.claimAction"));
-                    row.addCell().addXref(url,message("xmlui.XMLWorkflow." + wf.getID() + "." + stepID + "." + actionID));
-
-                    // The item description
-                    if (title != null && title.length() > 0)
-                    {
-                        String displayTitle = title;
-                        if (displayTitle.length() > 50)
-                            displayTitle = displayTitle.substring(0,50)+ " ...";
-
-                        row.addCell().addXref(url,displayTitle);
+                    boolean isThisTaskAuthorized = wf.getStep(pooled.getStepID()).getUserSelectionMethod().getProcessingAction().isAuthorized(context, null, item);
+                    //If any PoolTask is authorized, then set the flag in true.
+                    isAnyPoolTaskAuthorized = (isAnyPoolTaskAuthorized || isThisTaskAuthorized);
+                    if (isThisTaskAuthorized){
+	                    String url = contextPath+"/handle/"+item.getCollection().getHandle()+"/xmlworkflow?workflowID="+item.getID()+"&stepID="+stepID+"&actionID="+actionID;
+	                    String title = item.getItem().getName();
+	                    String collectionName = item.getCollection().getName();
+	                    EPerson submitter = item.getSubmitter();
+	                    String submitterName = submitter.getFullName();
+	                    String submitterEmail = submitter.getEmail();
+	
+	    //        		Message state = getWorkflowStateMessage(pooled);
+	
+	
+	                    Row row = table.addRow();
+	
+	                    CheckBox claimTask = row.addCell().addCheckBox("workflowID");
+	                    claimTask.setLabel("selected");
+	                    claimTask.addOption(item.getID());
+	
+	                    // The task description
+	//                    row.addCell().addXref(url,message("xmlui.Submission.Submissions.claimAction"));
+	                    row.addCell().addXref(url,message("xmlui.XMLWorkflow." + wf.getID() + "." + stepID + "." + actionID));
+	
+	                    // The item description
+	                    if (title != null && title.length() > 0)
+	                    {
+	                        String displayTitle = title;
+	                        if (displayTitle.length() > 50)
+	                            displayTitle = displayTitle.substring(0,50)+ " ...";
+	
+	                        row.addCell().addXref(url,displayTitle);
+	                    }
+	                    else
+	                        row.addCell().addXref(url,T_untitled);
+	
+	                    // Submitted too
+	                    row.addCell().addXref(url,collectionName);
+	
+	                    // Submitted by
+	                    Cell cell = row.addCell();
+	                    cell.addContent(T_email);
+	                    cell.addXref("mailto:"+submitterEmail,submitterName);
                     }
-                    else
-                        row.addCell().addXref(url,T_untitled);
-
-                    // Submitted too
-                    row.addCell().addXref(url,collectionName);
-
-                    // Submitted by
-                    Cell cell = row.addCell();
-                    cell.addContent(T_email);
-                    cell.addXref("mailto:"+submitterEmail,submitterName);
                 } catch (WorkflowConfigurationException e) {
                     Row row = table.addRow();
                     row.addCell().addContent("Error: Configuration error in workflow.");
@@ -317,8 +323,13 @@ public class Submissions extends AbstractDSpaceTransformer
                     log.error(LogManager.getHeader(context, "Error while adding pooled tasks on the submissions page", ""), e);
                 }
             }
-        	Row row = table.addRow();
-	    	row.addCell(0,5).addButton("submit_take_tasks").setValue(T_w_submit_take);
+        	if(isAnyPoolTaskAuthorized){
+	        	Row row = table.addRow();
+		    	row.addCell(0,5).addButton("submit_take_tasks").setValue(T_w_submit_take);
+        	}else{
+        		Row row = table.addRow();
+            	row.addCell(0,4).addHighlight("italic").addContent(T_w_info3);
+        	}
         }
         else
         {
