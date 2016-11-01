@@ -232,7 +232,7 @@ public class JSPUploadWithEmbargoStep extends JSPUploadStep
                             Collection c = subInfo.getSubmissionItem().getCollection();
                             DCInputsReader inputsReader = new DCInputsReader();
                             request.setAttribute("submission.inputs", inputsReader
-                                    .getInputs(c.getHandle()));
+                                    .getInputs(c));
                         }
                         catch (DCInputsReaderException e)
                         {
@@ -253,7 +253,7 @@ public class JSPUploadWithEmbargoStep extends JSPUploadStep
                         Collection c = subInfo.getSubmissionItem().getCollection();
                         DCInputsReader inputsReader = new DCInputsReader();
                         request.setAttribute("submission.inputs", inputsReader
-                                .getInputs(c.getHandle()));
+                                .getInputs(c));
                     }
                     catch (DCInputsReaderException e)
                     {
@@ -273,7 +273,7 @@ public class JSPUploadWithEmbargoStep extends JSPUploadStep
                         Collection c = subInfo.getSubmissionItem().getCollection();
                         DCInputsReader inputsReader = new DCInputsReader();
                         request.setAttribute("submission.inputs", inputsReader
-                                .getInputs(c.getHandle()));
+                                .getInputs(c));
                     }
                     catch (DCInputsReaderException e)
                     {
