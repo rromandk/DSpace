@@ -640,16 +640,6 @@
          <input-type>onebox</input-type> <!-- TODO: select/lookup -->
          <hint>Público al cual está orientado la obra.</hint>
        </field>
-<!-- 3 -->
-       <field>
-         <dc-schema>dcterms</dc-schema>
-         <dc-element>license</dc-element>
-         <repeatable>false</repeatable>
-         <label>Licencia Creative Commons</label>
-         <input-type>onebox</input-type>
-         <hint>Elija la licencia Creative Commons adecuada para el ítem.</hint>
-         <required>Debe asignarle una licencia Creative Commons al item.</required>
-       </field>
   	</page>
    </form>
 
