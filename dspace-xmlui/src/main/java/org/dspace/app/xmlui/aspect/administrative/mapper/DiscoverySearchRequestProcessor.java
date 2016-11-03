@@ -33,6 +33,7 @@ public class DiscoverySearchRequestProcessor
     {
         DiscoverQuery query = new DiscoverQuery();
         query.setQuery(queryString);
+        query.setMaxResults(1000000);
         query.addFilterQueries("-location:l"+collection.getID());
 
         DiscoverResult results = null;

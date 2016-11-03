@@ -1595,6 +1595,7 @@
 <message key="xmlui.administrative.mapper.SearchItemForm.column2">Colección</message>
 <message key="xmlui.administrative.mapper.SearchItemForm.column3">Autor</message>
 <message key="xmlui.administrative.mapper.SearchItemForm.column4">Título</message>
+<message key="xmlui.administrative.mapper.SearchItemForm.column5">Tipo</message>
 
 	<!-- org.dspace.app.xmlui.administrative.mapper.BrowseItemForm -->
 <message key="xmlui.administrative.mapper.BrowseItemForm.title">Listar ítems relacionados</message>
