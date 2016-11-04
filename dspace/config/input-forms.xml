@@ -490,6 +490,7 @@
          <label>Resumen</label>
          <input-type>textarea</input-type>
          <hint>Resumen de la obra.</hint>
+		 <required>Debe indicar el o los resumenes de la obra</required>
         </field>
         
 <!-- 1.8.2 -->
