@@ -7,7 +7,7 @@
 # {4}  Task result
 # {5}  Workflow action taken
 #
-Subject: CIC-Digital: Reporte de la Tarea de Curación
+Subject: UNER-Digital: Reporte de la Tarea de Curación
 
 Título:         {0}
 Colección:    {1}
@@ -20,4 +20,4 @@ con el siguiente resultado:
 
 Acción tomada durante el envío(submission): {5}
 
-CIC-Digital
+UNER-Digital

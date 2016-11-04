@@ -6,7 +6,7 @@
 #
 # See org.dspace.core.Email for information on the format of this file.
 #
-Subject: CIC-Digital - La exportación del item solicitado no ha sido completada.
+Subject: UNER-Digital - La exportación del item solicitado no ha sido completada.
 La exportación del item que ha solicitado no fue completada debido a las razones siguientes:
  {0}
 
@@ -15,5 +15,5 @@ Para más información puede contactarse con el repositorio:
 
 
 
-CIC-Digital
+UNER-Digital
 

@@ -5,10 +5,10 @@
 #
 # See org.dspace.core.Email for information on the format of this file.
 #
-Subject: CIC-Digital - Importación batch completada exitosamente
-TLa importación batch que ha iniciado desde la interfaz de CIC-Digital ha sido completada exitosamente.
+Subject: UNER-Digital - Importación batch completada exitosamente
+TLa importación batch que ha iniciado desde la interfaz de UNER-Digital ha sido completada exitosamente.
 
 Puedes encontrar el mapfile de la importación en la siguiente ruta: {0}
 
-CIC-Digital
+UNER-Digital
 

@@ -10,7 +10,7 @@
 #             {7} sender message 
 # See org.dspace.core.Email for information on the format of this file.
 #
-Subject: Un item de interés de CIC-Digital
+Subject: Un item de interés de UNER-Digital
 
 Hola {0}:
 
@@ -21,7 +21,7 @@ Locación: {5}
 En Colección: {6}
 Mensaje personal: {7}
 
-El sistema del repositorio digital CIC-Digital captura, almacena, indexa, preserva y distribuye material digital.
+El sistema del repositorio digital UNER-Digital captura, almacena, indexa, preserva y distribuye material digital.
 Para más información sobre el sistema usado, visite:
 - www.dspace.org
-- https://github.com/CICBA/DSpace
+- https://github.com/uner-digital/DSpace

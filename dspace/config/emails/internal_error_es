@@ -10,7 +10,7 @@
 #
 # See org.dspace.core.Email for information on the format of this file.
 #
-Subject: CIC-Digital: Internal Server Error
+Subject: UNER-Digital: Internal Server Error
 Un error interno al servidor ocurrión sobre {0}:
 
 Fecha:       {1}

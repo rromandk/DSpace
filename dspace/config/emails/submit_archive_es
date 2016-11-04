@@ -4,13 +4,13 @@
 # {1}  Name of collection
 # {2}  handle 
 #
-Subject: CIC-Digital: Envío aprobado y archivado 
+Subject: UNER-Digital: Envío aprobado y archivado 
 
 Usted ha enviado: {0}
 
 A la Colección: {1}
 
-Tu envío ha sido aceptado y archivado en CIC-Digital,
+Tu envío ha sido aceptado y archivado en UNER-Digital,
 y éste se le ha asignado el siguiente identificador:
 {2}
 
@@ -18,4 +18,4 @@ Por favor, utilice este identificador cuando realiza una cita del material envia
 
 Muchas Gracias.
 
-CIC-Digital
+UNER-Digital
