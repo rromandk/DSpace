@@ -41,7 +41,7 @@
 	<!-- ###############################		FOMULARIO TRADICIONAL		############################### -->
 	<form name="traditional">
      <page number="1">
-     
+<!-- 1.1 -->
      	<field>
          <dc-schema>dc</dc-schema>
          <dc-element>type</dc-element>
@@ -52,411 +52,352 @@
          <required>Debe seleccionar una tipología documental</required>
        </field>
        
-     	<field>
-         <dc-schema>cic</dc-schema>
-         <dc-element>version</dc-element>
+<!-- 1.2 -->
+	  <field>
+         <dc-schema>dc</dc-schema>
+         <dc-element>type</dc-element>
+         <dc-qualifier>version</dc-qualifier>
          <repeatable>false</repeatable>
          <label>Versión</label>
-         <type-bind>Articulo,Objeto de conferencia</type-bind>
-         <input-type value-pairs-name="cic_versiones">dropdown</input-type>
-         <hint>Version de la obra en funcion del último estadío de revisión sufirda (Enviada,  aceptada y publicada)</hint>
-         <required>Debe indicar la versión del documento</required>
+		 <input-type>onebox</input-type>
+         <hint>Version de la obra  (ver https://guidelines.openaire.eu/en/latest/literature/field_publicationversion.html).</hint>
+         <required>Debe seleccionar la versión correspondiente a la obra</required>
        </field>
-     
-     	<field>
+       
+<!-- 1.3 -->
+	  <field>
          <dc-schema>dc</dc-schema>
          <dc-element>title</dc-element>
          <language value-pairs-name="uner_common_languages">true</language>
          <repeatable>false</repeatable>
          <label>Título</label>
-         <input-type>textarea</input-type>
-         <hint>Título del documento tal y como aparece en la obra</hint>
+		 <input-type>onebox</input-type>
+         <hint>Título principal del documento tal y como aparece en la obra.</hint>
          <required>Debe indicar el título del documento</required>
        </field>
-     
-		<field>
-		 <dc-schema>dcterms</dc-schema>
-         <dc-element>title</dc-element>
-         <dc-qualifier>subtitle</dc-qualifier>
-         <language value-pairs-name="uner_common_languages">true</language>
-         <repeatable>false</repeatable>
-         <label>Subtítulo</label>
-         <input-type>textarea</input-type>
-         <hint>Subtítulo del documento tal y como aparece en la obra</hint>
-		</field>     
-     
-     	<field>
+       
+<!-- 1.4 -->
+	  <field>
          <dc-schema>dcterms</dc-schema>
          <dc-element>alternative</dc-element>
          <language value-pairs-name="uner_common_languages">true</language>
          <repeatable>true</repeatable>
          <label>Título alternativo</label>
-         <input-type>onebox</input-type>
-         <hint>Otros títulos de la obra, o traducciones del título en cualquier idioma que no sea el nativo de la obra</hint>
+		 <input-type>onebox</input-type>
+         <hint>Otros títulos de la obra o traducciones en cualquier idioma que no sea el nativo de la obra.</hint>
        </field>
-
-     	<field>
-         <dc-schema>dcterms</dc-schema>
-         <dc-element>title</dc-element>
-         <dc-qualifier>investigacion</dc-qualifier>
-         <repeatable>false</repeatable>
-         <label>Título de investigación</label>
-		 <type-bind>Informe cientifico</type-bind>
-         <input-type>textarea</input-type>
-         <hint>Titulo/tema de una  investigacion segun se indica en los informes de investigación CIC, en el punto 2</hint>
-       </field>
-     
-     	<!-- TODO: Este debe conectarse con una base que contenga las instituciones CIC -->
-     	<field>
-         <dc-schema>dcterms</dc-schema>
-         <dc-element>creator</dc-element>
-         <dc-qualifier>corporate</dc-qualifier>
-         <repeatable>true</repeatable>
-         <label>Autor Institucional</label>
-         <input-type>twobox</input-type> <!-- TODO: suggest o select -->
-         <hint>Institución creadora del contenido intelectual de la obra</hint>
-       </field>
-     
-     	<!-- TODO: Este debe conectarse con una base que contenga las autores registrados en CIC -->
-     	<field>
+       
+<!-- 1.5 -->
+	  <field>
          <dc-schema>dcterms</dc-schema>
          <dc-element>creator</dc-element>
          <dc-qualifier>author</dc-qualifier>
          <repeatable>true</repeatable>
          <label>Autor</label>
-         <input-type>twobox</input-type> <!-- TODO: suggest, lo mismo para todos los tipos de autores -->
-         <hint>Persona física creadora del contenido intelectual de la obra</hint>
+		 <input-type>onebox</input-type>
+         <hint>Autor de la obra. En caso de ser varios autores indicarlos de a uno.</hint>
        </field>
-     
-     	<!-- TODO: Este debe conectarse con una base que contenga las autores registrados en CIC -->
-     	<field>
+       
+<!-- 1.6 -->
+	  <field>
          <dc-schema>dcterms</dc-schema>
          <dc-element>creator</dc-element>
          <dc-qualifier>compilator</dc-qualifier>
          <repeatable>true</repeatable>
          <label>Compilador</label>
-		 <type-bind>Libro</type-bind>
-         <input-type>twobox</input-type>
-         <hint>Persona física responsable de compilar, reunir o antologar materiales de la obra</hint>
-       </field>
-     
-     	<!-- TODO: Este debe conectarse con una base que contenga las autores registrados en CIC -->
-     	<field>
+         <type-bind>libro</type-bind>
+		 <input-type>onebox</input-type>
+         <hint>Persona responsable de compilar, reunir o antologar materiales de la obra.</hint>
+       </field>       
+
+<!-- 1.7 -->
+	  <field>
          <dc-schema>dcterms</dc-schema>
          <dc-element>creator</dc-element>
          <dc-qualifier>editor</dc-qualifier>
          <repeatable>false</repeatable>
          <label>Editor</label>
-		 <type-bind>Libro</type-bind>
-         <input-type>onebox</input-type>
-         <hint>Persona física o institucional responsable de realizar tareas de edición sobre los contenidos de la obra. No es la editorial.</hint>
+         <type-bind>libro</type-bind>
+		 <input-type>onebox</input-type>
+         <hint>Persona física o institucional responsable de realizar tareas de edición sobre los contenidos de la obra. No confundir con la editorial.</hint>
        </field>
-     
-     	<!-- TODO: Este debe conectarse con una base que contenga las autores registrados en CIC -->
-     	<field>
+
+<!-- 1.8 -->
+	  <field>
+         <dc-schema>dcterms</dc-schema>
+         <dc-element>creator</dc-element>
+         <dc-qualifier>corporate</dc-qualifier>
+         <repeatable>true</repeatable>
+         <label>Autor Institucional</label>
+		 <input-type>onebox</input-type>
+         <hint>Institucion creadora del contenido intelectual de la obra.</hint>
+       </field>
+
+<!-- 1.9.1 -->
+	  <field>
          <dc-schema>dcterms</dc-schema>
          <dc-element>contributor</dc-element>
          <dc-qualifier>director</dc-qualifier>
          <repeatable>true</repeatable>
          <label>Director</label>
-		 <type-bind>Tesis,Informe cientifico</type-bind>
-         <input-type>twobox</input-type>
-         <hint>Persona que dirige la realización de la tesis o quien dirige a un investigador, personal de apoyo o becario.</hint>
+         <type-bind>tesis</type-bind>
+		 <input-type>onebox</input-type>
+         <hint>Persona que dirige la realización de la tesis.</hint>
+         <required>Debe indicar el Director de la tesis</required>         
        </field>
-     
-     	<field>
-         <dc-schema>dcterms</dc-schema>
-         <dc-element>abstract</dc-element>
-         <language value-pairs-name="uner_common_languages">true</language>
-         <repeatable>true</repeatable>
-         <label>Resumen</label>
-         <input-type>textarea</input-type>
-         <hint>Resumen de la obra. En caso de ser un Informe de Investigación generar un índice del mismo en función de los títulos del punto 6.</hint>
+
+<!-- 1.9.2 -->
+	  <field>
+         <dc-schema>thesis</dc-schema>
+         <dc-element>degree</dc-element>
+         <dc-qualifier>name</dc-qualifier>
+         <repeatable>false</repeatable>
+         <label>Grado alcanzado</label>
+         <type-bind>tesis</type-bind>
+		 <input-type>onebox</input-type>
+         <hint>Grado al que se aspira con el trabajo de tesis realizado.</hint>
+         <required>Debe indicar el grado alcanzado con la realización de este tesis</required>         
        </field>
-     
-<!--      	<field> -->
-<!--          <dc-schema>dcterms</dc-schema> -->
-<!--          <dc-element>abstract</dc-element> -->
-<!--          <dc-qualifier>trabajoRealizado</dc-qualifier> -->
-<!--          <repeatable>false</repeatable> -->
-<!--          <label>Labor desarrollada</label> -->
-<!-- 		 <type-bind>Informe cientifico</type-bind> -->
-<!--          <input-type>textarea</input-type> -->
-<!--          <hint>Todo el texto incluido en el punto 6 del informe de investigación.</hint> -->
-<!--        </field> -->
-     
-     	<field>
-         <dc-schema>cic</dc-schema>
-         <dc-element>lugarDesarrollo</dc-element>
-         <repeatable>true</repeatable>
-         <label>Lugar de desarrollo</label>
-         <input-type>onebox</input-type>
-         <hint>Institución, departamento y/o unidad en la cual se desarrolló el trabajo. En el caso de informes de investigación, corresponde al punto 4.</hint>
-         <required>Debe indicar el lugar o lugares donde se desarrolló el trabajo.</required>
+
+<!-- 1.9.3 -->
+	  <field>
+         <dc-schema>thesis</dc-schema>
+         <dc-element>degree</dc-element>
+         <dc-qualifier>grantor</dc-qualifier>
+         <repeatable>false</repeatable>
+         <label>Emisor del título</label>
+         <type-bind>tesis</type-bind>
+		 <input-type>onebox</input-type>
+         <hint>Insitución que otorgó el título.</hint>
+         <required>Debe indicar quién es el emisor del título obtenido con la realización de la tesis</required>
        </field>
-     
-     	<field>
+
+<!-- 1.10 -->
+     <field>
          <dc-schema>dcterms</dc-schema>
          <dc-element>issued</dc-element>
          <repeatable>false</repeatable>
          <label>Fecha de publicación</label>
          <input-type>date</input-type>
-         <hint>Fecha de publicación, distribución pública o exposición. En caso de no haber difundido nunca su obra por ningún medio, indique la fecha de hoy como fecha de publicación. Puede omitir el día y mes si no lo sabe. </hint>
-       </field>
-     
-     	<!-- TODO: Este debe ofrecer una materia dentro del vocabulario FOS!!-->
-     	<field>
-         <dc-schema>dcterms</dc-schema>
-         <dc-element>subject</dc-element>
-         <dc-qualifier>materia</dc-qualifier>
-         <repeatable>true</repeatable>
-         <label>Materia</label>
-         <input-type>twobox</input-type> <!-- TODO: select -->
-         <hint>Materia (en sentido amplio) a que se refiere el item (ejemplo: Física).</hint>
-         <required>Debe indicar al menos una materia relacionada al item.</required>
-       </field>
-     	
-     	<!-- TODO: Este debe ofrecer una materia dentro del vocabulario Getty : http://vocab.getty.edu/!!-->
-     	<field>
-         <dc-schema>dcterms</dc-schema>
-         <dc-element>subject</dc-element>
-         <dc-qualifier>area</dc-qualifier>
-         <repeatable>true</repeatable>
-         <label>Area temática</label>
-		 <type-bind>Informe cientifico</type-bind>
-		 <input-type>onebox</input-type>
-         <hint>Area de investigación dentro de CIC.</hint>
-         <required>Debe indicar el área de investigación en la que se desarrolla el trabajo.</required>
-       </field>
-     	
-     	<!-- TODO: Este debe ofrecer un multi-vocabulario controlado decs+ACM -->
-     	<field>
-         <dc-schema>dcterms</dc-schema>
-         <dc-element>subject</dc-element>
-         <language value-pairs-name="uner_common_languages">true</language>
-         <repeatable>true</repeatable>
-         <label>Palabras clave</label>
-         <input-type>twobox</input-type> <!-- TODO: lookup --> <!-- TODO: vocabulary -->
-         <hint>Términos libres que describen el contenido de la obra.</hint>
-       </field>
-       
-       <!-- TODO: Debe ofrecer el vocabulario TGN : http://www.getty.edu/research/tools/vocabularies/tgn/ -->
-       <field>
-         <dc-schema>dcterms</dc-schema>
-         <dc-element>spatial</dc-element>
-         <repeatable>true</repeatable>
-         <label>Cobertura espacial</label>
-         <input-type>twobox</input-type> <!-- TODO: select/lookup -->
-         <hint>Información sobre la cobertura espacial/geográfica de la obra.</hint>
-       </field>
-       
-       <field>
+         <hint>Fecha de publicación, distribución o exposición. En caso de no haber difundido nunca su obra por ningún medio, indique la fecha de hoy como fecha de publicación.</hint>
+         <required>Debe indicar la fecha de publicación.</required>
+     </field>
+
+<!-- 1.11 -->
+     <field>
          <dc-schema>dcterms</dc-schema>
          <dc-element>language</dc-element>
          <repeatable>false</repeatable>
          <label>Idioma</label>
          <input-type>onebox</input-type>
-         <hint>Lenguaje principal del documento.</hint>
-         <required>Debe ingresar el idioma del documento.</required>
-       </field>
+         <hint>Lenguaje principal de la obra.</hint>
+         <required>Debe indicar el idioma correspondiente a la obra</required>
+     </field>
+
+<!-- 1.12 -->
+     <field>
+         <dc-schema>dcterms</dc-schema>
+         <dc-element>identifier</dc-element>
+         <repeatable>true</repeatable>
+         <label>Identificador secundario</label>
+         <input-type>onebox</input-type>
+         <hint>Incluye otros identificadores del recurso como DOI, handle, arXiv id, pubmed id, entre otros.</hint>
+     </field>
        
-       <field>
+<!-- 1.13 -->
+     <field>
+         <dc-schema>dcterms</dc-schema>
+         <dc-element>source</dc-element>
+         <repeatable>true</repeatable>
+         <label>Localización electrónica</label>
+         <input-type>onebox</input-type>
+         <hint>Dirección del recurso en la web (puede ser otro repositorio, página, sitio, revista, etc.).</hint>
+     </field> 
+       
+<!-- 1.14 -->
+     <field>
+         <dc-schema>dc</dc-schema>
+         <dc-element>description</dc-element>
+         <dc-qualifier>fulltext</dc-qualifier>
+         <repeatable>false</repeatable>
+         <label>Fulltext</label>
+         <input-type value-pairs-name="boolean_values">dropdown</input-type>
+         <hint>Indica si el recurso está disponible a texto completo en uno o más de los archivos que tiene asociados en el repositorio.</hint>
+		 <required>Debe indicar si el texto se encuentra a texto completo</required>
+     </field>       
+
+<!-- 1.15 -->
+     <field>
+         <dc-schema>dcterms</dc-schema>
+         <dc-element>accessRights</dc-element>
+         <repeatable>false</repeatable>
+         <label>Nivel de acceso</label>
+         <input-type>onebox</input-type>
+         <hint>Indica el derecho existente sobre el acceso al contenido de la obra (para mas información ir a https://guidelines.readthedocs.io/en/latest/data/field_rights.html)</hint>
+		 <required>Debe indicar el nivel de acceso a la obra</required>
+     </field>
+       
+  	</page>
+  	
+  	<page number="2">
+  	
+<!-- 2.1 -->
+     <field>
+         <dc-schema>dcterms</dc-schema>
+         <dc-element>abstract</dc-element>
+		 <language value-pairs-name="uner_common_languages">true</language>
+         <repeatable>true</repeatable>
+         <label>Resumen</label>
+         <input-type>textarea</input-type>
+         <hint>Resumen de la obra.</hint>
+		 <required>Debe indicar el o los resumenes de la obra</required>
+     </field>  	
+
+<!-- 2.2 -->
+     <field>
+         <dc-schema>dcterms</dc-schema>
+         <dc-element>audience</dc-element>
+         <repeatable>false</repeatable>
+         <label>Audiencia</label>
+         <type-bind>material_aprendizaje</type-bind>
+         <input-type>onebox</input-type>
+         <hint>Público al cual está orientado la obra.</hint>
+		 <required>Debe indicar la audiencia a la que está destinada la obra</required>
+     </field>
+     
+<!-- 2.3 -->
+     <field>
+         <dc-schema>dcterms</dc-schema>
+         <dc-element>subject</dc-element>
+         <dc-qualifier>materia</dc-qualifier>
+         <repeatable>true</repeatable>
+         <label>Materia</label>
+         <input-type>onebox</input-type>
+         <hint>Materia (en sentido amplio) a que se refiere el item (ejemplo: Física).</hint>
+		 <required>Debe indicar la(s) materias(s) relacionada(s) con la obra.</required>
+     </field>
+     
+<!-- 2.4 -->     
+     <field>
+         <dc-schema>dcterms</dc-schema>
+         <dc-element>subject</dc-element>
+		 <language value-pairs-name="uner_common_languages">true</language>
+         <repeatable>true</repeatable>
+         <label>Palabras clave</label>
+         <input-type>onebox</input-type>
+         <hint>Términos libres que describen el contenido de la obra.</hint>
+     </field>     
+       	
+<!-- 2.5 -->
+	<field>
          <dc-schema>dcterms</dc-schema>
          <dc-element>extent</dc-element>
          <repeatable>false</repeatable>
          <label>Extensión</label>
          <input-type>onebox</input-type>
          <hint>Tamaño, duración o cantidad de páginas del recurso.</hint>
-       </field>
-       
-       <field>
+    </field>
+    
+<!-- 2.6 -->
+	<field>
          <dc-schema>dcterms</dc-schema>
          <dc-element>publisher</dc-element>
          <repeatable>false</repeatable>
          <label>Editorial</label>
          <input-type>onebox</input-type>
          <hint>Entidad responsable de la publicación de un item (editorial).</hint>
-       </field>
- 	</page>
- 	<page number="2">
-
-<!-- 	   <field> -->
-<!--          <dc-schema>dcterms</dc-schema> -->
-<!--          <dc-element>rights</dc-element> -->
-<!--          <dc-qualifier>embargoPeriod</dc-qualifier> -->
-<!--          <repeatable>false</repeatable> -->
-<!--          <label>Período de embargo</label> -->
-<!--          <input-type>onebox</input-type> -->
-<!--          <hint>Período de tiempo en el que el archivo de un item estará oculto por razones de confidencialidad o similares.</hint> -->
-<!--        </field> -->
-	   
-       <field>
-         <dc-schema>dcterms</dc-schema>
-         <dc-element>identifier</dc-element>
-         <dc-qualifier>url</dc-qualifier>
-         <repeatable>false</repeatable>
-         <label>Localización electrónica</label>
-         <input-type>onebox</input-type>
-         <hint>Direccion donde se encuentra disponible el recurso (opcional). Puede ser un sitio web, repositorio, revista, etc.</hint>
-       </field>
-       
-       <field>
-         <dc-schema>dcterms</dc-schema>
-         <dc-element>identifier</dc-element>
-         <dc-qualifier>isbn</dc-qualifier>
-         <repeatable>false</repeatable>
-         <label>ISBN</label>
-		 <type-bind>Libro</type-bind>
-         <input-type>onebox</input-type>
-         <hint>ISBN correspondiente al libro.</hint>
-       </field>
-       
-       <field>
-         <dc-schema>dcterms</dc-schema>
-         <dc-element>identifier</dc-element>
-         <dc-qualifier>other</dc-qualifier>
-         <repeatable>true</repeatable>
-         <label>Otros identificadores</label>
-         <input-type>onebox</input-type>
-         <hint>Incluye otros identificadores del recurso como DOI, handle, etc.</hint>
-       </field>
-       
-       <field>
-         <dc-schema>cic</dc-schema>
-         <dc-element>thesis</dc-element>
-         <dc-qualifier>degree</dc-qualifier>
-         <repeatable>false</repeatable>
-         <label>Grado alcanzado</label>
-		 <type-bind>Tesis</type-bind>
-         <input-type>textarea</input-type>
-         <hint>Grado al que se aspira con el trabajo de tesis realizado.</hint>
-         <required>Debe indicar el grado aspirado mediante la realización de la Tesis.</required>
-       </field>
-       
-       <!-- TODO: debe ofrecer todas las posibles instituciones en CIC (cic:instituciones) -->
-       <field>
-         <dc-schema>cic</dc-schema>
-         <dc-element>thesis</dc-element>
-         <dc-qualifier>grantor</dc-qualifier>
-         <repeatable>false</repeatable>
-         <label>Emisor del título</label>
-		 <type-bind>Tesis</type-bind>
-         <input-type>onebox</input-type> <!-- TODO: select/lookup -->
-         <hint>Insitución que otorga el título.</hint>
-         <required>Debe indicar la institución emisora del título.</required>
-       </field>
-       
-       <field>
-         <dc-schema>dcterms</dc-schema>
-         <dc-element>description</dc-element>
-         <repeatable>false</repeatable>
-         <label>Notas</label>
-         <input-type>textarea</input-type>
-         <hint>Toda otra aclaración que resulte pertinente para la mejor catalogación y recuperación de la obra. En este campo se puede  indicar por ejemplo: - si la fecha de publicación indicada es aproximada, - si el documento no fue publicado aún y esta en etapa de revisión o pre-publicación, etc.</hint>
-       </field>
-       
+     </field>
+     
+<!-- 2.7.1 -->
        <field>
          <dc-schema>dcterms</dc-schema>
          <dc-element>isPartOf</dc-element>
          <dc-qualifier>item</dc-qualifier>
-         <repeatable>true</repeatable>
-         <label>Libro/Informe</label>
-         <input-type>onebox</input-type>
-         <hint>1) Informe o libro del cual el documento actual es parte.</hint>
-       </field>
-       
-       <!-- TODO: debe ofrecer un conjunto de series (revistas o eventos) a seleccionar (cic:series) -->
-       <field>
-         <dc-schema>dcterms</dc-schema>
-         <dc-element>isPartOf</dc-element>
-         <dc-qualifier>series</dc-qualifier>
          <repeatable>false</repeatable>
-         <label>Revista o evento</label>
-		 <type-bind>Articulo,Objeto de conferencia, Publicación periódica, Libro</type-bind>
-         <input-type>onebox</input-type> <!-- TODO: select/lookup -->
-         <hint>
-         Para objetos de conferencia: Nombre evento en la que este item fue presentado. 
-         Para artículos: Titulo de la revista en la que este item fue publicado.  
-         </hint>
-       </field>
-       
+         <label>Libro</label>
+         <type-bind>capitulo_de_libro</type-bind>
+         <input-type>onebox</input-type>
+         <hint>Informe o libro del cual el documento actual es parte.</hint>
+        </field>       
+<!-- 2.7.2 -->
        <field>
          <dc-schema>dcterms</dc-schema>
          <dc-element>isPartOf</dc-element>
          <dc-qualifier>issue</dc-qualifier>
          <repeatable>false</repeatable>
          <label>Volumen/Instancia de Evento</label>
-		 <type-bind>Articulo,Objeto de conferencia</type-bind>
+		 <type-bind>articulo,documento_conferencia</type-bind>
          <input-type>onebox</input-type>
-         
-         <hint>
-         Para objetos de conferencia: Nombre de la edicion del evento en la que este item fue presentado. Ej: XII Jornada Argenitna de Economia.  
-         Para artículos: Número y volumen de la revista en la que este item fue presentado. Ej: Vol. III, Nro 4.
-         Si la edición tiene una web (pública o no)  indicar su enlace.          
-		 </hint>
-       </field>
-       
+         <hint>Identificacion del issue (con vol+nro+tomo y link) que contiene el artículo de revista) o 2) Nombre del evento (congreso, seminario, jornada, etc.) en el que este item fue presentado con link.</hint>
+         </field>
+<!-- 2.7.3 -->
+       <field>
+         <dc-schema>dcterms</dc-schema>
+         <dc-element>isPartOf</dc-element>
+         <dc-qualifier>series</dc-qualifier>
+         <repeatable>false</repeatable>
+         <label>Revista o evento</label>
+		 <type-bind>articulo,documento_conferencia,libro</type-bind>
+         <input-type>onebox</input-type>
+         <hint>Titulo de la revista o nombre del evento en la que este item fue publicado /presentado.</hint>
+        </field>
+<!-- 2.7.4 -->
+       <field>
+         <dc-schema>dcterms</dc-schema>
+         <dc-element>isPartOf</dc-element>
+         <dc-qualifier>project</dc-qualifier>
+         <repeatable>false</repeatable>
+         <label>Proyecto contenedor</label>
+         <input-type>onebox</input-type>
+         <hint>En caso que la obra haya sido generada en el marco de un proyecto de financiamiento, indicar identificación del mismo. Ej: CONICET/PIP/11220130100320CO/AR</hint>
+        </field>
+       	
+<!-- 2.8.1 -->
+       <field>
+         <dc-schema>dcterms</dc-schema>
+         <dc-element>relation</dc-element>
+         <dc-qualifier>dataset</dc-qualifier>
+         <repeatable>true</repeatable>
+         <label>Conjunto de datos fuente</label>
+         <input-type>onebox</input-type>
+         <hint>Conjunto de datos fuente utilizado para la realización de la presente obra.</hint>
+        </field>
+<!-- 2.8.2 -->
        <field>
          <dc-schema>dcterms</dc-schema>
          <dc-element>relation</dc-element>
          <repeatable>true</repeatable>
-         <label>Recursos relacionados</label>
-         <input-type>twobox</input-type>
-         <hint>Indique aquí cualquier tipo de recurso relacionado al item catalogado.</hint>
-       </field>
-       
-       <field>
+         <label>Recursos relacionado</label>
+         <input-type>onebox</input-type>
+         <hint>Si lo desea puede indicar aqui enlaces a otras obras relacionadas a la obra que esta cargando.</hint>
+        </field>
+
+<!-- 2.9 -->
+	<field>
          <dc-schema>dcterms</dc-schema>
-         <dc-element>hasPart</dc-element>
-         <repeatable>true</repeatable>
-         <label>Contiene</label>
-		 <type-bind>Informe cientifico</type-bind>
-         <input-type>twobox</input-type>
-         <hint>Enlace a los recursos que componen la obra. En el caso de informes de investigación se indican las publicaciones que lo componen (punto 7) y están cargadas en el repositorio.</hint>
-       </field>
-       
-       <field>
-         <dc-schema>dcterms</dc-schema>
-         <dc-element>isVersionOf</dc-element>
-         <repeatable>true</repeatable>
-         <label>Es versión de</label>
-         <input-type>twobox</input-type>
-         <hint>Enlace hacia algún otro item (interno o externo al repositorio) relacionado al item actual, donde e segundo es una versión del primero.</hint>
-       </field>
-       
-       <field>
-         <dc-schema>cic</dc-schema>
-         <dc-element>isPeerReviewed</dc-element>
+         <dc-element>description</dc-element>
          <repeatable>false</repeatable>
-         <label>Revisado por pares</label>
-         <input-type value-pairs-name="boolean_values">dropdown</input-type>
-         <hint>Indica si la obra pasó por una etapa de revisión por pares. En caso que sean tesis o informes de investigación siempre es SI. </hint>
-         <required>Debe indicar si el ítem actual fue revisador por pares o no.</required>
-       </field>
-       
-       <field>
-         <dc-schema>cic</dc-schema>
-         <dc-element>isFulltext</dc-element>
-         <repeatable>false</repeatable>
-         <label>Fulltext</label>
-         <input-type value-pairs-name="boolean_values">dropdown</input-type>
-         <hint>Indica si el recurso está disponible a texto completo en uno o más de los archivos que tiene asociados en el repositorio. En general será SI, aunque pueden suceder casos particulares que no lo sean, como cuando se tiene sólo el ppt de una tesis, un resumen, etc.</hint>
-         <required>Debe indicar si el item está a texto completo o no.</required>
-       </field>
+         <label>Notas</label>
+         <input-type>textarea</input-type>
+         <hint>(Opcional) Toda otra aclaración que resulte pertinente para la mejor catalogación y recuperación de la obra. En este campo se puede  indicar por ejemplo: - si la fecha de publicación indicada es aproximada, - si el documento no fue publicado aún y esta en etapa de revisión o pre-publicación, etc. También debe indicar aquí si el recurso debe ser embargado.</hint>
+     </field>
+       	
   	</page>
-  	<page number="3">       
-  		<!-- TODO: Ticket #2947 -->
-  		<field>
-         <dc-schema>dcterms</dc-schema>
-         <dc-element>license</dc-element>
-         <repeatable>false</repeatable>
-         <label>Licencia Creative Commons</label>
-		<input-type>onebox</input-type>
-         <hint>Elija la licencia Creative Commons adecuada para el ítem.</hint>
-         <required>Debe asignarle una licencia Creative Commons al item.</required>
-       </field>
+  	
+  	<page number="3">
+<!-- 3.1 -->
+		 <field>
+	         <dc-schema>dcterms</dc-schema>
+	         <dc-element>license</dc-element>
+	         <repeatable>false</repeatable>
+	         <label>Condiciones de uso</label>
+	         <input-type>onebox</input-type>
+	         <hint>Licencia de uso que será adjuntada a la obra.</hint>
+	         <required>Debe indicar la licencia relativa a las condiciones de uso de la obra</required>
+	     </field>  		
   	</page>
    </form>
+   
    
    	<!-- ###############################		FOMULARIO AUTOARCHIVO		############################### -->
    <form name="autoarchive">
@@ -511,7 +452,7 @@
          <dc-qualifier>director</dc-qualifier>
          <repeatable>true</repeatable>
          <label>Director</label>
-		 <type-bind>Tesis</type-bind>
+		 <type-bind>tesis</type-bind>
          <input-type>onebox</input-type>
          <hint>Persona que dirige la realización de la tesis.</hint>
          <required>Debe indicar el director de la tesis.</required>
@@ -523,7 +464,7 @@
          <dc-qualifier>name</dc-qualifier>
          <repeatable>true</repeatable>
          <label>Grado alcanzado</label>
-		 <type-bind>Tesis</type-bind>
+		 <type-bind>tesis</type-bind>
          <input-type>onebox</input-type>
          <hint>Grado al que se aspira con el trabajo de tesis realizado.</hint>
          <required>Debe indicar el grado al que se aspira.</required>
@@ -535,7 +476,7 @@
          <dc-qualifier>grantor</dc-qualifier>
          <repeatable>true</repeatable>
          <label>Emisor del título</label>
-		 <type-bind>Tesis</type-bind>
+		 <type-bind>tesis</type-bind>
          <input-type>onebox</input-type>
          <hint>Insitución que otorgó el título.</hint>
          <required>Debe indicar la institución que emite el título.</required>
@@ -548,8 +489,21 @@
          <repeatable>true</repeatable>
          <label>Resumen</label>
          <input-type>textarea</input-type>
-         <hint>Resumen de la obra. .</hint>
+         <hint>Resumen de la obra.</hint>
         </field>
+        
+<!-- 1.8.2 -->
+     <field>
+         <dc-schema>dcterms</dc-schema>
+         <dc-element>audience</dc-element>
+         <repeatable>false</repeatable>
+         <label>Audiencia</label>
+         <type-bind>material_aprendizaje</type-bind>
+         <input-type>onebox</input-type>
+         <hint>Público al cual está orientado la obra.</hint>
+		 <required>Debe indicar la audiencia a la que está destinada la obra</required>
+     </field>        
+        
 <!-- 1.9 -->
      	<field>
          <dc-schema>dcterms</dc-schema>
@@ -576,6 +530,7 @@
          <dc-qualifier>item</dc-qualifier>
          <repeatable>false</repeatable>
          <label>Libro</label>
+         <type-bind>capitulo_de_libro</type-bind>
          <input-type>onebox</input-type>
          <hint>Informe o libro del cual el documento actual es parte.</hint>
         </field>       
@@ -586,7 +541,7 @@
          <dc-qualifier>issue</dc-qualifier>
          <repeatable>false</repeatable>
          <label>Volumen/Instancia de Evento</label>
-		 <type-bind>Articulo,Objeto de conferencia</type-bind>
+		 <type-bind>articulo,documento_conferencia</type-bind>
          <input-type>onebox</input-type>
          <hint>Identificacion del issue (con vol+nro+tomo y link) que contiene el artículo de revista) o 2) Nombre del evento (congreso, seminario, jornada, etc.) en el que este item fue presentado con link.</hint>
          </field>
@@ -597,8 +552,8 @@
          <dc-qualifier>series</dc-qualifier>
          <repeatable>false</repeatable>
          <label>Revista o evento</label>
-		 <type-bind>Articulo,Objeto de conferencia, Libro</type-bind>
-         <input-type>onebox</input-type> <!-- TODO: select/lookup -->
+		 <type-bind>articulo,documento_conferencia,libro</type-bind>
+         <input-type>onebox</input-type>
          <hint>Titulo de la revista o nombre del evento en la que este item fue publicado /presentado.</hint>
         </field>
 <!-- 1.11.4 -->
@@ -608,7 +563,7 @@
          <dc-qualifier>project</dc-qualifier>
          <repeatable>false</repeatable>
          <label>Proyecto contenedor</label>
-         <input-type>onebox</input-type> <!-- TODO: select/lookup -->
+         <input-type>onebox</input-type>
          <hint>En caso que la obra haya sido generada en el marco de un proyecto de financiamiento, indicar identificación del mismo. Ej: CONICET/PIP/11220130100320CO/AR</hint>
         </field>
 <!-- 1.12 -->
@@ -618,7 +573,7 @@
          <dc-qualifier>dataset</dc-qualifier>
          <repeatable>true</repeatable>
          <label>Conjunto de datos fuente</label>
-         <input-type>onebox</input-type> <!-- TODO: select/lookup -->
+         <input-type>onebox</input-type>
          <hint>Conjunto de datos fuente utilizado para la realización de la presente obra.</hint>
         </field>
 <!-- 1.13 -->
@@ -627,19 +582,19 @@
          <dc-element>relation</dc-element>
          <repeatable>true</repeatable>
          <label>Recursos relacionado</label>
-		 <type-bind>Objeto de conferencia</type-bind>
-         <input-type>onebox</input-type> <!-- TODO: select/lookup -->
+         <input-type>onebox</input-type>
          <hint>Si lo desea puede indicar aqui enlaces a otras obras relacionadas a la obra que esta cargando.</hint>
         </field>
+        
 <!-- 1.14 -->
        <field>
          <dc-schema>dcterms</dc-schema>
          <dc-element>description</dc-element>
-         <repeatable>true</repeatable>
-         <label>Audiencia</label>
-         <input-type>onebox</input-type> <!-- TODO: select/lookup -->
-         <hint>Público al cual está orientado la obra.</hint>
-       </field>
+         <repeatable>false</repeatable>
+         <label>Notas</label>
+         <input-type>textarea</input-type>
+         <hint>(Opcional) Toda otra aclaración que resulte pertinente para la mejor catalogación y recuperación de la obra. En este campo se puede  indicar por ejemplo: - si la fecha de publicación indicada es aproximada, - si el documento no fue publicado aún y esta en etapa de revisión o pre-publicación, etc. También debe indicar aquí si el recurso debe ser embargado.</hint>
+     </field>
   	</page>
    </form>
 
@@ -711,19 +666,27 @@
 		</pair>
     </value-pairs>
     
-    <value-pairs value-pairs-name="cic_versiones" dc-term="cic_version">
-    	<pair>
-    		<displayed-value>Enviada</displayed-value>
-    		<stored-value>info:eu-repo/semantics/submittedVersion</stored-value>
-    	</pair>
-    	<pair>
-    		<displayed-value>Aceptada</displayed-value>
-    		<stored-value>info:eu-repo/semantics/acceptedVersion</stored-value>
-    	</pair>
-    	<pair>
-    		<displayed-value>Publicada</displayed-value>
-    		<stored-value>info:eu-repo/semantics/publishedVersion</stored-value>
-    	</pair>
+    <value-pairs value-pairs-name="info_eu_repo_versions" dc-term="dc_type_version">
+		<pair>
+			<displayed-value>Versión Publicada</displayed-value>
+			<stored-value>info:eu-repo/semantics/publishedVersion</stored-value>
+		</pair>
+		<pair>
+			<displayed-value>Borrador</displayed-value>
+			<stored-value>info:eu-repo/semantics/draft</stored-value>
+		</pair>
+		<pair>
+			<displayed-value>Versión enviada</displayed-value>
+			<stored-value>info:eu-repo/semantics/submittedVersion</stored-value>
+		</pair>
+		<pair>
+			<displayed-value>Versión aceptada</displayed-value>
+			<stored-value>info:eu-repo/semantics/acceptedVersion</stored-value>
+		</pair>
+		<pair>
+			<displayed-value>Versión Actualizada</displayed-value>
+			<stored-value>info:eu-repo/semantics/updatedVersion</stored-value>
+		</pair>
     </value-pairs>
     
     <value-pairs value-pairs-name="uner_cc_licences" dc-term="dcterms_license">
@@ -948,6 +911,25 @@
 		<displayed-value>Software</displayed-value>
 		<stored-value>uner:types/software</stored-value>
 	</pair>
+</value-pairs>
+
+<value-pairs value-pairs-name="info_eu_repo_access_rights" dc-term="dcterms_accessRights">
+   <pair>
+         <displayed-value>Acceso abierto</displayed-value>
+         <stored-value>info:eu-repo/semantics/openAccess</stored-value>
+   </pair>
+   <pair>
+         <displayed-value>Acceso cerrado</displayed-value>
+         <stored-value>info:eu-repo/semantics/closedAccess</stored-value>
+   </pair>
+   <pair>
+         <displayed-value>Acceso con embargo</displayed-value>
+         <stored-value>info:eu-repo/semantics/embargoedAccess</stored-value>
+   </pair>
+   <pair>
+         <displayed-value>Acceso restringido</displayed-value>
+         <stored-value>info:eu-repo/semantics/restrictedAccess</stored-value>
+   </pair>
 </value-pairs>
     
 </form-value-pairs>

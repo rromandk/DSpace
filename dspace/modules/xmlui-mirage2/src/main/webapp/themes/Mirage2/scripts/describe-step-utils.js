@@ -50,7 +50,7 @@ if ($('form#aspect_submission_StepTransformer_div_submit-describe')){
 	 */
 	//globals variables
 	var fieldIDPrefix = 'aspect_submission_StepTransformer_field_';
-	var fields = ['dc_type','dcterms_language','dcterms_license','dcterms_rights_embargoPeriod','dcterms_subject_area'];
+	var fields = ['dc_type','dc_type_version','dcterms_accessRights','dcterms_language','dcterms_license','dcterms_rights_embargoPeriod','dcterms_subject_area'];
 	var emptyAuthorityFields = ['dcterms_isPartOf_item','dcterms_isPartOf_issue','dcterms_relation','dcterms_hasPart','dcterms_isVersionOf', 'dcterms_identifier_url'];			
 	var oldTypeValue = $('#aspect_submission_StepTransformer_field_dc_type').val();
 	var oldLicenseValue = $('#aspect_submission_StepTransformer_field_dcterms_license').val();
