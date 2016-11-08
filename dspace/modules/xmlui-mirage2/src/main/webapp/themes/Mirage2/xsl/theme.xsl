@@ -38,6 +38,7 @@
     <xsl:import href="core/attribute-handlers.xsl"/>
     <xsl:import href="core/utils_cic.xsl"/>
     <xsl:import href="core/utils.xsl"/>
+    <xsl:import href="core/statistics.xsl"/>
     <xsl:import href="aspect/general/choice-authority-control.xsl"/>
     <xsl:import href="aspect/general/vocabulary-support.xsl"/>
     <!--<xsl:import href="xsl/aspect/administrative/administrative.xsl"/>-->

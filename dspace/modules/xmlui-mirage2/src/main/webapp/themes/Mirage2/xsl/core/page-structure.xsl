@@ -30,7 +30,7 @@
                 xmlns:mods="http://www.loc.gov/mods/v3"
                 xmlns:dc="http://purl.org/dc/elements/1.1/"
                 xmlns:confman="org.dspace.core.ConfigurationManager"
-				xmlns:xmlui="xalan://ar.edu.unlp.sedici.dspace.xmlui.util.XSLTHelper"
+                xmlns:xmlui="xalan://ar.edu.unlp.sedici.dspace.xmlui.util.XSLTHelper"
                 exclude-result-prefixes="i18n dri mets xlink xsl dim xhtml mods dc confman xmlui">
 
     <xsl:output method="xml" encoding="UTF-8" indent="yes"/>
@@ -292,7 +292,7 @@
             <script src="{concat($theme-path, 'vendor/modernizr/modernizr.js')}">&#160;</script>
 
             <!-- Add the title in -->
-			<xsl:call-template name="addPageTitle"/>
+            <xsl:call-template name="addPageTitle"/>
 
             <!-- Head metadata in item pages -->
             <xsl:if test="/dri:document/dri:meta/dri:pageMeta/dri:metadata[@element='xhtml_head_item']">
@@ -324,12 +324,15 @@
             </xsl:if>
 
              <xsl:if test="/dri:document/dri:body/dri:div[@id='aspect.submission.StepTransformer.div.submit-describe']/dri:list[@id='aspect.submission.StepTransformer.list.submit-describe']">
-				<script type="text/javascript" src="//cdn.ckeditor.com/4.4.7/full/ckeditor.js">&#160;</script>
-				<script type="text/javascript">var path= "<xsl:value-of select="$context-path"/>";
-				CKEDITOR.config.customConfig =path.concat("/static/js/editorConfig.js");					
-				CKEDITOR.config.language= "<xsl:value-of select="/dri:document/dri:meta/dri:pageMeta/dri:metadata[@element='page' and @qualifier='currentLocale']"/>";
-				</script>
-			</xsl:if>
+                <script type="text/javascript" src="//cdn.ckeditor.com/4.4.7/full/ckeditor.js">&#160;</script>
+                <script type="text/javascript">var path= "<xsl:value-of select="$context-path"/>";
+                CKEDITOR.config.customConfig =path.concat("/static/js/editorConfig.js");                    
+                CKEDITOR.config.language= "<xsl:value-of select="/dri:document/dri:meta/dri:pageMeta/dri:metadata[@element='page' and @qualifier='currentLocale']"/>";
+                </script>
+            </xsl:if>
+            <link rel="stylesheet" href="//cdn.jsdelivr.net/chartist.js/latest/chartist.min.css" />
+             <script src="//cdn.jsdelivr.net/chartist.js/latest/chartist.min.js">&#160;</script>
+            
         </head>
     </xsl:template>
 
@@ -781,13 +784,13 @@
             </xsl:if>
 
             <xsl:choose>
-				<!-- Handler for Static pages -->
-				<xsl:when test="starts-with($request-uri, 'page/')">
-					<div class="static-page">
-						<xsl:copy-of select="document(concat('../../',$request-uri,'.xhtml') )" />
-					</div>
-				</xsl:when>                
-				<!-- Otherwise use default handling of body -->
+                <!-- Handler for Static pages -->
+                <xsl:when test="starts-with($request-uri, 'page/')">
+                    <div class="static-page">
+                        <xsl:copy-of select="document(concat('../../',$request-uri,'.xhtml') )" />
+                    </div>
+                </xsl:when>
+                <!-- Otherwise use default handling of body -->
                 <xsl:otherwise>
                     <xsl:apply-templates />
                 </xsl:otherwise>
@@ -881,35 +884,129 @@
 
         <xsl:call-template name="addJavascript-google-analytics" />
         
-		<script type="text/javascript">
-			function scroll(){				
-				<xsl:if test="/dri:document/dri:meta/dri:pageMeta/dri:metadata[@element='page'][@qualifier='jumpTo']">
-					<xsl:variable name="field_id" select="concat('aspect_submission_StepTransformer_field_',/dri:document/dri:meta/dri:pageMeta/dri:metadata[@element='page'][@qualifier='jumpTo'])" />
-					$("body").animate({scrollTop: $("label[for='<xsl:value-of select="$field_id"/>']").parent().offset().top });
-					$(<xsl:value-of select="$field_id" />).focus();
-				</xsl:if>
-			}		        
-			$(document).ready(function(){
-				<xsl:if test="/dri:document/dri:body/dri:div[@id='aspect.submission.StepTransformer.div.submit-describe']/dri:list[@id='aspect.submission.StepTransformer.list.submit-describe']">
-					var path= "<xsl:value-of select="/dri:document/dri:meta/dri:pageMeta/dri:metadata[@element='contextPath']"/>";
-				    path=path.concat("/static/js/eqneditor/");
-					CKEDITOR.plugins.addExternal( 'eqneditor', path, 'plugin.js' );
-					CKEDITOR.config.extraPlugins = 'eqneditor';
-				</xsl:if>
-		<!-- Se realiza el scroll dependiendo de si existe un editor en pantalla. Si existe un editor, es necesario a que se instancie el mismo para luego hacer el scroll -->
-				<xsl:choose>
-					<xsl:when test="/dri:document/dri:body/dri:div[@id='aspect.submission.StepTransformer.div.submit-describe']/dri:list[@id='aspect.submission.StepTransformer.list.submit-describe']/dri:item/dri:field/dri:params[@editorToolbar]">
-						CKEDITOR.on( 'instanceReady', function(evt) {
-							scroll();				
-						});
-					</xsl:when>
-					<xsl:otherwise>
-						scroll();
-					</xsl:otherwise>
-				</xsl:choose>
-			});
-		</script>        
+        <script type="text/javascript">
+            function scroll(){
+                <xsl:if test="/dri:document/dri:meta/dri:pageMeta/dri:metadata[@element='page'][@qualifier='jumpTo']">
+                    <xsl:variable name="field_id" select="concat('aspect_submission_StepTransformer_field_',/dri:document/dri:meta/dri:pageMeta/dri:metadata[@element='page'][@qualifier='jumpTo'])" />
+                    $("body").animate({scrollTop: $("label[for='<xsl:value-of select="$field_id"/>']").parent().offset().top });
+                    $(<xsl:value-of select="$field_id" />).focus();
+                </xsl:if>
+            }
+            $(document).ready(function(){
+                <xsl:if test="/dri:document/dri:body/dri:div[@id='aspect.submission.StepTransformer.div.submit-describe']/dri:list[@id='aspect.submission.StepTransformer.list.submit-describe']">
+                    var path= "<xsl:value-of select="/dri:document/dri:meta/dri:pageMeta/dri:metadata[@element='contextPath']"/>";
+                    path=path.concat("/static/js/eqneditor/");
+                    CKEDITOR.plugins.addExternal( 'eqneditor', path, 'plugin.js' );
+                    CKEDITOR.config.extraPlugins = 'eqneditor';
+                </xsl:if>
+        <!-- Se realiza el scroll dependiendo de si existe un editor en pantalla. Si existe un editor, es necesario a que se instancie el mismo para luego hacer el scroll -->
+                <xsl:choose>
+                    <xsl:when test="/dri:document/dri:body/dri:div[@id='aspect.submission.StepTransformer.div.submit-describe']/dri:list[@id='aspect.submission.StepTransformer.list.submit-describe']/dri:item/dri:field/dri:params[@editorToolbar]">
+                        CKEDITOR.on( 'instanceReady', function(evt) {
+                            scroll();               
+                        });
+                    </xsl:when>
+                    <xsl:otherwise>
+                        scroll();
+                    </xsl:otherwise>
+                </xsl:choose>
+            });
+        </script>        
         
+        <!-- El java script de abajo genera el grafico de barras para las estadisticas de los items -->
+        <script type="text/javascript">
+          $(document).ready(function(){ 
+          if($( "#aspect_statistics_StatisticsTransformer_div_item-home" ).length )
+          {
+            var data = {
+              labels: [<xsl:for-each select="/dri:document/dri:body/dri:div[@n='item-home']/dri:div[@n='stats']/dri:div[@id='aspect.statistics.StatisticsTransformer.div.tablewrapper']/dri:table/dri:row/dri:cell[text()!='' and @role='header']">'<xsl:value-of select="." />',</xsl:for-each>],
+              series: [
+                [<xsl:for-each select="/dri:document/dri:body/dri:div[@n='item-home']/dri:div[@n='stats']/dri:div[@id='aspect.statistics.StatisticsTransformer.div.tablewrapper']/dri:table/dri:row/dri:cell[text()!='' and @rend='datacell']"><xsl:value-of select="." />,</xsl:for-each>]
+              ],
+              colors:['#9ec4cd']
+            };
+            var options = {
+              seriesBarDistance: 10
+            };      
+            new Chartist.Bar('.ct-chart', data, options);
+          }      
+            
+            });
+        </script>
+        <!-- Este script genera el grafico de tortas para las estadisticas del item -->
+        <script type="text/javascript">
+         $(document).ready(function(){  
+         if($( "#aspect_statistics_StatisticsTransformer_div_item-home" ).length )
+         {
+            // Configure data for "Pie" chart.
+            var data = {
+              labels: [<xsl:for-each select="/dri:document/dri:body/dri:div[@n='item-home']/dri:div[@n='stats']/dri:table[last()-1]/dri:row/dri:cell[text()!='' and @role='data' and @rend='labelcell']">'<xsl:value-of select="." />',</xsl:for-each>],
+              series: [<xsl:for-each select="/dri:document/dri:body/dri:div[@n='item-home']/dri:div[@n='stats']/dri:table[last()-1]/dri:row/dri:cell[text()!='' and @role='data' and @rend='datacell']">'<xsl:value-of select="." />',</xsl:for-each>]
+            };
+
+            <xsl:text disable-output-escaping="yes">            
+            if(data.labels.length > 0 &amp;&amp; data.series.length > 0){
+            /*Calculate: what series are under the 'minimumUmbralProportion' of the statistics values? 
+              Group them in a group 'others' to prevent a label overlay. */
+            var minimumUmbralProportion = 0.04;
+            var total = data.series.reduce(function sum(prev, curr) { return parseInt(prev) + parseInt(curr); });
+            var totalAccessUnderUmbral = 0; 
+            data.series = data.series.filter(function(element, index){
+                if (parseInt(element) / total &lt; minimumUmbralProportion){
+                    //If element is under the umbral, mark the corresponding label as to delete.
+                    data.labels.splice(index,1,'-1');
+                    totalAccessUnderUmbral += parseInt(element);
+                    return false;
+                }
+                return true;
+            });
+            data.labels = data.labels.filter(function(element, index){
+                if (element == '-1'){
+                    return false;
+                }
+                return true;
+            });
+            
+            if(totalAccessUnderUmbral &gt; 0){
+            </xsl:text>
+                data.labels.push('<i18n:text>xmlui.statistics.display.chartist.country.others</i18n:text>');
+                data.series.push(totalAccessUnderUmbral.toString());
+            }
+            
+            // Configure options for "Pie" chart.
+            var options = {
+              labelInterpolationFnc: function(value, index) {
+                var pertentage = (parseInt(data.series[index]) / total * 100).toFixed(1);
+                return value + ' (' + pertentage.toString() + '%)';
+              },
+              labelOffset: 100,
+              labelDirection: 'explode',
+              chartPadding: {top: 40, right: 5, bottom: 40, left: 5}
+            };
+            
+            var responsiveOptions = [
+              ['screen and (max-width: 767px)', {
+                labelOffset: 5,
+                labelPosition: 'outside',
+              }],
+              //Rule to disable the percentage when the device be in 'portrait' orientation. 
+              //Otherwise, on this width (less than 768px), the text will be displayed 'out' of the screen. 
+              ['screen and (max-width: 767px) and (orientation: portrait)', {
+                labelInterpolationFnc: function(value) {
+                    return value;
+                },
+              }],
+              ['screen and (min-width: 768px)', {
+                labelOffset: 80,
+              }]
+            ];
+            
+            // Create the "Pie" chart.
+            new Chartist.Pie('#chart2', data, options, responsiveOptions);
+            }
+            }
+        });
+        </script>
     </xsl:template>
 
     <xsl:template name="addJavascript-google-analytics">
@@ -967,12 +1064,12 @@
     </xsl:template>
     
     <xsl:template name="addPageTitle">
-    	<xsl:variable name="page_title" select="/dri:document/dri:meta/dri:pageMeta/dri:metadata[@element='title'][last()]" />
+        <xsl:variable name="page_title" select="/dri:document/dri:meta/dri:pageMeta/dri:metadata[@element='title'][last()]" />
             <title>
                 <xsl:choose>
                     <xsl:when test="starts-with($request-uri, 'page/')">
                         <i18n:text>
-                        	<xsl:value-of select="concat('xmlui.unerdigital.title.', xmlui:replaceAll(substring-after($request-uri,'/'), '(_en|_es)', ''))"/>
+                            <xsl:value-of select="concat('xmlui.unerdigital.title.', xmlui:replaceAll(substring-after($request-uri,'/'), '(_en|_es)', ''))"/>
                         </i18n:text>
                     </xsl:when>
                     <xsl:when test="not($page_title)">
