@@ -74,4 +74,68 @@
 		<scope_note>Conjunto de datos fuente utilizado para la realización de la presente obra.</scope_note>
 	</dc-type>
 
+
+        <dc-type>
+                <schema>dcterms</schema>
+                <element>creator</element>
+                <qualifier>author</qualifier>
+                <scope_note>Autor de la obra. En caso de ser varios autores indicarlos de a uno.</scope_note>
+        </dc-type>
+
+        <dc-type>
+                <schema>dcterms</schema>
+                <element>creator</element>
+                <qualifier>compilator</qualifier>
+                <scope_note>Persona responsable de compilar, reunir o antologar materiales de la obra.</scope_note>
+        </dc-type>
+
+        <dc-type>
+                <schema>dcterms</schema>
+                <element>creator</element>
+                <qualifier>editor</qualifier>
+                <scope_note>Persona física o institucional responsable de realizar tareas de edición sobre los contenidos de la obra. No confundir con la editorial.</scope_note>
+        </dc-type>
+
+        <dc-type>
+                <schema>dcterms</schema>
+                <element>creator</element>
+                <qualifier>corporate</qualifier>
+                <scope_note>Institucion creadora del contenido intelectual de la obra.</scope_note>
+        </dc-type>
+
+        <dc-type>
+                <schema>dcterms</schema>
+                <element>contributor</element>
+                <qualifier>director</qualifier>
+                <scope_note>Persona que dirige la realización de la tesis.</scope_note>
+        </dc-type>
+
+        <dc-type>
+                <schema>dcterms</schema>
+                <element>subject</element>
+                <qualifier>materia</qualifier>
+                <scope_note>Materia (en sentido amplio) a que se refiere el item (ejemplo: Física).</scope_note>
+        </dc-type>
+
+        <dc-type>
+                <schema>dcterms</schema>
+                <element>isPartOf</element>
+                <qualifier>item</qualifier>
+                <scope_note>Informe o libro del cual el documento actual es parte.</scope_note>
+        </dc-type>
+
+        <dc-type>
+                <schema>dcterms</schema>
+                <element>isPartOf</element>
+                <qualifier>issue</qualifier>
+                <scope_note>Identificacion del issue (con vol+nro+tomo y link) que contiene el artículo de revista) o 2) Nombre del evento (congreso, seminario, jornada, etc.) en el que este item fue presentado con link.</scope_note>
+        </dc-type>
+
+        <dc-type>
+                <schema>dcterms</schema>
+                <element>isPartOf</element>
+                <qualifier>series</qualifier>
+                <scope_note>Titulo de la revista o nombre del evento en la que este item fue publicado /presentado.</scope_note>
+        </dc-type>
+
 </dspace-dc-types>
