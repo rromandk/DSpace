@@ -60,6 +60,25 @@
     // Is the logged in user an admin of the item
     Boolean itemAdmin = (Boolean)request.getAttribute("admin_button");
     boolean isItemAdmin = (itemAdmin == null ? false : itemAdmin.booleanValue());
+
+    // Is the logged in user an admin or community admin or collection admin
+    Boolean admin = (Boolean)request.getAttribute("is.admin");
+    boolean isAdmin = (admin == null ? false : admin.booleanValue());
+    
+    Boolean communityAdmin = (Boolean)request.getAttribute("is.communityAdmin");
+    boolean isCommunityAdmin = (communityAdmin == null ? false : communityAdmin.booleanValue());
+    
+    Boolean collectionAdmin = (Boolean)request.getAttribute("is.collectionAdmin");
+    boolean isCollectionAdmin = (collectionAdmin == null ? false : collectionAdmin.booleanValue());
+    
+    String naviAdmin = "admin";
+    String link = "/dspace-admin";
+    
+    if(!isAdmin && (isCommunityAdmin || isCollectionAdmin))
+    {
+        naviAdmin = "community-or-collection-admin";
+        link = "/tools";
+    }
     
     Boolean policy = (Boolean)request.getAttribute("policy_button");
     boolean bPolicy = (policy == null ? false : policy.booleanValue());
@@ -195,10 +214,10 @@
 </c:set>
 
 <dspace:layout style="submission" titlekey="jsp.tools.edit-item-form.title"
-               navbar="admin"
+               navbar="<%= naviAdmin %>"
                locbar="link"
                parenttitlekey="jsp.administer"
-               parentlink="/dspace-admin"
+               parentlink="<%= link %>"
                nocache="true">
 
 
@@ -678,7 +697,7 @@
                                 List<Bundle> ccBundle = ContentServiceFactory.getInstance().getItemService().getBundles(item, "CC-LICENSE");
                                 s = ccBundle.size() > 0 ? LocaleSupport.getLocalizedMessage(pageContext, "jsp.tools.edit-item-form.replacecc.button") : LocaleSupport.getLocalizedMessage(pageContext, "jsp.tools.edit-item-form.addcc.button");
                 %>
-                    <input class="btn btn-success col-md-2" type="submit" name="submit_addcc" value="<%= s %>" />
+                    <input class="btn btn-success col-md-3" type="submit" name="submit_addcc" value="<%= s %>" />
                     <input type="hidden" name="handle" value="<%= ConfigurationManager.getProperty("handle.prefix") %>"/>
                     <input type="hidden" name="item_id" value="<%= item.getID() %>"/>
                     

@@ -42,9 +42,15 @@ public class ResourcePolicy implements ReloadableEntity<Integer> {
     @JoinColumn(name = "dspace_object")
     private DSpaceObject dSpaceObject;
 
+    /*
+     * {@see org.dspace.core.Constants#Constants Constants}
+     */
     @Column(name = "resource_type_id")
     private int resourceTypeId;
 
+    /*
+     * {@see org.dspace.core.Constants#Constants Constants}
+     */
     @Column(name="action_id")
     private int actionId;
 
@@ -145,7 +151,7 @@ public class ResourcePolicy implements ReloadableEntity<Integer> {
             hash = 19 * hash + -1;
         }
 
-        if(this.epersonGroup != null)
+        if(this.getEPerson() != null)
         {
             hash = 19 * hash + this.getEPerson().hashCode();
         }else{
