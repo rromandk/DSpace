@@ -161,7 +161,7 @@ db.schema = public
 #
 # If omitted, the canonical URL prefix will be http://hdl.handle.net/
 #handle.canonical.prefix = http://hdl.handle.net/
-handle.canonical.prefix = http://digital.cic.gba.gob.ar/handle/
+handle.canonical.prefix = http://uner.sedici.unlp.edu.ar/handle/
 
 # CNRI Handle prefix
 # (Defaults to a dummy/fake prefix of 123456789)
