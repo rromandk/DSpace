@@ -21,7 +21,7 @@
         <!-- <name-map collection="123456789/XXXX" workflow="comm_workflow_independiente"/> -->
         
         <!-- Comunidad Autoarchivo -->
-        <name-map collection="11746/2" workflow="autoarchive"/>
+        <name-map collection="123456789/12" workflow="autoarchive"/>
     </workflow-map>
 
 	<workflow start="UNER-ADMIN-review" id="autoarchive">
