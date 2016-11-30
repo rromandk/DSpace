@@ -123,18 +123,6 @@
                 </div>
             </xsl:if>
             <xsl:apply-templates/>
-            <!-- DS-984 Add RSS Links to Options Box -->
-            <xsl:if test="count(/dri:document/dri:meta/dri:pageMeta/dri:metadata[@element='feed']) != 0">
-                <div>
-                    <h2 class="ds-option-set-head h6">
-                        <i18n:text>xmlui.feed.header</i18n:text>
-                    </h2>
-                    <div id="ds-feed-option" class="ds-option-set list-group">
-                        <xsl:call-template name="addRSSLinks"/>
-                    </div>
-                </div>
-
-            </xsl:if>
             
             <!-- Ejemplo sobre cómo agregar un enlace a una StaticPage -->
             <!-- <xsl:call-template name="add-static-page-anchor">
@@ -179,14 +167,16 @@
     </xsl:template>
 
     <xsl:template match="dri:options/dri:list" priority="3">
-        <xsl:apply-templates select="dri:head"/>
-        <div>
-            <xsl:call-template name="standardAttributes">
-                <xsl:with-param name="class">list-group</xsl:with-param>
-            </xsl:call-template>
-            <xsl:apply-templates select="dri:item"/>
-            <xsl:apply-templates select="dri:list"/>
-        </div>
+        <xsl:if test="@n!='statistics'">
+            <xsl:apply-templates select="dri:head"/>
+            <div>
+                <xsl:call-template name="standardAttributes">
+                    <xsl:with-param name="class">list-group</xsl:with-param>
+                </xsl:call-template>
+                <xsl:apply-templates select="dri:item"/>
+                <xsl:apply-templates select="dri:list"/>
+            </div>
+        </xsl:if>
     </xsl:template>
 
 
