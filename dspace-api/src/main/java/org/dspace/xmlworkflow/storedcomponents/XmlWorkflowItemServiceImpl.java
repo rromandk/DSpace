@@ -161,7 +161,9 @@ public class XmlWorkflowItemServiceImpl implements XmlWorkflowItemService {
                 "workflowitem_id=" + workflowItem.getID()));
 
         // Update the item
+        context.turnOffAuthorisationSystem();
         itemService.update(context, workflowItem.getItem());
+        context.restoreAuthSystemState();
 
         xmlWorkflowItemDAO.save(context, workflowItem);
     }
