@@ -825,10 +825,6 @@
 		<stored-value>uner:types/articulo</stored-value>
 	</pair>
 	<pair>
-		<displayed-value>Comunicación</displayed-value>
-		<stored-value>uner:types/articulo/comunicacion</stored-value>
-	</pair>
-	<pair>
 		<displayed-value>Revisión</displayed-value>
 		<stored-value>uner:types/articulo/revision</stored-value>
 	</pair>
