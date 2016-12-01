@@ -61,7 +61,7 @@
 	<!--
 		This section is for feed syndications (RSS, atom, etc)
 	-->
-<message key="xmlui.feed.general_description">El repositorio digital DSpace captura, almacena, indexa, preserva y distribuye materiales de investigación en formato digital.</message>
+<message key="xmlui.feed.general_description">El repositorio digital RIUNER captura, almacena, indexa, preserva y distribuye materiales de investigación en formato digital.</message>
 <message key="xmlui.feed.header">RSS Feeds</message>
 <message key="xmlui.feed.logo_title">Imagen</message>
 <message key="xmlui.feed.untitled">Sin título</message>
