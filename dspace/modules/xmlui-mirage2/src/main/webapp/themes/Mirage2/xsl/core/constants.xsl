@@ -65,7 +65,7 @@
 	
 	<xsl:variable name="handle-autoarchive">
 		<xsl:value-of select="/dri:document/dri:meta/dri:repositoryMeta/dri:repository/@repositoryID"/>
-		<xsl:text>/3</xsl:text>
+		<xsl:text>/12</xsl:text>
 	</xsl:variable>
 	
 	<xsl:variable name="url-autoarchive">
