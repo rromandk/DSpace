@@ -73,6 +73,8 @@
 #aspect_submission_StepTransformer_field_dc_type_version,
 #aspect_submission_StepTransformer_field_dcterms_accessRights {
 	background-image : url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPjx0ZXh0IHg9Ijk2JSIgeT0iNzAlIiBmb250LXNpemU9IjIwIj7ilrw8L3RleHQ+PC9zdmc+");
+	background-color: #fcfbf2;
+	cursor: pointer;
 }
 
 /* for lock button */
@@ -89,6 +91,7 @@ input.ds-authority-lock{
 .language-selector{
 	margin-top: 5px;
 	width: auto;
+	background-color: #fcfbf2;
 }
 
 /**

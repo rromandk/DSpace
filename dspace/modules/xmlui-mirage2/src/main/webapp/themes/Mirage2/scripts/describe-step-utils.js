@@ -11,40 +11,38 @@
  * Funciones utilizadas durante la ejecución del
  * DescribeStep durante el Submission y el Workflow.
  */
-if ($('form#aspect_submission_StepTransformer_div_submit-describe')){
+if($('form#aspect_submission_StepTransformer_div_submit-cclicense')){
 	
 	// Solo ejecutar en la página de seleccion CC
-	if($('input#aspect_submission_StepTransformer_field_dcterms_license')){
-		$(document).ready(function(){
-			var nc_text = "";
-			var sa_text = "";
-			var nd_text = "";
-			var showCCLicenseSelected = function(){
-				switch (this.name){
-					case "commercial_chooser":
-						switch(this.value){
-							case "y": nc_text = ""; break;
-							case "n": nc_text = "-nc"; break;
-						}
-						break;
-					case "derivatives_chooser":
-						switch(this.value){
-							case "y": nd_text = ""; sa_text=""; break;
-							case "sa": nd_text = ""; sa_text = "-sa"; break;
-							case "n": nd_text = "-nd"; sa_text=""; break;
-						}
-						break;
-				}
-				$('.selectedCCLicense').html("La licencia actual seleccionada es &lt;a target='_blank' href='https://creativecommons.org/licenses/by" + nc_text + nd_text + sa_text +"/4.0'&gt;Creative Commons BY"+ (nc_text + nd_text + sa_text).toUpperCase() + " 4.0&lt;/a&gt;");	
-			};
-			$("#N100AB input[name='commercial_chooser']").click(showCCLicenseSelected);
-			$("#N100CD input[name='derivatives_chooser']").click(showCCLicenseSelected);
-			$("#aspect_submission_StepTransformer_list_statusList ol li:first").prepend('&lt;div class="selectedCCLicense"&gt;&#160;&lt;/div&gt;')
-		});
-	}
+	$(document).ready(function(){
+		var nc_text = "";
+		var sa_text = "";
+		var nd_text = "";
+		var showCCLicenseSelected = function(){
+			switch (this.name){
+				case "commercial_chooser":
+					switch(this.value){
+						case "y": nc_text = ""; break;
+						case "n": nc_text = "-nc"; break;
+					}
+					break;
+				case "derivatives_chooser":
+					switch(this.value){
+						case "y": nd_text = ""; sa_text=""; break;
+						case "sa": nd_text = ""; sa_text = "-sa"; break;
+						case "n": nd_text = "-nd"; sa_text=""; break;
+					}
+					break;
+			}
+			$('.selectedCCLicense').addClass('alert alert-info').html("La licencia actual seleccionada es <a target='_blank' href='https://creativecommons.org/licenses/by" + nc_text + nd_text + sa_text +"/4.0'>Creative Commons BY"+ (nc_text + nd_text + sa_text).toUpperCase() + " 4.0</a>");	
+		};
+		$("#N100AB input[name='commercial_chooser']").click(showCCLicenseSelected);
+		$("#N100CD input[name='derivatives_chooser']").click(showCCLicenseSelected);
+		$("#aspect_submission_StepTransformer_div_statusDivision").before('<div class="selectedCCLicense">&#160;</div>')
+	});
+}	
 	
-	
-	
+if ($('form#aspect_submission_StepTransformer_div_submit-describe')){	
 	/**
 	 * Methods used in the initialize of the XMLUI input-forms page.
 	 */
@@ -144,7 +142,7 @@ if ($('form#aspect_submission_StepTransformer_div_submit-describe')){
 				var AllowSubmit = ($('#'+ fieldIDPrefix + inputFieldName).val() == oldFieldValue)? false : true;
 				if(!AllowSubmit){
 					$('#'+ fieldIDPrefix + inputFieldName).addClass("error");
-					(!$("span.msjCCError").length)?$('#'+ fieldIDPrefix + inputFieldName + "_confidence_indicator").after('&lt;span class="error msjCCError"&gt;*Debe seleccionar la licencia correspondiente&lt;/span&gt;'):$.noop();
+					(!$("div.msjCCError").length)?$('#'+ fieldIDPrefix + inputFieldName + "_confidence_indicator").after('<div class="error msjCCError alert alert-danger">*Debe seleccionar la licencia correspondiente</div>'):$.noop();
 				}
 				//Do a submit when the current CCLicense value differs of the old value.
 				return AllowSubmit;
