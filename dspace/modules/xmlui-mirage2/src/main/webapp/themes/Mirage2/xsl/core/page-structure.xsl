@@ -405,7 +405,7 @@
 	                        <ul class="nav navbar-nav">
 	                              <xsl:call-template name="languageSelection"/>
 	                        </ul>
-	                        <ul class="nav navbar-nav">
+	                        <ul class="nav navbar-nav visible-xs">
 	                            <xsl:choose>
 	                                <xsl:when test="/dri:document/dri:meta/dri:userMeta/@authenticated = 'yes'">
 	                                    <li class="dropdown">
