@@ -73,7 +73,7 @@
 
 	<!-- Static pages titles -->
 <message key="xmlui.cicdigital.title.como-aportar-material">¿Cómo aportar material?</message>
-<message key="xmlui.cicdigital.title.que-es-cic-digital">¿Qué es CIC-Digital?</message>
+<message key="xmlui.cicdigital.title.que-es-cic-digital">¿Qué es RIUNER?</message>
 <message key="xmlui.cicdigital.title.politicas-del-repositorio">Políticas del repositorio</message>
 <message key="xmlui.unerdigital.title.test">Página de prueba</message>
 
@@ -82,7 +82,7 @@
 
 	<!-- Static pages trail -->
 <message key="xmlui.cicdigital.trail.como-aportar-material">¿Cómo aportar material?</message>
-<message key="xmlui.cicdigital.trail.que-es-cic-digital">¿Qué es CIC-Digital?</message>
+<message key="xmlui.cicdigital.trail.que-es-cic-digital">¿Qué es RIUNER?</message>
 <message key="xmlui.cicdigital.trail.politicas-del-repositorio">Políticas del repositorio</message>
 <message key="xmlui.unerdigital.trail.test">Página de prueba</message>
 
@@ -94,8 +94,8 @@
 <message key="xmlui.cicdigital.home.mas-informacion">Mas información</message>
 <message key="xmlui.cicdigital.home.sobre-repositorio">Sobre el repositorio</message>
 <message key="xmlui.cicdigital.home.informacion-autores">Información para autores</message>
-<message key="xmlui.cicdigital.home.bienvenido">Bienvenido a CIC-Digital</message>
-<message key="xmlui.cicdigital.home.bienvenido-descripcion">CIC-Digital es el Repositorio Institucional de la  Comisión de Investigaciones Científicas de la Provincia de Buenos Aires, creado con el fin de preservar y dejar accesible en abierto toda la producción científico-tecnológica generada en el ámbito de las instituciones CIC.</message>
+<message key="xmlui.cicdigital.home.bienvenido">Bienvenido a RIUNER</message>
+<message key="xmlui.cicdigital.home.bienvenido-descripcion">RIUNER es el Repositorio Institucional de la Universidad Nacional de Entre Ríos, creado con el fin de reunir, preservar y difundir en acceso abierto el material científico e institucional producido por cada una de las unidades académicas, generando así su accesibilidad y visibilidad.</message>
 
 <message key="xmlui.cicdigital.home.centros">Centros</message>
 
@@ -235,7 +235,7 @@
 	<!-- org.dspace.app.xmlui.artifactbrowser.CommunityBrowser.java -->
 <message key="xmlui.ArtifactBrowser.CommunityBrowser.title">Lista de comunidades</message>
 <message key="xmlui.ArtifactBrowser.CommunityBrowser.trail">Lista de comunidades</message>
-<message key="xmlui.ArtifactBrowser.CommunityBrowser.head">Comunidades en DSpace</message>
+<message key="xmlui.ArtifactBrowser.CommunityBrowser.head">Comunidades</message>
 <message key="xmlui.ArtifactBrowser.CommunityBrowser.select">Elija una comunidad para listar sus colecciones</message>
 
 	<!-- org.dspace.app.xmlui.artifactbrowser.CommunityViewer.java -->
@@ -265,7 +265,7 @@
 <message key="xmlui.ArtifactBrowser.FeedbackForm.title">Sugerencias</message>
 <message key="xmlui.ArtifactBrowser.FeedbackForm.trail">Sugerencias</message>
 <message key="xmlui.ArtifactBrowser.FeedbackForm.head">Sugerencias</message>
-<message key="xmlui.ArtifactBrowser.FeedbackForm.para1">Gracias por compartir sus sugerencias sobre CIC-Digital. Sus comentarios serán tenidos en cuenta por los administradores del sitio.</message>
+<message key="xmlui.ArtifactBrowser.FeedbackForm.para1">Gracias por compartir sus sugerencias sobre RIUNER. Sus comentarios serán tenidos en cuenta por los administradores del sitio.</message>
 <message key="xmlui.ArtifactBrowser.FeedbackForm.email">Su correo electrónico</message>
 <message key="xmlui.ArtifactBrowser.FeedbackForm.email_help">Esta dirección será utilizada para seguimiento de su sugerencia.</message>
 <message key="xmlui.ArtifactBrowser.FeedbackForm.comments">Comentarios</message>
@@ -278,8 +278,8 @@
 <message key="xmlui.ArtifactBrowser.FeedbackSent.para1">Su comentario ha sido recibido</message>
 
 	<!-- org.dspace.app.xmlui.artifactbrowser.FrontPageSearch.java -->
-<message key="xmlui.ArtifactBrowser.FrontPageSearch.head">Buscar en DSpace</message>
-<message key="xmlui.ArtifactBrowser.FrontPageSearch.para1">Introduzca el texto a buscar en DSpace</message>
+<message key="xmlui.ArtifactBrowser.FrontPageSearch.head">Buscar en RIUNER</message>
+<message key="xmlui.ArtifactBrowser.FrontPageSearch.para1">Introduzca el texto a buscar en RIUNER</message>
 
 	<!-- org.dspace.app.xmlui.artifactbrowser.ItemViewer.java -->
 <message key="xmlui.ArtifactBrowser.ItemViewer.year">Año</message>	
@@ -389,7 +389,7 @@
 	<!-- org.dspace.app.xmlui.eperson.CannotRegister.java -->
 <message key="xmlui.EPerson.CannotRegister.title">Registro no disponible</message>
 <message key="xmlui.EPerson.CannotRegister.head">Registro no disponible</message>
-<message key="xmlui.EPerson.CannotRegister.para1">La configuración de este repositorio DSpace no permite registro en este contexto. Por favor, contacte con el <a href="../contact">administrador</a>.</message>
+<message key="xmlui.EPerson.CannotRegister.para1">La configuración de este repositorio RIUNER no permite registro en este contexto. Por favor, contacte con el <a href="../contact">administrador</a>.</message>
 
 	<!-- org.dspace.app.xmlui.eperson.EditProfile.java -->
 <message key="xmlui.EPerson.EditProfile.title_update">Modificar perfil</message>
@@ -449,20 +449,20 @@
 	<!-- org.dspace.app.xmlui.eperson.PasswordLogin.java -->
 <message key="xmlui.EPerson.PasswordLogin.title">Acceder</message>
 <message key="xmlui.EPerson.PasswordLogin.trail">Acceder</message>
-<message key="xmlui.EPerson.PasswordLogin.head1">Acceder a DSpace</message>
+<message key="xmlui.EPerson.PasswordLogin.head1">Acceder a RIUNER</message>
 <message key="xmlui.EPerson.PasswordLogin.email_address">Correo electrónico</message>
 <message key="xmlui.EPerson.PasswordLogin.error_bad_login">La dirección de correo electrónico introducida y/o la contraseña no son válidas.</message>
 <message key="xmlui.EPerson.PasswordLogin.password">Contraseña</message>
 <message key="xmlui.EPerson.PasswordLogin.forgot_link">¿Olvidó su contraseña?</message>
 <message key="xmlui.EPerson.PasswordLogin.submit">Acceder</message>
 <message key="xmlui.EPerson.PasswordLogin.head2">Registrar un nuevo usuario</message>
-<message key="xmlui.EPerson.PasswordLogin.para1">Registre una cuenta para suscribirse a las colecciones, para recibir notificación de modificaciones y de nuevas adquisiciones de ítems en CIC-Digital.</message>
+<message key="xmlui.EPerson.PasswordLogin.para1">Registre una cuenta para suscribirse a las colecciones, para recibir notificación de modificaciones y de nuevas adquisiciones de ítems en RIUNER.</message>
 <message key="xmlui.EPerson.PasswordLogin.register_link">Pulse aquí para registrarse.</message>
 
 	<!-- org.dspace.app.xmlui.eperson.LDAPLogin.java -->
 <message key="xmlui.EPerson.LDAPLogin.title">Acceder</message>
 <message key="xmlui.EPerson.LDAPLogin.trail">Acceder</message>
-<message key="xmlui.EPerson.LDAPLogin.head1">Acceder a DSpace</message>
+<message key="xmlui.EPerson.LDAPLogin.head1">Acceder a RIUNER</message>
 <message key="xmlui.EPerson.LDAPLogin.username">Nombre de usuario</message>
 <message key="xmlui.EPerson.LDAPLogin.error_bad_login">El nombre de usuario o la contraseña no son validos</message>
 <message key="xmlui.EPerson.LDAPLogin.password">Contraseña</message>
@@ -501,7 +501,7 @@
 	<!-- org.dspace.app.xmlui.eperson.RegistrationFinished.java -->
 <message key="xmlui.EPerson.RegistrationFinished.title">Registro terminado</message>
 <message key="xmlui.EPerson.RegistrationFinished.head">Registro terminado</message>
-<message key="xmlui.EPerson.RegistrationFinished.para1">Ahora está registrado en el sistema DSpace. Puede suscribirse a colecciones para recibir por correo electrónico las modificaciones y las nuevas incorporaciones.</message>
+<message key="xmlui.EPerson.RegistrationFinished.para1">Ahora está registrado en el sistema RIUNER. Puede suscribirse a colecciones para recibir por correo electrónico las modificaciones y las nuevas incorporaciones.</message>
 
 	<!-- org.dspace.app.xmlui.eperson.ResetPassword.java -->
 <message key="xmlui.EPerson.ResetPassword.title">Restablecer contraseña</message>
@@ -517,7 +517,7 @@
 	<!-- org.dspace.app.xmlui.eperson.StartForgotPassword.java -->
 <message key="xmlui.EPerson.StartForgotPassword.title">¿Olvidó la contraseña?</message>
 <message key="xmlui.EPerson.StartForgotPassword.head">¿Olvidó la contraseña?</message>
-<message key="xmlui.EPerson.StartForgotPassword.para1">Introduzca la dirección de correo electrónico que proporcionó cuando se registró con DSpace. Se le enviará un mensaje a esa dirección con las instrucciones pertinentes.</message>
+<message key="xmlui.EPerson.StartForgotPassword.para1">Introduzca la dirección de correo electrónico que proporcionó cuando se registró con RIUNER. Se le enviará un mensaje a esa dirección con las instrucciones pertinentes.</message>
 <message key="xmlui.EPerson.StartForgotPassword.email_address">Dirección de correo electrónico</message>
 <message key="xmlui.EPerson.StartForgotPassword.email_address_help">Introduzca la misma dirección con la que se registró.</message>
 <message key="xmlui.EPerson.StartForgotPassword.error_not_found">Dirección de correo electrónico no encontrada.</message>
@@ -842,7 +842,7 @@
 
 	<!-- org.dspace.app.xmlui.Submission.submit.LicenseStep -->
 <message key="xmlui.Submission.submit.LicenseStep.head">Licencia de distribución</message>
-<message key="xmlui.Submission.submit.LicenseStep.info1"><strong>Queda un último paso:</strong> para permitir a DSpace reproducir, traducir y distribuir su envío a través del mundo, necesitamos su conformidad en los siguientes términos.</message>
+<message key="xmlui.Submission.submit.LicenseStep.info1"><strong>Queda un último paso:</strong> para permitir a RIUNER reproducir, traducir y distribuir su envío a través del mundo, necesitamos su conformidad en los siguientes términos.</message>
 <message key="xmlui.Submission.submit.LicenseStep.info2">Conceda la licencia de distribución estándar seleccionando 'Conceder licencia' y pulsando 'Completar envío'.</message>
 <message key="xmlui.Submission.submit.LicenseStep.info3">Si tiene alguna duda sobre la licencia, por favor, contacte con el administrador del sistema.</message>
 <message key="xmlui.Submission.submit.LicenseStep.decision_label">Licencia de distribución</message>
@@ -856,7 +856,7 @@
 
 	<!-- org.dspace.app.xmlui.Submission.submit.CompletedStep -->
 <message key="xmlui.Submission.submit.CompletedStep.head">Envío completado</message>
-<message key="xmlui.Submission.submit.CompletedStep.info1">Su envío pasará por el flujo de trabajo designado para la colección a la que lo está enviando. Recibirá una notificación vía correo electrónico tan pronto como su envío forme parte de la colección, o si por alguna razón hubiera algún problema con el envío. También puede verificar el estado de su envío accediendo a la página 'Mi DSpace'.</message>
+<message key="xmlui.Submission.submit.CompletedStep.info1">Su envío pasará por el flujo de trabajo designado para la colección a la que lo está enviando. Recibirá una notificación vía correo electrónico tan pronto como su envío forme parte de la colección, o si por alguna razón hubiera algún problema con el envío. También puede verificar el estado de su envío accediendo a la página 'Mi RIUNER'.</message>
 <message key="xmlui.Submission.submit.CompletedStep.go_submission">Ir a la página de envíos</message>
 <message key="xmlui.Submission.submit.CompletedStep.submit_again">Enviar otro ítem</message>
 
@@ -885,11 +885,11 @@
 
 
 	<!--  XMLWorflow messages -->
-<message key="xmlui.XMLWorkflow.default.CIC-ADMIN_review.claimaction">Revisón CIC-Digital</message>
-<message key="xmlui.XMLWorkflow.autoarchive.CIC-ADMIN_review.claimaction">Revisón CIC-Digital</message>
-<message key="xmlui.XMLWorkflow.default.CIC-ADMIN_review.editaction">Edición CIC-Digital</message>
-<message key="xmlui.XMLWorkflow.autoarchive.CIC-ADMIN_review.editaction">Edición CIC-Digital</message>
-<message key="xmlui.XMLWorkflow.autoarchive.CIC-ADMIN_review.changecollection">Selección de colección destino CIC-Digital</message>
+<message key="xmlui.XMLWorkflow.default.CIC-ADMIN_review.claimaction">Revisón RIUNER</message>
+<message key="xmlui.XMLWorkflow.autoarchive.CIC-ADMIN_review.claimaction">Revisón RIUNER</message>
+<message key="xmlui.XMLWorkflow.default.CIC-ADMIN_review.editaction">Edición RIUNER</message>
+<message key="xmlui.XMLWorkflow.autoarchive.CIC-ADMIN_review.editaction">Edición RIUNER</message>
+<message key="xmlui.XMLWorkflow.autoarchive.CIC-ADMIN_review.changecollection">Selección de colección destino RIUNER</message>
 	<!--!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
 		             Administrative Aspect
@@ -1230,7 +1230,7 @@
 	<!-- org.dspace.app.xmlui.administrative.registries.MetadatRegistryMain.java -->
 <message key="xmlui.administrative.registries.MetadataRegistryMain.title">Registro de metadatos</message>
 <message key="xmlui.administrative.registries.MetadataRegistryMain.head1">Registro de metadatos</message>
-<message key="xmlui.administrative.registries.MetadataRegistryMain.para1">El registro de metadatos mantiene una lista de todos los campos disponibles en el repositorio. Estos campos pueden distribuirse entre múltiples esquemas, sin embargo DSpace necesita el esquema de clasificación de Dublin Core. Puede extender el esquema Dublin Core con campos adicionales o añadir nuevos esquemas al registro.</message>
+<message key="xmlui.administrative.registries.MetadataRegistryMain.para1">El registro de metadatos mantiene una lista de todos los campos disponibles en el repositorio. Estos campos pueden distribuirse entre múltiples esquemas, sin embargo RIUNER necesita el esquema de clasificación de Dublin Core. Puede extender el esquema Dublin Core con campos adicionales o añadir nuevos esquemas al registro.</message>
 <message key="xmlui.administrative.registries.MetadataRegistryMain.column1"></message>
 <message key="xmlui.administrative.registries.MetadataRegistryMain.column2">ID</message>
 <message key="xmlui.administrative.registries.MetadataRegistryMain.column3">Espacio de Nombres</message>
@@ -1704,7 +1704,7 @@
 <message key="xmlui.administrative.collection.GeneralCollectionHarvestingForm.trail">Recolectando</message>
 <message key="xmlui.administrative.collection.GeneralCollectionHarvestingForm.options_harvest">Origen del Contenido</message>
 <message key="xmlui.administrative.collection.GeneralCollectionHarvestingForm.label_source">Origen del Contenido</message>
-<message key="xmlui.administrative.collection.GeneralCollectionHarvestingForm.source_normal">Esta es una colección DSpace estándar</message>
+<message key="xmlui.administrative.collection.GeneralCollectionHarvestingForm.source_normal">Esta es una colección RIUNER estándar</message>
 <message key="xmlui.administrative.collection.GeneralCollectionHarvestingForm.source_harvested">Esta colección recolecta sus contenidos de una fuente externa</message>
 <message key="xmlui.administrative.collection.GeneralCollectionHarvestingForm.submit_save">Guardar</message>
 
@@ -1861,9 +1861,9 @@
 <message key="xmlui.administrative.ControlPanel.cocoon_cache_clear">(Borrar inmediatamente el Caché)</message>
 <message key="xmlui.administrative.ControlPanel.cocoon_persistent_cache_size">Tamaño del Caché principal  ({0})</message>
 <message key="xmlui.administrative.ControlPanel.cocoon_transient_cache_size">Tamaño del Caché Transitorio  ({0})</message>
-<message key="xmlui.administrative.ControlPanel.dspace_head">Parámetros de DSpace</message>
+<message key="xmlui.administrative.ControlPanel.dspace_head">Parámetros de RIUNER</message>
 <message key="xmlui.administrative.ControlPanel.dspace_version">Versión de Dspace</message>
-<message key="xmlui.administrative.ControlPanel.dspace_dir">Directorio de instalación de DSpace</message>
+<message key="xmlui.administrative.ControlPanel.dspace_dir">Directorio de instalación de RIUNER</message>
 <message key="xmlui.administrative.ControlPanel.dspace_url">URL Base de Dspace</message>
 <message key="xmlui.administrative.ControlPanel.dspace_hostname">Nombre de Host Dspace</message>
 <message key="xmlui.administrative.ControlPanel.dspace_name">Nombre del sitio</message>
@@ -2025,9 +2025,9 @@ Para más infomación, visite
 
 <message key="xmlui.dri2xhtml.structural.profile">Perfil:</message>
 <message key="xmlui.dri2xhtml.structural.logout">Salir</message>
-<message key="xmlui.dri2xhtml.structural.login">Mi DSpace</message>
+<message key="xmlui.dri2xhtml.structural.login">Mi RIUNER</message>
 
-<message key="xmlui.dri2xhtml.structural.search">Buscar en DSpace</message>
+<message key="xmlui.dri2xhtml.structural.search">Buscar en RIUNER</message>
 <message key="xmlui.dri2xhtml.structural.search-advanced">Búsqueda avanzada</message>
 <message key="xmlui.dri2xhtml.structural.search-in-community">Esta comunidad</message>
 <message key="xmlui.dri2xhtml.structural.search-in-collection">Esta colección</message>
@@ -2152,7 +2152,7 @@ La vista resumen de la comunidad no está actualmente en uso o implementada.
 		DS-METS-1.0-QDC.xsl -->
 <message key="xmlui.dri2xhtml.METS-1.0.qdc-not-applicable">
 Qualified Dublin Core (QDC) no se puede aplicar a las comunidades y colecciones de Dspace en este momento.  
-Cuando se usa QDC para los elementos de DSpace se recomienda el uso de crosswalks QDC
+Cuando se usa QDC para los elementos de RIUNER se recomienda el uso de crosswalks QDC
  o bien DIM o MODS para el procesamiento de las comunidades y colecciones.      
 	</message>
 
@@ -2288,7 +2288,7 @@ Cuando se usa QDC para los elementos de DSpace se recomienda el uso de crosswalk
 <message key="xmlui.ChoiceLookupTransformer.field.dc_contributor_author.nonauthority">Valor local "@1@" (no se encuentra en la Autoridad)</message>
 
      <!-- mobile theme -->
-  <message key="xmlui.mobile.home_mobile">DSpace Móvil</message>
+  <message key="xmlui.mobile.home_mobile">RIUNER Móvil</message>
   <message key="xmlui.mobile.search_all">Buscar TODO</message>
   <message key="xmlui.mobile.browse_all">Listar TODO por</message>
   <message key="xmlui.mobile.browse_date">Fecha</message>
