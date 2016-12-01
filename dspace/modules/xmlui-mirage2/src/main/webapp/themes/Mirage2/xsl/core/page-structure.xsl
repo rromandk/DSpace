@@ -640,8 +640,10 @@
                     </div>    <div class="col-xs-4 col-sm-4 pull-right">
                             <a href="#">RIUNER</a><br></br>
                                 <addres>
-                                    <small>Rectorado: Eva Peron 24 - Concepcion del Uruguay - Entre Rios </small><br></br> 
-                                    <small> Telefono: 54-03442-42-1500</small><br></br>
+                                    <small>Depende: Secretaría Académica</small><br></br> 
+                                    <small>Dirección postal:  Eva Perón 24</small><br></br> 
+                                    <small>Tel: 03442-421558</small><br></br>
+                                    <small>Correo electrónico: riuner@uner.edu.ar</small><br></br>
                             </addres>
                             <div class="hidden-print">
                                 <a>
