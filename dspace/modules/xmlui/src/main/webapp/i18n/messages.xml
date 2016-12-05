@@ -1919,6 +1919,12 @@
 	<message key="xmlui.administrative.ControlPanel.harvest_label_oai_source">ORE source</message>
 	<message key="xmlui.administrative.ControlPanel.harvest_head_harvester_settings">Harvester Settings</message>
 
+	<message key="xmlui.administrative.ControlPanel.tabs.Java Information">Java Information</message>
+	<message key="xmlui.administrative.ControlPanel.tabs.Configuration">Configuration</message>
+	<message key="xmlui.administrative.ControlPanel.tabs.SystemWide Alerts">SystemWide Alerts</message>
+	<message key="xmlui.administrative.ControlPanel.tabs.Harvesting">Harvesting</message>
+	<message key="xmlui.administrative.ControlPanel.tabs.Current Activity">Current Activity</message>
+
 	<!-- General tags for community management -->
 	<message key="xmlui.administrative.community.general.community_trail">Communities</message>
 	<message key="xmlui.administrative.community.general.options_metadata">Edit Metadata</message>
