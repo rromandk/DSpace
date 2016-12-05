@@ -73,8 +73,8 @@ public class CICRequestItemMetadataAuthority extends RequestItemMetadataStrategy
 		this.emailMetadata = emailMetadata;
 	}
 
-	public void setFullNameMatadata(String fullNameMatadata) {
-		this.fullNameMatadata = fullNameMatadata;
+	public void setFullNameMetadata(String fullNameMetadata) {
+		this.fullNameMetadata = fullNameMetadata;
 	}
 	
 	private void getNameAndEmail(String fieldKey, String text, Collection collection, int offset, int limit, String locale){
