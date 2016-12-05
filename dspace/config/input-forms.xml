@@ -360,7 +360,7 @@
          <repeatable>true</repeatable>
          <label>Conjunto de datos fuente</label>
          <input-type>onebox</input-type>
-         <hint>Conjunto de datos fuente utilizado para la realización de la presente obra.</hint>
+         <hint>Ingresar enlace al conjunto de datos fuente utilizado para la realización de la presente obra.</hint>
         </field>
 <!-- 2.8.2 -->
        <field>
