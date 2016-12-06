@@ -38,6 +38,7 @@ import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.apache.log4j.Logger;
 import org.apache.xpath.XPathAPI;
 import org.dspace.app.itemimport.service.ItemImportService;
+import org.dspace.app.util.LocalSchemaFilenameFilter;
 import org.dspace.authorize.AuthorizeException;
 import org.dspace.authorize.ResourcePolicy;
 import org.dspace.authorize.service.AuthorizeService;
@@ -141,14 +142,7 @@ public class ItemImportServiceImpl implements ItemImportService, InitializingBea
     }
 
     // File listing filter to look for metadata files
-    protected FilenameFilter metadataFileFilter = new FilenameFilter()
-    {
-        @Override
-        public boolean accept(File dir, String n)
-        {
-            return n.startsWith("metadata_");
-        }
-    };
+    protected FilenameFilter metadataFileFilter = new LocalSchemaFilenameFilter();
 
     // File listing filter to check for folders
     protected FilenameFilter directoryFilter = new FilenameFilter()
@@ -567,10 +561,16 @@ public class ItemImportServiceImpl implements ItemImportService, InitializingBea
     {
         if (!isTest)
         {
+            ArrayList<Collection> removeList = new ArrayList<>();
             List<Collection> collections = myitem.getCollections();
 
-            // Remove item from all the collections it's in
+            // Save items to be removed to prevent concurrent modification exception DS-3322
             for (Collection collection : collections) {
+                removeList.add(collection);
+            }
+
+            // Remove item from all the collections it's in
+            for (Collection collection : removeList) {
                 collectionService.removeItem(c, collection, myitem);
             }
         }
@@ -1131,10 +1131,11 @@ public class ItemImportServiceImpl implements ItemImportService, InitializingBea
         }
         else
         {
-            String[] dirListing = new File(path).list();
+            File dir = new File(path);
+            String[] dirListing = dir.list();
             for (String fileName : dirListing)
             {
-                if (!"dublin_core.xml".equals(fileName) && !fileName.equals("handle") && !fileName.startsWith("metadata_"))
+                if (!"dublin_core.xml".equals(fileName) && !fileName.equals("handle") && !metadataFileFilter.accept(dir, fileName))
                 {
                     throw new FileNotFoundException("No contents file found");
                 }
@@ -1726,7 +1727,7 @@ public class ItemImportServiceImpl implements ItemImportService, InitializingBea
     
     /**
      * Generate a random filename based on current time
-     * @param hidden: add . as a prefix to make the file hidden
+     * @param hidden set to add . as a prefix to make the file hidden
      * @return the filename
      */
     protected String generateRandomFilename(boolean hidden)
@@ -1778,7 +1779,7 @@ public class ItemImportServiceImpl implements ItemImportService, InitializingBea
 					context = new Context();
 					eperson = ePersonService.find(context, oldEPerson.getID());
 					context.setCurrentUser(eperson);
-					context.setIgnoreAuthorization(true);
+					context.turnOffAuthorisationSystem();
 					
 					boolean isResume = theResumeDir!=null;
 					

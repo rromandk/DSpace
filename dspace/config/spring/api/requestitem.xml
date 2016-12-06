@@ -27,7 +27,7 @@
 		 
 	-->	
 		<property name="emailMetadata" value="dcterms.creator.author" />		
-		<property name="fullNameMatadata" value="dcterms.creator.author" />
+		<property name="fullNameMetadata" value="dcterms.creator.author" />
 		
 	</bean>
 

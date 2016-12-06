@@ -22,6 +22,7 @@ import org.dspace.core.Context;
 import org.dspace.core.LogManager;
 import org.dspace.event.Event;
 import org.dspace.storage.bitstore.service.BitstreamStorageService;
+import org.dspace.xmlworkflow.storedcomponents.service.XmlWorkflowItemService;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.io.IOException;
@@ -58,6 +59,9 @@ public class BitstreamServiceImpl extends DSpaceObjectServiceImpl<Bitstream> imp
     protected BundleService bundleService;
     @Autowired(required = true)
     protected BitstreamStorageService bitstreamStorageService;
+    @Autowired(required = true)
+    protected XmlWorkflowItemService xmlWorkflowItemService;
+
 
     protected BitstreamServiceImpl()
     {
@@ -248,17 +252,29 @@ public class BitstreamServiceImpl extends DSpaceObjectServiceImpl<Bitstream> imp
         context.addEvent(new Event(Event.DELETE, Constants.BITSTREAM, bitstream.getID(),
                 String.valueOf(bitstream.getSequenceID()), getIdentifiers(context, bitstream)));
 
-        bitstream.getBundles().clear();
-
+        //Remove our bitstream from all our bundles
+        final List<Bundle> bundles = bitstream.getBundles();
+        for (Bundle bundle : bundles) {
+            bundle.getBitstreams().remove(bitstream);
+        }
 
         // Remove policies
         authorizeService.removeAllPolicies(context, bitstream);
 
         // Remove bitstream itself
         bitstream.setDeleted(true);
-        update(context, bitstream);
-        // Remove policies from the file, we do this at the end since the methods above still require write rights.
-        authorizeService.removeAllPolicies(context, bitstream);
+        Item item = (Item) getParentObject(context, bitstream);
+        if( xmlWorkflowItemService.findByItem(context, item) != null ){
+            // the item is on the workflow
+            context.turnOffAuthorisationSystem();
+            update(context, bitstream);
+            context.restoreAuthSystemState();
+        }else{
+            update(context, bitstream);
+        }        
+
+        //Remove all bundles from the bitstream object, clearing the connection in 2 ways
+        bundles.clear();
     }
 
     @Override

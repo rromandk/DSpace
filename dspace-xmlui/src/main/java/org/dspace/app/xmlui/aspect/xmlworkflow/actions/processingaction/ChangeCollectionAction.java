@@ -66,7 +66,7 @@ public class ChangeCollectionAction extends AbstractXMLUIAction {
         select.setHelp(T_collection_help);
         
         select.addOption("",T_collection_default);
-	    CollectionDropDown.CollectionPathEntry[] collectionPaths = CollectionDropDown.annotateWithPaths(collections);
+	    CollectionDropDown.CollectionPathEntry[] collectionPaths = CollectionDropDown.annotateWithPaths(context, collections);
         for (CollectionDropDown.CollectionPathEntry entry : collectionPaths)
         {
             //If the "collection entry" differs from the "collection workflowItem", then add the entry.
