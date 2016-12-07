@@ -1764,6 +1764,7 @@
 <message key="xmlui.administrative.ControlPanel.harvest_label_oai_source">Origen ORE</message>
 <message key="xmlui.administrative.ControlPanel.harvest_head_harvester_settings">Parámetros del Recolectador</message>
 
+
 <message key="xmlui.administrative.ControlPanel.tabs.Java Information">Información de Java</message>
 <message key="xmlui.administrative.ControlPanel.tabs.Configuration">Configuración</message>
 <message key="xmlui.administrative.ControlPanel.tabs.SystemWide Alerts">Alertas del sistema</message>
@@ -2070,10 +2071,17 @@ Puede reemplazar la plantilla que gestiona el caso general dri2xhtml para mejora
 <message key="xmlui.dri2xhtml.METS-1.0.item-author">Autor</message>
 <message key="xmlui.dri2xhtml.METS-1.0.item-abstract">Resumen</message>
 <message key="xmlui.dri2xhtml.METS-1.0.item-description">Descripción</message>
+<message key="xmlui.dri2xhtml.METS-1.0.item-dc_type">Tipo</message>
+<message key="xmlui.dri2xhtml.METS-1.0.item-dcterms_accessRights">Nivel de acceso</message>
 <message key="xmlui.dri2xhtml.METS-1.0.item-uri">URI</message>
+<message key="xmlui.dri2xhtml.METS-1.0.item-dc_type_version">Versión</message>
+<message key="xmlui.dri2xhtml.METS-1.0.item-thesis_degree_name">Grado alcanzado</message>
+<message key="xmlui.dri2xhtml.METS-1.0.item-thesis_degree_grantor">Emisor del título</message>
 <message key="xmlui.dri2xhtml.METS-1.0.item-date">Fecha</message>
 <message key="xmlui.dri2xhtml.METS-1.0.item-publisher">Editor</message>
 <message key="xmlui.dri2xhtml.METS-1.0.item-subject">Materia</message>
+<message key="xmlui.mirage2.itemSummaryView.Collections">Colecciones</message>
+<message key="xmlui.mirage2.itemSummaryView.Abstract">Resumen</message>
 
 <!-- dcterms metadata -->
 <!--  <message key="xmlui.dri2xhtml.METS-1.0.item-dcterms_type_subtype">Subtipo</message> -->

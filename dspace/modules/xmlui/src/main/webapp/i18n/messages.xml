@@ -2267,6 +2267,11 @@
 	<message key="xmlui.dri2xhtml.METS-1.0.item-author">Author</message>
 	<message key="xmlui.dri2xhtml.METS-1.0.item-abstract">Abstract</message>
 	<message key="xmlui.dri2xhtml.METS-1.0.item-description">Description</message>
+	<message key="xmlui.dri2xhtml.METS-1.0.item-dc_type">Type</message>
+	<message key="xmlui.dri2xhtml.METS-1.0.item-dcterms_accessRights">Access rights</message>
+	<message key="xmlui.dri2xhtml.METS-1.0.item-dc_type_version">Version</message>
+	<message key="xmlui.dri2xhtml.METS-1.0.item-thesis_degree_name">Degree</message>
+	<message key="xmlui.dri2xhtml.METS-1.0.item-thesis_degree_grantor">Degree grantor</message>
 	<message key="xmlui.dri2xhtml.METS-1.0.item-uri">URI</message>
 	<message key="xmlui.dri2xhtml.METS-1.0.item-date">Date</message>
 	<message key="xmlui.dri2xhtml.METS-1.0.item-publisher">Publisher</message>

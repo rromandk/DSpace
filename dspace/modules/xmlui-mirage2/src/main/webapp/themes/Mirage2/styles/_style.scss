@@ -266,7 +266,7 @@ header {
   background-color: #eee;
 }
 
-..trail-wrapper > .container > .row > div{
+.trail-wrapper > .container > .row > div{
 	height: 50px;
 }
 
@@ -276,4 +276,19 @@ header {
 
 .nav-tabs > li > a {
   color: black;
+}
+
+.metadata-label {
+	background-color: #b35691;
+	color: white;
+	left: -20px;
+	position: relative;
+	padding: 5px 0px 5px 20px;
+	margin-right: -20px;
+	line-height: 2;
+	font-weight: bold;
+}
+
+.item-page-field-wrapper > h5 {
+    font-weight: bold;
 }
