@@ -100,7 +100,7 @@
         </field>
     </xsl:template>
 
-    <xsl:template match="dri:pageMeta[dri:metadata[@element = 'request'][@qualifier = 'URI']/text() = 'page/about']">
+    <xsl:template match="dri:pageMeta[dri:metadata[@element = 'request'][@qualifier = 'URI'][starts-with(./text(),'page/')]]">
         <pageMeta>
             <xsl:call-template name="copy-attributes"/>
             <xsl:apply-templates select="*[not(self::dri:trail)]"/>
@@ -108,7 +108,17 @@
                 <i18n:text catalogue="default">xmlui.general.dspace_home</i18n:text>
             </trail>
             <trail>
-                <xsl:text>About This Repository</xsl:text>
+            	<xsl:choose>
+            		<xsl:when test="starts-with(./dri:metadata[@element = 'request'][@qualifier = 'URI']/text(),'page/about')">
+               			<xsl:text>About This Repository</xsl:text>
+            		</xsl:when>
+            		<xsl:when test="starts-with(./dri:metadata[@element = 'request'][@qualifier = 'URI']/text(),'page/test')">
+               			<i18n:text>xmlui.unerdigital.trail.test</i18n:text>
+            		</xsl:when>
+            		<xsl:otherwise>
+            			<xsl:text>Trail not specified</xsl:text>
+            		</xsl:otherwise>
+            	</xsl:choose>
             </trail>
         </pageMeta>
     </xsl:template>
