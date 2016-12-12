@@ -75,8 +75,11 @@
 <message key="xmlui.cicdigital.title.como-aportar-material">¿Cómo aportar material?</message>
 <message key="xmlui.cicdigital.title.que-es-cic-digital">¿Qué es RIUNER?</message>
 <message key="xmlui.cicdigital.title.politicas-del-repositorio">Políticas del repositorio</message>
+	<!-- UNER Static pages titles-->
 <message key="xmlui.unerdigital.title.test">Página de prueba</message>
-
+<message key="xmlui.unerdigital.title.que-es-riuner">¿Qué es RIUNER?</message>
+<message key="xmlui.unerdigital.title.politicas-del-repositorio">Políticas del repositorio</message>
+<message key="xmlui.unerdigital.title.como-subir-material">Cómo subir material</message>
 
 
 
@@ -84,7 +87,11 @@
 <message key="xmlui.cicdigital.trail.como-aportar-material">¿Cómo aportar material?</message>
 <message key="xmlui.cicdigital.trail.que-es-cic-digital">¿Qué es RIUNER?</message>
 <message key="xmlui.cicdigital.trail.politicas-del-repositorio">Políticas del repositorio</message>
+	<!-- UNER Static pages trail-->
 <message key="xmlui.unerdigital.trail.test">Página de prueba</message>
+<message key="xmlui.unerdigital.trail.que-es-riuner">¿Qué es RIUNER?</message>
+<message key="xmlui.unerdigital.trail.politicas-del-repositorio">Políticas del repositorio</message>
+<message key="xmlui.unerdigital.trail.como-subir-material">Cómo subir material</message>
 
 	<!-- Home messages -->
 <message key="xmlui.cicdigital.home.subir-material">Subir Material</message>
@@ -112,7 +119,11 @@
 <message key="xmlui.cicdigital.staticPage.what-is-cic-digital.uri">/page/que-es-cic-digital_es</message>
 <message key="xmlui.cicdigital.staticPage.reposiotry-policies.uri">/page/politicas-del-repositorio_es</message>
 <message key="xmlui.cicdigital.staticPage.how-to-contribute-material.uri">/page/como-aportar-material_es</message>
+<!-- UNER Static Pages -->
 <message key="xmlui.unerdigital.staticPage.test.uri">/page/test_es</message>
+<message key="xmlui.unerdigital.staticPage.que-es-riuner.uri">/page/que-es-riuner_es</message>
+<message key="xmlui.unerdigital.staticPage.politicas-del-repositorio.uri">/page/politicas-del-repositorio_es</message>
+<message key="xmlui.unerdigital.staticPage.como-subir-material.uri">/page/como-subir-material_es</message>
 	<!--!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
 		             ArtifactBrowser Aspect
@@ -310,6 +321,7 @@
 <message key="xmlui.ArtifactBrowser.Navigation.browse_dateaccessioned">Por fecha de carga</message>
 <message key="xmlui.ArtifactBrowser.Navigation.head_this_collection">Esta colección</message>
 <message key="xmlui.ArtifactBrowser.Navigation.head_this_community">Esta comunidad</message>
+<message key="xmlui.ArtifactBrowser.Navigation.help_static_page">Ayuda</message>
 
 	<!-- org.dspace.app.xmlui.artifactbrowser.SimpleSearch.java -->
 <message key="xmlui.ArtifactBrowser.SimpleSearch.title">Buscar</message>

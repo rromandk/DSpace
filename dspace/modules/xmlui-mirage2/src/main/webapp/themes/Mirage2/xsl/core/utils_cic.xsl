@@ -233,9 +233,15 @@
 	<xsl:template name="add-static-page-anchor">
 		<xsl:param name="static-page-i18n-key-uri"/>
 		<xsl:param name="static-page-i18n-key-title"/>
+		<xsl:param name="custom-class"/>
 		
 		<xsl:if test="$static-page-i18n-key-uri">
 			 <a i18n:attr="href">
+			 	<xsl:if test="$custom-class">
+			 		<xsl:attribute name="class">
+			 			<xsl:value-of select="$custom-class"/>
+			 		</xsl:attribute>	
+			 	</xsl:if>
 			 	<xsl:attribute name="href">
 			 		<xsl:value-of select="$static-page-i18n-key-uri"/>
 			 	</xsl:attribute>

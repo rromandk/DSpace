@@ -115,6 +115,15 @@
             		<xsl:when test="starts-with(./dri:metadata[@element = 'request'][@qualifier = 'URI']/text(),'page/test')">
                			<i18n:text>xmlui.unerdigital.trail.test</i18n:text>
             		</xsl:when>
+            		<xsl:when test="starts-with(./dri:metadata[@element = 'request'][@qualifier = 'URI']/text(),'page/que-es-riuner')">
+               			<i18n:text>xmlui.unerdigital.trail.que-es-riuner</i18n:text>
+            		</xsl:when>
+            		<xsl:when test="starts-with(./dri:metadata[@element = 'request'][@qualifier = 'URI']/text(),'page/politicas-del-repositorio')">
+               			<i18n:text>xmlui.unerdigital.trail.politicas-del-repositorio</i18n:text>
+            		</xsl:when>
+            		<xsl:when test="starts-with(./dri:metadata[@element = 'request'][@qualifier = 'URI']/text(),'page/como-subir-material')">
+               			<i18n:text>xmlui.unerdigital.trail.como-subir-material</i18n:text>
+            		</xsl:when>
             		<xsl:otherwise>
             			<xsl:text>Trail not specified</xsl:text>
             		</xsl:otherwise>

@@ -122,16 +122,51 @@
                     </form>
                 </div>
             </xsl:if>
-            <xsl:apply-templates/>
             
-            <!-- Ejemplo sobre cómo agregar un enlace a una StaticPage -->
-            <!-- <xsl:call-template name="add-static-page-anchor">
-            	<xsl:with-param name="static-page-i18n-key-uri">xmlui.unerdigital.staticPage.test.uri</xsl:with-param>
-				<xsl:with-param name="static-page-i18n-key-title">xmlui.unerdigital.title.test</xsl:with-param>
-            </xsl:call-template> -->
+            <!-- Cambio el orden para respetar el prototipo sugerido en https://github.com/uner-digital/DSpace/issues/24 -->
+            <xsl:apply-templates select="dri:list[@n='browse']"/>
+            
+            <xsl:call-template name="addStaticPages"/>
+            
+            <xsl:apply-templates select="dri:list[@n!='browse']"/>
+            
         </div>
     </xsl:template>
 
+    <!-- Add Static Pages links -->
+    <xsl:template name="addStaticPages">
+    	<div id="static-pages-container">
+    		<h2 class="ds-option-set-head h6">
+            	<i18n:text>xmlui.ArtifactBrowser.Navigation.help_static_page</i18n:text>
+            </h2>
+            <div id="ds-feed-option" class="ds-option-set list-group">
+            	<!-- Ejemplo sobre cómo agregar un enlace a una StaticPage -->
+		            <!-- <xsl:call-template name="add-static-page-anchor">
+		            	<xsl:with-param name="static-page-i18n-key-uri">xmlui.unerdigital.staticPage.test.uri</xsl:with-param>
+						<xsl:with-param name="static-page-i18n-key-title">xmlui.unerdigital.title.test</xsl:with-param>
+		            </xsl:call-template> -->
+            	<!-- Qué es RIUNER -->
+            	<xsl:call-template name="add-static-page-anchor">
+	            	<xsl:with-param name="static-page-i18n-key-uri">xmlui.unerdigital.staticPage.que-es-riuner.uri</xsl:with-param>
+					<xsl:with-param name="static-page-i18n-key-title">xmlui.unerdigital.title.que-es-riuner</xsl:with-param>
+					<xsl:with-param name="custom-class">list-group-item ds-option</xsl:with-param>
+	            </xsl:call-template>
+	            <!-- Cómo subir material -->
+            	<xsl:call-template name="add-static-page-anchor">
+	            	<xsl:with-param name="static-page-i18n-key-uri">xmlui.unerdigital.staticPage.como-subir-material.uri</xsl:with-param>
+					<xsl:with-param name="static-page-i18n-key-title">xmlui.unerdigital.title.como-subir-material</xsl:with-param>
+	            	<xsl:with-param name="custom-class">list-group-item ds-option</xsl:with-param>
+	            </xsl:call-template>
+	            <!-- Políticas del repositorio -->
+            	<xsl:call-template name="add-static-page-anchor">
+	            	<xsl:with-param name="static-page-i18n-key-uri">xmlui.unerdigital.staticPage.politicas-del-repositorio.uri</xsl:with-param>
+					<xsl:with-param name="static-page-i18n-key-title">xmlui.unerdigital.title.politicas-del-repositorio</xsl:with-param>
+	            	<xsl:with-param name="custom-class">list-group-item ds-option</xsl:with-param>
+	            </xsl:call-template>
+            </div>
+    	</div>
+    </xsl:template>
+    
     <!-- Add each RSS feed from meta to a list -->
     <xsl:template name="addRSSLinks">
         <xsl:for-each select="/dri:document/dri:meta/dri:pageMeta/dri:metadata[@element='feed']">
