@@ -193,6 +193,25 @@
                         <xsl:with-param name="show_label" select="'true'" />
                         <xsl:with-param name="container" select="'span'" />
 				    </xsl:call-template>
+
+                    <!-- Creative Commons Logo -->
+                    <div class="row" id="item-view-CC">
+                        <xsl:variable name="cc-uri">
+                            <xsl:value-of select="./dim:field[@mdschema='dcterms' and @element='license']/@authority"/>
+                        </xsl:variable>
+                        <div>
+                            <!-- Generate the Creative Commons license information from the file section (DSpace deposit license hidden by default)-->
+                            <!-- <xsl:apply-templates select="./mets:fileSec/mets:fileGrp[@USE='CC-LICENSE']"/> -->
+<!--                             <xsl:value-of select="$cc-uri"/> -->
+                            <xsl:call-template name="generate-CC-Anchor-Logo">
+                                <xsl:with-param name="cc-uri" select="$cc-uri"/>
+                            </xsl:call-template>
+                        
+                            <i18n:text>xmlui.dri2xhtml.structural.cc-item-view-text</i18n:text>
+                            <i18n:text><xsl:value-of select="concat('xmlui.dri2xhtml.structural.cc-',xmlui:stripDash(xmlui:replaceAll(substring-after($cc-uri, 'http://creativecommons.org/licenses/'), '/', '-')))"/></i18n:text>
+                        </div>
+                    </div>
+
                 </div>
             </div>
         </div>
@@ -1003,4 +1022,23 @@
             </xsl:choose>
         </xsl:if>
     </xsl:template>
-</xsl:stylesheet>
+	<xsl:template name="generate-CC-Anchor-Logo">
+		<xsl:param name="cc-uri"/>
+		<xsl:param name="size-logo">88x31</xsl:param>
+		<xsl:variable name="img_src">
+			<xsl:value-of select="concat('https://licensebuttons.net/l/',substring-after($cc-uri, 'http://creativecommons.org/licenses/'),$size-logo,'.png')"/>
+		</xsl:variable>
+<br></br>		<xsl:choose>
+			<xsl:when test="$cc-uri">
+				<xsl:call-template name="build-anchor">
+					<xsl:with-param name="a.href" select="$cc-uri"/>
+					<xsl:with-param name="img.src" select="$img_src"/>
+					<xsl:with-param name="img.alt" select="$cc-uri"/>
+				</xsl:call-template>
+			</xsl:when>
+			<xsl:otherwise>
+				<i18n:text>xmlui.Submission.submit.CCLicenseStep.no_license</i18n:text>
+			</xsl:otherwise>
+		</xsl:choose>
+	</xsl:template> 
+ </xsl:stylesheet>
