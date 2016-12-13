@@ -126,20 +126,13 @@
 	<!--!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
 		             ArtifactBrowser Aspect
-
+        NOTE: As of DSpace 6.0, the ArtifactBrowser Aspect was removed (in favor
+        of the ViewArtifacts, BrowseArtifacts and SearchArtifacts aspects). 
+        However, many of its classes and corresponding i18n keys still exist as 
+        they are used by other aspects.
 		!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!-->
-
-
-
-
-
-	<!-- org.dspace.app.xmlui.artifactbrowser.AbstractSearch.java -->
-	<message key="xmlui.ArtifactBrowser.AbstractSearch.head1_community">Search Results for Community: {0}</message>
-	<message key="xmlui.ArtifactBrowser.AbstractSearch.head1_collection">Search Results for Collection: {0}</message>
-	<message key="xmlui.ArtifactBrowser.AbstractSearch.head1_none">Search Results</message>
-	<message key="xmlui.ArtifactBrowser.AbstractSearch.result_query">Your query "{0}" produced {1} result(s).</message>
-	<message key="xmlui.ArtifactBrowser.AbstractSearch.head2">Communities or Collections matching your query</message>
-	<message key="xmlui.ArtifactBrowser.AbstractSearch.head3">Items matching your query</message>
+        <!-- Note: As of DSpace 6.0, org.dspace.app.xmlui.aspect.artifactbrowser.AbstractSearch has been removed. -->
+        <!-- The following keys are still in use by Discovery's AbstractSearch -->
 	<message key="xmlui.ArtifactBrowser.AbstractSearch.no_results">Search produced no results.</message>
 	<message key="xmlui.ArtifactBrowser.AbstractSearch.all_of_dspace">All of DSpace</message>
 
@@ -154,6 +147,9 @@
 	<message key="xmlui.ArtifactBrowser.AbstractSearch.rpp">Results/page</message>
 
     <!-- org.dspace.app.xmlui.artifactbrowser.AdvancedSearch.java -->
+    <!-- Note: As of DSpace 6.0, org.dspace.app.xmlui.aspect.artifactbrowser.AdvancedSearch has been removed. -->
+    <!-- The following "type_*" i18n keys will be left as is as they're referenced by the Discovery's SidebarFacetsTransformer
+         but in future, they should be refactored to a more relevant key prefix -->
 	<message key="xmlui.ArtifactBrowser.AdvancedSearch.title">Advanced Search</message>
 	<message key="xmlui.ArtifactBrowser.AdvancedSearch.trail">Advanced Search</message>
 	<message key="xmlui.ArtifactBrowser.AdvancedSearch.head">Advanced Search</message>
@@ -231,6 +227,26 @@
 	<message key="xmlui.ArtifactBrowser.ConfigurableBrowse.trail.item.dateaccessioned">Browsing {0} by Submit Date</message>
 
 
+	<!-- org.dspace.app.xmlui.administrative.WithdrawnItems.java -->
+	<message key="xmlui.Administrative.WithdrawnItems.title.item.title">Withdrawn Items by Title</message>
+	<message key="xmlui.Administrative.WithdrawnItems.trail.item.title">Withdrawn Items by Title</message>
+
+	<message key="xmlui.Administrative.WithdrawnItems.title.item.dateissued">Withdrawn Items by Issue Date</message>
+	<message key="xmlui.Administrative.WithdrawnItems.trail.item.dateissued">Withdrawn Items by Issue Date</message>
+
+	<message key="xmlui.Administrative.WithdrawnItems.title.item.dateaccessioned">Withdrawn Items by Submit Date</message>
+	<message key="xmlui.Administrative.WithdrawnItems.trail.item.dateaccessioned">Withdrawn Items by Submit Date</message>
+
+	<!-- org.dspace.app.xmlui.administrative.PrivateItems.java -->
+	<message key="xmlui.Administrative.PrivateItems.title.item.title">Private Items by Title</message>
+	<message key="xmlui.Administrative.PrivateItems.trail.item.title">Private Items by Title</message>
+
+	<message key="xmlui.Administrative.PrivateItems.title.item.dateissued">Private Items by Issue Date</message>
+	<message key="xmlui.Administrative.PrivateItems.trail.item.dateissued">Private Items by Issue Date</message>
+
+	<message key="xmlui.Administrative.PrivateItems.title.item.dateaccessioned">Private Items by Submit Date</message>
+	<message key="xmlui.Administrative.PrivateItems.trail.item.dateaccessioned">Private Items by Submit Date</message>
+
 	<!-- org.dspace.app.xmlui.artifactbrowser.CollectionViewer.java -->
 	<message key="xmlui.ArtifactBrowser.CollectionViewer.search_scope">Search Scope</message>
 	<message key="xmlui.ArtifactBrowser.CollectionViewer.all_of_dspace">All of DSpace</message>
@@ -275,7 +291,7 @@
 	<message key="xmlui.ArtifactBrowser.FeedbackForm.title">Give feedback</message>
 	<message key="xmlui.ArtifactBrowser.FeedbackForm.trail">Give feedback</message>
 	<message key="xmlui.ArtifactBrowser.FeedbackForm.head">Give feedback</message>
-	<message key="xmlui.ArtifactBrowser.FeedbackForm.para1">Thanks for sharing your feedback about the CIC-Digital system. Your comments will be taken into account by the site administrators.</message>
+	<message key="xmlui.ArtifactBrowser.FeedbackForm.para1">Thanks for sharing your feedback about the RIUNER system. Your comments will be taken into account by the site administrators.</message>
 	<message key="xmlui.ArtifactBrowser.FeedbackForm.email">Your Email</message>
 	<message key="xmlui.ArtifactBrowser.FeedbackForm.email_help">This address will be used to follow up on your feedback.</message>
 	<message key="xmlui.ArtifactBrowser.FeedbackForm.comments">Comments</message>
@@ -305,8 +321,11 @@
         <message key="xmlui.ArtifactBrowser.ItemViewer.withdrawn">This item has been withdrawn and is no longer available.</message>
 
 	<!-- org.dspace.app.xmlui.artifactbrowser.Navigation.java -->
+        <!-- Note: As of DSpace 6.0, org.dspace.app.xmlui.aspect.artifactbrowser.Navigation has been removed. -->
+        <!-- The following i18n keys will be left as is as they're referenced by the Discovery's Navigation
+         but in future, they should be refactored to a more relevant key prefix -->
 	<message key="xmlui.ArtifactBrowser.Navigation.head_browse">Explore</message>
-	<message key="xmlui.ArtifactBrowser.Navigation.head_all_of_dspace">All of CIC-Digital</message>
+	<message key="xmlui.ArtifactBrowser.Navigation.head_all_of_dspace">All of RIUNER</message>
 	<message key="xmlui.ArtifactBrowser.Navigation.communities_and_collections">Communities &amp; Collections</message>
 	<message key="xmlui.ArtifactBrowser.Navigation.browse_title">Titles</message>
 	<message key="xmlui.ArtifactBrowser.Navigation.browse_author">Authors</message>
@@ -318,6 +337,9 @@
 	<message key="xmlui.ArtifactBrowser.Navigation.help_static_page">Help</message>
 
 	<!-- org.dspace.app.xmlui.artifactbrowser.SimpleSearch.java -->
+        <!-- Note: As of DSpace 6.0, org.dspace.app.xmlui.aspect.artifactbrowser.SimpleSearch has been removed. -->
+        <!-- The following i18n keys will be left as is as they're referenced by the Discovery's SimpleSearch
+         but in future, they should be refactored to a more relevant key prefix -->
 	<message key="xmlui.ArtifactBrowser.SimpleSearch.title">Search</message>
 	<message key="xmlui.ArtifactBrowser.SimpleSearch.trail">Search</message>
 	<message key="xmlui.ArtifactBrowser.SimpleSearch.head">Search</message>
@@ -564,7 +586,7 @@
 	<message key="xmlui.EPerson.PasswordLogin.forgot_link"> Forgot your password?</message>
 	<message key="xmlui.EPerson.PasswordLogin.submit">Sign in</message>
 	<message key="xmlui.EPerson.PasswordLogin.head2">Register new user</message>
-	<message key="xmlui.EPerson.PasswordLogin.para1">Register an account to subscribe to collections for email updates, and submit new items to CIC-Digital.</message>
+	<message key="xmlui.EPerson.PasswordLogin.para1">Register an account to subscribe to collections for email updates, and submit new items to RIUNER.</message>
 	<message key="xmlui.EPerson.PasswordLogin.register_link">Click here to register.</message>
 
 	<!-- org.dspace.app.xmlui.eperson.LDAPLogin.java -->
@@ -1063,6 +1085,7 @@
         <message key="xmlui.administrative.Navigation.context_export_collection">Export Collection</message>
         <message key="xmlui.administrative.Navigation.context_export_community">Export Community</message>
         <message key="xmlui.administrative.Navigation.context_export_metadata">Export Metadata</message>
+    <message key="xmlui.administrative.Navigation.context_search_export_metadata">Export Search Metadata</message>
 
 	<!-- Site administrator options -->
 	<message key="xmlui.administrative.Navigation.administrative_head">Administrative</message>
@@ -1916,6 +1939,7 @@
 	<message key="xmlui.administrative.ControlPanel.option_harvest">Harvesting</message>
 	<message key="xmlui.administrative.ControlPanel.harvest_scheduler_head">Harvest Scheduler Controls</message>
 	<message key="xmlui.administrative.ControlPanel.harvest_label_status">Status</message>
+	<message key="xmlui.administrative.ControlPanel.harvest_status_refresh">(refresh)</message>
 	<message key="xmlui.administrative.ControlPanel.harvest_label_actions">Actions</message>
 	<message key="xmlui.administrative.ControlPanel.harvest_submit_start">Start Harvester</message>
 	<message key="xmlui.administrative.ControlPanel.harvest_submit_reset">Reset Harvest Status</message>
@@ -2082,6 +2106,12 @@
 	<message key="xmlui.administrative.ControlPanel.activity_sort_Agent">User-Agent</message>
 	<message key="xmlui.administrative.ControlPanel.activity_anonymous">Anonymous {0}</message>
 	<message key="xmlui.administrative.ControlPanel.activity_none">No page views have been recorded.</message>
+	<message key="xmlui.administrative.ControlPanel.detail">Detail</message>
+	<message key="xmlui.administrative.ControlPanel.show_hide">show/hide</message>
+	<message key="xmlui.administrative.ControlPanel.host">Host: {0}</message>
+	<message key="xmlui.administrative.ControlPanel.puser">Principal user: {0}</message>
+	<message key="xmlui.administrative.ControlPanel.headers">Headers: {0}</message>
+	<message key="xmlui.administrative.ControlPanel.cookies">Cookies: {0}</message>
 
 	<message key="xmlui.administrative.ControlPanel.select_panel">Use the tabs above to select the information to display</message>
 
@@ -2127,6 +2157,7 @@
     <message key="xmlui.statistics.visits.bitstreams">Downloads per file</message>
     <message key="xmlui.statistics.Navigation.title">Statistics</message>
     <message key="xmlui.statistics.Navigation.usage.view">View Usage Statistics</message>
+    <message key="xmlui.statistics.Navigation.usage-Elasticsearch.view">View Usage Statistics</message>
     <message key="xmlui.statistics.Navigation.search.view">View Search Statistics</message>
     <message key="xmlui.statistics.Navigation.workflow.view">View Workflow Statistics</message>
     <message key="xmlui.statistics.trail">Statistics</message>
@@ -2594,6 +2625,7 @@
     <message key="xmlui.aspect.sherpa.submission.blue">blue</message>
     <message key="xmlui.aspect.sherpa.submission.white">white</message>
     <message key="xmlui.aspect.sherpa.submission.yellow">yellow</message>
+    <message key="xmlui.aspect.sherpa.submission.gray">gray</message>
     <!-- End Versioning -->
 
 
@@ -2624,5 +2656,28 @@
     <message key="xmlui.mirage2.choice-authority-control.loading">Loading...</message>
 
     <message key="xmlui.mirage2.item-list.thumbnail">Thumbnail</message>
+
+
+    <!-- org.dspace.app.xmlui.Submission.submit.StartSubmissionLookupStep -->
+    <message key="xmlui.Submission.submit.StartSubmissionLookupStep.submit_lookup">Search</message>
+    <message key="xmlui.Submission.submit.StartSubmissionLookupStep.title">Publication Search</message>
+    <message key="xmlui.Submission.submit.StartSubmissionLookupStep.lookup_help">Fill in a publication ID, DOI, Title or Author and then press "Search".  A list of all matching publications will be shown to you to select in order to proceed with the submission process.</message>
+    <message key="xmlui.Submission.submit.StartSubmissionLookupStep.submit_publication_item">Imported publication Record</message>
+    <message key="xmlui.Submission.submit.progressbar.lookup">Lookup</message>
+    <message key="xmlui.ChoiceLookupTransformer.lookup">Lookup</message>
+    
+    
+    <!-- XMLWorkflow -->
+    <message key="xmlui.XMLWorkflow.autoarchive.UNER-ADMIN-review.claimaction">RIUNER Administrator Revision</message>
+	<message key="xmlui.XMLWorkflow.default.COMMUNITY-ADMIN-review.rejectrole">Community Administrator Revision</message>
+	<message key="xmlui.XMLWorkflow.default.UNER-ADMIN-review.rejectrole">RIUNER Administrator Revision</message>
+	<message key="xmlui.XMLWorkflow.comm_workflow_independiente.COMMUNITY-ADMIN-review.rejectroleandclaimauthorizedonly">Community Administrator Revision</message>
+	<message key="xmlui.XMLWorkflow.comm_workflow_independiente.UNER-ADMIN-review.rejectrole">RIUNER Administrator Revision</message>
+	<message key="xmlui.XMLWorkflow.autoarchive.UNER-ADMIN-review.changecollection">Select the destination collection</message>
+	<message key="xmlui.XMLWorkflow.autoarchive.UNER-ADMIN-review.editaction">RIUNER Administrator Edition</message>
+	<message key="xmlui.XMLWorkflow.default.UNER-ADMIN-review.editaction">RIUNER Administrator Edition</message>
+	<message key="xmlui.XMLWorkflow.comm_workflow_independiente.UNER-ADMIN-review.editaction">RIUNER Administrator Edition</message>
+	<message key="xmlui.XMLWorkflow.default.COMMUNITY-ADMIN-review.editaction">Community Administrator Edition</message>
+	<message key="xmlui.XMLWorkflow.comm_workflow_independiente.COMMUNITY-ADMIN-review.editaction">Community Administrator Edition</message>
 
 </catalogue>
