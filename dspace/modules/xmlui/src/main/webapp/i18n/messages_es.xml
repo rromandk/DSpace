@@ -105,8 +105,10 @@
 <message key="xmlui.cicdigital.home.mas-informacion">Mas información</message>
 <message key="xmlui.cicdigital.home.sobre-repositorio">Sobre el repositorio</message>
 <message key="xmlui.cicdigital.home.informacion-autores">Información para autores</message>
-<message key="xmlui.cicdigital.home.bienvenido">Bienvenido a RIUNER</message>
-<message key="xmlui.cicdigital.home.bienvenido-descripcion">RIUNER es el Repositorio Institucional de la Universidad Nacional de Entre Ríos, creado con el fin de reunir, preservar y difundir en acceso abierto el material científico e institucional producido por cada una de las unidades académicas, generando así su accesibilidad y visibilidad.</message>
+<message key="xmlui.cicdigital.home.bienvenido">Bienvenido a CIC-Digital</message>
+<message key="xmlui.cicdigital.home.bienvenido-descripcion">CIC-Digital es el Repositorio Institucional de la  Comisión de Investigaciones Científicas de la Provincia de Buenos Aires, creado con el fin de preservar y dejar accesible en abierto toda la producción científico-tecnológica generada en el ámbito de las instituciones CIC.</message>
+<message key="xmlui.unerdigital.home.bienvenido">Bienvenido a RIUNER</message>
+<message key="xmlui.unerdigital.home.bienvenido-descripcion">RIUNER es el Repositorio Institucional de la Universidad Nacional de Entre Ríos, creado con el fin de reunir, preservar y difundir en acceso abierto el material científico e institucional producido por cada una de las unidades académicas, generando así su accesibilidad y visibilidad.</message>
 
 <message key="xmlui.cicdigital.home.centros">Centros</message>
 

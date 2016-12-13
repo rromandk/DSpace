@@ -106,6 +106,8 @@
 <message key="xmlui.cicdigital.home.informacion-autores">Information for authors</message>
 <message key="xmlui.cicdigital.home.bienvenido">Welcome to CIC-Digital</message>
 <message key="xmlui.cicdigital.home.bienvenido-descripcion">CIC-Digital is the Institutional Repository of the Comisión de Investigaciones Científicas de la Provincia de Buenos Aires, created to preserve and leave in open access all the scientific-technological production generated in the scope of the CIC institutions.</message>
+<message key="xmlui.unerdigital.home.bienvenido">Welcome to RIUNER</message>
+<message key="xmlui.unerdigital.home.bienvenido-descripcion">RIUNER is the Institutional Repository of Universidad Nacional de Entre Ríos, and was created with the purpose of gather, preserve and diffuse in open-access the scientific production of every academic unit at University, boosting that way its accesibility and visibility.</message>
 	<!-- Discovery messages -->
 <message key="xmlui.cicdigital.discoveryList.no-value">No value assigned</message>
 <message key="xmlui.cicdigital.discoveryList.no-value.lugar-de-desarrollo">No place of development assigned</message>
