@@ -123,6 +123,11 @@
 					<xsl:with-param name="container" select="'span'" />
 				</xsl:call-template>
 			</div>
+			
+			<xsl:if test="../../../../mets:fileSec/mets:fileGrp[@USE='CONTENT']//mets:file/mets:FLocat[contains(./@xlink:href,'isAllowed=n')]">
+        		<xsl:call-template name="add-warning-bitstream-with-embargo"/>
+        	</xsl:if>
+			
             <div class="row">
                 <div class="col-sm-4">
                     <div class="row">
@@ -261,6 +266,13 @@
                 </h2>
             </xsl:otherwise>
         </xsl:choose>
+    </xsl:template>
+    
+    
+    <xsl:template name="add-warning-bitstream-with-embargo">
+    	<div class="col-xs-12 glyphicon glyphicon-exclamation-sign alert alert-warning">   
+    		<i18n:text>xmlui.ArtifactBrowser.ItemViewer.embargo-alert</i18n:text>
+    	</div>
     </xsl:template>
 
     <xsl:template name="itemSummaryView-DIM-thumbnail">
@@ -563,6 +575,11 @@
 
     <xsl:template match="dim:dim" mode="itemDetailView-DIM">
         <xsl:call-template name="itemSummaryView-DIM-title"/>
+        
+        <xsl:if test="../../../../mets:fileSec/mets:fileGrp[@USE='CONTENT']//mets:file/mets:FLocat[contains(./@xlink:href,'isAllowed=n')]">
+        	<xsl:call-template name="add-warning-bitstream-with-embargo"/>
+        </xsl:if>
+        
         <div class="ds-table-responsive">
             <table class="ds-includeSet-table detailtable table table-striped table-hover">
                 <xsl:apply-templates mode="itemDetailView-DIM"/>
@@ -819,6 +836,13 @@
                 </xsl:choose>
                 </xsl:attribute>
             </i>
+            
+            <xsl:if test="contains(mets:FLocat[@LOCTYPE='URL']/@xlink:href,'isAllowed=n')">
+            	<span class="text-danger bg-danger">
+					<i18n:text>xmlui.ArtifactBrowser.ItemViewer.embargo-label</i18n:text>
+				</span>
+            </xsl:if>
+            
         <xsl:text> </xsl:text>
     </xsl:template>
 

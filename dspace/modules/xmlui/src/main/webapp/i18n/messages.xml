@@ -321,6 +321,10 @@
 	<message key="xmlui.ArtifactBrowser.ItemViewer.show_less">read less</message>
 
         <message key="xmlui.ArtifactBrowser.ItemViewer.withdrawn">This item has been withdrawn and is no longer available.</message>
+        
+    <!-- UNER-DIGITAL -->
+	<message key="xmlui.ArtifactBrowser.ItemViewer.embargo-alert"> At least one of the item files is embargoed.</message>
+	<message key="xmlui.ArtifactBrowser.ItemViewer.embargo-label">[EMBARGOED]</message>
 
 	<!-- org.dspace.app.xmlui.artifactbrowser.Navigation.java -->
         <!-- Note: As of DSpace 6.0, org.dspace.app.xmlui.aspect.artifactbrowser.Navigation has been removed. -->

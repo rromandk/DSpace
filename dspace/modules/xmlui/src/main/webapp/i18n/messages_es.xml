@@ -316,6 +316,10 @@
 
 <message key="xmlui.ArtifactBrowser.ItemViewer.withdrawn">Este ítem ha sido retirado y no está disponible</message>
 
+<!-- UNER-DIGITAL -->
+<message key="xmlui.ArtifactBrowser.ItemViewer.embargo-alert"> Al menos uno de los archivos asociados al item está embargado.</message>
+<message key="xmlui.ArtifactBrowser.ItemViewer.embargo-label">[EMBARGADO]</message>
+
 	<!-- org.dspace.app.xmlui.artifactbrowser.Navigation.java -->
 <message key="xmlui.ArtifactBrowser.Navigation.head_browse">Explorar</message>
 <message key="xmlui.ArtifactBrowser.Navigation.head_all_of_dspace">Todo el repositorio</message>
