@@ -220,11 +220,6 @@
                                     </xsl:if>
                                 </xsl:for-each>
                             </xsl:when>
-                    		<xsl:when test="dri:list[(@n=(concat($handle, ':dcterms.creator.corporate')) or @n=(concat($handle, ':dcterms.creator.author')) or @n=(concat($handle, ':dcterms.creator.compilator')) or @n=(concat($handle, ':dcterms.creator.editor'))) and descendant::text()]">
-                                <xsl:for-each select="dri:list[(@n=(concat($handle, ':dcterms.creator.corporate')) or @n=(concat($handle, ':dcterms.creator.author')) or @n=(concat($handle, ':dcterms.creator.compilator')) or @n=(concat($handle, ':dcterms.creator.editor'))) and descendant::text()]/dri:item">
-                                    <xsl:apply-templates select="."/><xsl:text>; </xsl:text>
-                                </xsl:for-each>
-                            </xsl:when>
                             <xsl:when test="dri:list[@n=(concat($handle, ':dc.creator'))]">
                                 <xsl:for-each select="dri:list[@n=(concat($handle, ':dc.creator'))]/dri:item">
                                     <xsl:apply-templates select="."/>
@@ -247,7 +242,7 @@
                         </xsl:choose>
                         </small></span>
                     <xsl:text> </xsl:text>
-                    <xsl:if test="dri:list[@n=(concat($handle, ':dcterms.issued'))]">
+                    <xsl:if test="dri:list[@n=(concat($handle, ':dc.date.issued'))]">
                         <span class="publisher-date h4">   <small>
                             <xsl:text>(</xsl:text>
                             <xsl:if test="dri:list[@n=(concat($handle, ':dc.publisher'))]">
@@ -258,16 +253,16 @@
                             </xsl:if>
                             <span class="date">
                                 <xsl:value-of
-                                        select="substring(dri:list[@n=(concat($handle, ':dcterms.issued'))]/dri:item,1,10)"/>
+                                        select="substring(dri:list[@n=(concat($handle, ':dc.date.issued'))]/dri:item,1,10)"/>
                             </span>
                             <xsl:text>)</xsl:text>
                             </small></span>
                     </xsl:if>
                     <xsl:choose>
-                        <xsl:when test="dri:list[@n=(concat($handle, ':dcterms.abstract'))]">
+                        <xsl:when test="dri:list[@n=(concat($handle, ':dc.description.abstract'))]/dri:item/dri:hi">
                             <div class="abstract">
-                                <xsl:for-each select="dri:list[@n=(concat($handle, ':dcterms.abstract'))]/dri:item">
-                                <xsl:value-of select="util:shortenString(., 220, 10)"/>
+                                <xsl:for-each select="dri:list[@n=(concat($handle, ':dc.description.abstract'))]/dri:item">
+                                    <xsl:apply-templates select="."/>
                                     <xsl:text>...</xsl:text>
                                     <br/>
                                 </xsl:for-each>
@@ -277,13 +272,13 @@
                         <xsl:when test="dri:list[@n=(concat($handle, ':fulltext'))]">
                             <div class="abstract">
                                 <xsl:for-each select="dri:list[@n=(concat($handle, ':fulltext'))]/dri:item">
-                                <xsl:value-of select="util:shortenString(., 220, 10)"/>
+                                    <xsl:apply-templates select="."/>
                                     <xsl:text>...</xsl:text>
                                     <br/>
                                 </xsl:for-each>
                             </div>
                         </xsl:when>
-                        <xsl:when test="dri:list[@n=(concat($handle, ':dcterms.abstract'))]/dri:item">
+                        <xsl:when test="dri:list[@n=(concat($handle, ':dc.description.abstract'))]/dri:item">
                         <div class="abstract">
                                 <xsl:value-of select="util:shortenString(dri:list[@n=(concat($handle, ':dc.description.abstract'))]/dri:item[1], 220, 10)"/>
                         </div>
