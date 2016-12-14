@@ -2323,7 +2323,43 @@
 	<message key="xmlui.dri2xhtml.METS-1.0.item-publisher">Publisher</message>
 	<message key="xmlui.dri2xhtml.METS-1.0.item-subject">Subject</message>
 	
-		<!-- dcterms metadata -->
+	<message key="xmlui.mirage2.itemSummaryView.Abstract">Abstract</message>
+	<message key="xmlui.dri2xhtml.METS-1.0.item-dc_type_version">Version</message>
+	<message key="xmlui.dri2xhtml.METS-1.0.item-dc_title">Title</message>
+	<message key="xmlui.dri2xhtml.METS-1.0.item-dcterms_alternative">Alternative title</message>
+	<message key="xmlui.dri2xhtml.METS-1.0.item-dcterms_creator_author">Author</message>
+	<message key="xmlui.dri2xhtml.METS-1.0.item-dcterms_creator_compilator">Compilator</message>
+	<message key="xmlui.dri2xhtml.METS-1.0.item-dcterms_creator_editor">Editor</message>
+	<message key="xmlui.dri2xhtml.METS-1.0.item-dcterms_creator_corporate">Corporate</message>
+	<message key="xmlui.dri2xhtml.METS-1.0.item-dcterms_contributor_director">Director</message>
+	<message key="xmlui.dri2xhtml.METS-1.0.item-thesis_degree_name">Degree</message>
+	<message key="xmlui.dri2xhtml.METS-1.0.item-thesis_degree_grantor">Degree grantor</message>
+	<message key="xmlui.dri2xhtml.METS-1.0.item-dc_date_accessioned">Accessioned date</message>
+	<message key="xmlui.dri2xhtml.METS-1.0.item-dcterms_issued">Issued date</message>
+	<message key="xmlui.dri2xhtml.METS-1.0.item-dc_date_available">Available date</message>
+	<message key="xmlui.dri2xhtml.METS-1.0.item-dcterms_language">Language</message>
+	<message key="xmlui.dri2xhtml.METS-1.0.item-dcterms_subject_materia">Subject</message>
+	<message key="xmlui.dri2xhtml.METS-1.0.item-dcterms_subject">Keywords</message>
+	<message key="xmlui.dri2xhtml.METS-1.0.item-dcterms_extent">Extent</message>
+	<message key="xmlui.dri2xhtml.METS-1.0.item-dcterms_publisher">Publisher</message>
+	<message key="xmlui.dri2xhtml.METS-1.0.item-dc_identifier_uri">Handle</message>
+	<message key="xmlui.dri2xhtml.METS-1.0.item-dcterms_identifier">Secondary identifier</message>
+	<message key="xmlui.dri2xhtml.METS-1.0.item-dcterms_source">Source</message>
+	<message key="xmlui.dri2xhtml.METS-1.0.item-dc_description_fulltext">Fulltext</message>
+	<message key="xmlui.dri2xhtml.METS-1.0.item-dcterms_abstract">Abstract</message>
+	<message key="xmlui.dri2xhtml.METS-1.0.item-dcterms_description">Description</message>
+	<message key="xmlui.dri2xhtml.METS-1.0.item-dcterms_audience">Audience</message>
+	<message key="xmlui.dri2xhtml.METS-1.0.item-dc_description_provenance">Provenance</message>
+	<message key="xmlui.dri2xhtml.METS-1.0.item-dcterms_isPartOf_item">Book</message>
+	<message key="xmlui.dri2xhtml.METS-1.0.item-dcterms_isPartOf_issue">Volume/Event Instance</message>
+	<message key="xmlui.dri2xhtml.METS-1.0.item-dcterms_isPartOf_series">Series</message>
+	<message key="xmlui.dri2xhtml.METS-1.0.item-dcterms_isPartOf_project">Project</message>
+	<message key="xmlui.dri2xhtml.METS-1.0.item-dcterms_relation_dataset">Dataset</message>
+	<message key="xmlui.dri2xhtml.METS-1.0.item-dcterms_relation">Relation</message>
+	<message key="xmlui.dri2xhtml.METS-1.0.item-dcterms_accessRights">Access rights</message>
+	<message key="xmlui.dri2xhtml.METS-1.0.item-dcterms_license">License</message>
+
+	<!-- dcterms metadata -->
 	<!--  <message key="xmlui.dri2xhtml.METS-1.0.item-dcterms_type_subtype">Subtype</message> -->
 	<message key="xmlui.dri2xhtml.METS-1.0.item-dcterms_alternative">Alternative title</message>
 	<message key="xmlui.dri2xhtml.METS-1.0.item-dcterms_title_investigacion">Investigation title</message>

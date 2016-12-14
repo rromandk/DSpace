@@ -37,6 +37,7 @@
     xmlns:confman="org.dspace.core.ConfigurationManager"
     xmlns:str="http://exslt.org/strings"
     xmlns:xmlui="xalan://ar.edu.unlp.sedici.dspace.xmlui.util.XSLTHelper"
+    xmlns:date="http://exslt.org/dates-and-times"
     exclude-result-prefixes="xalan encoder i18n dri mets dim xlink xsl util jstring rights confman">
 
     <xsl:output indent="yes"/>
@@ -106,8 +107,22 @@
 
 
     <xsl:template match="dim:dim" mode="itemSummaryView-DIM">
-        <div class="item-summary-view-metadata">
-            <xsl:call-template name="itemSummaryView-DIM-title"/>
+        <div class="item-summary-view-metadata inline-div">
+	        <div class="metadata-header inline-div">
+	            <xsl:call-template name="itemSummaryView-DIM-title"/>
+	<!--             <xsl:call-template name="itemSummaryView-DIM-authors"/> -->
+				 <xsl:call-template name="render-metadata">
+					<xsl:with-param name="field" select="'dcterms.creator.*'" />
+					<xsl:with-param name="show_label" select="'false'" />
+					<xsl:with-param name="container" select="'span'" />
+				</xsl:call-template>
+				 - <xsl:call-template name="render-metadata">
+					<xsl:with-param name="field" select="'dcterms.issued'" />
+					<xsl:with-param name="show_label" select="'false'" />
+					<xsl:with-param name="isDate" select="'true'" />
+					<xsl:with-param name="container" select="'span'" />
+				</xsl:call-template>
+			</div>
             <div class="row">
                 <div class="col-sm-4">
                     <div class="row">
@@ -119,72 +134,83 @@
                         </div>
                     </div>
                     <xsl:call-template name="itemSummaryView-DIM-date"/>
-                    <xsl:call-template name="itemSummaryView-DIM-authors"/>
-                    <xsl:call-template name="render-metadata">
-                        <xsl:with-param name="field" select="'dcterms.contributor.director'" />
-                        <xsl:with-param name="show_label" select="'true'" />
-                        <xsl:with-param name="container" select="'span'" />
-				    </xsl:call-template>
-                    <xsl:call-template name="render-metadata">
-                        <xsl:with-param name="field" select="'dc.type.version'" />
-                        <xsl:with-param name="show_label" select="'true'" />
-                        <xsl:with-param name="container" select="'span'" />
-				    </xsl:call-template>
-                    <xsl:call-template name="render-metadata">
-                        <xsl:with-param name="field" select="'dcterms.language'" />
-                        <xsl:with-param name="show_label" select="'true'" />
-                        <xsl:with-param name="container" select="'span'" />
-				    </xsl:call-template>
-                    <xsl:call-template name="render-metadata">
-                        <xsl:with-param name="field" select="'dcterms.extent'" />
-                        <xsl:with-param name="show_label" select="'true'" />
-                        <xsl:with-param name="container" select="'span'" />
-				    </xsl:call-template>
-                    <xsl:call-template name="render-metadata">
-                        <xsl:with-param name="field" select="'dcterms.issued'" />
-                        <xsl:with-param name="show_label" select="'true'" />
-                        <xsl:with-param name="container" select="'span'" />
-				    </xsl:call-template>
-                    <xsl:call-template name="render-metadata">
-                        <xsl:with-param name="field" select="'dcterms.license'" />
-                        <xsl:with-param name="show_label" select="'true'" />
-                        <xsl:with-param name="container" select="'span'" />
-				    </xsl:call-template>
+
 				    <xsl:call-template name="render-metadata">
-                        <xsl:with-param name="field" select="'dcterms.accessRights'" />
+                        <xsl:with-param name="field" select="'dcterms.source'" />
                         <xsl:with-param name="show_label" select="'true'" />
                         <xsl:with-param name="container" select="'span'" />
 				    </xsl:call-template>
+
+				    <div class="inline-div">
+	                    <xsl:call-template name="render-metadata">
+	                        <xsl:with-param name="field" select="'dcterms.license'" />
+	                        <xsl:with-param name="show_label" select="'true'" />
+	                        <xsl:with-param name="container" select="'span'" />
+					    </xsl:call-template>
+	                    <span id="item-view-CC">
+	                        <xsl:variable name="cc-uri">
+	                            <xsl:value-of select="./dim:field[@mdschema='dcterms' and @element='license']/@authority"/>
+	                        </xsl:variable>
+	                            <xsl:call-template name="generate-CC-Anchor-Logo">
+	                                <xsl:with-param name="cc-uri" select="$cc-uri"/>
+	                            </xsl:call-template>
+	                    </span>
+                    </div>
                     <xsl:if test="$ds_item_view_toggle_url != ''">
                         <xsl:call-template name="itemSummaryView-show-full"/>
                     </xsl:if>
                 </div>
                 <div class="col-sm-8">
-                    <xsl:call-template name="itemSummaryView-DIM-abstract"/>
-                    <xsl:call-template name="itemSummaryView-DIM-URI"/>
-                    <xsl:call-template name="itemSummaryView-collections"/>
+                    <div class="inline-label">
                     <xsl:call-template name="render-metadata">
-                        <xsl:with-param name="field" select="'dc.type'" />
+                        <xsl:with-param name="field" select="'dcterms.contributor.director'" />
                         <xsl:with-param name="show_label" select="'true'" />
                         <xsl:with-param name="container" select="'span'" />
 				    </xsl:call-template>
+	                    <xsl:call-template name="render-metadata">
+	                        <xsl:with-param name="field" select="'thesis.degree.name'" />
+	                        <xsl:with-param name="show_label" select="'true'" />
+	                        <xsl:with-param name="container" select="'span'" />
+					    </xsl:call-template>
+	                    <xsl:call-template name="render-metadata">
+	                        <xsl:with-param name="field" select="'thesis.degree.grantor'" />
+	                        <xsl:with-param name="show_label" select="'true'" />
+	                        <xsl:with-param name="container" select="'span'" />
+					    </xsl:call-template>
+				    </div>
+                    <xsl:call-template name="itemSummaryView-DIM-abstract"/>
                     <xsl:call-template name="render-metadata">
                         <xsl:with-param name="field" select="'dcterms.description'" />
                         <xsl:with-param name="show_label" select="'true'" />
                         <xsl:with-param name="container" select="'span'" />
 				    </xsl:call-template>
+				    <xsl:call-template name="render-metadata">
+						<xsl:with-param name="field" select="'dcterms.isPartOf.item'" />
+						<xsl:with-param name="show_label" select="'true'" />
+						<xsl:with-param name="container" select="'span'" />
+					</xsl:call-template>				    
+				    <xsl:call-template name="render-metadata">
+						<xsl:with-param name="field" select="'dcterms.isPartOf.issue'" />
+						<xsl:with-param name="show_label" select="'true'" />
+						<xsl:with-param name="container" select="'span'" />
+					</xsl:call-template>				    
+				    <xsl:call-template name="render-metadata">
+						<xsl:with-param name="field" select="'dcterms.isPartOf.series'" />
+						<xsl:with-param name="show_label" select="'true'" />
+						<xsl:with-param name="container" select="'span'" />
+					</xsl:call-template>				    
+				    <xsl:call-template name="render-metadata">
+						<xsl:with-param name="field" select="'dcterms.isPartOf.project'" />
+						<xsl:with-param name="show_label" select="'true'" />
+						<xsl:with-param name="container" select="'span'" />
+					</xsl:call-template>				    
+				    <xsl:call-template name="render-metadata">
+						<xsl:with-param name="field" select="'dcterms.relation.dataset'" />
+						<xsl:with-param name="show_label" select="'true'" />
+						<xsl:with-param name="container" select="'span'" />
+					</xsl:call-template>
                     <xsl:call-template name="render-metadata">
                         <xsl:with-param name="field" select="'dcterms.subject.materia'" />
-                        <xsl:with-param name="show_label" select="'true'" />
-                        <xsl:with-param name="container" select="'span'" />
-				    </xsl:call-template>
-                    <xsl:call-template name="render-metadata">
-                        <xsl:with-param name="field" select="'thesis.degree.name'" />
-                        <xsl:with-param name="show_label" select="'true'" />
-                        <xsl:with-param name="container" select="'span'" />
-				    </xsl:call-template>
-                    <xsl:call-template name="render-metadata">
-                        <xsl:with-param name="field" select="'thesis.degree.grantor'" />
                         <xsl:with-param name="show_label" select="'true'" />
                         <xsl:with-param name="container" select="'span'" />
 				    </xsl:call-template>
@@ -193,25 +219,11 @@
                         <xsl:with-param name="show_label" select="'true'" />
                         <xsl:with-param name="container" select="'span'" />
 				    </xsl:call-template>
-
-                    <!-- Creative Commons Logo -->
-                    <div class="row" id="item-view-CC">
-                        <xsl:variable name="cc-uri">
-                            <xsl:value-of select="./dim:field[@mdschema='dcterms' and @element='license']/@authority"/>
-                        </xsl:variable>
-                        <div>
-                            <!-- Generate the Creative Commons license information from the file section (DSpace deposit license hidden by default)-->
-                            <!-- <xsl:apply-templates select="./mets:fileSec/mets:fileGrp[@USE='CC-LICENSE']"/> -->
-<!--                             <xsl:value-of select="$cc-uri"/> -->
-                            <xsl:call-template name="generate-CC-Anchor-Logo">
-                                <xsl:with-param name="cc-uri" select="$cc-uri"/>
-                            </xsl:call-template>
-                        
-                            <i18n:text>xmlui.dri2xhtml.structural.cc-item-view-text</i18n:text>
-                            <i18n:text><xsl:value-of select="concat('xmlui.dri2xhtml.structural.cc-',xmlui:stripDash(xmlui:replaceAll(substring-after($cc-uri, 'http://creativecommons.org/licenses/'), '/', '-')))"/></i18n:text>
-                        </div>
-                    </div>
-
+				    <xsl:call-template name="render-metadata">
+						<xsl:with-param name="field" select="'dcterms.relation'" />
+						<xsl:with-param name="show_label" select="'true'" />
+						<xsl:with-param name="container" select="'span'" />
+					</xsl:call-template>
                 </div>
             </div>
         </div>
@@ -291,19 +303,18 @@
             <div class="simple-item-view-description item-page-field-wrapper table">
                 <h5 class="metadata-label"><i18n:text>xmlui.mirage2.itemSummaryView.Abstract</i18n:text></h5>
                 <div>
-                    <xsl:for-each select="dim:field[@element='abstract']">
-                        <xsl:choose>
-                            <xsl:when test="node()">
-                                <xsl:copy-of select="node()"/>
-                            </xsl:when>
-                            <xsl:otherwise>
-                                <xsl:text>&#160;</xsl:text>
-                            </xsl:otherwise>
-                        </xsl:choose>
-                        <xsl:if test="count(following-sibling::dim:field[@element='description' and @qualifier='abstract']) != 0">
-                            <div class="spacer">&#160;</div>
-                        </xsl:if>
-                    </xsl:for-each>
+                    <xsl:choose>
+	                    <xsl:when test="dim:field[@element='abstract' and @language='es']">
+	                    	<xsl:call-template name="render-abstract">
+                            	<xsl:with-param name="abstract" select="dim:field[@element='abstract' and @language='es']"/>
+                            </xsl:call-template>
+	                    </xsl:when>
+	                    <xsl:otherwise>
+	                    	<xsl:call-template name="render-abstract">
+                            	<xsl:with-param name="abstract" select="dim:field[@element='abstract']"/>
+                            </xsl:call-template>
+	                    </xsl:otherwise>
+                    </xsl:choose>
                     <xsl:if test="count(dim:field[@element='abstract']) &gt; 1">
                         <div class="spacer">&#160;</div>
                     </xsl:if>
@@ -312,10 +323,26 @@
         </xsl:if>
     </xsl:template>
 
+<xsl:template name="render-abstract">
+	<xsl:param name="abstract"></xsl:param>
+	<xsl:for-each select="$abstract">
+		<xsl:choose>
+			<xsl:when test="node()">
+				<xsl:value-of select="." disable-output-escaping="yes"/>
+			</xsl:when>
+			<xsl:otherwise>
+				<xsl:text>&#160;</xsl:text>
+			</xsl:otherwise>
+		</xsl:choose>
+		<xsl:if test="count(following-sibling::dim:field[@element='description' and @qualifier='abstract']) != 0">
+			<div class="spacer">&#160;</div>
+		</xsl:if>
+	</xsl:for-each>
+</xsl:template>
+
     <xsl:template name="itemSummaryView-DIM-authors">
         <xsl:if test="dim:field[@element='contributor'][@qualifier='author' and descendant::text()] or dim:field[@element='creator' and descendant::text()] or dim:field[@element='contributor'][@qualifier='director' and descendant::text()]">
-            <div class="simple-item-view-authors item-page-field-wrapper table">
-                <h5><i18n:text>xmlui.dri2xhtml.METS-1.0.item-author</i18n:text></h5>
+            <div class="simple-item-view-authors">
                 <xsl:choose>
                     <xsl:when test="dim:field[@element='contributor'][@qualifier='author']">
                         <xsl:for-each select="dim:field[@element='contributor'][@qualifier='author']">
@@ -362,12 +389,12 @@
     </xsl:template>
 
     <xsl:template name="itemSummaryView-DIM-authors-entry">
-        <div>
+<!--         <div> -->
             <xsl:if test="@authority">
                 <xsl:attribute name="class"><xsl:text>ds-dc_contributor_author-authority</xsl:text></xsl:attribute>
             </xsl:if>
             <xsl:copy-of select="node()"/>
-        </div>
+<!--         </div> -->
     </xsl:template>
 
 
@@ -485,13 +512,13 @@
                         <xsl:value-of select="$label"/>
                     </xsl:when>
                     <xsl:when test="contains($label-1, 'title') and string-length($title)!=0">
-                        <xsl:value-of select="$title"/>
+                        <xsl:value-of select="$title" disable-output-escaping="yes"/>
                     </xsl:when>
                     <xsl:when test="contains($label-2, 'label') and string-length($label)!=0">
-                        <xsl:value-of select="$label"/>
+                        <xsl:value-of select="$label" disable-output-escaping="yes"/>
                     </xsl:when>
                     <xsl:when test="contains($label-2, 'title') and string-length($title)!=0">
-                        <xsl:value-of select="$title"/>
+                        <xsl:value-of select="$title" disable-output-escaping="yes"/>
                     </xsl:when>
                     <xsl:otherwise>
                         <xsl:call-template name="getFileTypeDesc">
@@ -833,6 +860,7 @@
         <xsl:param name="separator">; </xsl:param>
         <xsl:param name="is_linked_authority"></xsl:param><!-- Si viene en true, es un link, sino no -->
         <xsl:param name="show_label">true</xsl:param>
+        <xsl:param name="in_div">true</xsl:param>
         <xsl:param name="container">div</xsl:param>
         <xsl:param name="null_message"></xsl:param>
         <xsl:param name="isDate"></xsl:param>
@@ -883,7 +911,6 @@
                         </xsl:otherwise>
                     </xsl:choose>
                 </span>
-            
         </div>
         </xsl:if>
     </xsl:template>
@@ -1003,23 +1030,13 @@
             </xsl:otherwise>
         </xsl:choose>
         <xsl:if test="@qualifier='editor' or @qualifier='compilator'">
-            <span class='editor-label'>(<i18n:text>xmlui.dri2xhtml.METS-1.0.item-dcterms_creator_<xsl:value-of select="@qualifier" /></i18n:text>)</span>
+            <span class='editor-label'> (<i18n:text>xmlui.dri2xhtml.METS-1.0.item-dcterms_creator_<xsl:value-of select="@qualifier" /></i18n:text>)</span>
         </xsl:if>
     </xsl:template>
     <xsl:template name="cambiarFecha" match="dim:field/text()">
         <xsl:param name="isDate"></xsl:param>
         <xsl:if test="$isDate">
-        <!--  El choose se usa para saber en que idioma mostrar la fecha -->
-            <xsl:choose>
-                <xsl:when test="contains($query-string,'locale-attribute=en')">
-                <!--  ingles -->
-                    <xsl:value-of select="xmlui:formatearFecha(.,'en')" />
-                </xsl:when>
-                <xsl:otherwise>
-                <!--  español -->
-                    <xsl:value-of select="xmlui:formatearFecha(.,'es')" />
-                </xsl:otherwise>
-            </xsl:choose>
+			<xsl:value-of select="date:year(.)" />
         </xsl:if>
     </xsl:template>
 	<xsl:template name="generate-CC-Anchor-Logo">

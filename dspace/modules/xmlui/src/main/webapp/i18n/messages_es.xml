@@ -2284,6 +2284,43 @@ Puede reemplazar la plantilla que gestiona el caso general dri2xhtml para mejora
 <message key="xmlui.dri2xhtml.METS-1.0.item-date">Fecha</message>
 <message key="xmlui.dri2xhtml.METS-1.0.item-publisher">Editor</message>
 <message key="xmlui.dri2xhtml.METS-1.0.item-subject">Materia</message>
+
+<message key="xmlui.dri2xhtml.METS-1.0.item-dc_type">Tipo</message>
+<message key="xmlui.dri2xhtml.METS-1.0.item-dc_type_version">Versión</message>
+<message key="xmlui.dri2xhtml.METS-1.0.item-dc_title">Título</message>
+<message key="xmlui.dri2xhtml.METS-1.0.item-dcterms_alternative">Titulo alternativo</message>
+<message key="xmlui.dri2xhtml.METS-1.0.item-dcterms_creator_author">Autor</message>
+<message key="xmlui.dri2xhtml.METS-1.0.item-dcterms_creator_compilator">Compilador</message>
+<message key="xmlui.dri2xhtml.METS-1.0.item-dcterms_creator_editor">Editor</message>
+<message key="xmlui.dri2xhtml.METS-1.0.item-dcterms_creator_corporate">Autor Institucional</message>
+<message key="xmlui.dri2xhtml.METS-1.0.item-dcterms_contributor_director">Director</message>
+<message key="xmlui.dri2xhtml.METS-1.0.item-thesis_degree_name">Grado alcanzado</message>
+<message key="xmlui.dri2xhtml.METS-1.0.item-thesis_degree_grantor">Emisor del título</message>
+<message key="xmlui.dri2xhtml.METS-1.0.item-dc_date_accessioned">Fecha de carga</message>
+<message key="xmlui.dri2xhtml.METS-1.0.item-dcterms_issued">Fecha de publicación</message>
+<message key="xmlui.dri2xhtml.METS-1.0.item-dc_date_available">Fecha de disponibilidad</message>
+<message key="xmlui.dri2xhtml.METS-1.0.item-dcterms_language">Idioma</message>
+<message key="xmlui.dri2xhtml.METS-1.0.item-dcterms_subject_materia">Materia</message>
+<message key="xmlui.dri2xhtml.METS-1.0.item-dcterms_subject">Palabras clave</message>
+<message key="xmlui.dri2xhtml.METS-1.0.item-dcterms_extent">Extensión</message>
+<message key="xmlui.dri2xhtml.METS-1.0.item-dcterms_publisher">Editorial</message>
+<message key="xmlui.dri2xhtml.METS-1.0.item-dc_identifier_uri">Handle</message>
+<message key="xmlui.dri2xhtml.METS-1.0.item-dcterms_identifier">Identificador secundario</message>
+<message key="xmlui.dri2xhtml.METS-1.0.item-dcterms_source">Localización electrónica</message>
+<message key="xmlui.dri2xhtml.METS-1.0.item-dc_description_fulltext">Fulltext</message>
+<message key="xmlui.dri2xhtml.METS-1.0.item-dcterms_abstract">Resumen</message>
+<message key="xmlui.dri2xhtml.METS-1.0.item-dcterms_description">Notas</message>
+<message key="xmlui.dri2xhtml.METS-1.0.item-dcterms_audience">Audiencia</message>
+<message key="xmlui.dri2xhtml.METS-1.0.item-dc_description_provenance">Historial</message>
+<message key="xmlui.dri2xhtml.METS-1.0.item-dcterms_isPartOf_item">Libro</message>
+<message key="xmlui.dri2xhtml.METS-1.0.item-dcterms_isPartOf_issue">Volumen/Instancia de Evento</message>
+<message key="xmlui.dri2xhtml.METS-1.0.item-dcterms_isPartOf_series">Revista o Evento</message>
+<message key="xmlui.dri2xhtml.METS-1.0.item-dcterms_isPartOf_project">Proyecto contenedor</message>
+<message key="xmlui.dri2xhtml.METS-1.0.item-dcterms_relation_dataset">Conjunto de datos fuente</message>
+<message key="xmlui.dri2xhtml.METS-1.0.item-dcterms_relation">Recursos relacionado</message>
+<message key="xmlui.dri2xhtml.METS-1.0.item-dcterms_accessRights">Nivel de acceso</message>
+<message key="xmlui.dri2xhtml.METS-1.0.item-dcterms_license">Condiciones de uso</message>
+
 <message key="xmlui.mirage2.itemSummaryView.Collections">Colecciones</message>
 <message key="xmlui.mirage2.itemSummaryView.Abstract">Resumen</message>
 
