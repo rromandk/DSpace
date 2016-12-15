@@ -251,8 +251,14 @@ header {
   margin-top: 14px;
 }
 
-#logo-footer{
+#img-logo-footer{
   margin-right: 10px;
+}
+
+@media (max-width: 767px){
+	#info-footer {
+		border-top: 0px;
+	}
 }
 
 .header-img{

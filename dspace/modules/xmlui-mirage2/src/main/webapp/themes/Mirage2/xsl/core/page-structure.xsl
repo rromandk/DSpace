@@ -633,11 +633,12 @@
         <footer>
                 <div class="row">
                     <hr/>
-                    <div class="col-xs-8 col-sm-8">
-                        <a class="pull-left" id="logo-footer" href="http://www.uner.edu.ar/">
-                            <img src="{$theme-path}/images/uner_footer.gif" />
+                    <div id="logo-footer" class="col-xs-12 col-sm-8">
+                        <a class="pull-left" id="img-logo-footer" href="http://www.uner.edu.ar/">
+                            <img class="img-responsive" src="{$theme-path}/images/uner_footer.gif" />
                         </a>
-                    </div>    <div class="col-xs-4 col-sm-4 pull-right">
+                    </div>    
+                    <div id="info-footer" class="col-xs-12 col-sm-4 pull-right">
                             <a href="#">RIUNER</a><br></br>
                                 <addres>
                                     <small>Depende: Secretaría Académica</small><br></br> 
