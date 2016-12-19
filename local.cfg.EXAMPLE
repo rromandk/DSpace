@@ -415,6 +415,8 @@ websvc.opensearch.formats = html,atom,rss
 #xmlui.content_disposition_filename = [title | description | parameter | handle]
 xmlui.content_disposition_filename = handle
 
+#### Google Analytics
+xmlui.google.analytics.key=UA-60369720-5
 
 
 #####  Authority Control Settings  #####
