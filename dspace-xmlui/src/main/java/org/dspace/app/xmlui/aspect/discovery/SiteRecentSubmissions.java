@@ -14,6 +14,8 @@ import org.dspace.app.xmlui.wing.element.Division;
 import org.dspace.app.xmlui.wing.element.ReferenceSet;
 import org.dspace.authorize.AuthorizeException;
 import org.dspace.content.DSpaceObject;
+import org.dspace.content.factory.ContentServiceFactory;
+import org.dspace.content.service.ItemService;
 import org.xml.sax.SAXException;
 
 import java.io.IOException;
@@ -30,7 +32,7 @@ public class SiteRecentSubmissions extends AbstractRecentSubmissionTransformer {
 
     private static final Message T_head_recent_submissions =
             message("xmlui.ArtifactBrowser.SiteViewer.head_recent_submissions");
-
+    private static final ItemService itemService = ContentServiceFactory.getInstance().getItemService();
 
     /**
      * Display a single community (and reference any subcommunites or
@@ -48,7 +50,10 @@ public class SiteRecentSubmissions extends AbstractRecentSubmissionTransformer {
 
         if (0 < queryResults.getDspaceObjects().size()) {
             Division home = body.addDivision("site-home", "primary repository");
-
+            
+            Division countItem = home.addDivision("total-items", "total-items");
+            countItem.addPara(String.valueOf(itemService.countTotal(context)));
+            
             Division lastSubmittedDiv = home
                     .addDivision("site-recent-submission", "secondary recent-submission");
 
