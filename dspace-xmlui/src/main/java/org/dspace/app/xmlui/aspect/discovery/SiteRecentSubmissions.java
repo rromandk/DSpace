@@ -32,8 +32,10 @@ public class SiteRecentSubmissions extends AbstractRecentSubmissionTransformer {
 
     private static final Message T_head_recent_submissions =
             message("xmlui.ArtifactBrowser.SiteViewer.head_recent_submissions");
+    private static final Message T_head_available_items =
+            message("xmlui.cicdigital.home.items-totales");
     private static final ItemService itemService = ContentServiceFactory.getInstance().getItemService();
-
+    
     /**
      * Display a single community (and reference any subcommunites or
      * collections)
@@ -51,8 +53,8 @@ public class SiteRecentSubmissions extends AbstractRecentSubmissionTransformer {
         if (0 < queryResults.getDspaceObjects().size()) {
             Division home = body.addDivision("site-home", "primary repository");
             
-            Division countItem = home.addDivision("total-items", "total-items");
-            countItem.addPara(String.valueOf(itemService.countTotal(context)));
+            home.addDivision("total-items", "total-items").addPara(String.valueOf(itemService.countTotal(context)));
+            home.addDivision("total-items-message", "total-items-message").addPara(T_head_available_items);
             
             Division lastSubmittedDiv = home
                     .addDivision("site-recent-submission", "secondary recent-submission");

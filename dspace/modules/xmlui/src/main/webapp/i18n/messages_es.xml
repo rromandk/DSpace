@@ -82,6 +82,7 @@
 <message key="xmlui.cicdigital.trail.politicas-del-repositorio">Políticas del repositorio</message>
 
 	<!-- Home messages -->
+<message key="xmlui.cicdigital.home.items-totales"> Items disponibles</message>
 <message key="xmlui.cicdigital.home.subir-material">Subir Material</message>
 <message key="xmlui.cicdigital.home.subir-material-descripcion">A través del proceso de autoarchivo usted podrá contribuir con sus investigaciones y desarrollos científicos propios, al contenido dentro del Repositorio Institucional de la Comisión de Investigaciones Científicas de la Provincia de Buenos Aires.</message>
 <message key="xmlui.cicdigital.home.explore">Buscar en el repositorio</message>
