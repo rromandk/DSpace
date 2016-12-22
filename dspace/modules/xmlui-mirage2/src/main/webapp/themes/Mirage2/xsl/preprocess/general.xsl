@@ -72,12 +72,10 @@
 
     <!--add some extra classes to the password login form-->
     <xsl:template match="dri:list[@id='aspect.eperson.PasswordLogin.list.password-login']">
-        <div rend="row">
             <list rend="col-md-6">
                 <xsl:call-template name="copy-attributes"/>
                 <xsl:apply-templates/>
             </list>
-        </div>
     </xsl:template>
 
     <xsl:template match="dri:list[@id='aspect.eperson.StartRegistration.list.form']">
