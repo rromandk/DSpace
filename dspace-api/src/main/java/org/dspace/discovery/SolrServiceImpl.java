@@ -63,6 +63,10 @@ import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
+import org.dspace.authorize.ResourcePolicy;
+import org.dspace.authorize.factory.AuthorizeServiceFactory;
+import org.dspace.eperson.Group;
+import org.dspace.eperson.factory.EPersonServiceFactory;
 
 /**
  * SolrIndexer contains the methods that index Items and their metadata,
@@ -392,15 +396,12 @@ public class SolrServiceImpl implements SearchService, IndexingService {
     {
         try {
             Iterator<Item> items = null;
-            int itemCount = 0;
             for (items = itemService.findAllUnfiltered(context); items.hasNext();)
             {
                 Item item = items.next();
                 indexContent(context, item, force);
-                if (itemCount++ >= 1000) {
-                	context.clearCache();
-                	itemCount = 0;
-                }
+                //To prevent memory issues, discard an object from the cache after processing
+                context.uncacheEntity(item);
             }
 
             List<Collection> collections = collectionService.findAll(context);
@@ -677,10 +678,10 @@ public class SolrServiceImpl implements SearchService, IndexingService {
         return locations;
     }
 
-    protected List<String> getCollectionLocations(Collection target) throws SQLException {
+    protected List<String> getCollectionLocations(Context context, Collection target) throws SQLException {
         List<String> locations = new Vector<String>();
         // build list of community ids
-        List<Community> communities = target.getCommunities();
+        List<Community> communities = communityService.getAllParents(context, target);
 
         // now put those into strings
         for (Community community : communities)
@@ -689,6 +690,73 @@ public class SolrServiceImpl implements SearchService, IndexingService {
         }
 
         return locations;
+    }
+    
+    @Override
+    public String createLocationQueryForAdministrableItems(Context context)
+            throws SQLException
+    {
+        StringBuilder locationQuery = new StringBuilder();
+        
+        if (context.getCurrentUser() != null) 
+        {
+            List<Group> groupList = EPersonServiceFactory.getInstance().getGroupService()
+                    .allMemberGroups(context, context.getCurrentUser());
+            
+            List<ResourcePolicy> communitiesPolicies = AuthorizeServiceFactory.getInstance().getResourcePolicyService()
+                    .find(context, context.getCurrentUser(), groupList, Constants.ADMIN, Constants.COMMUNITY);
+
+            List<ResourcePolicy> collectionsPolicies = AuthorizeServiceFactory.getInstance().getResourcePolicyService()
+                    .find(context, context.getCurrentUser(), groupList, Constants.ADMIN, Constants.COLLECTION);
+
+            List<Collection> allCollections = new ArrayList<>();
+            
+            if(communitiesPolicies.size() != 0 || collectionsPolicies.size() != 0){
+            	
+            	locationQuery.append("location:( ");
+            	
+            	locationQuery.append(this.getLocationOfEachResourcePolicy(communitiesPolicies, context));
+            	
+            	locationQuery.append(this.getLocationOfEachResourcePolicy(collectionsPolicies, context));
+	            
+	            locationQuery.append(" )");
+            } else {
+                log.warn("We have a collection or community admin with ID: " + context.getCurrentUser().getID()
+                        + " without any administrable collection or community!");
+            }
+        }
+        return locationQuery.toString();
+    }
+    
+    private String getLocationOfEachResourcePolicy(List<ResourcePolicy> resourcePolicies, Context context) throws SQLException{
+    	
+    	StringBuilder locationQuery = new StringBuilder();
+
+    	for (int i = 0; i< resourcePolicies.size(); i++) 
+    	{
+    		ResourcePolicy rp = resourcePolicies.get(i);
+    		
+    		if(rp.getdSpaceObject() instanceof Collection)
+    		{
+    			Collection collection = ContentServiceFactory.getInstance().getCollectionService()
+    					.find(context, rp.getdSpaceObject().getID());
+            
+    			locationQuery.append("l").append(collection.getID());
+    		}
+    		else if(rp.getdSpaceObject() instanceof Community)
+    		{
+    			Community community = ContentServiceFactory.getInstance().getCommunityService()
+                        .find(context, rp.getdSpaceObject().getID());
+            
+                locationQuery.append("m").append(community.getID());
+    		}
+    		
+    		if (i != (resourcePolicies.size() - 1))
+    		{
+                locationQuery.append(" OR ");
+            }
+        }
+    	return locationQuery.toString();
     }
 
     /**
@@ -798,7 +866,7 @@ public class SolrServiceImpl implements SearchService, IndexingService {
      */
     protected void buildDocument(Context context, Collection collection)
     throws SQLException, IOException {
-        List<String> locations = getCollectionLocations(collection);
+        List<String> locations = getCollectionLocations(context, collection);
 
         // Create Lucene Document
         SolrInputDocument doc = buildDocument(Constants.COLLECTION, collection.getID(),
@@ -1524,8 +1592,12 @@ public class SolrServiceImpl implements SearchService, IndexingService {
     public String locationToName(Context context, String field, String value) throws SQLException {
         if("location.comm".equals(field) || "location.coll".equals(field))
         {
-            int type = field.equals("location.comm") ? Constants.COMMUNITY : Constants.COLLECTION;
-            DSpaceObject commColl = contentServiceFactory.getDSpaceObjectService(type).find(context, UUID.fromString(value));
+            int type = ("location.comm").equals(field) ? Constants.COMMUNITY : Constants.COLLECTION;
+            DSpaceObject commColl = null;
+            if (StringUtils.isNotBlank(value))
+            {
+                commColl = contentServiceFactory.getDSpaceObjectService(type).find(context, UUID.fromString(value));
+            }
             if(commColl != null)
             {
                 return commColl.getName();
@@ -2017,7 +2089,7 @@ public class SolrServiceImpl implements SearchService, IndexingService {
         DiscoverFilterQuery result = new DiscoverFilterQuery();
 
         StringBuilder filterQuery = new StringBuilder();
-        if(StringUtils.isNotBlank(field))
+        if(StringUtils.isNotBlank(field) && StringUtils.isNotBlank(value))
         {
             filterQuery.append(field);
             if("equals".equals(operator))
@@ -2069,10 +2141,9 @@ public class SolrServiceImpl implements SearchService, IndexingService {
                 }
             }
 
-
+            result.setDisplayedValue(transformDisplayedValue(context, field, value));
         }
 
-        result.setDisplayedValue(transformDisplayedValue(context, field, value));
         result.setFilterQuery(filterQuery.toString());
         return result;
     }

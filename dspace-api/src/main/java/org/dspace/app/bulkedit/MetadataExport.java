@@ -106,7 +106,9 @@ public class MetadataExport
             }
 
             Iterator<Item> items = itemService.findByCollection(context, collection);
-            result = addItemsToResult(result,items);
+            if(items != null){
+            	result = addItemsToResult(result,items);
+            }
 
         }
         // Add all the sub-communities
@@ -118,7 +120,9 @@ public class MetadataExport
                 System.out.print(" ");
             }
             Iterator<Item> items = buildFromCommunity(context, subCommunity, indent + 1);
-            result = addItemsToResult(result,items);
+            if(items != null){
+            	result = addItemsToResult(result,items);
+            }            
         }
 
         return result;

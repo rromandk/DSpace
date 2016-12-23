@@ -139,7 +139,6 @@ function doWorkflow()
     }
     var action = step.getActionConfig(cocoon.request.get("actionID"));
 
-
     do{
         sendPageAndWait("handle/"+handle+"/xmlworkflow/getTask",{"workflowID":workflowItemId,"stepID":step.getId(),"actionID":action.getId()});
 

@@ -96,6 +96,7 @@
 <message key="xmlui.unerdigital.trail.como-subir-material">How to upload material</message>
 
 	<!-- Home messages -->
+<message key="xmlui.cicdigital.home.items-totales"> Available Items</message>
 <message key="xmlui.cicdigital.home.centros">centers</message>
 <message key="xmlui.cicdigital.home.subir-material">Upload material</message>
 <message key="xmlui.cicdigital.home.subir-material-descripcion">Through the process of auto-archive you can contribute with their own research and scientific developments to the content within the Institutional Repository of the Comisión de Investigaciones Científicas de la Provincia de Buenos Aires.</message>
@@ -1798,6 +1799,7 @@
 	<message key="xmlui.administrative.mapper.SearchItemForm.column2">Collection</message>
 	<message key="xmlui.administrative.mapper.SearchItemForm.column3">Author</message>
 	<message key="xmlui.administrative.mapper.SearchItemForm.column4">Title</message>
+	<message key="xmlui.administrative.mapper.SearchItemForm.column5">Type</message>
 
 	<!-- org.dspace.app.xmlui.administrative.mapper.BrowseItemForm -->
 	<message key="xmlui.administrative.mapper.BrowseItemForm.title">Browse Mapped Items</message>
@@ -2120,6 +2122,12 @@
 	<message key="xmlui.administrative.ControlPanel.cookies">Cookies: {0}</message>
 
 	<message key="xmlui.administrative.ControlPanel.select_panel">Use the tabs above to select the information to display</message>
+
+	<message key="xmlui.administrative.ControlPanel.tabs.Java Information">Java Information</message>
+	<message key="xmlui.administrative.ControlPanel.tabs.Configuration">Configuration</message>
+	<message key="xmlui.administrative.ControlPanel.tabs.SystemWide Alerts">SystemWide Alerts</message>
+	<message key="xmlui.administrative.ControlPanel.tabs.Harvesting">Harvesting</message>
+	<message key="xmlui.administrative.ControlPanel.tabs.Current Activity">Current Activity</message>
 
 	<!-- org.dspace.app.xmlui.administrative.SystemwideAlerts -->
 	<message key="xmlui.administrative.SystemwideAlerts.countdown"><strong>In {0} minutes</strong>: </message>

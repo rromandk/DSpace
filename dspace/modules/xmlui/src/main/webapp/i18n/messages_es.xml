@@ -98,6 +98,7 @@
 <message key="xmlui.unerdigital.trail.como-subir-material">Cómo subir material</message>
 
 	<!-- Home messages -->
+<message key="xmlui.cicdigital.home.items-totales"> Items disponibles</message>
 <message key="xmlui.cicdigital.home.subir-material">Subir Material</message>
 <message key="xmlui.cicdigital.home.subir-material-descripcion">A través del proceso de autoarchivo usted podrá contribuir con sus investigaciones y desarrollos científicos propios, al contenido dentro del Repositorio Institucional de la Comisión de Investigaciones Científicas de la Provincia de Buenos Aires.</message>
 <message key="xmlui.cicdigital.home.explore">Buscar en el repositorio</message>
@@ -1789,6 +1790,7 @@
 <message key="xmlui.administrative.mapper.SearchItemForm.column2">Colección</message>
 <message key="xmlui.administrative.mapper.SearchItemForm.column3">Autor</message>
 <message key="xmlui.administrative.mapper.SearchItemForm.column4">Título</message>
+<message key="xmlui.administrative.mapper.SearchItemForm.column5">Tipo</message>
 
 	<!-- org.dspace.app.xmlui.administrative.mapper.BrowseItemForm -->
 <message key="xmlui.administrative.mapper.BrowseItemForm.title">Listar ítems relacionados</message>
@@ -2104,6 +2106,12 @@
 <message key="xmlui.administrative.ControlPanel.activity_none">Sin registrar visualizaciones de páginas</message>
 
 <message key="xmlui.administrative.ControlPanel.select_panel">Utilizar las pestañas de arriba para seleccionar la información que se mostrará</message>
+
+<message key="xmlui.administrative.ControlPanel.tabs.Java Information">Información de Java</message>
+<message key="xmlui.administrative.ControlPanel.tabs.Configuration">Configuración</message>
+<message key="xmlui.administrative.ControlPanel.tabs.SystemWide Alerts">Alertas del sistema</message>
+<message key="xmlui.administrative.ControlPanel.tabs.Harvesting">Harvesting</message>
+<message key="xmlui.administrative.ControlPanel.tabs.Current Activity">Actividad reciente</message>
 
 	<!-- org.dspace.app.xmlui.administrative.SystemwideAlerts -->
 <message key="xmlui.administrative.SystemwideAlerts.countdown"><strong>En {0} minutos</strong>:</message>
