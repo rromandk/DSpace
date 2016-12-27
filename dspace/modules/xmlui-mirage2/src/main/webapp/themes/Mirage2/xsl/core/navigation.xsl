@@ -133,7 +133,7 @@
                     <xsl:apply-templates select="dri:list[@n!='browse']"/>
                 </xsl:when>
                 <xsl:otherwise>
-                    <xsl:apply-templates select="dri:list[@n!='browse']/dri:list[@n!='author']"/>
+                    <xsl:apply-templates select="dri:list[@n!='browse' and @n!='discovery'] | dri:list[@n='discovery']/dri:list[@n!='author']"/>
                 </xsl:otherwise>
             </xsl:choose>
             
