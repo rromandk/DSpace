@@ -257,7 +257,7 @@
                         <xsl:when test="dri:list[@n=(concat($handle, ':dcterms.abstract'))]">
                             <div class="abstract">
                                 <xsl:for-each select="dri:list[@n=(concat($handle, ':dcterms.abstract'))]/dri:item">
-                                <xsl:value-of select="util:shortenString(., 220, 10)"/>
+                                <xsl:value-of select="util:shortenString(., 220, 10)" disable-output-escaping="yes"/>
                                     <xsl:text>...</xsl:text>
                                     <br/>
                                 </xsl:for-each>
@@ -267,7 +267,7 @@
                         <xsl:when test="dri:list[@n=(concat($handle, ':fulltext'))]">
                             <div class="abstract">
                                 <xsl:for-each select="dri:list[@n=(concat($handle, ':fulltext'))]/dri:item">
-                                <xsl:value-of select="util:shortenString(., 220, 10)"/>
+                                <xsl:value-of select="util:shortenString(., 220, 10)" disable-output-escaping="yes"/>
                                     <xsl:text>...</xsl:text>
                                     <br/>
                                 </xsl:for-each>
@@ -275,7 +275,7 @@
                         </xsl:when>
                         <xsl:when test="dri:list[@n=(concat($handle, ':dcterms.abstract'))]/dri:item">
                         <div class="abstract">
-                                <xsl:value-of select="util:shortenString(dri:list[@n=(concat($handle, ':dc.description.abstract'))]/dri:item[1], 220, 10)"/>
+                                <xsl:value-of select="util:shortenString(dri:list[@n=(concat($handle, ':dc.description.abstract'))]/dri:item[1], 220, 10)" disable-output-escaping="yes"/>
                         </div>
                     </xsl:when>
                     </xsl:choose>
