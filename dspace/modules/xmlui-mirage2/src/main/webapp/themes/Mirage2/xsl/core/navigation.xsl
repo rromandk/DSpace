@@ -128,7 +128,14 @@
             
             <xsl:call-template name="addStaticPages"/>
             
-            <xsl:apply-templates select="dri:list[@n!='browse']"/>
+            <xsl:choose>
+                <xsl:when test="contains(/dri:document/dri:meta/dri:pageMeta/dri:metadata[@element='request'][@qualifier='URI'], 'discover')">
+                    <xsl:apply-templates select="dri:list[@n!='browse']"/>
+                </xsl:when>
+                <xsl:otherwise>
+                    <xsl:apply-templates select="dri:list[@n!='browse']/dri:list[@n!='author']"/>
+                </xsl:otherwise>
+            </xsl:choose>
             
         </div>
     </xsl:template>
