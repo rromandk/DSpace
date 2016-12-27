@@ -49,6 +49,8 @@ import org.xml.sax.SAXException;
 
 import java.io.IOException;
 import java.io.Serializable;
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
 import java.sql.SQLException;
 import java.util.*;
 import java.util.List;
@@ -216,7 +218,7 @@ public abstract class AbstractSearch extends AbstractDSpaceTransformer implement
      * Build the resulting search DRI document.
      */
     public abstract void addBody(Body body) throws SAXException, WingException,
-            UIException, SQLException, IOException, AuthorizeException;
+            SQLException, IOException, AuthorizeException;
 
     /**
      * Build the main form that should be the only form that the user interface requires
@@ -229,7 +231,7 @@ public abstract class AbstractSearch extends AbstractDSpaceTransformer implement
         DSpaceObject dso = HandleUtil.obtainHandle(objectModel);
 
         //We set our action to context path, since the eventual action will depend on which url we click on
-        Division mainForm = searchDiv.addInteractiveDivision("main-form", getBasicUrl(), Division.METHOD_POST, "");
+        Division mainForm = searchDiv.addInteractiveDivision("main-form", getBasicUrl(), Division.METHOD_GET, "");
 
         String query = getQuery();
         //Indicate that the form we are submitting lists search results
@@ -403,8 +405,9 @@ public abstract class AbstractSearch extends AbstractDSpaceTransformer implement
         //}// Empty query
     }
 
-    protected String addFilterQueriesToUrl(String pageURLMask) throws UIException {
-        Map<String, String[]> filterQueryParams = getParameterFilterQueries();
+
+	protected String addFilterQueriesToUrl(String pageURLMask) throws UIException {
+        Map<String, String[]> filterQueryParams = DiscoveryUIUtils.getParameterFilterQueries(ObjectModelHelper.getRequest(objectModel));
         if(filterQueryParams != null)
         {
             StringBuilder maskBuilder = new StringBuilder(pageURLMask);
@@ -415,7 +418,7 @@ public abstract class AbstractSearch extends AbstractDSpaceTransformer implement
                 {
                     for (String filterQueryValue : filterQueryValues)
                     {
-                        maskBuilder.append("&").append(filterQueryParam).append("=").append(encodeForURL(filterQueryValue));
+                        maskBuilder.append("&").append(filterQueryParam).append("=").append(filterQueryValue);
                     }
                 }
             }
@@ -680,7 +683,7 @@ public abstract class AbstractSearch extends AbstractDSpaceTransformer implement
      * 
      *  @param scope the dspace object parent
      */
-    public DiscoverQuery prepareQuery(DSpaceObject scope, String query, String[] fqs) throws UIException, SearchServiceException {
+    public DiscoverQuery prepareQuery(DSpaceObject scope, String query, String[] fqs) throws SearchServiceException {
     	
     	this.queryArgs = new DiscoverQuery();
     	
@@ -924,7 +927,7 @@ public abstract class AbstractSearch extends AbstractDSpaceTransformer implement
 
 
     protected void buildSearchControls(Division div)
-            throws WingException, SQLException {
+            throws WingException, SQLException, UnsupportedEncodingException {
 
 
         DSpaceObject dso = HandleUtil.obtainHandle(objectModel);
@@ -943,7 +946,15 @@ public abstract class AbstractSearch extends AbstractDSpaceTransformer implement
 
         org.dspace.app.xmlui.wing.element.List sortOptions = sortList.addList("sort-selections");
         boolean selected = ("score".equals(currentSort) || (currentSort == null && searchSortConfiguration.getDefaultSort() == null));
-        sortOptions.addItem("relevance", "gear-option" + (selected ? " gear-option-selected" : "")).addXref("sort_by=score&order=" + searchSortConfiguration.getDefaultSortOrder(), T_sort_by_relevance);
+
+        Map<String, String> parameters = new HashMap<String, String>();
+        parameters.put("sort_by", "score");
+        parameters.put("order", "asc");
+
+        String pageURLSortedByRelevanceAsc = generateURL(parameters);
+        pageURLSortedByRelevanceAsc = addFilterQueriesToUrl(pageURLSortedByRelevanceAsc);
+
+        sortOptions.addItem("score", "gear-option" + (selected ? " gear-option-selected" : "")).addXref(pageURLSortedByRelevanceAsc, T_sort_by_relevance);
 
         if (currentSort == null
                 && searchSortConfiguration.getDefaultSort() != null)
@@ -971,9 +982,23 @@ public abstract class AbstractSearch extends AbstractDSpaceTransformer implement
                         && SORT_ORDER.asc.name().equals(sortOrder);
                 boolean selectedDesc = sortField.equals(currentSort)
                         && SORT_ORDER.desc.name().equals(sortOrder);
-                String sortFieldParam = "sort_by=" + sortField + "&order=";
-                sortOptions.addItem(sortField, "gear-option" + (selectedAsc ? " gear-option-selected" : "")).addXref(sortFieldParam + "asc", message("xmlui.Discovery.AbstractSearch.sort_by." + sortField + "_asc"));
-                sortOptions.addItem(sortField, "gear-option" + (selectedDesc ? " gear-option-selected" : "")).addXref(sortFieldParam + "desc", message("xmlui.Discovery.AbstractSearch.sort_by." + sortField + "_desc"));
+
+                Map<String, String> parametersAsc = new HashMap<String, String>();
+                parametersAsc.put("sort_by", sortField);
+                parametersAsc.put("order", "asc");
+
+                String pageURLSortedByFieldAsc = generateURL(parametersAsc);
+                pageURLSortedByFieldAsc = addFilterQueriesToUrl(pageURLSortedByFieldAsc);
+
+                Map<String, String> parametersDesc = new HashMap<String, String>();
+                parametersDesc.put("sort_by", sortField);
+                parametersDesc.put("order", "desc");
+
+                String pageURLSortedByFieldDesc = generateURL(parametersDesc);
+                pageURLSortedByFieldDesc = addFilterQueriesToUrl(pageURLSortedByFieldDesc);
+
+                sortOptions.addItem(sortField, "gear-option" + (selectedAsc ? " gear-option-selected" : "")).addXref(pageURLSortedByFieldAsc, message("xmlui.Discovery.AbstractSearch.sort_by." + sortField + "_asc"));
+                sortOptions.addItem(sortField, "gear-option" + (selectedDesc ? " gear-option-selected" : "")).addXref(pageURLSortedByFieldDesc, message("xmlui.Discovery.AbstractSearch.sort_by." + sortField + "_desc"));
             }
         }
 
@@ -982,7 +1007,12 @@ public abstract class AbstractSearch extends AbstractDSpaceTransformer implement
         org.dspace.app.xmlui.wing.element.List rppOptions = sortList.addList("rpp-selections");
         for (int i : RESULTS_PER_PAGE_PROGRESSION)
         {
-            rppOptions.addItem("rpp-" + i, "gear-option" + (i == getParameterRpp() ? " gear-option-selected" : "")).addXref("rpp=" + i, Integer.toString(i));
+            Map<String, String> parametersRpp = new HashMap<String, String>();
+            parametersRpp.put("rpp", Integer.toString(i));
+
+            String pageURLRpp = generateURL(parametersRpp);
+            pageURLRpp = addFilterQueriesToUrl(pageURLRpp);
+            rppOptions.addItem("rpp-" + i, "gear-option" + (i == getParameterRpp() ? " gear-option-selected" : "")).addXref(pageURLRpp, Integer.toString(i));
         }
     }
 

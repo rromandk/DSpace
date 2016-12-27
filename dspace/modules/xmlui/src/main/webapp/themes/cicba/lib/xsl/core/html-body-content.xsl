@@ -83,7 +83,7 @@
 				<form id="home-search-form" class="form-inline" role="form">
 					<xsl:attribute name="action"><xsl:value-of select="$search-url" /></xsl:attribute>
 				   <label for="q">
-				   		<i18n:text>xmlui.cicdigital.home.explore</i18n:text>
+				   		<i18n:text>xmlui.cicdigital.home.explore</i18n:text> (<xsl:value-of select="dri:div[@n='site-home']/dri:div[@n='total-items']"></xsl:value-of>  <i18n:text><xsl:value-of select="dri:div[@n='site-home']/dri:div[@n='total-items-message']"></xsl:value-of></i18n:text>)
 				   </label>
 				    <div class="container">
 				    	<div class="col-xs-10 col-sm-11">

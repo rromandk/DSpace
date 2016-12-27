@@ -54,6 +54,7 @@ public class SearchItemForm extends AbstractDSpaceTransformer {
 	private static final Message T_column2 = message("xmlui.administrative.mapper.SearchItemForm.column2");
 	private static final Message T_column3 = message("xmlui.administrative.mapper.SearchItemForm.column3");
 	private static final Message T_column4 = message("xmlui.administrative.mapper.SearchItemForm.column4");
+	private static final Message T_column5 = message("xmlui.administrative.mapper.SearchItemForm.column5");
 
     private static final Logger log = LoggerFactory.getLogger(SearchItemForm.class);
 
@@ -98,6 +99,7 @@ public class SearchItemForm extends AbstractDSpaceTransformer {
 		header.addCellContent(T_column2);
 		header.addCellContent(T_column3);
 		header.addCellContent(T_column4);
+		header.addCellContent(T_column5);
 		
 		for (Item item : items)
 		{
@@ -107,7 +109,7 @@ public class SearchItemForm extends AbstractDSpaceTransformer {
 			if (owningCollection != null)
 				owning = owningCollection.getName();
 			String author = "unknown";
-			List<MetadataValue> dcCreators = itemService.getMetadata(item, MetadataSchema.DC_SCHEMA, "creator", Item.ANY, Item.ANY);
+			List<MetadataValue> dcCreators = itemService.getMetadata(item, "dcterms", "creator", "author", Item.ANY, Item.ANY);
 			if (dcCreators != null && dcCreators.size() >= 1)
             {
                 author = dcCreators.get(0).getValue();
@@ -125,6 +127,13 @@ public class SearchItemForm extends AbstractDSpaceTransformer {
 			if (dcTitles != null && dcTitles.size() >= 1)
             {
                 title = dcTitles.get(0).getValue();
+            }
+			
+			String type = "unknown";
+			List<MetadataValue> dctypes = itemService.getMetadata(item, MetadataSchema.DC_SCHEMA, "type", Item.ANY, Item.ANY);
+			if (dctypes != null && dctypes.size() >= 1)
+            {
+                type = dctypes.get(0).getValue();
             }
 
 			String url = contextPath+"/handle/"+item.getHandle();
@@ -155,6 +164,7 @@ public class SearchItemForm extends AbstractDSpaceTransformer {
 			row.addCellContent(owning);
 			row.addCell().addXref(url,author);
 			row.addCell().addXref(url,title);
+			row.addCell().addXref(url,type);
 		}
 		
 		actions = div.addPara();

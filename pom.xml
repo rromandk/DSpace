@@ -4,7 +4,7 @@
     <groupId>org.dspace</groupId>
     <artifactId>dspace-parent</artifactId>
     <packaging>pom</packaging>
-    <version>6.0-rc2</version>
+    <version>6.0</version>
     <name>DSpace Parent Project</name>
     <description>
    	DSpace open source software is a turnkey institutional repository application.
@@ -24,6 +24,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>${project.build.sourceEncoding}</project.reporting.outputEncoding>
         <java.version>1.7</java.version>
+        <postgresql.driver.version>9.4.1211</postgresql.driver.version>
         <solr.version>4.10.4</solr.version>
         <jena.version>2.13.0</jena.version>
         <slf4j.version>1.7.14</slf4j.version>
@@ -494,6 +495,61 @@
         </profile>
 
         <!--
+            If building with Java 8 (JDK 1.8), then disable the default 'doclint' validation.
+            'doclint' validates all Javadoc comments (see http://openjdk.java.net/jeps/172).
+            Unfortunately though, it also causes our release process to fail with Java 8,
+            as DSpace still has several modules with invalid Javadoc comments.
+            While we hope to clean this up in the future, for now we are forced to disable it.
+            See DS-3154 for more info.
+        -->
+        <profile>
+            <id>doclint-java8-disable</id>
+            <activation>
+                <jdk>[1.8,)</jdk>
+            </activation>
+            <properties>
+                <!-- Note: ${javadoc.opts} is passed to maven-javadoc-plugin below -->
+                <javadoc.opts>-Xdoclint:none</javadoc.opts>
+            </properties>
+        </profile>
+        
+        <!-- PostgreSQL ships different JDBC drivers based on the version of Java
+             you are running. See https://jdbc.postgresql.org/download.html
+             These next two profiles handle pulling in the correct PostgreSQL JDBC driver. -->
+        <!-- Default PostgreSQL driver is only for Java 8 -->
+        <profile>
+            <id>postgresql-jdbc-default</id>
+            <activation>
+                <jdk>[1.8,)</jdk>
+            </activation>
+            <dependencyManagement>
+                <dependencies>
+                    <dependency>
+                        <groupId>org.postgresql</groupId>
+                        <artifactId>postgresql</artifactId>
+                        <version>${postgresql.driver.version}</version>
+                    </dependency>
+                </dependencies>
+            </dependencyManagement>
+        </profile>
+        <!-- If running Java 7, use JRE7 PostgreSQL driver -->
+        <profile>
+            <id>postgresql-jdbc-jre7</id>
+            <activation>
+                <jdk>[1.7,1.8)</jdk>
+            </activation>
+            <dependencyManagement>
+                <dependencies>
+                    <dependency>
+                        <groupId>org.postgresql</groupId>
+                        <artifactId>postgresql</artifactId>
+                        <version>${postgresql.driver.version}.jre7</version>
+                    </dependency>
+                </dependencies>
+            </dependencyManagement>
+        </profile>
+
+        <!--
            These profiles activate the inclusion of various modules into
            the DSpace Build process. They activate automatically if the
            source module is in the local file system, correctly located
@@ -720,7 +776,8 @@
                                  MUST be specified for server 'ossrh' -->
                             <serverId>ossrh</serverId>
                             <nexusUrl>https://oss.sonatype.org/</nexusUrl>
-                            <autoReleaseAfterClose>true</autoReleaseAfterClose>
+                            <!-- Require manual verification / release to Maven Central -->
+                            <autoReleaseAfterClose>false</autoReleaseAfterClose>
                         </configuration>
                     </plugin>
                     <!-- For new releases, generate Source JAR files -->
@@ -746,6 +803,9 @@
                                 <goals>
                                     <goal>aggregate-jar</goal>
                                 </goals>
+                                <configuration>
+                                    <additionalparam>${javadoc.opts}</additionalparam>
+                                </configuration>
                             </execution>
                         </executions>
                     </plugin>
@@ -782,114 +842,114 @@
             <dependency>
                 <groupId>org.dspace</groupId>
                 <artifactId>dspace-api</artifactId>
-                <version>6.0-rc2</version>
+                <version>6.0</version>
             </dependency>
             <dependency>
                 <groupId>org.dspace.modules</groupId>
                 <artifactId>additions</artifactId>
-                <version>6.0-rc2</version>
+                <version>6.0</version>
             </dependency>
 
             <dependency>
                 <groupId>org.dspace</groupId>
                 <artifactId>dspace-sword</artifactId>
-                <version>6.0-rc2</version>
+                <version>6.0</version>
                 <type>jar</type>
                 <classifier>classes</classifier>
             </dependency>
             <dependency>
                 <groupId>org.dspace</groupId>
                 <artifactId>dspace-sword</artifactId>
-                <version>6.0-rc2</version>
+                <version>6.0</version>
                 <type>war</type>
             </dependency>
             <dependency>
                 <groupId>org.dspace</groupId>
                 <artifactId>dspace-swordv2</artifactId>
-                <version>6.0-rc2</version>
+                <version>6.0</version>
                 <type>jar</type>
                 <classifier>classes</classifier>
             </dependency>
             <dependency>
                 <groupId>org.dspace</groupId>
                 <artifactId>dspace-swordv2</artifactId>
-                <version>6.0-rc2</version>
+                <version>6.0</version>
                 <type>war</type>
             </dependency>
             <dependency>
                 <groupId>org.dspace</groupId>
                 <artifactId>dspace-jspui</artifactId>
-                <version>6.0-rc2</version>
+                <version>6.0</version>
                 <type>jar</type>
                 <classifier>classes</classifier>
             </dependency>
             <dependency>
                 <groupId>org.dspace</groupId>
                 <artifactId>dspace-jspui</artifactId>
-                <version>6.0-rc2</version>
+                <version>6.0</version>
                 <type>war</type>
             </dependency>
             <dependency>
                 <groupId>org.dspace</groupId>
                 <artifactId>dspace-oai</artifactId>
-                <version>6.0-rc2</version>
+                <version>6.0</version>
                 <type>jar</type>
                 <classifier>classes</classifier>
             </dependency>
             <dependency>
                 <groupId>org.dspace</groupId>
                 <artifactId>dspace-oai</artifactId>
-                <version>6.0-rc2</version>
+                <version>6.0</version>
                 <type>war</type>
             </dependency>
             <dependency>
                 <groupId>org.dspace</groupId>
                 <artifactId>dspace-xmlui</artifactId>
-                <version>6.0-rc2</version>
+                <version>6.0</version>
                 <type>jar</type>
                 <classifier>classes</classifier>
             </dependency>
             <dependency>
                 <groupId>org.dspace</groupId>
                 <artifactId>dspace-xmlui</artifactId>
-                <version>6.0-rc2</version>
+                <version>6.0</version>
                 <type>war</type>
             </dependency>
             <dependency>
                 <groupId>org.dspace</groupId>
                 <artifactId>dspace-services</artifactId>
-                <version>6.0-rc2</version>
+                <version>6.0</version>
             </dependency>
             <dependency>
                 <groupId>org.dspace</groupId>
                 <artifactId>dspace-rdf</artifactId>
-                <version>6.0-rc2</version>
+                <version>6.0</version>
                 <type>war</type>
             </dependency>
             <dependency>
                 <groupId>org.dspace</groupId>
                 <artifactId>dspace-rest</artifactId>
-                <version>6.0-rc2</version>
+                <version>6.0</version>
                 <type>jar</type>
                 <classifier>classes</classifier>
             </dependency>
             <dependency>
                 <groupId>org.dspace</groupId>
                 <artifactId>dspace-rest</artifactId>
-                <version>6.0-rc2</version>
+                <version>6.0</version>
                 <type>war</type>
             </dependency>
             <dependency>
                 <groupId>org.dspace</groupId>
                 <artifactId>dspace-solr</artifactId>
-                <version>6.0-rc2</version>
+                <version>6.0</version>
                 <type>jar</type>
                 <classifier>classes</classifier>
             </dependency>
             <dependency>
                 <groupId>org.dspace</groupId>
                 <artifactId>dspace-solr</artifactId>
-                <version>6.0-rc2</version>
+                <version>6.0</version>
                 <type>war</type>
                 <classifier>skinny</classifier>
             </dependency>
@@ -1118,12 +1178,12 @@
             <dependency>
                 <groupId>org.apache.pdfbox</groupId>
                 <artifactId>pdfbox</artifactId>
-                <version>2.0.0</version>
+                <version>2.0.2</version>
             </dependency>
             <dependency>
                 <groupId>org.apache.pdfbox</groupId>
                 <artifactId>fontbox</artifactId>
-                <version>2.0.0</version>
+                <version>2.0.2</version>
             </dependency>
             <dependency>
 	        <groupId>org.bouncycastle</groupId>
@@ -1212,11 +1272,6 @@
                 <groupId>com.ibm.icu</groupId>
                 <artifactId>icu4j</artifactId>
                 <version>56.1</version>
-            </dependency>
-            <dependency>
-                <groupId>org.postgresql</groupId>
-                <artifactId>postgresql</artifactId>
-                <version>9.4-1206-jdbc41</version>
             </dependency>
             <dependency>
                 <groupId>com.oracle</groupId>
@@ -1452,15 +1507,13 @@
     </contributors>
 
     <!--
-      The SCM repository location is used by Continuum to update against
-      when changes have occurred.  This spawns a new build cycle and releases
-      snapshots into the snapshot repository below.
+      Information about the SCM repository where source code exists.
     -->
     <scm>
         <connection>scm:git:git@github.com:DSpace/DSpace.git</connection>
         <developerConnection>scm:git:git@github.com:DSpace/DSpace.git</developerConnection>
         <url>git@github.com:DSpace/DSpace.git</url>
-        <tag>dspace-6.0-rc2</tag>
+        <tag>dspace-6.0</tag>
     </scm>
 
 
