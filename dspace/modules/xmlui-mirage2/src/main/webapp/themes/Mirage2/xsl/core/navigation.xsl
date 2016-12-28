@@ -125,17 +125,19 @@
             
             <!-- Cambio el orden para respetar el prototipo sugerido en https://github.com/uner-digital/DSpace/issues/24 -->
             <xsl:apply-templates select="dri:list[@n='browse']"/>
-            
             <xsl:call-template name="addStaticPages"/>
+            
             
             <xsl:choose>
                 <xsl:when test="contains(/dri:document/dri:meta/dri:pageMeta/dri:metadata[@element='request'][@qualifier='URI'], 'discover')">
-                    <xsl:apply-templates select="dri:list[@n!='browse']"/>
+		            <xsl:apply-templates select="dri:list[@n='discovery']"/>
                 </xsl:when>
                 <xsl:otherwise>
-                    <xsl:apply-templates select="dri:list[@n!='browse' and @n!='discovery'] | dri:list[@n='discovery']/dri:list[@n!='author']"/>
+                    <xsl:apply-templates select="dri:list[@n='discovery']/dri:list[@n!='author']"/>
                 </xsl:otherwise>
             </xsl:choose>
+            <xsl:apply-templates select="dri:list[@n='statistics']"/>
+            
             
         </div>
     </xsl:template>

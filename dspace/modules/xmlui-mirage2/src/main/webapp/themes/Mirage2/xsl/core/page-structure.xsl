@@ -32,7 +32,7 @@
                 xmlns:confman="org.dspace.core.ConfigurationManager"
                 xmlns:xmlui="xalan://ar.edu.unlp.sedici.dspace.xmlui.util.XSLTHelper"
                 exclude-result-prefixes="i18n dri mets xlink xsl dim xhtml mods dc confman xmlui">
-
+    
     <xsl:output method="xml" encoding="UTF-8" indent="yes"/>
 
     <!--
@@ -365,7 +365,7 @@
             <div class="container">
                 <div class="row">
                     <!--TODO-->
-                    <div class="col-xs-6">
+                    <div class="col-xs-4">
                         <xsl:choose>
                             <xsl:when test="count(/dri:document/dri:meta/dri:pageMeta/dri:trail) > 1">
                                 <div class="breadcrumb dropdown visible-xs">
@@ -400,10 +400,32 @@
                             </xsl:otherwise>
                         </xsl:choose>
                     </div>
-                    <div class="col-xs-pull-6 pull-right">
+                    <div class="col-xs-pull-8 pull-right">
 	                    <div class="navbar-header hidden-xs">
 	                        <ul class="nav navbar-nav">
-	                              <xsl:call-template name="languageSelection"/>
+								<xsl:if test="dri:options/dri:list[@id='aspect.viewArtifacts.Navigation.list.context']/dri:item">
+									<xsl:call-template name="topright-element">
+										<xsl:with-param name="element" select="'context'" />
+									</xsl:call-template>
+								</xsl:if>
+	                        </ul>
+	                        <ul class="nav navbar-nav">
+								<xsl:if test="dri:options/dri:list[@id='aspect.viewArtifacts.Navigation.list.administrative']/dri:item">
+									<xsl:call-template name="topright-element">
+										<xsl:with-param name="element" select="'administrative'" />
+									</xsl:call-template>
+								</xsl:if>
+	                        </ul>
+	                        <ul class="nav navbar-nav">
+								<xsl:if test="dri:options/dri:list[@id='aspect.viewArtifacts.Navigation.list.account']/dri:item">
+									<xsl:call-template name="topright-element">
+										<xsl:with-param name="element" select="'account'" />
+									</xsl:call-template>
+								</xsl:if>
+	                        </ul>
+
+	                        <ul class="nav navbar-nav">
+	                        	<xsl:call-template name="languageSelection"/>
 	                        </ul>
 	                        <ul class="nav navbar-nav visible-xs">
 	                            <xsl:choose>
@@ -973,6 +995,33 @@
         </xsl:if>
     </xsl:template>
     
+    <xsl:template name="topright-element">
+        <xsl:param name="element"></xsl:param>
+    	<xsl:variable name="elementId" select="concat('aspect.viewArtifacts.Navigation.list.',$element)" />
+    	
+    	<li class="dropdown">
+    		<a id="context-dropdown-toggle" href="#" role="button" class="dropdown-toggle" data-toggle="dropdown">
+    			<span class="hidden-xs">
+    				<i18n:text><xsl:value-of select="dri:options/dri:list[@id=$elementId]/dri:head"></xsl:value-of></i18n:text>
+    				<b class="caret"/>
+				</span>
+			</a>
+			<ul class="dropdown-menu pull-right" role="menu" aria-labelledby="language-dropdown-toggle" data-no-collapse="true">
+				<xsl:for-each select="dri:options/dri:list[@id=$elementId]/dri:item">
+					<li>
+						<a>
+							<xsl:attribute name="href">
+			                    <xsl:value-of select="./dri:xref/@target"/>
+			                </xsl:attribute>
+
+							<i18n:text><xsl:value-of select="./dri:xref//i18n:text"></xsl:value-of></i18n:text>
+						</a>
+					</li>
+				</xsl:for-each>
+			</ul>
+	    </li>        
+	</xsl:template>
+
     <xsl:template name="addPageTitle">
         <xsl:variable name="page_title" select="/dri:document/dri:meta/dri:pageMeta/dri:metadata[@element='title'][last()]" />
             <title>
