@@ -31,7 +31,16 @@
 
     <xsl:template match="dri:div[@id='aspect.eperson.PasswordLogin.div.register']">
             <div class="col-md-6 register-wrapper">
-                <xsl:apply-templates/>
+                <h3 class="div-head">
+                	<i18n:text><xsl:value-of select="./dri:head"></xsl:value-of></i18n:text>
+                </h3>
+                <p><i18n:text><xsl:value-of select="./dri:p"></xsl:value-of></i18n:text></p>
+				<a class="btn btn-default" role="button">
+					<xsl:attribute name="href">
+	                    <xsl:value-of select="./dri:p/dri:xref/@target"/>
+	                </xsl:attribute>
+					<i18n:text><xsl:value-of select="./dri:p/dri:xref//i18n:text"></xsl:value-of></i18n:text>
+				</a>
             </div> 
     </xsl:template>
 
