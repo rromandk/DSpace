@@ -115,6 +115,7 @@
 					<xsl:with-param name="field" select="'dcterms.creator.*'" />
 					<xsl:with-param name="show_label" select="'false'" />
 					<xsl:with-param name="container" select="'span'" />
+					<xsl:with-param name="is_linked_authority" select="'true'" />
 				</xsl:call-template>
 				 - <xsl:call-template name="render-metadata">
 					<xsl:with-param name="field" select="'dcterms.issued'" />
@@ -218,11 +219,13 @@
                         <xsl:with-param name="field" select="'dcterms.subject.materia'" />
                         <xsl:with-param name="show_label" select="'true'" />
                         <xsl:with-param name="container" select="'span'" />
+                        <xsl:with-param name="is_linked_authority" select="'true'" />
 				    </xsl:call-template>
                     <xsl:call-template name="render-metadata">
                         <xsl:with-param name="field" select="'dcterms.subject'" />
                         <xsl:with-param name="show_label" select="'true'" />
                         <xsl:with-param name="container" select="'span'" />
+                        <xsl:with-param name="is_linked_authority" select="'true'" />
 				    </xsl:call-template>
 				    <xsl:call-template name="render-metadata">
 						<xsl:with-param name="field" select="'dcterms.relation'" />
@@ -1028,6 +1031,18 @@
                      -->
                     <xsl:when test="@qualifier='issue' and @element='isPartOf'">
                         <xsl:value-of select="text()" />
+                    </xsl:when>
+                    <xsl:when test="@element='creator'">
+                        <xsl:call-template name="build-anchor">
+                            <xsl:with-param name="a.href" select="concat('/browse?type=author', '&amp;', 'value=', text())"/>
+                            <xsl:with-param name="a.value" select="text()"/>
+                        </xsl:call-template>
+                    </xsl:when>
+                    <xsl:when test="@element='subject'">
+                        <xsl:call-template name="build-anchor">
+                            <xsl:with-param name="a.href" select="concat('/browse?type=subject', '&amp;', 'value=', text())"/>
+                            <xsl:with-param name="a.value" select="text()"/>
+                        </xsl:call-template>
                     </xsl:when>
                     <xsl:otherwise>
                         <xsl:call-template name="build-anchor">
