@@ -194,8 +194,8 @@ input.ds-authority-lock{
 }
 
 
-.breadcrumb *{ 
-  color: #eeeeee !important;
+.breadcrumb, .breadcrumb:hover, .breadcrumb:focus, breadcrumb:active {
+  color: #eeeeee;
 }
 
 .trail-wrapper .breadcrumb > .active {
@@ -322,4 +322,12 @@ header {
 .register-wrapper{
 	background-color: #eeeeee;
 	padding-bottom: 20px;
+}
+
+.breadcrumb.hidden-xs > li > a{
+	color: white;
+}
+
+#trail-dropdown-toggle{
+	color: white;
 }
