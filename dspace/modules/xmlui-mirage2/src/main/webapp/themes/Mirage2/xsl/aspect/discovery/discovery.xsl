@@ -212,7 +212,11 @@
                             </xsl:when>
                     		<xsl:when test="dri:list[(@n=(concat($handle, ':dcterms.creator.corporate')) or @n=(concat($handle, ':dcterms.creator.author')) or @n=(concat($handle, ':dcterms.creator.compilator')) or @n=(concat($handle, ':dcterms.creator.editor'))) and descendant::text()]">
                                 <xsl:for-each select="dri:list[(@n=(concat($handle, ':dcterms.creator.corporate')) or @n=(concat($handle, ':dcterms.creator.author')) or @n=(concat($handle, ':dcterms.creator.compilator')) or @n=(concat($handle, ':dcterms.creator.editor'))) and descendant::text()]/dri:item">
-                                    <xsl:apply-templates select="."/><xsl:text>; </xsl:text>
+                                    <xsl:call-template name="build-anchor">
+			                            <xsl:with-param name="a.href" select="concat('/browse?type=author', '&amp;', 'value=', text())"/>
+			                            <xsl:with-param name="a.value" select="text()"/>
+			                        </xsl:call-template>
+			                        <xsl:text>; </xsl:text>
                                 </xsl:for-each>
                             </xsl:when>
                             <xsl:when test="dri:list[@n=(concat($handle, ':dc.creator'))]">
