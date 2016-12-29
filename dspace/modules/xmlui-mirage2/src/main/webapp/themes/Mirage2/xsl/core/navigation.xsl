@@ -125,9 +125,9 @@
             
             <!-- Cambio el orden para respetar el prototipo sugerido en https://github.com/uner-digital/DSpace/issues/24 -->
             <xsl:apply-templates select="dri:list[@n='browse']"/>
+            <xsl:apply-templates select="dri:list[@n='account']"/>
             <xsl:call-template name="addStaticPages"/>
-            
-            
+                        
             <xsl:choose>
                 <xsl:when test="contains(/dri:document/dri:meta/dri:pageMeta/dri:metadata[@element='request'][@qualifier='URI'], 'discover')">
 		            <xsl:apply-templates select="dri:list[@n='discovery']"/>
@@ -212,6 +212,18 @@
 
     <xsl:template match="dri:options/dri:list" priority="3">
         <xsl:if test="@n!='statistics'">
+        <xsl:choose>
+        	<xsl:when test="@n='account'">
+            <xsl:apply-templates select="dri:head"/>
+	            <div>
+	                <xsl:call-template name="standardAttributes">
+	                    <xsl:with-param name="class">list-group visible-xs</xsl:with-param>
+	                </xsl:call-template>
+	                <xsl:apply-templates select="dri:item"/>
+	                <xsl:apply-templates select="dri:list"/>
+	            </div>
+			</xsl:when>	        
+	        <xsl:otherwise>
             <xsl:apply-templates select="dri:head"/>
             <div>
                 <xsl:call-template name="standardAttributes">
@@ -220,6 +232,9 @@
                 <xsl:apply-templates select="dri:item"/>
                 <xsl:apply-templates select="dri:list"/>
             </div>
+	        </xsl:otherwise>
+        </xsl:choose>
+
         </xsl:if>
     </xsl:template>
 
@@ -251,9 +266,18 @@
     </xsl:template>
 
     <xsl:template match="dri:options/dri:list/dri:head" priority="3">
-        <xsl:call-template name="renderHead">
-            <xsl:with-param name="class">ds-option-set-head</xsl:with-param>
-        </xsl:call-template>
+        <xsl:choose>
+        	<xsl:when test="ancestor::dri:list[@n='account']">
+				<xsl:call-template name="renderHead">
+		            <xsl:with-param name="class">ds-option-set-head visible-xs</xsl:with-param>
+		        </xsl:call-template>
+			</xsl:when>	        
+	        <xsl:otherwise>
+		        <xsl:call-template name="renderHead">
+		            <xsl:with-param name="class">ds-option-set-head</xsl:with-param>
+		        </xsl:call-template>
+	        </xsl:otherwise>
+        </xsl:choose>
     </xsl:template>
 
     <xsl:template match="dri:options/dri:list//dri:list/dri:head" priority="3">
@@ -271,5 +295,5 @@
     </xsl:template>
 
     <xsl:template match="dri:list[count(child::*)=0]"/>
-
+    
 </xsl:stylesheet>
