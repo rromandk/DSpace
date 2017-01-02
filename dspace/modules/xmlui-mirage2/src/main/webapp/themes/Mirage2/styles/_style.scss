@@ -327,3 +327,9 @@ header {
 #context-dropdown-toggle:hover, #context-dropdown-toggle:focus {
   background-color: #b86198;
 }
+
+div#aspect\.discovery\.SiteRecentSubmissions\.div\.total-items{
+	color: silver;
+	font-size: 0.9em;
+	#total-items{ font-weight: bold; }
+}

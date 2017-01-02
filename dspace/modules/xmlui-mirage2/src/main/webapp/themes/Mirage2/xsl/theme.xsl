@@ -49,6 +49,7 @@
     <xsl:import href="aspect/artifactbrowser/collection-list.xsl"/>
     <xsl:import href="aspect/artifactbrowser/browse.xsl"/>
     <xsl:import href="aspect/discovery/discovery.xsl"/>
+    <xsl:import href="aspect/discovery/recent-submissions.xsl"/>
     <xsl:import href="aspect/artifactbrowser/one-offs.xsl"/>
     <xsl:import href="aspect/submission/submission.xsl"/>
     <xsl:import href="aspect/eperson/passwordLogin.xsl"/>

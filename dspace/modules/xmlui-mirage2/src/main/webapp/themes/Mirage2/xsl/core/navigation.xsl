@@ -119,6 +119,10 @@
                                 </div>
                             </xsl:if>
                         </fieldset>
+                        <!-- Mostrar cantidad total de items en el repositorio -->
+                        <xsl:if test="/dri:document/dri:body/dri:div[@n='site-home']/dri:div[@n='total-items']">
+                        	<xsl:call-template name="show-total-items"/>
+                        </xsl:if>
                     </form>
                 </div>
             </xsl:if>

@@ -96,7 +96,7 @@
 <message key="xmlui.unerdigital.trail.como-subir-material">How to upload material</message>
 
 	<!-- Home messages -->
-<message key="xmlui.cicdigital.home.items-totales"> Available Items</message>
+<message key="xmlui.cicdigital.home.items-totales"> Available Items in repository</message>
 <message key="xmlui.cicdigital.home.centros">centers</message>
 <message key="xmlui.cicdigital.home.subir-material">Upload material</message>
 <message key="xmlui.cicdigital.home.subir-material-descripcion">Through the process of auto-archive you can contribute with their own research and scientific developments to the content within the Institutional Repository of the Comisión de Investigaciones Científicas de la Provincia de Buenos Aires.</message>
