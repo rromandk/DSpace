@@ -188,12 +188,6 @@ input.ds-authority-lock{
   border-bottom: 1px solid #8b9eb2;
 }
 
-
-.nav *{
-  color: #eeeeee;
-}
-
-
 .breadcrumb, .breadcrumb:hover, .breadcrumb:focus, breadcrumb:active {
   color: #eeeeee;
 }
@@ -220,12 +214,8 @@ input.ds-authority-lock{
     border-color: #35aae9;
 }
 
-.nav > li > a:hover, .nav > li > a:focus{
+#language-dropdown-toggle:hover, #language-dropdown-toggle:focus {
   background-color: #b86198;
-}
-
-.nav .open > a, .nav .open > a:hover, .nav .open > a:focus {
-  background-color: #b35691;
 }
 
 header {
@@ -276,14 +266,6 @@ header {
 	height: 50px;
 }
 
-#aspect_administrative_ControlPanel_list_options > li{
-  background-color: #eee;
-}
-
-.nav-tabs > li > a {
-  color: black;
-}
-
 .metadata-label {
 	background-color: #b35691;
 	color: white;
@@ -330,4 +312,18 @@ header {
 
 #trail-dropdown-toggle{
 	color: white;
+}
+
+#context-dropdown-toggle:hover, #context-dropdown-toggle:focus {
+  text-decoration: none;
+  background-color: #eeeeee;
+}
+
+#context-dropdown-toggle, #language-dropdown-toggle {
+  color: rgb(238, 238, 238);
+  text-decoration: none;
+}
+
+#context-dropdown-toggle:hover, #context-dropdown-toggle:focus {
+  background-color: #b86198;
 }
