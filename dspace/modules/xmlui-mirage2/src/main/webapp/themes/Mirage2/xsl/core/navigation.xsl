@@ -130,6 +130,8 @@
             <!-- Cambio el orden para respetar el prototipo sugerido en https://github.com/uner-digital/DSpace/issues/24 -->
             <xsl:apply-templates select="dri:list[@n='browse']"/>
             <xsl:apply-templates select="dri:list[@n='account']"/>
+            <xsl:apply-templates select="dri:list[@n='context']"/>
+            <xsl:apply-templates select="dri:list[@n='administrative']"/>
             <xsl:call-template name="addStaticPages"/>
                         
             <xsl:choose>
@@ -217,11 +219,11 @@
     <xsl:template match="dri:options/dri:list" priority="3">
         <xsl:if test="@n!='statistics'">
         <xsl:choose>
-        	<xsl:when test="@n='account'">
+        	<xsl:when test="@n='account' or @n='administrative'or @n='context'">
             <xsl:apply-templates select="dri:head"/>
 	            <div>
 	                <xsl:call-template name="standardAttributes">
-	                    <xsl:with-param name="class">list-group visible-xs</xsl:with-param>
+	                    <xsl:with-param name="class">list-group visible-xs visible-sm</xsl:with-param>
 	                </xsl:call-template>
 	                <xsl:apply-templates select="dri:item"/>
 	                <xsl:apply-templates select="dri:list"/>

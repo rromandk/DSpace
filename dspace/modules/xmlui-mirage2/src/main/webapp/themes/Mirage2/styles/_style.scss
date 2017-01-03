@@ -324,8 +324,18 @@ header {
   text-decoration: none;
 }
 
-#context-dropdown-toggle:hover, #context-dropdown-toggle:focus {
+.nav .open > #context-dropdown-toggle, #context-dropdown-toggle:hover, #context-dropdown-toggle:focus {
   background-color: #b86198;
+}
+
+.submenu-header{
+	color: white;
+	border-radius: 0;
+	background-color: #76c5f0;
+    border-color: #76c5f0;
+    padding: 3px 20px;
+    clear: both;
+    font-weight: normal;
 }
 
 div#aspect\.discovery\.SiteRecentSubmissions\.div\.total-items{

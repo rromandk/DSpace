@@ -401,7 +401,7 @@
                         </xsl:choose>
                     </div>
                     <div class="col-xs-pull-5 pull-right">
-	                    <div class="navbar-header hidden-xs">
+	                    <div class="navbar-header hidden-xs hidden-sm">
 	                        <ul class="nav navbar-nav">
 								<xsl:if test="dri:options/dri:list[@id='aspect.viewArtifacts.Navigation.list.context']/dri:item">
 									<xsl:call-template name="topright-element">
@@ -1014,10 +1014,37 @@
 			                    <xsl:value-of select="./dri:xref/@target"/>
 			                </xsl:attribute>
 
-							<i18n:text><xsl:value-of select="./dri:xref//i18n:text"></xsl:value-of></i18n:text>
+							<i18n:text><xsl:value-of select="./dri:xref/i18n:text"></xsl:value-of></i18n:text>
 						</a>
 					</li>
 				</xsl:for-each>
+				<xsl:for-each select="dri:options/dri:list[@id=$elementId]/dri:list">
+						<xsl:for-each select="./*">
+							<li>
+								<xsl:choose>
+									<xsl:when test="name(.)='head'">
+										<div>
+							                <xsl:attribute name="class">
+							                	<xsl:value-of select="'submenu-header'"></xsl:value-of>
+							                </xsl:attribute>
+				
+											<i18n:text><xsl:value-of select="."></xsl:value-of></i18n:text>
+										</div>
+									</xsl:when>
+									<xsl:otherwise>
+										<a>
+											<xsl:attribute name="href">
+							                    <xsl:value-of select="./dri:xref/@target"/>
+							                </xsl:attribute>
+				
+											<i18n:text><xsl:value-of select="./dri:xref/i18n:text"></xsl:value-of></i18n:text>
+										</a>
+									</xsl:otherwise>
+								</xsl:choose>
+							</li>
+						</xsl:for-each>
+				</xsl:for-each>
+				
 			</ul>
 	    </li>        
 	</xsl:template>
