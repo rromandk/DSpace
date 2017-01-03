@@ -273,9 +273,9 @@
 
     <xsl:template match="dri:options/dri:list/dri:head" priority="3">
         <xsl:choose>
-        	<xsl:when test="ancestor::dri:list[@n='account']">
+        	<xsl:when test="ancestor::dri:list[@n='account' or @n='administrative'or @n='context']">
 				<xsl:call-template name="renderHead">
-		            <xsl:with-param name="class">ds-option-set-head visible-xs</xsl:with-param>
+		            <xsl:with-param name="class">ds-option-set-head visible-xs visible-sm</xsl:with-param>
 		        </xsl:call-template>
 			</xsl:when>	        
 	        <xsl:otherwise>
