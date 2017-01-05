@@ -692,75 +692,75 @@
     
     <value-pairs value-pairs-name="uner_cc_licences" dc-term="dcterms_license">
 		<pair>
-			<displayed-value>Creative Commons Atribución 4.0 Internacional</displayed-value>
+			<displayed-value>Creative Commons Atribución 4.0 Internacional (BY 4.0)</displayed-value>
 			<stored-value>http://creativecommons.org/licenses/by/4.0/</stored-value>
 		</pair>
 		<pair>
-			<displayed-value>Creative Commons Atribución - Compartir Igual 4.0 Internacional</displayed-value>
+			<displayed-value>Creative Commons Atribución - Compartir Igual 4.0 Internacional (BY-SA 4.0)</displayed-value>
 			<stored-value>http://creativecommons.org/licenses/by-sa/4.0/</stored-value>
 		</pair>
 		<pair>
-			<displayed-value>Creative Commons Atribución - Sin Obra Derivada 4.0 Internacional</displayed-value>
+			<displayed-value>Creative Commons Atribución - Sin Obra Derivada 4.0 Internacional (BY-ND 4.0)</displayed-value>
 			<stored-value>http://creativecommons.org/licenses/by-nd/4.0/</stored-value>
 		</pair>
 		<pair>
-			<displayed-value>Creative Commons Atribución - No Comercial 4.0 Internacional</displayed-value>
+			<displayed-value>Creative Commons Atribución - No Comercial 4.0 Internacional (BY-NC 4.0)</displayed-value>
 			<stored-value>http://creativecommons.org/licenses/by-nc/4.0/</stored-value>
 		</pair>
 		<pair>
-			<displayed-value>Creative Commons Atribución - No comercial - Compartir Igual 4.0 Internacional</displayed-value>
+			<displayed-value>Creative Commons Atribución - No comercial - Compartir Igual 4.0 Internacional (BY-NC-SA 4.0)</displayed-value>
 			<stored-value>http://creativecommons.org/licenses/by-nc-sa/4.0/</stored-value>
 		</pair>
 		<pair>
-			<displayed-value>Creative Commons Atribución - No Comercial - Sin Obra Derivada 4.0 Internacional</displayed-value>
+			<displayed-value>Creative Commons Atribución - No Comercial - Sin Obra Derivada 4.0 Internacional (BY-NC-ND 4.0)</displayed-value>
 			<stored-value>http://creativecommons.org/licenses/by-nc-nd/4.0/</stored-value>
 		</pair>
 		<pair>
-			<displayed-value>Creative Commons Atribución 3.0 Genérica</displayed-value>
+			<displayed-value>Creative Commons Atribución 3.0 Genérica (BY 3.0)</displayed-value>
 			<stored-value>http://creativecommons.org/licenses/by/4.0/</stored-value>
 		</pair>
 		<pair>
-			<displayed-value>Creative Commons Atribución - Compartir Igual 3.0 Genérica</displayed-value>
+			<displayed-value>Creative Commons Atribución - Compartir Igual 3.0 Genérica (BY-SA 3.0)</displayed-value>
 			<stored-value>http://creativecommons.org/licenses/by-sa/4.0/</stored-value>
 		</pair>
 		<pair>
-			<displayed-value>Creative Commons Atribución - Sin Obra Derivada 3.0 Genérica</displayed-value>
+			<displayed-value>Creative Commons Atribución - Sin Obra Derivada 3.0 Genérica (BY-ND 3.0)</displayed-value>
 			<stored-value>http://creativecommons.org/licenses/by-nd/4.0/</stored-value>
 		</pair>
 		<pair>
-			<displayed-value>Creative Commons Atribución - No Comercial 3.0 Genérica</displayed-value>
+			<displayed-value>Creative Commons Atribución - No Comercial 3.0 Genérica (BY-NC 3.0)</displayed-value>
 			<stored-value>http://creativecommons.org/licenses/by-nc/4.0/</stored-value>
 		</pair>
 		<pair>
-			<displayed-value>Creative Commons Atribución - No comercial - Compartir Igual 3.0 Genérica</displayed-value>
+			<displayed-value>Creative Commons Atribución - No comercial - Compartir Igual 3.0 Genérica (BY-NC-SA 3.0)</displayed-value>
 			<stored-value>http://creativecommons.org/licenses/by-nc-sa/4.0/</stored-value>
 		</pair>
 		<pair>
-			<displayed-value>Creative Commons Atribución - No Comercial - Sin Obra Derivada 3.0 Genérica</displayed-value>
+			<displayed-value>Creative Commons Atribución - No Comercial - Sin Obra Derivada 3.0 Genérica (BY-NC-ND 3.0)</displayed-value>
 			<stored-value>http://creativecommons.org/licenses/by-nc-nd/4.0/</stored-value>
 		</pair>
 		<pair>
-			<displayed-value>Creative Commons Atribución 2.5 Genérica</displayed-value>
+			<displayed-value>Creative Commons Atribución 2.5 Genérica (BY 2.5)</displayed-value>
 			<stored-value>http://creativecommons.org/licenses/by/4.0/</stored-value>
 		</pair>
 		<pair>
-			<displayed-value>Creative Commons Atribución - Compartir Igual 2.5 Genérica</displayed-value>
+			<displayed-value>Creative Commons Atribución - Compartir Igual 2.5 Genérica (BY-SA 2.5)</displayed-value>
 			<stored-value>http://creativecommons.org/licenses/by-sa/4.0/</stored-value>
 		</pair>
 		<pair>
-			<displayed-value>Creative Commons Atribución - Sin Obra Derivada 2.5 Genérica</displayed-value>
+			<displayed-value>Creative Commons Atribución - Sin Obra Derivada 2.5 Genérica (BY-ND 2.5)</displayed-value>
 			<stored-value>http://creativecommons.org/licenses/by-nd/4.0/</stored-value>
 		</pair>
 		<pair>
-			<displayed-value>Creative Commons Atribución - No Comercial 2.5 Genérica</displayed-value>
+			<displayed-value>Creative Commons Atribución - No Comercial 2.5 Genérica (BY-NC 2.5)</displayed-value>
 			<stored-value>http://creativecommons.org/licenses/by-nc/4.0/</stored-value>
 		</pair>
 		<pair>
-			<displayed-value>Creative Commons Atribución - No comercial - Compartir Igual 2.5 Genérica</displayed-value>
+			<displayed-value>Creative Commons Atribución - No comercial - Compartir Igual 2.5 Genérica (BY-NC-SA 2.5)</displayed-value>
 			<stored-value>http://creativecommons.org/licenses/by-nc-sa/4.0/</stored-value>
 		</pair>
 		<pair>
-			<displayed-value>Creative Commons Atribución - No Comercial - Sin Obra Derivada 2.5 Genérica</displayed-value>
+			<displayed-value>Creative Commons Atribución - No Comercial - Sin Obra Derivada 2.5 Genérica (BY-NC-ND 2.5)</displayed-value>
 			<stored-value>http://creativecommons.org/licenses/by-nc-nd/4.0/</stored-value>
 		</pair>
 	</value-pairs>
