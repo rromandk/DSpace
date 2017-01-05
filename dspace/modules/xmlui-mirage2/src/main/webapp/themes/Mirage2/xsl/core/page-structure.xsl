@@ -1014,7 +1014,7 @@
 			                    <xsl:value-of select="./dri:xref/@target"/>
 			                </xsl:attribute>
 
-							<i18n:text><xsl:value-of select="./dri:xref/i18n:text"></xsl:value-of></i18n:text>
+							<i18n:text><xsl:value-of select="./dri:xref//i18n:text"></xsl:value-of></i18n:text>
 						</a>
 					</li>
 				</xsl:for-each>
@@ -1037,7 +1037,7 @@
 							                    <xsl:value-of select="./dri:xref/@target"/>
 							                </xsl:attribute>
 				
-											<i18n:text><xsl:value-of select="./dri:xref/i18n:text"></xsl:value-of></i18n:text>
+											<i18n:text><xsl:value-of select="./dri:xref//i18n:text"></xsl:value-of></i18n:text>
 										</a>
 									</xsl:otherwise>
 								</xsl:choose>
