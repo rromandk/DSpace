@@ -157,19 +157,38 @@ Common usage:
     <!-- ============================================================= -->
     <!-- clean out backup directories                  -->
     <!-- ============================================================= -->
+    <target name="clean_backups_but_last" if="dir_prefix">
+	<!-- 'dir_prefix'[PARAM]: the prefix of the .bak directory (example: 'etc')-->
+	<!-- 'num_to_preserve' number of backups to preserve -->
+	<var name="num_to_preserve" value="1" />
+	<echo message="Deleting '${dir_prefix}.bak-*' backup directories..." />
+        <exec executable="sh">
+            <arg value="-c"/>
+            <arg value="if [ ! -z &quot;`ls -x1d ${dspace.dir}/${dir_prefix}.bak-* 2&gt; /dev/null | head -n -${num_to_preserve}`&quot; ]; then 
+                            ls -x1d ${dspace.dir}/${dir_prefix}.bak-* | head -n -${num_to_preserve} | xargs rm -rf;                          
+                        else
+			    echo &quot; No backup directory was deleted. &quot;;
+			fi"/>
+        </exec>
+    </target>
+    
     <target name="clean_backups">
-        <delete includeemptydirs="true">
-            <fileset dir="${dspace.dir}" includes="lib.bak-**/**" />
-        </delete>
-        <delete includeemptydirs="true">
-            <fileset dir="${dspace.dir}" includes="etc.bak-**/**" />
-        </delete>
-        <delete includeemptydirs="true">
-            <fileset dir="${dspace.dir}" includes="webapps.bak-**/**" />
-        </delete>
-        <delete includeemptydirs="true">
-            <fileset dir="${dspace.dir}" includes="bin.bak-**/**" />
-        </delete>
+	<!-- Clean etc.bak-* -->
+	<antcall target="clean_backups_but_last">
+	    <param name="dir_prefix" value="etc"/>
+        </antcall>
+	<!-- Clean lib.bak-* -->
+	<antcall target="clean_backups_but_last">
+	    <param name="dir_prefix" value="lib"/>
+        </antcall>
+	<!-- Clean webapps.bak-* -->
+	<antcall target="clean_backups_but_last">
+	    <param name="dir_prefix" value="webapps"/>
+        </antcall>
+	<!-- Clean bin.bak-* -->
+	<antcall target="clean_backups_but_last">
+	    <param name="dir_prefix" value="bin"/>
+        </antcall>
     </target>
 
     <!-- ============================================================= -->
