@@ -59,12 +59,8 @@ update()
 	
 	show_message "ESPACIO OCUPADO POR BACKUPS"
 	find $DSPACE_DIR -name *.bak-* -exec du -sh {} \;
-	show_message "¿Desea eliminar los directorio de backup en el directorio de instalación? [Yy-Nn]"
-	read continuar
-	if [[ "$continuar" == [Yy] ]]; then
-		show_message "eliminamos directorios de bkp viejos"
-		ant clean_backups -Ddspace.dir=$DSPACE_DIR
-	fi
+	show_message "ELIMINACIÓN DE DIRECTORIO DE BACKUPS (EXCEPTO EL ÚLTIMO GENERADO)"
+	ant clean_backups -Ddspace.dir=$DSPACE_DIR
 	
 	show_message "Limpiando directorio temporales creados por 'mvn'"
 	cd $DSPACE_SRC
