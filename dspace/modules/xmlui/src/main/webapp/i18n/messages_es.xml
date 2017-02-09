@@ -1031,17 +1031,17 @@
 <message key="xmlui.XMLWorkflow.autoarchive.CIC-ADMIN_review.changecollection">Selección de colección destino RIUNER</message>
 
 <message key="xmlui.XMLWorkflow.autoarchive.UNER-ADMIN-review.claimaction">Revisión Administrador RIUNER</message>
-<message key="xmlui.XMLWorkflow.default.COMMUNITY-ADMIN-review.rejectrole">Revisión Administrador de Comunidad</message>
-<message key="xmlui.XMLWorkflow.default.UNER-ADMIN-review.rejectrole">Revisión Administrador RIUNER</message>
+<message key="xmlui.XMLWorkflow.comm_workflow_dependiente.COMMUNITY-ADMIN-review.rejectrole">Revisión Administrador de Comunidad</message>
+<message key="xmlui.XMLWorkflow.comm_workflow_dependiente.UNER-ADMIN-review.rejectrole">Revisión Administrador RIUNER</message>
 <message key="xmlui.XMLWorkflow.comm_workflow_independiente.COMMUNITY-ADMIN-review.rejectroleandclaimauthorizedonly">Revisión Administrador de Comunidad</message>
 <message key="xmlui.XMLWorkflow.comm_workflow_independiente.UNER-ADMIN-review.rejectrole">Revisión Administrador RIUNER</message>
 <message key="xmlui.XMLWorkflow.autoarchive.UNER-ADMIN-review.changecollection">Selección de colección destino RIUNER</message>
 <message key="xmlui.XMLWorkflow.autoarchive.UNER-ADMIN-review.editaction">Edición Administrador RIUNER</message>
-<message key="xmlui.XMLWorkflow.default.UNER-ADMIN-review.editaction">Edición Administrador RIUNER</message>
+<message key="xmlui.XMLWorkflow.comm_workflow_dependiente.UNER-ADMIN-review.editaction">Edición Administrador RIUNER</message>
 <message key="xmlui.XMLWorkflow.comm_workflow_independiente.UNER-ADMIN-review.editaction">Edición Administrador RIUNER</message>
-<message key="xmlui.XMLWorkflow.default.COMMUNITY-ADMIN-review.editaction">Edición Administrador Comunidad</message>
+<message key="xmlui.XMLWorkflow.comm_workflow_dependiente.COMMUNITY-ADMIN-review.editaction">Edición Administrador Comunidad</message>
 <message key="xmlui.XMLWorkflow.comm_workflow_independiente.COMMUNITY-ADMIN-review.editaction">Edición Administrador Comunidad</message>
-<message key="xmlui.XMLWorkflow.default.COMMUNITY-ADMIN-review.rejectroleandclaimauthorizedonly">Revisión Administrador de Comunidad</message>
+<message key="xmlui.XMLWorkflow.comm_workflow_dependiente.COMMUNITY-ADMIN-review.rejectroleandclaimauthorizedonly">Revisión Administrador de Comunidad</message>
 	<!--!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
 		             Administrative Aspect

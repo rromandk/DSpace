@@ -15,7 +15,7 @@
 	-->
     <workflow-map>
         <!--Comunidad Dependiente  -->
-        <name-map collection="default" workflow="default"/>
+        <name-map collection="default" workflow="comm_workflow_dependiente"/>
         
         <!-- Comunidad Indepeniente -->
         <!-- <name-map collection="123456789/XXXX" workflow="comm_workflow_independiente"/> -->
@@ -56,7 +56,7 @@
 	</workflow>
 	
 	
-	<workflow start="COMMUNITY-ADMIN-review" id="default">
+	<workflow start="COMMUNITY-ADMIN-review" id="comm_workflow_dependiente">
 		<roles>
 			<role id="Administrador_UNER" name="UNER-ADMIN" scope="repository" description="Rol asigando para las personas encargadas de gestionar el repositorio, principalmente a partir de la carga."/>
 			<role id="Administradores_de_Comunidad" name="COMMUNITY-ADMINS" scope="repository" description="Rol asignado para los usuarios pertenecientes al grupo de ADMINISTRATORS de alguna comunidad."/>
