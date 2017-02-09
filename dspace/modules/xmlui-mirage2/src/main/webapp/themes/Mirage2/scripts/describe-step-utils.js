@@ -91,15 +91,15 @@ if ($('form#aspect_submission_StepTransformer_div_submit-describe')){
 	* Creates a row with a message indicating the CCLicense value set by the CCLicenseStep. 
 	*/
 	function selectChosenCC(licenseFieldName){
-		$("fieldset.ds-form-list ol li:first-child").before('&lt;li class="ds-form-item cc-license-user-selection"&gt;&lt;/li&gt;').children(".cc-license-user-selection");
-		var ccSelectedRow = $("li.cc-license-user-selection");
+		$("fieldset#aspect_submission_StepTransformer_list_submit-describe div.control-group label.control-label").before('<p class="ds-form-item cc-license-user-selection"></p>');
+		var ccSelectedRow = $('.cc-license-user-selection');
 		var licenseText = extractCCLicenseText($('#'+ fieldIDPrefix + licenseFieldName).val());
 		if (licenseText != null){
 			if((licenseText.length > 0) && licenseText != "undefined"){
-				ccSelectedRow.html("El usuario ha seleccionado la licencia &lt;strong&gt;Creative Commons "+licenseText+"&lt;/strong&gt;.");
+				ccSelectedRow.addClass('alert alert-warning').html("El usuario ha seleccionado la licencia <strong>Creative Commons "+licenseText+"</strong>.");
 			}else{
 				if($('#'+ fieldIDPrefix + licenseFieldName).val().length == 0)
-					ccSelectedRow.text("No se ha seleccionado una licencia Creative Commons");
+					ccSelectedRow.addClass('alert alert-warning').html("<strong>ADVERTENCIA</strong>: no se ha seleccionado una licencia Creative Commons");
 			}
 		}
 	}
@@ -148,6 +148,14 @@ if ($('form#aspect_submission_StepTransformer_div_submit-describe')){
 				return AllowSubmit;
 			});
 		}
+		//If user select "No license", then reset the field...
+		$('form.submission').on("submit unload", function(event){
+			if($('#'+ fieldIDPrefix + inputFieldName).val() == "Sin licencia"){
+				$('#'+ fieldIDPrefix + inputFieldName).val("");
+				$('#'+ fieldIDPrefix + inputFieldName + "_authority").val("");
+				$('#'+ fieldIDPrefix + inputFieldName + "_confidence").val("");
+			}
+		});
 	}
 	
 	/**

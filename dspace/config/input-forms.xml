@@ -691,6 +691,11 @@
     </value-pairs>
     
     <value-pairs value-pairs-name="uner_cc_licences" dc-term="dcterms_license">
+		<!-- Opción vacía -->
+		<pair>
+			<displayed-value>Sin licencia</displayed-value>
+			<stored-value> </stored-value>
+		</pair>
 		<pair>
 			<displayed-value>Creative Commons Atribución 4.0 Internacional (BY 4.0)</displayed-value>
 			<stored-value>http://creativecommons.org/licenses/by/4.0/</stored-value>
