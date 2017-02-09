@@ -393,7 +393,6 @@
 	         <label>Condiciones de uso</label>
 	         <input-type>onebox</input-type>
 	         <hint>Licencia de uso que será adjuntada a la obra.</hint>
-	         <required>Debe indicar la licencia relativa a las condiciones de uso de la obra</required>
 	     </field>  		
   	</page>
    </form>
