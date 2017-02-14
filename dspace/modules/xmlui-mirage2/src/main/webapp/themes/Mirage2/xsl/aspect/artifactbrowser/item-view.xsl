@@ -71,6 +71,10 @@
                              mode="itemDetailView-DIM"/>
 
         <!-- Generate the bitstream information from the file section -->
+        <xsl:if test="mets:fileSec/mets:fileGrp[@USE='CONTENT']//mets:file/mets:FLocat[contains(./@xlink:href,'isAllowed=n')]">
+        	<xsl:call-template name="add-warning-bitstream-with-embargo"/>
+        </xsl:if>
+        
         <xsl:choose>
             <xsl:when test="./mets:fileSec/mets:fileGrp[@USE='CONTENT' or @USE='ORIGINAL' or @USE='LICENSE']/mets:file">
                 <h3><i18n:text>xmlui.dri2xhtml.METS-1.0.item-files-head</i18n:text></h3>
@@ -579,10 +583,6 @@
     <xsl:template match="dim:dim" mode="itemDetailView-DIM">
         <xsl:call-template name="itemSummaryView-DIM-title"/>
         
-        <xsl:if test="../../../../mets:fileSec/mets:fileGrp[@USE='CONTENT']//mets:file/mets:FLocat[contains(./@xlink:href,'isAllowed=n')]">
-        	<xsl:call-template name="add-warning-bitstream-with-embargo"/>
-        </xsl:if>
-        
         <div class="ds-table-responsive">
             <table class="ds-includeSet-table detailtable table table-striped table-hover">
                 <xsl:apply-templates mode="itemDetailView-DIM"/>
@@ -774,6 +774,14 @@
                     <xsl:when test="@ADMID">
                         <xsl:call-template name="display-rights"/>
                     </xsl:when>
+                    <!-- Display 'embargo label' if bitstream is embargoed -->
+                    <xsl:when test="contains(mets:FLocat[@LOCTYPE='URL']/@xlink:href,'isAllowed=n')">
+		            	<i aria-hidden="true" class="glyphicon glyphicon-lock"/>
+		            	<xsl:text> </xsl:text>
+		            	<span class="text-danger bg-danger">
+							<i18n:text>xmlui.ArtifactBrowser.ItemViewer.embargo-label</i18n:text>
+						</span>
+		            </xsl:when>
                     <xsl:otherwise>
                         <xsl:call-template name="view-open"/>
                     </xsl:otherwise>
