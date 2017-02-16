@@ -21,7 +21,7 @@ import org.apache.xpath.objects.XNodeSetForDOM;
 import org.w3c.dom.Document;
 import org.w3c.dom.NodeList;
 
-import org.dspace.services.factory.DSpaceServicesFactory;;
+import org.dspace.services.factory.DSpaceServicesFactory;
 
 public class XSLTHelper {
 	

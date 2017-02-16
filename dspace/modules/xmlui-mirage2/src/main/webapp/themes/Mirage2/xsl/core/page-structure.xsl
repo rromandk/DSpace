@@ -939,6 +939,13 @@
             }
         });
         </script>
+        
+        <xsl:if test="/dri:document/dri:body/dri:div[@id='aspect.administrative.item.EditItemMetadataForm.div.edit-item-status']">
+	        <script type="text/javascript">
+	        	updateMetadataForLookup();
+	        </script>
+        </xsl:if>
+        
     </xsl:template>
 
     <xsl:template name="addJavascript-google-analytics">

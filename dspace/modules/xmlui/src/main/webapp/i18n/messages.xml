@@ -1676,6 +1676,7 @@
 	<message key="xmlui.administrative.item.EditItemMetadataForm.name_label">Name</message>
 	<message key="xmlui.administrative.item.EditItemMetadataForm.value_label">Value</message>
 	<message key="xmlui.administrative.item.EditItemMetadataForm.lang_label">Language</message>
+	<message key="xmlui.administrative.item.EditItemMetadataForm.authority_label">Authority</message>
 	<message key="xmlui.administrative.item.EditItemMetadataForm.submit_add">Add new metadata</message>
 	<message key="xmlui.administrative.item.EditItemMetadataForm.para1">PLEASE NOTE: These changes are not validated in any way. You are responsible for entering the data in the correct format. If you are not sure what the format is, please do NOT make changes.</message>
 	<message key="xmlui.administrative.item.EditItemMetadataForm.head2">Metadata</message>

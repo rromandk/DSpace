@@ -53,6 +53,7 @@
     <xsl:import href="aspect/artifactbrowser/one-offs.xsl"/>
     <xsl:import href="aspect/submission/submission.xsl"/>
     <xsl:import href="aspect/eperson/passwordLogin.xsl"/>
+    <xsl:import href="aspect/administrative/editItemStatus.xsl"/>
     <xsl:output indent="yes"/>
 
 
