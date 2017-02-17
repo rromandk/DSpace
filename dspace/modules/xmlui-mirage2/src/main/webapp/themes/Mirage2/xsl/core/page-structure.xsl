@@ -365,7 +365,7 @@
             <div class="container">
                 <div class="row">
                     <!--TODO-->
-                    <div class="col-xs-7">
+                    <div class="col-xs-6 col-md-5">
                         <xsl:choose>
                             <xsl:when test="count(/dri:document/dri:meta/dri:pageMeta/dri:trail) > 1">
                                 <div class="breadcrumb dropdown visible-xs">
@@ -400,7 +400,7 @@
                             </xsl:otherwise>
                         </xsl:choose>
                     </div>
-                    <div class="col-xs-pull-5 pull-right">
+                    <div class="col-xs-pull-6 col-md-pull-7 pull-right">
 	                    <div class="navbar-header hidden-xs hidden-sm">
 	                        <ul class="nav navbar-nav">
 								<xsl:if test="dri:options/dri:list[@id='aspect.viewArtifacts.Navigation.list.context']/dri:item">
@@ -413,6 +413,14 @@
 								<xsl:if test="dri:options/dri:list[@id='aspect.viewArtifacts.Navigation.list.administrative']/dri:item">
 									<xsl:call-template name="topright-element">
 										<xsl:with-param name="element" select="'administrative'" />
+									</xsl:call-template>
+								</xsl:if>
+	                        </ul>
+	                        <ul class="nav navbar-nav">
+								<xsl:if test="dri:options/dri:list[@id='aspect.statistics.Navigation.list.statistics']/dri:item">
+									<xsl:call-template name="topright-element">
+										<xsl:with-param name="element" select="'statistics'" />
+										<xsl:with-param name="elementId" select="'aspect.statistics.Navigation.list.statistics'"/>
 									</xsl:call-template>
 								</xsl:if>
 	                        </ul>
@@ -1004,7 +1012,7 @@
     
     <xsl:template name="topright-element">
         <xsl:param name="element"></xsl:param>
-    	<xsl:variable name="elementId" select="concat('aspect.viewArtifacts.Navigation.list.',$element)" />
+    	<xsl:param name="elementId" select="concat('aspect.viewArtifacts.Navigation.list.',$element)" />
     	
     	<li class="dropdown">
     		<a id="context-dropdown-toggle" href="#" role="button" class="dropdown-toggle" data-toggle="dropdown">
