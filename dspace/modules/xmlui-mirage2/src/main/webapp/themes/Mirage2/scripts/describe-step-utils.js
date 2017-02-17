@@ -135,27 +135,29 @@ if ($('form#aspect_submission_StepTransformer_div_submit-describe')){
 	* Controls if the CC License field is selected with the correct CC License,  checking if it differs from value set by the CCLicenseStep.
 	*/
 	function ccInputFieldControl(inputFieldName){
-		if($('#'+ fieldIDPrefix + inputFieldName).val().indexOf("http://creativecommons.org/licenses/") != -1){		
-			var oldFieldValue = $('#'+ fieldIDPrefix + inputFieldName).val();
-			//$('#'+ fieldIDPrefix + inputFieldName).val("");
+		if($('#'+ fieldIDPrefix + inputFieldName)){
+			if($('#'+ fieldIDPrefix + inputFieldName).val().indexOf("http://creativecommons.org/licenses/") != -1){		
+				var oldFieldValue = $('#'+ fieldIDPrefix + inputFieldName).val();
+				//$('#'+ fieldIDPrefix + inputFieldName).val("");
+				$('form.submission').on("submit unload", function(event){
+					var AllowSubmit = ($('#'+ fieldIDPrefix + inputFieldName).val() == oldFieldValue)? false : true;
+					if(!AllowSubmit){
+						$('#'+ fieldIDPrefix + inputFieldName).addClass("error");
+						(!$("div.msjCCError").length)?$('#'+ fieldIDPrefix + inputFieldName + "_confidence_indicator").after('<div class="error msjCCError alert alert-danger">*Debe seleccionar la licencia correspondiente</div>'):$.noop();
+					}
+					//Do a submit when the current CCLicense value differs of the old value.
+					return AllowSubmit;
+				});
+			}
+			//If user select "No license", then reset the field...
 			$('form.submission').on("submit unload", function(event){
-				var AllowSubmit = ($('#'+ fieldIDPrefix + inputFieldName).val() == oldFieldValue)? false : true;
-				if(!AllowSubmit){
-					$('#'+ fieldIDPrefix + inputFieldName).addClass("error");
-					(!$("div.msjCCError").length)?$('#'+ fieldIDPrefix + inputFieldName + "_confidence_indicator").after('<div class="error msjCCError alert alert-danger">*Debe seleccionar la licencia correspondiente</div>'):$.noop();
+				if($('#'+ fieldIDPrefix + inputFieldName).val() == "Sin licencia"){
+					$('#'+ fieldIDPrefix + inputFieldName).val("");
+					$('#'+ fieldIDPrefix + inputFieldName + "_authority").val("");
+					$('#'+ fieldIDPrefix + inputFieldName + "_confidence").val("");
 				}
-				//Do a submit when the current CCLicense value differs of the old value.
-				return AllowSubmit;
 			});
 		}
-		//If user select "No license", then reset the field...
-		$('form.submission').on("submit unload", function(event){
-			if($('#'+ fieldIDPrefix + inputFieldName).val() == "Sin licencia"){
-				$('#'+ fieldIDPrefix + inputFieldName).val("");
-				$('#'+ fieldIDPrefix + inputFieldName + "_authority").val("");
-				$('#'+ fieldIDPrefix + inputFieldName + "_confidence").val("");
-			}
-		});
 	}
 	
 	/**
