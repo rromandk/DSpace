@@ -30,7 +30,7 @@
 			<xsl:for-each select="doc:metadata/doc:element[@name='dc']/doc:element[@name='type']/doc:element[@name='snrd']/doc:field[@name='value']">
 				<dc:type><xsl:value-of select="concat('info:ar-repo/semantics/',.)" /></dc:type>
 			</xsl:for-each>
-			<!-- cic.version -->
+			<!-- dc.type.version -->
 			<xsl:for-each select="doc:metadata/doc:element[@name='dc']/doc:element[@name='type-version']/doc:element[@name='driver']/doc:field[@name='value']">
 				<dc:type><xsl:value-of select="." /></dc:type>
 			</xsl:for-each>
@@ -39,23 +39,23 @@
 				<dc:title><xsl:value-of select="." /></dc:title>
 			</xsl:for-each>
 			<!-- dcterms.alternative -->
-			<xsl:for-each select="doc:metadata/doc:element[@name='dcterms']/doc:element[@name='alternative']/doc:element/doc:element/doc:field[@name='value']">
-				<dc:title><xsl:value-of select="." /></dc:title>
-			</xsl:for-each>
-			<!-- dcterms.title.investigation -->
-			<xsl:for-each select="doc:metadata/doc:element[@name='dcterms']/doc:element[@name='title']/doc:element/doc:field[@name='value']">
+			<xsl:for-each select="doc:metadata/doc:element[@name='dcterms']/doc:element[@name='alternative']/doc:element/doc:field[@name='value']">
 				<dc:title><xsl:value-of select="." /></dc:title>
 			</xsl:for-each>
 			<!-- dcterms.creator.* -->
 			<xsl:for-each select="doc:metadata/doc:element[@name='dcterms']/doc:element[@name='creator']/doc:element/doc:element/doc:field[@name='value']">
 				<dc:creator><xsl:value-of select="." /></dc:creator>
 			</xsl:for-each>
+
 			<!-- dc.contributor.director-->
+<!-- 		<xsl:if test="contains(doc:metadata/doc:element[@name='dc']/doc:element[@name='type']/doc:element[@name='snrd']/doc:field[@name='value'], 'tesis')"> -->
 			<xsl:for-each select="doc:metadata/doc:element[@name='dcterms']/doc:element[@name='contributor']/doc:element[@name='director']/doc:element/doc:field[@name='value']">
 				<dc:contributor><xsl:value-of select="." /></dc:contributor>
 			</xsl:for-each>
+<!-- 		</xsl:if> -->
+			
 			<!-- dcterms.subject.* -->
-			<xsl:for-each select="doc:metadata/doc:element[@name='dcterms']/doc:element[@name='subject']/doc:element/doc:element/doc:field[@name='value']">
+			<xsl:for-each select="doc:metadata/doc:element[@name='dcterms']/doc:element[@name='subject']/doc:element/doc:field[@name='value']">
 				<dc:subject><xsl:value-of select="." /></dc:subject>
 			</xsl:for-each>
 			<!-- dcterms.abstract -->
@@ -66,18 +66,22 @@
 			<xsl:for-each select="doc:metadata/doc:element[@name='dcterms']/doc:element[@name='description']/doc:element/doc:field[@name='value']">
 				<dc:description><xsl:value-of select="." /></dc:description>
 			</xsl:for-each>
-			<!-- cic.thesis.degree -->
-			<xsl:for-each select="doc:metadata/doc:element[@name='cic']/doc:element[@name='thesis']/doc:element[@name='degree']/doc:element/doc:field[@name='value']">
+			<!-- thesis.degree.* -->
+			<xsl:for-each select="doc:metadata/doc:element[@name='thesis']/doc:element[@name='degree']/doc:element[@name='name']/doc:element/doc:field[@name='value']">
 				<dc:description><xsl:value-of select="." /></dc:description>
 			</xsl:for-each>
+			<!-- falta dc.date.available si no esta issued  -->
 			<!-- dcterms.issued -->
-			<xsl:for-each select="doc:metadata/doc:element[@name='dcterms']/doc:element[@name='issued']/doc:element/doc:field[@name='value']">
-				<dc:date><xsl:value-of select="." /></dc:date>
-			</xsl:for-each>
-			<!-- license.embargoEnd -->
-			<xsl:for-each select="doc:metadata/doc:element[@name='others']/doc:field[@name='embargoEnd']">
-				<dc:date><xsl:value-of select="." /></dc:date>
-			</xsl:for-each>
+
+			<xsl:choose>
+				<xsl:when test="doc:metadata/doc:element[@name='dcterms']/doc:element[@name='issued']/doc:element/doc:field[@name='value'] &gt; 0">
+					<dc:date><xsl:value-of select="doc:metadata/doc:element[@name='dcterms']/doc:element[@name='issued']/doc:element/doc:field[@name='value']" /></dc:date>
+				</xsl:when>
+				<xsl:otherwise>
+					<dc:date><xsl:value-of select="doc:metadata/doc:element[@name='dc']/doc:element[@name='date']/doc:element[@name='available']/doc:element/doc:field[@name='value']" /></dc:date>					
+				</xsl:otherwise>
+			</xsl:choose>		
+
 			<!-- mimetype -->
             <xsl:for-each select="doc:metadata/doc:element[@name='bundles']/doc:element[@name='bundle' and doc:field[@name='name' and text()='ORIGINAL']]/doc:element[@name='bitstreams']/doc:element[@name='bitstream']/doc:field[@name='format']">
                     <dc:format><xsl:value-of select="." /></dc:format>
@@ -98,25 +102,72 @@
 			<xsl:for-each select="doc:metadata/doc:element[@name='dcterms']/doc:element[@name='identifier']/doc:element[@name='url']/doc:element/doc:field[@name='value']">
 				<dc:identifier><xsl:value-of select="." /></dc:identifier>
 			</xsl:for-each>
+			<!-- dc:source -->
+			<xsl:for-each select="doc:metadata/doc:element[@name='dcterms']/doc:element[@name='source']/doc:element/doc:field[@name='value']">
+				<dc:source><xsl:value-of select="." /></dc:source>
+			</xsl:for-each>
 			<!-- dcterms.language -->
 			<xsl:for-each select="doc:metadata/doc:element[@name='dcterms']/doc:element[@name='language']/doc:element/doc:field[@name='value']">
 				<dc:language><xsl:value-of select="." /></dc:language>
 			</xsl:for-each>
-			<!-- dcterms.identifier.isbn -->
-			<xsl:for-each select="doc:metadata/doc:element[@name='dcterms']/doc:element[@name='identifier']/doc:element[@name='isbn']/doc:field[@name='value']">
+
+
+			<xsl:for-each select="doc:metadata/doc:element[@name='dcterms']/doc:element[@name='isPartOf']/doc:element[@name='item']/doc:element/doc:field[@name='value']">
 				<dc:relation><xsl:value-of select="." /></dc:relation>
 			</xsl:for-each>
-			<!-- dcterms.identifier.other -->
-			<xsl:for-each select="doc:metadata/doc:element[@name='dcterms']/doc:element[@name='identifier']/doc:element[@name='other']/doc:field[@name='value']">
+			<xsl:for-each select="doc:metadata/doc:element[@name='dcterms']/doc:element[@name='isPartOf']/doc:element[@name='issue']/doc:element/doc:field[@name='value']">
 				<dc:relation><xsl:value-of select="." /></dc:relation>
 			</xsl:for-each>
-<!-- 			 dc.rights.* -->
-<!-- 			<xsl:for-each select="doc:metadata/doc:element[@name='others']/doc:field[@name='accessRights']"> -->
-<!-- 				<dc:rights><xsl:value-of select="." /></dc:rights> -->
-<!-- 			</xsl:for-each> -->
-			<!-- dc.rights -->
-			<!-- Como solo mostramos items OPEN, esto se harcodea -->
-			<dc:rights>info:eu-repo/semantics/openAccess</dc:rights>
+			<xsl:for-each select="doc:metadata/doc:element[@name='dcterms']/doc:element[@name='isPartOf']/doc:element[@name='series']/doc:element/doc:field[@name='value']">
+				<dc:relation><xsl:value-of select="." /></dc:relation>
+			</xsl:for-each>
+			<xsl:for-each select="doc:metadata/doc:element[@name='dcterms']/doc:element[@name='isPartOf']/doc:element[@name='project']/doc:element/doc:field[@name='value']">
+				<dc:relation><xsl:value-of select="." /></dc:relation>
+			</xsl:for-each>
+			<xsl:for-each select="doc:metadata/doc:element[@name='dcterms']/doc:element[@name='relation']/doc:element[@name='dataset']/doc:element/doc:field[@name='value']">
+				<dc:relation><xsl:value-of select="." /></dc:relation>
+			</xsl:for-each>
+			<xsl:for-each select="doc:metadata/doc:element[@name='dcterms']/doc:element[@name='relation']/doc:element/doc:field[@name='value']">
+				<dc:relation><xsl:value-of select="." /></dc:relation>
+			</xsl:for-each>
+
+			<!-- dc.identifier.uri -->
+			<xsl:for-each select="doc:metadata/doc:element[@name='dc']/doc:element[@name='identifier']/doc:element[@name='uri']/doc:field[@name='value']">
+				<dc:identifier><xsl:value-of select="." /></dc:identifier>
+			</xsl:for-each>
+			<!-- dcterms.identifier -->
+			<xsl:for-each select="doc:metadata/doc:element[@name='dcterms']/doc:element[@name='identifier']/doc:element/doc:field[@name='value']">
+				<dc:identifier><xsl:value-of select="." /></dc:identifier>
+			</xsl:for-each>
+
+			<!-- Formatting dc.date -->
+			<xsl:variable name="bitstreams" select="/doc:metadata/doc:element[@name='bundles']/doc:element[@name='bundle'][./doc:field/text()='ORIGINAL']/doc:element[@name='bitstreams']/doc:element[@name='bitstream']"/>
+			<xsl:variable name="bitstreamsCount" select="count($bitstreams)"/>
+			<xsl:variable name="notOpen" select="count($bitstreams/doc:field[@name='embargo'])"/>
+			<xsl:variable name="restricted" select="count($bitstreams/doc:field[@name='embargo']/text() = 'forever')"/>
+
+			<xsl:choose>
+				<xsl:when test="$bitstreamsCount = 0">
+					<dc:rights>info:eu-repo/semantics/closedAccess</dc:rights>
+				</xsl:when>
+				<xsl:when test="$notOpen = $bitstreams">
+					<dc:rights>info:eu-repo/semantics/openAccess</dc:rights>
+				</xsl:when>
+				<xsl:when test="$restricted &gt; 0">
+					<dc:rights>info:eu-repo/semantics/restrictedAccess</dc:rights>
+				</xsl:when>
+				<xsl:otherwise>
+					<xsl:for-each select="/doc:metadata/doc:element[@name='bundles']/doc:element[@name='bundle'][./doc:field/text()='ORIGINAL']/doc:element[@name='bitstreams']/doc:element[@name='bitstream']">
+						<xsl:sort select="doc:field[@name='embargo']" />
+						<xsl:if test="position() = 1">
+							<dc:date><xsl:value-of select="concat('info:eu-repo/date/embargoEnd/',./doc:field[@name='embargo'])"/></dc:date>
+							<dc:rigths>info:eu-repo/semantics/embargoedAccess</dc:rigths>
+						</xsl:if>
+					</xsl:for-each>
+				</xsl:otherwise>
+			</xsl:choose>
+
+
 			<!-- dcterms.license -->
 			<xsl:for-each select="doc:metadata/doc:element[@name='dcterms']/doc:element[@name='license']/doc:element/doc:field[@name='value']">
 				<dc:rights><xsl:value-of select="." /></dc:rights>

@@ -32,7 +32,7 @@
 		<xsl:call-template name="type-snrd">
 			<xsl:with-param name="theValue" select="$type"/>
 		</xsl:call-template>
-		<xsl:variable name="version" select="../../doc:element[@name='cic']/doc:element[@name='version']/doc:element/doc:field/text()"/>
+		<xsl:variable name="version" select="../../doc:element[@name='dc']/doc:element[@name='type']/doc:element[@name='version']/doc:element/doc:field/text()"/>
 		<xsl:call-template name="type-driver-version">
 			<xsl:with-param name="theValue" select="$version"/>
 		</xsl:call-template>
@@ -51,14 +51,15 @@
 	<!-- Formatting dc.identifier.uri--> 
 	<xsl:template match="/doc:metadata/doc:element[@name='dc']/doc:element[@name='identifier']/doc:element[@name='uri']/doc:element/doc:field[@name='value']/text()">
 		<xsl:variable name="handle" select="/doc:metadata/doc:element[@name='others']/doc:field[@name='handle']"/>
-		<xsl:choose>
-			<xsl:when test="not(contains(.,'http://digital.cic.gba.gob.ar/'))">
-				<xsl:value-of select="concat(.,$handle)"/>	
-			</xsl:when>
-			<xsl:otherwise>
-				<xsl:value-of select="."/>
-			</xsl:otherwise>
-		</xsl:choose>
+<!-- 		<xsl:choose> -->
+<!-- 			<xsl:when test="not(contains(.,'http://digital.cic.gba.gob.ar/'))"> -->
+<!-- 				<xsl:value-of select="concat(.,$handle)"/>	 -->
+<!-- 			</xsl:when> -->
+<!-- 			<xsl:otherwise> -->
+<!-- 				<xsl:value-of select="."/> -->
+<!-- 			</xsl:otherwise> -->
+<!-- 		</xsl:choose> -->
+			<xsl:value-of select="."/>
 	</xsl:template>
 	
 	<!-- Formatting dcterms.identifier.isbn --> 			
@@ -106,9 +107,9 @@
 	
 	<!-- Formatting cic.thesis.degree cic.thesis.grantor -->
 	
-	<xsl:template match="/doc:metadata/doc:element[@name='cic']/doc:element[@name='thesis']/doc:element[@name='degree']/doc:element/doc:field[@name='value']/text()">
-		<xsl:variable name="grantor" select="/doc:metadata/doc:element[@name='cic']/doc:element[@name='thesis']/doc:element[@name='grantor']/doc:element/doc:field[@name='value']/text()"/>
-		<xsl:value-of select="concat(.,'(',$grantor,')')"/>
+	<xsl:template match="/doc:metadata/doc:element[@name='thesis']/doc:element[@name='degree']/doc:element[@name='name']/doc:element/doc:field[@name='value']/text()">
+		<xsl:variable name="grantor" select="/doc:metadata/doc:element[@name='thesis']/doc:element[@name='degree']/doc:element[@name='grantor']/doc:element/doc:field[@name='value']/text()"/>
+		<xsl:value-of select="concat(.,' (',$grantor,')')"/>
 	</xsl:template>
 		
 	<!-- Prefixing and Modifying dc.rights -->

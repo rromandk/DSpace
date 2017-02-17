@@ -10,9 +10,15 @@ package org.dspace.xoai.util;
 import com.lyncode.xoai.dataprovider.xml.xoai.Element;
 import com.lyncode.xoai.dataprovider.xml.xoai.Metadata;
 import com.lyncode.xoai.util.Base64Utils;
+import com.sun.syndication.feed.module.sle.types.Group;
+
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import org.dspace.authorize.AuthorizeException;
+import org.dspace.authorize.ResourcePolicy;
+import org.dspace.authorize.factory.AuthorizeServiceFactory;
+import org.dspace.authorize.service.AuthorizeService;
+import org.dspace.authorize.service.ResourcePolicyService;
 import org.dspace.content.*;
 import org.dspace.content.authority.Choices;
 import org.dspace.core.ConfigurationManager;
@@ -24,7 +30,11 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
+import java.util.TimeZone;
+
 import org.dspace.app.util.factory.UtilServiceFactory;
 import org.dspace.app.util.service.MetadataExposureService;
 import org.dspace.content.factory.ContentServiceFactory;
@@ -49,6 +59,9 @@ public class ItemUtils
 
     private static final BitstreamService bitstreamService
             = ContentServiceFactory.getInstance().getBitstreamService();
+
+    private static final AuthorizeService authorizeService
+    = AuthorizeServiceFactory.getInstance().getAuthorizeService();
 
     private static Element getElement(List<Element> list, String name)
     {
@@ -248,6 +261,29 @@ public class ItemUtils
                     bitstream.getField().add(
                             createValue("sid", bit.getSequenceID()
                                     + ""));
+
+                    List<ResourcePolicy> polices = authorizeService.getPolicies(context, bit);
+                    String embargo = "forever";
+                    Date minDate = null;
+            		Date today = new Date();
+            		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+                    sdf.setTimeZone(TimeZone.getTimeZone("ZULU"));
+            		for (ResourcePolicy policy : polices){
+                    	if (policy.getGroup() == null || !org.dspace.eperson.Group.ANONYMOUS.equals(policy.getGroup().getName()) || (policy.getEndDate() != null && policy.getEndDate().before(today))){
+                    		continue;
+                    	}
+                       	if (policy.getStartDate() == null || policy.getStartDate().before(today)){
+                       		embargo = null;
+                       		break;
+                       	}
+                       	else if (minDate == null || policy.getStartDate().before(minDate)){
+                        		minDate = policy.getStartDate();
+                       			embargo = sdf.format(policy.getStartDate());                        				
+                       	}
+                    };
+                    if (embargo != null)
+                        bitstream.getField().add(
+                                createValue("embargo", embargo));
                 }
             }
         }
