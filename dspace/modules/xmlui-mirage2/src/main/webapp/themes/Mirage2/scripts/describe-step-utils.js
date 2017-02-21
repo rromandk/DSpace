@@ -135,7 +135,6 @@ if ($('form#aspect_submission_StepTransformer_div_submit-describe')){
 	* Controls if the CC License field is selected with the correct CC License,  checking if it differs from value set by the CCLicenseStep.
 	*/
 	function ccInputFieldControl(inputFieldName){
-		if($('#'+ fieldIDPrefix + inputFieldName)){
 			if($('#'+ fieldIDPrefix + inputFieldName).val().indexOf("http://creativecommons.org/licenses/") != -1){		
 				var oldFieldValue = $('#'+ fieldIDPrefix + inputFieldName).val();
 				//$('#'+ fieldIDPrefix + inputFieldName).val("");
@@ -157,7 +156,6 @@ if ($('form#aspect_submission_StepTransformer_div_submit-describe')){
 					$('#'+ fieldIDPrefix + inputFieldName + "_confidence").val("");
 				}
 			});
-		}
 	}
 	
 	/**
