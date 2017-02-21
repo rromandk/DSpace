@@ -99,7 +99,7 @@
 				<dc:identifier><xsl:value-of select="." /></dc:identifier>
 			</xsl:for-each>
 			<!-- dcterms.identifier.url -->
-			<xsl:for-each select="doc:metadata/doc:element[@name='dcterms']/doc:element[@name='identifier']/doc:element[@name='url']/doc:element/doc:field[@name='value']">
+			<xsl:for-each select="doc:metadata/doc:element[@name='dcterms']/doc:element[@name='identifier']/doc:element/doc:field[@name='value']">
 				<dc:identifier><xsl:value-of select="." /></dc:identifier>
 			</xsl:for-each>
 			<!-- dc:source -->
@@ -131,42 +131,31 @@
 				<dc:relation><xsl:value-of select="." /></dc:relation>
 			</xsl:for-each>
 
-			<!-- dc.identifier.uri -->
-			<xsl:for-each select="doc:metadata/doc:element[@name='dc']/doc:element[@name='identifier']/doc:element[@name='uri']/doc:field[@name='value']">
-				<dc:identifier><xsl:value-of select="." /></dc:identifier>
-			</xsl:for-each>
-			<!-- dcterms.identifier -->
-			<xsl:for-each select="doc:metadata/doc:element[@name='dcterms']/doc:element[@name='identifier']/doc:element/doc:field[@name='value']">
-				<dc:identifier><xsl:value-of select="." /></dc:identifier>
-			</xsl:for-each>
-
-			<!-- Formatting dc.date -->
-			<xsl:variable name="bitstreams" select="/doc:metadata/doc:element[@name='bundles']/doc:element[@name='bundle'][./doc:field/text()='ORIGINAL']/doc:element[@name='bitstreams']/doc:element[@name='bitstream']"/>
-			<xsl:variable name="bitstreamsCount" select="count($bitstreams)"/>
-			<xsl:variable name="notOpen" select="count($bitstreams/doc:field[@name='embargo'])"/>
-			<xsl:variable name="restricted" select="count($bitstreams/doc:field[@name='embargo']/text() = 'forever')"/>
+			<!-- Formatting dc.date and dc.rigths -->
+			<xsl:variable name="bitstreams" select="doc:metadata/doc:element[@name='bundles']/doc:element[@name='bundle'][./doc:field/text()='ORIGINAL']/doc:element[@name='bitstreams']/doc:element[@name='bitstream']"/>
+			<xsl:variable name="embargoed" select="$bitstreams/doc:field[@name='embargo']"/>
 
 			<xsl:choose>
-				<xsl:when test="$bitstreamsCount = 0">
+				<xsl:when test="count($bitstreams) = 0 and count($embargoed/text() = 'forever') = count($bitstreams) ">
 					<dc:rights>info:eu-repo/semantics/closedAccess</dc:rights>
 				</xsl:when>
-				<xsl:when test="$notOpen = $bitstreams">
+				<xsl:when test="count($embargoed) = 0">
 					<dc:rights>info:eu-repo/semantics/openAccess</dc:rights>
 				</xsl:when>
-				<xsl:when test="$restricted &gt; 0">
+				<xsl:when test="count($embargoed/text() = 'forever') &gt; 0">
 					<dc:rights>info:eu-repo/semantics/restrictedAccess</dc:rights>
 				</xsl:when>
 				<xsl:otherwise>
-					<xsl:for-each select="/doc:metadata/doc:element[@name='bundles']/doc:element[@name='bundle'][./doc:field/text()='ORIGINAL']/doc:element[@name='bitstreams']/doc:element[@name='bitstream']">
-						<xsl:sort select="doc:field[@name='embargo']" />
+<!-- 			es un embargoedAccess si o si -->
+					<xsl:for-each select="$embargoed">
+						<xsl:sort select="text()" />
 						<xsl:if test="position() = 1">
-							<dc:date><xsl:value-of select="concat('info:eu-repo/date/embargoEnd/',./doc:field[@name='embargo'])"/></dc:date>
+							<dc:date><xsl:value-of select="concat('info:eu-repo/date/embargoEnd/',text())"/></dc:date>
 							<dc:rigths>info:eu-repo/semantics/embargoedAccess</dc:rigths>
 						</xsl:if>
 					</xsl:for-each>
 				</xsl:otherwise>
 			</xsl:choose>
-
 
 			<!-- dcterms.license -->
 			<xsl:for-each select="doc:metadata/doc:element[@name='dcterms']/doc:element[@name='license']/doc:element/doc:field[@name='value']">
