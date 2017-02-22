@@ -83,10 +83,10 @@
 				</xsl:otherwise>
 			</xsl:choose>		
 
-			<!-- mimetype -->
-            <xsl:for-each select="doc:metadata/doc:element[@name='bundles']/doc:element[@name='bundle' and doc:field[@name='name' and text()='ORIGINAL']]/doc:element[@name='bitstreams']/doc:element[@name='bitstream']/doc:field[@name='format']">
+			<xsl:for-each select="doc:metadata/doc:element[@name='bundles']/doc:element[@name='bundle' and doc:field[@name='name' and text()='ORIGINAL']]/doc:element[@name='bitstreams']/doc:element[@name='bitstream']/doc:field[@name='format']">
                     <dc:format><xsl:value-of select="." /></dc:format>
-            </xsl:for-each>
+            </xsl:for-each>            
+			
 			<!-- dcterms.extent -->
 			<xsl:for-each select="doc:metadata/doc:element[@name='dcterms']/doc:element[@name='extent']/doc:element/doc:field[@name='value']">
 				<dc:format><xsl:value-of select="." /></dc:format>
@@ -118,11 +118,19 @@
 
 			<xsl:variable name="series" select="doc:metadata/doc:element[@name='dcterms']/doc:element[@name='isPartOf']/doc:element[@name='series']/doc:element/doc:field[@name='value']"/>
 			<xsl:variable name="issue" select="doc:metadata/doc:element[@name='dcterms']/doc:element[@name='isPartOf']/doc:element[@name='issue']/doc:element/doc:field[@name='value']"/>
-
-			<dc:relation><xsl:value-of select="$series" />:<xsl:value-of select="$issue" /></dc:relation>
+			
+			<xsl:if test="$series != '' and $issue != ''">
+				<dc:relation><xsl:value-of select="$series" />:<xsl:value-of select="$issue" /></dc:relation>
+			</xsl:if>
+			<xsl:if test="$series != '' and $issue = ''">
+				<dc:relation><xsl:value-of select="$series" /></dc:relation>
+			</xsl:if>
+			<xsl:if test="$series = '' and $issue != ''">
+				<dc:relation><xsl:value-of select="$issue" /></dc:relation>
+			</xsl:if>
 
 			<xsl:for-each select="doc:metadata/doc:element[@name='dcterms']/doc:element[@name='isPartOf']/doc:element[@name='project']/doc:element/doc:field[@name='value']">
-				<dc:relation><xsl:value-of select="." /></dc:relation>
+				<dc:relation>info:eu-repo/grantAgreement/<xsl:value-of select="." /></dc:relation>
 			</xsl:for-each>
 			<xsl:for-each select="doc:metadata/doc:element[@name='dcterms']/doc:element[@name='relation']/doc:element[@name='dataset']/doc:element/doc:field[@name='value']">
 				<dc:relation><xsl:value-of select="." /></dc:relation>
@@ -137,6 +145,13 @@
 
 			<xsl:choose>
 				<xsl:when test="count($bitstreams) = 0 and count($embargoed/text() = 'forever') = count($bitstreams) ">
+					<dc:rights>info:eu-repo/semantics/closedAccess</dc:rights>
+				</xsl:when>
+				<xsl:when test="count($embargoed) = 0">
+					<dc:rights>info:eu-repo/semantics/openAccess</dc:rights>
+				</xsl:when>
+				<xsl:when test="count($embargoed/text() = 'forever') &gt; 0">
+					<dc:rights>info:eu-repo/semantics/restrictedAccess</dc:rights>
 				</xsl:when>
 				<xsl:otherwise>
 <!-- 			es un embargoedAccess si o si -->
