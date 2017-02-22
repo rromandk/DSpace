@@ -48,11 +48,12 @@
 			</xsl:for-each>
 
 			<!-- dc.contributor.director-->
-<!-- 		<xsl:if test="contains(doc:metadata/doc:element[@name='dc']/doc:element[@name='type']/doc:element[@name='snrd']/doc:field[@name='value'], 'tesis')"> -->
-			<xsl:for-each select="doc:metadata/doc:element[@name='dcterms']/doc:element[@name='contributor']/doc:element[@name='director']/doc:element/doc:field[@name='value']">
+			<xsl:for-each select="doc:metadata/doc:element[@name='dcterms']/doc:element[@name='contributor']/doc:element[@name='director']/doc:element/doc:field[@name='value'][contains(., 'tesis')]">
 				<dc:contributor><xsl:value-of select="." /></dc:contributor>
 			</xsl:for-each>
-<!-- 		</xsl:if> -->
+			<xsl:for-each select="doc:metadata/doc:element[@name='dcterms']/doc:element[@name='contributor']/doc:element[@name='director']/doc:element/doc:field[@name='value'][not(contains(., 'tesis'))]">
+				<dc:contributor><xsl:value-of select="." /></dc:contributor>
+			</xsl:for-each>
 			
 			<!-- dcterms.subject.* -->
 			<xsl:for-each select="doc:metadata/doc:element[@name='dcterms']/doc:element[@name='subject']/doc:element/doc:field[@name='value']">
@@ -70,14 +71,14 @@
 			<xsl:for-each select="doc:metadata/doc:element[@name='thesis']/doc:element[@name='degree']/doc:element[@name='name']/doc:element/doc:field[@name='value']">
 				<dc:description><xsl:value-of select="." /></dc:description>
 			</xsl:for-each>
-			<!-- falta dc.date.available si no esta issued  -->
-			<!-- dcterms.issued -->
 
+			<!-- dcterms.issued -->
 			<xsl:choose>
 				<xsl:when test="doc:metadata/doc:element[@name='dcterms']/doc:element[@name='issued']/doc:element/doc:field[@name='value'] &gt; 0">
 					<dc:date><xsl:value-of select="doc:metadata/doc:element[@name='dcterms']/doc:element[@name='issued']/doc:element/doc:field[@name='value']" /></dc:date>
 				</xsl:when>
 				<xsl:otherwise>
+				<!-- dc.date.available -->
 					<dc:date><xsl:value-of select="doc:metadata/doc:element[@name='dc']/doc:element[@name='date']/doc:element[@name='available']/doc:element/doc:field[@name='value']" /></dc:date>					
 				</xsl:otherwise>
 			</xsl:choose>		
@@ -111,16 +112,15 @@
 				<dc:language><xsl:value-of select="." /></dc:language>
 			</xsl:for-each>
 
-
 			<xsl:for-each select="doc:metadata/doc:element[@name='dcterms']/doc:element[@name='isPartOf']/doc:element[@name='item']/doc:element/doc:field[@name='value']">
 				<dc:relation><xsl:value-of select="." /></dc:relation>
 			</xsl:for-each>
-			<xsl:for-each select="doc:metadata/doc:element[@name='dcterms']/doc:element[@name='isPartOf']/doc:element[@name='issue']/doc:element/doc:field[@name='value']">
-				<dc:relation><xsl:value-of select="." /></dc:relation>
-			</xsl:for-each>
-			<xsl:for-each select="doc:metadata/doc:element[@name='dcterms']/doc:element[@name='isPartOf']/doc:element[@name='series']/doc:element/doc:field[@name='value']">
-				<dc:relation><xsl:value-of select="." /></dc:relation>
-			</xsl:for-each>
+
+			<xsl:variable name="series" select="doc:metadata/doc:element[@name='dcterms']/doc:element[@name='isPartOf']/doc:element[@name='series']/doc:element/doc:field[@name='value']"/>
+			<xsl:variable name="issue" select="doc:metadata/doc:element[@name='dcterms']/doc:element[@name='isPartOf']/doc:element[@name='issue']/doc:element/doc:field[@name='value']"/>
+
+			<dc:relation><xsl:value-of select="$series" />:<xsl:value-of select="$issue" /></dc:relation>
+
 			<xsl:for-each select="doc:metadata/doc:element[@name='dcterms']/doc:element[@name='isPartOf']/doc:element[@name='project']/doc:element/doc:field[@name='value']">
 				<dc:relation><xsl:value-of select="." /></dc:relation>
 			</xsl:for-each>
@@ -137,13 +137,6 @@
 
 			<xsl:choose>
 				<xsl:when test="count($bitstreams) = 0 and count($embargoed/text() = 'forever') = count($bitstreams) ">
-					<dc:rights>info:eu-repo/semantics/closedAccess</dc:rights>
-				</xsl:when>
-				<xsl:when test="count($embargoed) = 0">
-					<dc:rights>info:eu-repo/semantics/openAccess</dc:rights>
-				</xsl:when>
-				<xsl:when test="count($embargoed/text() = 'forever') &gt; 0">
-					<dc:rights>info:eu-repo/semantics/restrictedAccess</dc:rights>
 				</xsl:when>
 				<xsl:otherwise>
 <!-- 			es un embargoedAccess si o si -->

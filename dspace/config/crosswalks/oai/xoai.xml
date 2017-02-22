@@ -425,29 +425,29 @@
 					<string>Artículo</string>
 					<string>Revision</string>
 					<string>Revisión</string>
-					<string>Informe técnico/Reporte</string>
-					<string>Informe tecnico/Reporte</string>
+					<string>Reporte</string>
 					<string>Tesis de doctorado</string>
 					<string>Tesis de maestria</string>
 					<string>Tesis de maestría</string>
 					<string>Tesis de grado</string>
-					<string>Trabajo final de grado</string>
+					<string>Trabajo final de Grado</string>
 					<string>Libro</string>
 					<string>Parte de libro</string>										
 					<string>Documento de conferencia</string>
-					<string>fotografia</string>
-					<string>fotografía</string>
-					<string>Comunicacion</string>
-					<string>Comunicación</string>
-					<string>Contribucion a revista</string>
-					<string>Contribución a revista</string>
-					<string>Informe de investigador</string>
-					<string>Informe de becario</string>
-					<string>Informe de personal de apoyo</string>
-					<string>Trabajo de especializacion</string>
-					<string>Trabajo de especialización</string>
-					<string>Informe tecnico</string>
-					<string>Informe técnico</string>					
+					<string>Fotografia</string>
+					<string>Fotografía</string>
+
+<!-- 					<string>Comunicacion</string> -->
+<!-- 					<string>Comunicación</string> -->
+
+<!-- 					<string>Contribucion a revista</string> -->
+<!-- 					<string>Contribución a revista</string> -->
+
+<!-- 					<string>Informe de investigador</string> -->
+<!-- 					<string>Informe de becario</string> -->
+<!-- 					<string>Informe de personal de apoyo</string> -->
+<!-- 					<string>Trabajo de especializacion</string> -->
+<!-- 					<string>Trabajo de especialización</string> -->
 				</list>
 			</Configuration>			
 		</CustomCondition>

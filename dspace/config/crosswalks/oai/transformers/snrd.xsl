@@ -288,39 +288,15 @@
 				<xsl:when test="$theValue='Artículo'">
 					artículo
 				</xsl:when>				
-				<xsl:when test="$theValue='Comunicacion'">
-					artículo
-				</xsl:when>
-				<xsl:when test="$theValue='Comunicación'">
-					artículo
-				</xsl:when>
 				<xsl:when test="$theValue='Revision'">
 					revisión literaria
 				</xsl:when>
 				<xsl:when test="$theValue='Revisión'">
 					revisión literaria
 				</xsl:when>				
-				<xsl:when test="$theValue='Contribucion a revista'">
-					artículo
-				</xsl:when>
-				<xsl:when test="$theValue='Contribución a revista'">
-					artículo
-				</xsl:when>
-				 <xsl:when test="$theValue='Informe tecnico/Reporte'">
+				 <xsl:when test="$theValue='Reporte'">
 					informe técnico
 				</xsl:when>
-				<xsl:when test="$theValue='Informe técnico/Reporte'">
-					informe técnico
-				</xsl:when>				
-				<xsl:when test="$theValue='Informe de investigador'">
-					informe técnico
-				</xsl:when>
-				<xsl:when test="$theValue='Informe de becario'">
-					informe técnico
-				</xsl:when>
-				<xsl:when test="$theValue='Informe de personal de apoyo'">
-					informe técnico
- 				</xsl:when>
 				<xsl:when test="$theValue='Tesis de doctorado'">
 					tesis doctoral
 				</xsl:when>
@@ -330,12 +306,6 @@
 				<xsl:when test="$theValue='Tesis de maestría'">
 					tesis de maestría
 				</xsl:when>				
-				<xsl:when test="$theValue='Trabajo de especializacion'">
-					tesis
-				</xsl:when>
-				<xsl:when test="$theValue='Trabajo de especialización'">
-					tesis
-				</xsl:when>
 				<xsl:when test="$theValue='Tesis de grado'">
 					tesis de grado
 				</xsl:when>
@@ -354,42 +324,9 @@
 				<xsl:when test="$theValue='Documento de conferencia'">
 					documento de conferencia
 				</xsl:when>
-				<xsl:when test="$theValue='Informe tecnico'">
-					informe técnico
-				</xsl:when>
-				<xsl:when test="$theValue='Informe técnico'">
-					informe técnico
-				</xsl:when>
-				<!-- 
-				<xsl:when test="$value='Resolucion'">
-					other
-				</xsl:when>
-				<xsl:when test="$theValue='Actas de directorio'">
-					other
-				</xsl:when>
-				<xsl:when test="$value='Legislación'">
-					other
-				</xsl:when>
-				<xsl:when test="$value='Convenio'">
-					other
-				</xsl:when>
-				 -->
-				 <xsl:when test="$theValue='fotografia'">
+				 <xsl:when test="$theValue='Fotografia'">
 					fotografía
 				</xsl:when>
-				<xsl:when test="$theValue='fotografía'">
-					fotografía
-				</xsl:when>
-				<!-- 
-				<xsl:when test="$value='Audio'">
-					other
-				</xsl:when>
-				 -->
-				<!-- No se exporta 
-				<xsl:when test="$value='Objeto de Aprendizaje'">
-					report
-				</xsl:when>
-				 -->		
 			</xsl:choose>
 		</xsl:variable>
 		<doc:element name="type">
