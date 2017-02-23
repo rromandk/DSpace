@@ -83,9 +83,14 @@
 				</xsl:otherwise>
 			</xsl:choose>		
 
-			<xsl:for-each select="doc:metadata/doc:element[@name='bundles']/doc:element[@name='bundle' and doc:field[@name='name' and text()='ORIGINAL']]/doc:element[@name='bitstreams']/doc:element[@name='bitstream']/doc:field[@name='format']">
-                    <dc:format><xsl:value-of select="." /></dc:format>
-            </xsl:for-each>            
+			<!-- mimetype -->
+			<xsl:variable name="formats" select="doc:metadata/doc:element[@name='bundles']/doc:element[@name='bundle' and doc:field[@name='name' and text()='ORIGINAL']]/doc:element[@name='bitstreams']/doc:element[@name='bitstream']/doc:field[@name='format']"/>
+            
+            <xsl:for-each select="$formats">
+				<xsl:if test="not(. = ../preceding-sibling::*/doc:field[@name='format'])">
+					<dc:format><xsl:value-of select="." /></dc:format>
+				</xsl:if>
+            </xsl:for-each>
 			
 			<!-- dcterms.extent -->
 			<xsl:for-each select="doc:metadata/doc:element[@name='dcterms']/doc:element[@name='extent']/doc:element/doc:field[@name='value']">
