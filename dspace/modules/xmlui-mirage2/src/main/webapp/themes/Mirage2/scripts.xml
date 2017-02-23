@@ -45,6 +45,8 @@
     
     <!-- DescribeStep JS -->
     <script	src="scripts/describe-step-utils.js">&#160;</script>
+    
+    <script src="scripts/editProfile.js">&#160;</script>
 
     <!-- endbuild -->
 
