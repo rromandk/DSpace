@@ -144,13 +144,13 @@
 			<xsl:variable name="embargoed" select="$bitstreams/doc:field[@name='embargo']"/>
 
 			<xsl:choose>
-				<xsl:when test="count($bitstreams) = 0 and count($embargoed/text() = 'forever') = count($bitstreams) ">
+				<xsl:when test="count($bitstreams) = 0 or count($embargoed[text() = 'forever']) = count($bitstreams) ">
 					<dc:rights>info:eu-repo/semantics/closedAccess</dc:rights>
 				</xsl:when>
 				<xsl:when test="count($embargoed) = 0">
 					<dc:rights>info:eu-repo/semantics/openAccess</dc:rights>
 				</xsl:when>
-				<xsl:when test="count($embargoed/text() = 'forever') &gt; 0">
+				<xsl:when test="count($embargoed[text() = 'forever']) &gt; 0">
 					<dc:rights>info:eu-repo/semantics/restrictedAccess</dc:rights>
 				</xsl:when>
 				<xsl:otherwise>
