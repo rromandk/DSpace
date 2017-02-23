@@ -92,30 +92,27 @@
 				$('#aspect_administrative_item_EditItemMetadataForm_field_value_authority').attr('readonly',true);
 		
 				//Update the metadata used for lookup authorities in the "Lookup" button
-				$('#aspect_administrative_item_EditItemMetadataForm_field_field').change(function(){ 
-					var metadataSelected = $('#aspect_administrative_item_EditItemMetadataForm_field_field option:selected').text().replace(/\./g,'_');
-					
-					$("input[type='button'][name='lookup_value']").attr('onclick', getLookupFunction(metadataSelected));
-					
-					if(isAuthorityControlled(metadataSelected.replace(/\_/g,'.'))){
-						$("input[type='button'][name='lookup_value']").removeAttr('disabled');
-					}else{
-						$("input[type='button'][name='lookup_value']").attr('disabled',true);					
-					}
-				});
+				$('#aspect_administrative_item_EditItemMetadataForm_field_field').change(updateLookupButtonState);
 				
 				//Initialize lookup button avoiding synchronization issues between "Lookup button" and "Metadata Selector"
-				var currentMetadataSelected = $('#aspect_administrative_item_EditItemMetadataForm_field_field option:selected').text().replace(/\./g,'_');
-				$("input[type='button'][name='lookup_value']").attr('onclick', getLookupFunction(currentMetadataSelected));
-				if(isAuthorityControlled(currentMetadataSelected.replace(/\_/g,'.'))){
-						$("input[type='button'][name='lookup_value']").removeAttr('disabled');
-				}else{
-						$("input[type='button'][name='lookup_value']").attr('disabled',true);
-				}
+				updateLookupButtonState();
 			}
 				
 			function getLookupFunction(metadataNameForLookUp){
 				return "<xsl:value-of select="$LookupFunction"/>".replace('|metadata_name_to_replace|',metadataNameForLookUp);
+			}
+			
+			function updateLookupButtonState(){
+				var metadataSelected = $('#aspect_administrative_item_EditItemMetadataForm_field_field option:selected').text().replace(/\./g,'_');
+					
+				$("input[type='button'][name='lookup_value']").attr('onclick', getLookupFunction(metadataSelected));
+				
+				if(isAuthorityControlled(metadataSelected.replace(/\_/g,'.'))){
+					$("input[type='button'][name='lookup_value']").removeAttr('disabled');
+				}else{
+					$("input[type='button'][name='lookup_value']").attr('disabled',true);
+					$("input[type='button'][name='value_authority']").val('');					
+				}
 			}
 			
 			function isAuthorityControlled(fieldName){
