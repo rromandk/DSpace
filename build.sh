@@ -64,7 +64,7 @@ update()
 	
 	show_message "Limpiando directorio temporales creados por 'mvn'"
 	cd $DSPACE_SRC
-	$JAVA_OPTS mvn clean
+	$JAVA_OPTS mvn clean $MIRAGE2_PROPERTIES
 	
 	show_message "Iniciamos Tomcat..."
 	sudo /etc/init.d/$TOMCAT start
