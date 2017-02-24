@@ -75,11 +75,11 @@
 			<!-- dcterms.issued -->
 			<xsl:choose>
 				<xsl:when test="doc:metadata/doc:element[@name='dcterms']/doc:element[@name='issued']/doc:element/doc:field[@name='value'] &gt; 0">
-					<dc:date><xsl:value-of select="doc:metadata/doc:element[@name='dcterms']/doc:element[@name='issued']/doc:element/doc:field[@name='value']" /></dc:date>
+					<dc:date><xsl:value-of select="substring(doc:metadata/doc:element[@name='dcterms']/doc:element[@name='issued']/doc:element/doc:field[@name='value'],1,10)" /></dc:date>
 				</xsl:when>
 				<xsl:otherwise>
 				<!-- dc.date.available -->
-					<dc:date><xsl:value-of select="doc:metadata/doc:element[@name='dc']/doc:element[@name='date']/doc:element[@name='available']/doc:element/doc:field[@name='value']" /></dc:date>					
+					<dc:date><xsl:value-of select="substring(doc:metadata/doc:element[@name='dc']/doc:element[@name='date']/doc:element[@name='available']/doc:element/doc:field[@name='value'],1,10)" /></dc:date>					
 				</xsl:otherwise>
 			</xsl:choose>		
 
