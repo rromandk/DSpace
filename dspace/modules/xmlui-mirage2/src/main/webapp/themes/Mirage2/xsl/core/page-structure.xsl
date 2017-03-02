@@ -365,7 +365,7 @@
             <div class="container">
                 <div class="row">
                     <!--TODO-->
-                    <div class="col-xs-6 col-md-5">
+                    <div class="col-xs-6 col-md-6">
                         <xsl:choose>
                             <xsl:when test="count(/dri:document/dri:meta/dri:pageMeta/dri:trail) > 1">
                                 <div class="breadcrumb dropdown visible-xs">
@@ -400,7 +400,7 @@
                             </xsl:otherwise>
                         </xsl:choose>
                     </div>
-                    <div class="col-xs-pull-6 col-md-pull-7 pull-right">
+                    <div class="col-xs-pull-6 col-md-pull-6 pull-right">
 	                    <div class="navbar-header hidden-xs hidden-sm">
 	                        <ul class="nav navbar-nav">
 								<xsl:if test="dri:options/dri:list[@id='aspect.viewArtifacts.Navigation.list.context']/dri:item">
