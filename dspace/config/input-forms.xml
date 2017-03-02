@@ -838,7 +838,7 @@
 	</pair>
 	<pair>
 		<displayed-value>Comunicación</displayed-value>
-		<stored-value>uner:types/articulo/comunicación</stored-value>
+		<stored-value>uner:types/articulo/comunicacion</stored-value>
 	</pair>
 	<pair>
 		<displayed-value>Reporte</displayed-value>
@@ -861,7 +861,7 @@
 		<stored-value>uner:types/tesis/grado</stored-value>
 	</pair>
 	<pair>
-		<displayed-value>Trabajo final de Grado</displayed-value>
+		<displayed-value>Trabajo final de grado</displayed-value>
 		<stored-value>uner:types/tesis/trabajo_final</stored-value>
 	</pair>
 	<pair>
@@ -877,11 +877,11 @@
 		<stored-value>uner:types/documento_conferencia</stored-value>
 	</pair>
 	<pair>
-		<displayed-value>Documentación Institucional</displayed-value>
+		<displayed-value>Documentación institucional</displayed-value>
 		<stored-value>uner:types/documento_institucional</stored-value>
 	</pair>
 	<pair>
-		<displayed-value>Resolucion</displayed-value>
+		<displayed-value>Resolución</displayed-value>
 		<stored-value>uner:types/documento_institucional/resolucion</stored-value>
 	</pair>
 	<pair>
@@ -897,7 +897,7 @@
 		<stored-value>uner:types/imagen/video</stored-value>
 	</pair>
 	<pair>
-		<displayed-value>Material de Aprendizaje</displayed-value>
+		<displayed-value>Material de aprendizaje</displayed-value>
 		<stored-value>uner:types/material_aprendizaje</stored-value>
 	</pair>
 	<pair>
