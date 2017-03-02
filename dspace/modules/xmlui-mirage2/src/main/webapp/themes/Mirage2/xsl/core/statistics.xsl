@@ -6,83 +6,80 @@
 	xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns="http://www.w3.org/1999/xhtml"
 	exclude-result-prefixes="i18n dri mets xlink xsl dim xhtml mods dc ">
 
-
+	<!-- Ocultamos estadisticas de pais y ciudad para comunidades y colecciones debido a la falta de confianza en éstas -->
+	<xsl:template match="/dri:document/dri:body/dri:div[@n='community-home' and @id='aspect.statistics.StatisticsTransformer.div.community-home']/dri:div[@n='stats' and @id='aspect.statistics.StatisticsTransformer.div.stats']/dri:table[dri:head/i18n:text/text()='xmlui.statistics.visits.countries' or dri:head/i18n:text/text()='xmlui.statistics.visits.cities']"/>
+	
+	<xsl:template match="/dri:document/dri:body/dri:div[@n='collection-home' and @id='aspect.statistics.StatisticsTransformer.div.collection-home']/dri:div[@n='stats' and @id='aspect.statistics.StatisticsTransformer.div.stats']/dri:table[dri:head/i18n:text/text()='xmlui.statistics.visits.countries' or dri:head/i18n:text/text()='xmlui.statistics.visits.cities']"/>
+	
 	<!-- Este template es como el "principal" llama a los otros templates y 
 		organiza la pagina -->
 
 	<xsl:template match="/dri:document/dri:body/dri:div[@n='item-home' and @id='aspect.statistics.StatisticsTransformer.div.item-home']/dri:div[@n='stats' and @id='aspect.statistics.StatisticsTransformer.div.stats']">
+		<xsl:variable name="path">
+			<xsl:call-template name="print-path">
+				<xsl:with-param name="path"
+					select="substring-before( /dri:document/dri:meta/dri:pageMeta/dri:metadata[@element='request' and @qualifier='URI'] , '/statistics')" />
+			</xsl:call-template>
+		</xsl:variable>
 		<xsl:choose>
 			<xsl:when test="dri:table[@id='aspect.statistics.StatisticsTransformer.table.list-table']/dri:row/dri:cell[@n='01']">
-				<div>
-					<div class="item-head">
-						<div class="curso">
-							<p></p>
-							<div>
-								<xsl:if test="dri:table[@id='aspect.statistics.StatisticsTransformer.table.list-table']/dri:row/dri:cell[@n='01']">
-									<xsl:value-of select="dri:table[@id='aspect.statistics.StatisticsTransformer.table.list-table']/dri:row/dri:cell[@n='01']"></xsl:value-of>
-								</xsl:if>
-							</div>
-						</div>
+				<div class="row item-head">
+					<div class="col-xs-8 curso">
+						<p></p>
 						<div>
-							<div class="contenedor-cuadrado">
-								<div class="cuadrado">
-									<div class="encuadrado">
-										<xsl:choose>
-											<xsl:when test="dri:table[@id='aspect.statistics.StatisticsTransformer.table.list-table']/dri:row/dri:cell[@n='02']">
-												<xsl:value-of select="dri:table[@id='aspect.statistics.StatisticsTransformer.table.list-table']/dri:row/dri:cell[@n='02']"></xsl:value-of>
-											</xsl:when>
-										</xsl:choose>
-									</div>
+							<xsl:if test="dri:table[@id='aspect.statistics.StatisticsTransformer.table.list-table']/dri:row/dri:cell[@n='01']">
+								<xsl:value-of select="dri:table[@id='aspect.statistics.StatisticsTransformer.table.list-table']/dri:row/dri:cell[@n='01']"></xsl:value-of>
+							</xsl:if>
+						</div>
+					</div>
+					<div class="col-xs-4 col-xs-push-1 contenedor-cuadrado">
+							<div class="cuadrado">
+								<div class="encuadrado">
+									<xsl:choose>
+										<xsl:when test="dri:table[@id='aspect.statistics.StatisticsTransformer.table.list-table']/dri:row/dri:cell[@n='02']">
+											<xsl:value-of select="dri:table[@id='aspect.statistics.StatisticsTransformer.table.list-table']/dri:row/dri:cell[@n='02']"></xsl:value-of>
+										</xsl:when>
+									</xsl:choose>
 								</div>
-								<h4>
-									<i18n:text select="dri:table/dri:row/dri:cell/i18n:text[text()='xmlui.statistics.visits.views']">
-										<xsl:value-of select="dri:table/dri:row/dri:cell/i18n:text[text()='xmlui.statistics.visits.views']"></xsl:value-of>
-									</i18n:text>
-								</h4>
 							</div>
+							<h4>
+								<i18n:text select="dri:table/dri:row/dri:cell/i18n:text[text()='xmlui.statistics.visits.views']">
+									<xsl:value-of select="dri:table/dri:row/dri:cell/i18n:text[text()='xmlui.statistics.visits.views']"></xsl:value-of>
+								</i18n:text>
+							</h4>
 						</div>
-					</div>
 				</div>
 				<br/>
-				<div>
-					<div>
-						<xsl:apply-templates select="dri:div[@id='aspect.statistics.StatisticsTransformer.div.tablewrapper']" />
-						<xsl:apply-templates select="dri:table/dri:head/i18n:text[text()='xmlui.statistics.visits.countries']" />
-					</div>
+				<div id="charts-section">
+					<xsl:apply-templates select="dri:div[@id='aspect.statistics.StatisticsTransformer.div.tablewrapper']" />
+					<!-- Sacamos estadísticas de país por no ser confiables... -->
+					<!-- 
+					<xsl:apply-templates select="dri:table/dri:head/i18n:text[text()='xmlui.statistics.visits.countries']" />
+					-->
 				</div>
 				<br/>
 				<br/>
 				<br/>
-				<div>
-					<div>
-						<div class="curso">
-							<xsl:apply-templates select="dri:table/dri:head/i18n:text[text()='xmlui.statistics.visits.bitstreams']" />
-						</div>
-					</div>
+				<div id="bitstreams-views">
+					<xsl:apply-templates select="dri:table/dri:head/i18n:text[text()='xmlui.statistics.visits.bitstreams']" />
 				</div>
 			</xsl:when>
 			<xsl:otherwise>
 				<div>
 					<div>
 						<div class="tittle-statistics">
-							<p>El item no tiene accesos.</p>
-							<xsl:variable name="path">
-								<xsl:call-template name="print-path">
-									<xsl:with-param name="path"
-										select="substring-before( /dri:document/dri:meta/dri:pageMeta/dri:metadata[@element='request' and @qualifier='URI'] , '/statistics')" />
-								</xsl:call-template>
-							</xsl:variable>
-							<a>
-								<xsl:attribute name="href">
-					    			<xsl:value-of select="$path"></xsl:value-of>
-					    		</xsl:attribute>
-								Volver a la vista del item
-							</a>
+							<p><i18n:text>xmlui.statistics.no-stats</i18n:text></p>
 						</div>
 					</div>
 				</div>
 			</xsl:otherwise>
 		</xsl:choose>
+		<a class="btn btn-default" id="stats-go-back-item-view">
+			<xsl:attribute name="href">
+				<xsl:value-of select="$path"></xsl:value-of>
+			</xsl:attribute>
+			<i18n:text>xmlui.statistics.stats-go-back</i18n:text>
+		</a>
 	</xsl:template>
 
 
@@ -101,16 +98,14 @@
 			<ul class="lista_statistics">
 				<xsl:for-each select="../../dri:row">
 					<xsl:if test="dri:cell[@rend='datacell']">
-						<li>
-							<div>
-								<div class="pull-left">
+							<li>	
+								<span id="bitstream-name">
 									<xsl:value-of select="dri:cell[@rend='labelcell']"></xsl:value-of>
-								</div>
-								<div class="color pull-right">
+								</span>
+								<span id="bitstream-views-number">
 									<xsl:value-of select="dri:cell[@rend='datacell']"></xsl:value-of>
-								</div>
-							</div>
-						</li>
+								</span>
+							</li>
 					</xsl:if>
 				</xsl:for-each>
 			</ul>

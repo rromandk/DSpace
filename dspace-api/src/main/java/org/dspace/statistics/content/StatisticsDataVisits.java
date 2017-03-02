@@ -511,7 +511,11 @@ public class StatisticsDataVisits extends StatisticsData
                         {
                             break;
                         }
-                        return value;
+                        //Returns the description if possible, otherwise the name if possible
+                        if(bit.getDescription()!= null && !bit.getDescription().isEmpty())
+                        	return bit.getDescription();
+                        else if(bit.getName()!= null && !bit.getName().isEmpty())
+                        	return bit.getName();
                     case Constants.ITEM:
                         Item item = itemService.findByIdOrLegacyId(context, dsoId);
                         if(item == null)
@@ -524,13 +528,13 @@ public class StatisticsDataVisits extends StatisticsData
                         {
                             name = vals.get(0).getValue();
                         }
-                        if(dsoLength != -1 && name.length() > dsoLength){
-                            //Cut it off at the first space
-                            int firstSpace = name.indexOf(' ', dsoLength);
-                            if(firstSpace != -1){
-                                name = name.substring(0, firstSpace) + " ...";
-                            }
-                        }
+//                        if(dsoLength != -1 && name.length() > dsoLength){
+//                            //Cut it off at the first space
+//                            int firstSpace = name.indexOf(' ', dsoLength);
+//                            if(firstSpace != -1){
+//                                name = name.substring(0, firstSpace) + " ...";
+//                            }
+//                        }
 
                         return name;
 
@@ -542,13 +546,13 @@ public class StatisticsDataVisits extends StatisticsData
                         }
                         name = coll.getName();
 
-                        if(dsoLength != -1 && name.length() > dsoLength){
-                            //Cut it off at the first space
-                            int firstSpace = name.indexOf(' ', dsoLength);
-                            if(firstSpace != -1){
-                                name = name.substring(0, firstSpace) + " ...";
-                            }
-                        }
+//                        if(dsoLength != -1 && name.length() > dsoLength){
+//                            //Cut it off at the first space
+//                            int firstSpace = name.indexOf(' ', dsoLength);
+//                            if(firstSpace != -1){
+//                                name = name.substring(0, firstSpace) + " ...";
+//                            }
+//                        }
                         return name;
 
                     case Constants.COMMUNITY:
@@ -559,13 +563,13 @@ public class StatisticsDataVisits extends StatisticsData
                         }
                         name = comm.getName();
 
-                        if(dsoLength != -1 && name.length() > dsoLength){
-                            //Cut it off at the first space
-                            int firstSpace = name.indexOf(' ', dsoLength);
-                            if(firstSpace != -1){
-                                name = name.substring(0, firstSpace) + " ...";
-                            }
-                        }
+//                        if(dsoLength != -1 && name.length() > dsoLength){
+//                            //Cut it off at the first space
+//                            int firstSpace = name.indexOf(' ', dsoLength);
+//                            if(firstSpace != -1){
+//                                name = name.substring(0, firstSpace) + " ...";
+//                            }
+//                        }
                         return name;
                 }
             }

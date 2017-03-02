@@ -98,6 +98,8 @@ input.ds-authority-lock{
  *  Estilos de Statistics
  *
  */
+ 
+ $stats-text-color:#79aab2;
 
 .contenedor-cuadrado{
 	width:20%;
@@ -109,47 +111,99 @@ input.ds-authority-lock{
 .cuadrado {
      width: auto; 
      height: auto; 
-     border: 6px solid #9ec4cd;
      margin:auto;
 }
 
-.encuadrado{
-	font-size:35px;	
-	
-}
 .curso p{
 	font-size:12px;
 }
-.curso div{
-	font-size:25px;
-}
 .tittle-statistics{
 	padding-bottom: 10px;
-	font-size:20px;
-	color:#79aab2;
+	color:$stats-text-color;
 }
 .linea-statistics{
-	background-color:#79aab2 ;
+	background-color:$stats-text-color ;
 	height: 2px;
 }
 .lista_statistics{
 	list-style:none;
 	padding: 5px;
-	width: 50%;
+	
+	li:hover{
+		background-color: whitesmoke;
+	}
 }
-.lista_statistics li div div{
-	font-size:16px;
-	color:black;
-}
-.lista_statistics li div .color{
-	color:#79aab2;
-}
-.lista_statistics li div{
-	display:inline;
+
+#bitstream-views-number{
+	color:$stats-text-color;
+	float:right;
 }
 
 .tamanio{
 	height:300px;
+}
+
+@media screen and (max-width: 320px){  
+	.curso div{
+		font-size:1.4em;
+	}
+	.tittle-statistics {
+  		font-size: 1em;
+	}
+	.encuadrado {
+  		font-size: 1.4em;
+	}
+	.contenedor-cuadrado h4 {
+		font-size: 1.2em;
+	}
+	.cuadrado{
+		border: 2px solid #9ec4cd;
+	}
+	.lista_statistics{
+		font-size: 0.9em;
+	}
+
+}
+@media screen and (min-width: 321px) and (max-width: 767px){
+	.curso div{
+		font-size:1.7em;
+	}
+	.tittle-statistics {
+  		font-size: 1.2em;
+	}
+	.lista_statistics{
+		font-size: 1em;
+	}
+	.encuadrado {
+  		font-size: 1.7em;
+	}
+	.contenedor-cuadrado h4 {
+		font-size: 1.5em;
+	}
+	.cuadrado{
+		border: 4px solid #9ec4cd;
+	}
+}
+
+@media screen and (min-width: 768px){
+	.curso div{
+		font-size:2em;
+	}
+	.tittle-statistics {
+  		font-size: 1.4em;
+	}
+	.encuadrado {
+  		font-size: 2em;
+	}
+	.contenedor-cuadrado h4 {
+		font-size: 1.8em;
+	}
+	.cuadrado{
+		border: 6px solid #9ec4cd;
+	}
+	.lista_statistics{
+		font-size: 1.2em;
+	}
 }
 
 /* chartist-js - "Pie" chart styles*/
