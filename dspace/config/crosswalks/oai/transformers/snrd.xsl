@@ -324,6 +324,9 @@
 				<xsl:when test="$theValue='Documento de conferencia'">
 					documento de conferencia
 				</xsl:when>
+				 <xsl:when test="$theValue='Fotografía'">
+					fotografía
+				</xsl:when>
 				 <xsl:when test="$theValue='Fotografia'">
 					fotografía
 				</xsl:when>
