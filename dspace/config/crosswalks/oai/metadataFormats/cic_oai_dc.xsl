@@ -106,7 +106,7 @@
 			</xsl:for-each>
 			<!-- dcterms.identifier.url -->
 			<xsl:for-each select="doc:metadata/doc:element[@name='dcterms']/doc:element[@name='identifier']/doc:element/doc:field[@name='value']">
-				<dc:identifier><xsl:value-of select="." /></dc:identifier>
+				<dc:relation><xsl:value-of select="." /></dc:relation>
 			</xsl:for-each>
 			<!-- dc:source -->
 			<xsl:for-each select="doc:metadata/doc:element[@name='dcterms']/doc:element[@name='source']/doc:element/doc:field[@name='value']">
