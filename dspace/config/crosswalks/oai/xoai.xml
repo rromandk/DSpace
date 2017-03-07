@@ -197,14 +197,91 @@
     		<Definition>
     			<And>
     				<LeftCondition>
-						<Custom ref="snrdDocumentsubtypeFilter"/>
-    				</LeftCondition>
-    				<RightCondition>
-<!--						REVISAR 
-						<Custom ref="dateExistsCondition"/>-->
-						<Custom ref="anonymousAccesAllow"/>
-    				</RightCondition>
-    			</And>
+		    			<And>
+		    				<LeftCondition>
+				    			<And>
+						    		<LeftCondition>
+										<Custom ref="snrdDocumentsubtypeFilter"/>
+						    		</LeftCondition>
+						    		<RightCondition>
+										<Custom ref="anonymousAccesAllow"/>
+						    		</RightCondition>
+						    	</And>
+				    		</LeftCondition>
+							<!-- Chequeo que la versión no sea "enviada" (preprint) -->
+			    			<RightCondition>
+			    				<Custom ref="excludeSubmittedVersionFilter"/>
+   			    			</RightCondition>
+		    			</And>
+		    		</LeftCondition>
+					<!-- Chequeo existencia de metadatos obligatorios -->
+		    		<RightCondition>
+                        <And>
+                            <LeftCondition>
+		                        <And>
+		                            <LeftCondition>
+				                        <And>
+				                            <LeftCondition>
+				                                <Custom ref="titleExistsCondition"/>
+				                            </LeftCondition>
+				                            <RightCondition>
+							    				<Custom ref="licenseExistsCondition"/>
+				                            </RightCondition>
+				                        </And>
+		                            </LeftCondition>
+		                            <RightCondition>
+		                            	<Custom ref="languageExistsCondition"/>
+		                            </RightCondition>
+		                        </And>
+                            </LeftCondition>
+							<RightCondition>
+								<And>
+									<!-- dc:contributor obligatorio solo para el type tesis (su valor depende de la existencia de contributor) -->
+									<LeftCondition>
+				                        <Or>
+				                            <LeftCondition>
+					                        	<Not>
+							                       	<Condition>
+														<Custom ref="thesisDocumentTypeCondition"/>
+													</Condition>
+					                            </Not>
+				                            </LeftCondition>
+				                            <RightCondition>
+												<Custom ref="contributorExistsCondition"/>
+				                            </RightCondition>
+				                        </Or>
+
+									</LeftCondition>
+<!--								chequeo existencia de dc:creator -->
+									<RightCondition>
+										<Or>
+											<LeftCondition>
+												<Or>
+													<LeftCondition>
+														<Custom ref="authorExistsCondition"/>
+													</LeftCondition>
+													<RightCondition>
+														<Custom ref="compilatorExistsCondition"/>
+													</RightCondition>
+												</Or>
+											</LeftCondition>
+											<RightCondition>
+												<Or>
+													<LeftCondition>
+														<Custom ref="editorExistsCondition"/>
+													</LeftCondition>
+													<RightCondition>
+														<Custom ref="corporateExistsCondition"/>
+													</RightCondition>
+												</Or>
+											</RightCondition>
+										</Or>
+									</RightCondition>
+								</And>
+							</RightCondition>
+	    	            </And>
+		    		</RightCondition>
+		   		</And>
     		</Definition>
     	</Filter>
     
@@ -360,7 +437,7 @@
             <Configuration>
                 <string name="field">dc.type</string>
                 <string name="operator">contains</string>
-                <string name="value">Thesis</string>
+                <string name="value">Tesis</string>
             </Configuration>
         </CustomCondition>
         
@@ -369,11 +446,43 @@
             <Class>org.dspace.xoai.filter.DSpaceAuthorizationFilter</Class>
         </CustomCondition>
 
-        <!-- This condition determines if an Item has a "dc.contributor.author" -->
+        <!-- This condition determines if an Item has a "dcterms.creator.author" -->
         <CustomCondition id="authorExistsCondition">
             <Class>org.dspace.xoai.filter.DSpaceMetadataExistsFilter</Class>
             <Configuration>
-                <string name="field">dc.contributor.author</string>
+                <string name="field">dcterms.creator.author</string>
+            </Configuration>
+        </CustomCondition>
+
+       <!-- This condition determines if an Item has a "dcterms.creator.compilator" -->
+        <CustomCondition id="compilatorExistsCondition">
+            <Class>org.dspace.xoai.filter.DSpaceMetadataExistsFilter</Class>
+            <Configuration>
+                <string name="field">dcterms.creator.compilator</string>
+            </Configuration>
+        </CustomCondition>
+
+       <!-- This condition determines if an Item has a "dcterms.creator.editor" -->
+        <CustomCondition id="editorExistsCondition">
+            <Class>org.dspace.xoai.filter.DSpaceMetadataExistsFilter</Class>
+            <Configuration>
+                <string name="field">dcterms.creator.editor</string>
+            </Configuration>
+        </CustomCondition>
+
+       <!-- This condition determines if an Item has a "dcterms.creator.corporate" -->
+        <CustomCondition id="corporateExistsCondition">
+            <Class>org.dspace.xoai.filter.DSpaceMetadataExistsFilter</Class>
+            <Configuration>
+                <string name="field">dcterms.creator.corporate</string>
+            </Configuration>
+        </CustomCondition>
+
+        <!-- This condition determines if an Item has a "dcterms.contributor.director" -->
+        <CustomCondition id="contributorExistsCondition">
+            <Class>org.dspace.xoai.filter.DSpaceMetadataExistsFilter</Class>
+            <Configuration>
+                <string name="field">dcterms.contributor.director</string>
             </Configuration>
         </CustomCondition>
 
@@ -382,6 +491,20 @@
             <Class>org.dspace.xoai.filter.DSpaceMetadataExistsFilter</Class>
             <Configuration>
                 <string name="field">dc.title</string>
+            </Configuration>
+        </CustomCondition>
+
+        <CustomCondition id="licenseExistsCondition">
+            <Class>org.dspace.xoai.filter.DSpaceMetadataExistsFilter</Class>
+            <Configuration>
+                <string name="field">dcterms.license</string>
+            </Configuration>
+        </CustomCondition>
+
+        <CustomCondition id="extentExistsCondition">
+            <Class>org.dspace.xoai.filter.DSpaceMetadataExistsFilter</Class>
+            <Configuration>
+                <string name="field">dcterms.extent</string>
             </Configuration>
         </CustomCondition>
 
@@ -436,22 +559,24 @@
 					<string>Documento de conferencia</string>
 					<string>Fotografia</string>
 					<string>Fotografía</string>
-
-<!-- 					<string>Comunicacion</string> -->
-<!-- 					<string>Comunicación</string> -->
-
-<!-- 					<string>Contribucion a revista</string> -->
-<!-- 					<string>Contribución a revista</string> -->
-
-<!-- 					<string>Informe de investigador</string> -->
-<!-- 					<string>Informe de becario</string> -->
-<!-- 					<string>Informe de personal de apoyo</string> -->
-<!-- 					<string>Trabajo de especializacion</string> -->
-<!-- 					<string>Trabajo de especialización</string> -->
 				</list>
 			</Configuration>			
 		</CustomCondition>
         
+<!-- Se excluye type preprint -->
+        <CustomCondition id="excludeSubmittedVersionFilter">
+			<Class>org.dspace.xoai.filter.DSpaceAtLeastOneMetadataFilter</Class>
+			<Configuration>
+				<string name="field">dc.type.version</string>
+				<string name="operator">equal</string>
+				<list name="values">
+					<string>Versión Publicada</string>
+					<string>Borrador</string>
+					<string>Versión aceptada</string>
+					<string>Versión Actualizada</string>
+				</list>
+			</Configuration>			
+		</CustomCondition>
 
         <!-- This condition determines if an Item has a "dc.rights" field
              specifying "open access", which is required for DRIVER
@@ -466,40 +591,7 @@
                 </list>
             </Configuration>
         </CustomCondition>
-                
-       <!-- This condition determines if an Item has a "dcterms.creator.author" -->
-        <CustomCondition id="creatorExistsCondition">
-            <Class>org.dspace.xoai.filter.DSpaceMetadataExistsFilter</Class>
-            <Configuration>
-                <string name="field">dcterms.creator.author</string>
-            </Configuration>
-        </CustomCondition>
-        
-        <!-- This condition determines if an Item has a "dcterms.publisher" -->
-        <CustomCondition id="publisherExistsCondition">
-            <Class>org.dspace.xoai.filter.DSpaceMetadataExistsFilter</Class>
-            <Configuration>
-                <string name="field">dcterms.publisher</string>
-            </Configuration>
-        </CustomCondition>
-        
-        <!-- This condition determines if an Item has a "dcterms.issued" -->
-        <CustomCondition id="dateExistsCondition">
-            <Class>org.dspace.xoai.filter.DSpaceMetadataExistsFilter</Class>
-            <Configuration>
-                <string name="field">dcterms.issued</string>
-            </Configuration>
-        </CustomCondition>
-        
-       
-        <!-- This condition determines if an Item has a "dc.identifier.uri" -->
-        <CustomCondition id="identifierExistsCondition">
-            <Class>org.dspace.xoai.filter.DSpaceMetadataExistsFilter</Class>
-            <Configuration>
-                <string name="field">dc.identifier.uri</string>
-            </Configuration>
-        </CustomCondition>
-        
+               
         <!-- This condition determines if an Item has a "dcterms.language" -->
         <CustomCondition id="languageExistsCondition">
             <Class>org.dspace.xoai.filter.DSpaceMetadataExistsFilter</Class>
