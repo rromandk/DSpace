@@ -28,8 +28,12 @@ import org.dspace.content.Collection;
 import org.dspace.content.Community;
 import org.dspace.content.Item;
 import org.dspace.content.MetadataValue;
+import org.dspace.content.factory.ContentServiceFactory;
 import org.dspace.core.Constants;
+import org.dspace.core.Context;
 import org.dspace.core.I18nUtil;
+
+import org.dspace.content.service.CommunityService;
 
 
 /**
@@ -563,9 +567,11 @@ public class Util {
     	{
 			// Search through the community hierarchy in ascending order
     		List<Community> communities;
+    		CommunityService communityService = ContentServiceFactory.getInstance().getCommunityService();
     		try 
     		{
-    			communities = (List<Community>)collection.getCommunities();
+    			org.dspace.core.Context context = new org.dspace.core.Context();
+    			communities = communityService.getAllParents(context, collection);
 			}
 			catch (SQLException e)
 			{

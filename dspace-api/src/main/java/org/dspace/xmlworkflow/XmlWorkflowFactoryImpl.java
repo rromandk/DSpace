@@ -15,6 +15,8 @@ import org.dspace.services.ConfigurationService;
 import org.dspace.services.factory.DSpaceServicesFactory;
 import org.dspace.xmlworkflow.factory.XmlWorkflowFactory;
 import org.dspace.content.Community;
+import org.dspace.content.factory.ContentServiceFactory;
+import org.dspace.content.service.CommunityService;
 import org.dspace.utils.DSpace;
 import org.dspace.xmlworkflow.state.Step;
 import org.dspace.xmlworkflow.state.actions.UserSelectionActionConfig;
@@ -128,8 +130,10 @@ public class XmlWorkflowFactoryImpl implements XmlWorkflowFactory {
 
 		// Search through the community hierarchy in ascending order
 		List<Community> communities;
+		CommunityService communityService = ContentServiceFactory.getInstance().getCommunityService();
 		try {
-			communities = (List<Community>)collection.getCommunities();
+			org.dspace.core.Context context = new org.dspace.core.Context();
+			communities = communityService.getAllParents(context, collection);
 		} catch (SQLException e) {
 			throw new WorkflowConfigurationException("Error getting communities from collection "+collection.getID()+": "+e.getMessage());
 		}
