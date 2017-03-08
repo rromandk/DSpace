@@ -23,15 +23,20 @@
 			xmlns:dc="http://purl.org/dc/elements/1.1/" 
 			xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
 			xsi:schemaLocation="http://www.openarchives.org/OAI/2.0/oai_dc/ http://www.openarchives.org/OAI/2.0/oai_dc.xsd">
-			<!-- dc.type -->
+			<!-- dc.type driver -->
 			<xsl:for-each select="doc:metadata/doc:element[@name='dc']/doc:element[@name='type']/doc:element[@name='driver']/doc:field[@name='value']">
 				<dc:type><xsl:value-of select="concat('info:eu-repo/semantics/',.)" /></dc:type>
 			</xsl:for-each>
+			<!-- dc.type snrd -->
 			<xsl:for-each select="doc:metadata/doc:element[@name='dc']/doc:element[@name='type']/doc:element[@name='snrd']/doc:field[@name='value']">
 				<dc:type><xsl:value-of select="concat('info:ar-repo/semantics/',.)" /></dc:type>
 			</xsl:for-each>
 			<!-- dc.type.version -->
 			<xsl:for-each select="doc:metadata/doc:element[@name='dc']/doc:element[@name='type-version']/doc:element[@name='driver']/doc:field[@name='value']">
+				<dc:type><xsl:value-of select="." /></dc:type>
+			</xsl:for-each>
+			<!-- dc.type -->
+			<xsl:for-each select="/doc:metadata/doc:element[@name='dc']/doc:element[@name='type']/doc:element/doc:field[@name='value']/text()">
 				<dc:type><xsl:value-of select="." /></dc:type>
 			</xsl:for-each>
 			<!-- dc.title -->
@@ -57,6 +62,10 @@
 			
 			<!-- dcterms.subject.* -->
 			<xsl:for-each select="doc:metadata/doc:element[@name='dcterms']/doc:element[@name='subject']/doc:element/doc:field[@name='value']">
+				<dc:subject><xsl:value-of select="." /></dc:subject>
+			</xsl:for-each>
+			<!-- dcterms.subject.materia -->
+			<xsl:for-each select="doc:metadata/doc:element[@name='dcterms']/doc:element[@name='subject']/doc:element/doc:element/doc:field[@name='value']">
 				<dc:subject><xsl:value-of select="." /></dc:subject>
 			</xsl:for-each>
 			<!-- dcterms.abstract -->
@@ -106,7 +115,7 @@
 			</xsl:for-each>
 			<!-- dcterms.identifier.url -->
 			<xsl:for-each select="doc:metadata/doc:element[@name='dcterms']/doc:element[@name='identifier']/doc:element/doc:field[@name='value']">
-				<dc:relation><xsl:value-of select="." /></dc:relation>
+				<dc:identifier><xsl:value-of select="." /></dc:identifier>
 			</xsl:for-each>
 			<!-- dc:source -->
 			<xsl:for-each select="doc:metadata/doc:element[@name='dcterms']/doc:element[@name='source']/doc:element/doc:field[@name='value']">
@@ -127,10 +136,10 @@
 			<xsl:if test="$series != '' and $issue != ''">
 				<dc:relation><xsl:value-of select="$series" />:<xsl:value-of select="$issue" /></dc:relation>
 			</xsl:if>
-			<xsl:if test="$series != '' and $issue = ''">
+			<xsl:if test="$series != '' and not(string($issue))">
 				<dc:relation><xsl:value-of select="$series" /></dc:relation>
 			</xsl:if>
-			<xsl:if test="$series = '' and $issue != ''">
+			<xsl:if test="not(string($series)) and $issue != ''">
 				<dc:relation><xsl:value-of select="$issue" /></dc:relation>
 			</xsl:if>
 
