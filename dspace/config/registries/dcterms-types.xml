@@ -43,11 +43,11 @@
     <scope_note>A summary of the resource.</scope_note>
   </dc-type>
 
-  <dc-type>
-	<schema>dcterms</schema>
-    <element>accessRights</element>
-    <scope_note>Information about who can access the resource or an indication of its security status. May include information regarding access or restrictions based on privacy, security, or other policies.</scope_note>
-  </dc-type>
+<!--   <dc-type> -->
+<!-- 	<schema>dcterms</schema> -->
+<!--     <element>accessRights</element> -->
+<!--     <scope_note>Information about who can access the resource or an indication of its security status. May include information regarding access or restrictions based on privacy, security, or other policies.</scope_note> -->
+<!--   </dc-type> -->
 
   <dc-type>
 	<schema>dcterms</schema>
