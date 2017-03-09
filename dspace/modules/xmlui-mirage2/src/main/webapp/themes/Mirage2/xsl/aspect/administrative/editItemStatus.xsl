@@ -129,8 +129,21 @@
 				
 			}
     	</script>
-	    
-      
+
+	    <!-- Modificación de estilos en edicion de metadatos del item -->
+        <script type="text/javascript">
+        	var addMetadataFormValue = document.getElementsByClassName("col-xs-12 col-sm-3 needs-xs-spacing")[0];
+        	var metadataFormValue = document.getElementById("aspect_administrative_item_EditItemMetadataForm_field_value");
+        	var inputButton = addMetadataFormValue.getElementsByTagName("input");
+
+        	addMetadataFormValue.style.setProperty('width','100%');
+        	metadataFormValue.style.setProperty('width','80%');
+        	metadataFormValue.style.setProperty('float','left');
+        	inputButton[0].style.setProperty('float','left','important');
+        	inputButton[0].style.setProperty('margin-left','10px');
+        	
+        </script>
+
     </xsl:template>
     
 </xsl:stylesheet>
