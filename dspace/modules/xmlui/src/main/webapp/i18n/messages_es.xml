@@ -2560,6 +2560,10 @@ Cuando se usa QDC para los elementos de RIUNER se recomienda el uso de crosswalk
 <message key="xmlui.ChoiceLookupTransformer.field.dc_contributor_author.title">Búsqueda de autores en la LC Name Authorithy</message>
 <message key="xmlui.ChoiceLookupTransformer.field.dc_contributor_author.nonauthority">Valor local "@1@" (no se encuentra en la Autoridad)</message>
 
+  <!-- Choice Lookup - sample config for dc.type -->
+<message key="xmlui.ChoiceLookupTransformer.field.dc_type.title">Buscar tipo de documento</message>
+<message key="xmlui.ChoiceLookupTransformer.field.dc_type.help">Nombre del tipo de documento</message>
+
      <!-- mobile theme -->
   <message key="xmlui.mobile.home_mobile">RIUNER Móvil</message>
   <message key="xmlui.mobile.search_all">Buscar TODO</message>
