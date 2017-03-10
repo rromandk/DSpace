@@ -2585,6 +2585,15 @@
   <message key="xmlui.ChoiceLookupTransformer.field.dcterms_subject_materia.title">Look up Subject</message>
   <message key="xmlui.ChoiceLookupTransformer.field.dcterms_subject.help">Keyword</message>
   <message key="xmlui.ChoiceLookupTransformer.field.dcterms_subject.title">Look up Keyword</message>
+  
+  <message key="xmlui.ChoiceLookupTransformer.field.dc_type.title">Lookup document type</message>
+  <message key="xmlui.ChoiceLookupTransformer.field.dc_type.help">Name of document type</message>
+  <message key="xmlui.ChoiceLookupTransformer.field.dc_type_version.title">Lookup document version</message>
+  <message key="xmlui.ChoiceLookupTransformer.field.dc_type_version.help">Name of document version</message>
+  <message key="xmlui.ChoiceLookupTransformer.field.dcterms_language.title">Lookup language</message>
+  <message key="xmlui.ChoiceLookupTransformer.field.dcterms_language.help">Name of language</message>
+  <message key="xmlui.ChoiceLookupTransformer.field.dcterms_license.title">Lookup license of use</message>
+  <message key="xmlui.ChoiceLookupTransformer.field.dcterms_license.help">Name of license of use</message>
 
   <!-- Params are: search-value -->
   <message key="xmlui.ChoiceLookupTransformer.field.dc_publisher.nonauthority">Non-authority value: @1@</message>

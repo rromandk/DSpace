@@ -2563,6 +2563,13 @@ Cuando se usa QDC para los elementos de RIUNER se recomienda el uso de crosswalk
   <!-- Choice Lookup - sample config for dc.type -->
 <message key="xmlui.ChoiceLookupTransformer.field.dc_type.title">Buscar tipo de documento</message>
 <message key="xmlui.ChoiceLookupTransformer.field.dc_type.help">Nombre del tipo de documento</message>
+<message key="xmlui.ChoiceLookupTransformer.field.dc_type_version.title">Buscar versión del documento</message>
+<message key="xmlui.ChoiceLookupTransformer.field.dc_type_version.help">Nombre de la versión del documento</message>
+<message key="xmlui.ChoiceLookupTransformer.field.dcterms_language.title">Buscar idioma del documento</message>
+<message key="xmlui.ChoiceLookupTransformer.field.dcterms_language.help">Nombre del idioma del documento</message>
+<message key="xmlui.ChoiceLookupTransformer.field.dcterms_license.title">Buscar licencia de uso del documento</message>
+<message key="xmlui.ChoiceLookupTransformer.field.dcterms_license.help">Nombre de la licencia de uso del documento</message>
+
 
      <!-- mobile theme -->
   <message key="xmlui.mobile.home_mobile">RIUNER Móvil</message>
