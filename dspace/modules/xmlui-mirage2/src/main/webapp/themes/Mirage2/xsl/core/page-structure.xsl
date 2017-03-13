@@ -365,7 +365,7 @@
             <div class="container">
                 <div class="row">
                     <!--TODO-->
-                    <div class="col-xs-6 col-md-6">
+                    <div class="pull-left">
                         <xsl:choose>
                             <xsl:when test="count(/dri:document/dri:meta/dri:pageMeta/dri:trail) > 1">
                                 <div class="breadcrumb dropdown visible-xs">
@@ -400,7 +400,7 @@
                             </xsl:otherwise>
                         </xsl:choose>
                     </div>
-                    <div class="col-xs-pull-6 col-md-pull-6 pull-right">
+                    <div class="pull-right">
 	                    <div class="navbar-header hidden-xs hidden-sm">
 	                        <ul class="nav navbar-nav">
 								<xsl:if test="dri:options/dri:list[@id='aspect.viewArtifacts.Navigation.list.context']/dri:item">
@@ -416,25 +416,20 @@
 									</xsl:call-template>
 								</xsl:if>
 	                        </ul>
-	                        <ul class="nav navbar-nav">
-								<xsl:if test="dri:options/dri:list[@id='aspect.statistics.Navigation.list.statistics']/dri:item">
-									<xsl:call-template name="topright-element">
-										<xsl:with-param name="element" select="'statistics'" />
-										<xsl:with-param name="elementId" select="'aspect.statistics.Navigation.list.statistics'"/>
-									</xsl:call-template>
-								</xsl:if>
-	                        </ul>
-	                        <ul class="nav navbar-nav">
-								<xsl:if test="dri:options/dri:list[@id='aspect.viewArtifacts.Navigation.list.account']/dri:item">
-									<xsl:call-template name="topright-element">
-										<xsl:with-param name="element" select="'account'" />
-									</xsl:call-template>
-								</xsl:if>
-	                        </ul>
-
-	                        <ul class="nav navbar-nav">
-	                        	<xsl:call-template name="languageSelection"/>
-	                        </ul>
+				            <xsl:if test="not(/dri:document/dri:meta/dri:userMeta/dri:metadata[@qualifier='group'][@element='identifier']/text() = 'Administrator')">
+		                        <ul class="nav navbar-nav">
+		                        	<xsl:call-template name="about"/>
+		                        </ul>
+	                        </xsl:if>
+				
+				            <xsl:if test="not(/dri:document/dri:meta/dri:userMeta/dri:metadata[@qualifier='group'][@element='identifier']/text() = 'Administrator')">
+		                        <ul class="nav navbar-nav">
+		                        	<xsl:call-template name="howTo"/>
+		                        </ul>
+	                        </xsl:if>
+<!-- 	                        <ul class="nav navbar-nav"> -->
+<!-- 	                        	<xsl:call-template name="languageSelection"/> -->
+<!-- 	                        </ul> -->
 	                        <ul class="nav navbar-nav visible-xs">
 	                            <xsl:choose>
 	                                <xsl:when test="/dri:document/dri:meta/dri:userMeta/@authenticated = 'yes'">
@@ -480,6 +475,30 @@
 	                                </xsl:otherwise>
 	                            </xsl:choose>
 	                        </ul>
+	                        <ul class="nav navbar-nav">
+	                            <xsl:choose>
+		                            <xsl:when test="/dri:document/dri:meta/dri:userMeta/@authenticated = 'yes'">
+										<xsl:if test="dri:options/dri:list[@id='aspect.viewArtifacts.Navigation.list.account']/dri:item">						    
+											<xsl:call-template name="topright-element">
+												<xsl:with-param name="element" select="'account'" />
+											</xsl:call-template>
+										</xsl:if>
+									</xsl:when>
+									<xsl:otherwise>
+										<xsl:if test="dri:options/dri:list[@id='aspect.viewArtifacts.Navigation.list.account']/dri:item">						    
+											<li>
+												<a>
+													<xsl:attribute name="href">
+														<xsl:value-of select="/dri:document/dri:meta/dri:userMeta/dri:metadata[@element='identifier' and @qualifier='loginURL']"/>
+													</xsl:attribute>
+													<i18n:text>xmlui.EPerson.Navigation.login</i18n:text>
+												</a>
+											</li>
+										</xsl:if>									
+									</xsl:otherwise>
+								</xsl:choose>
+	                        </ul>
+	                        
 	
 	                    </div>
                         <button data-toggle="offcanvas" class="navbar-toggle visible-xs visible-sm" type="button">
@@ -947,7 +966,7 @@
             }
         });
         </script>
-        
+                
         <xsl:if test="/dri:document/dri:body/dri:div[@id='aspect.administrative.item.EditItemMetadataForm.div.edit-item-status']">
 	        <script type="text/javascript">
 	        	updateMetadataForLookup();
@@ -1009,7 +1028,46 @@
             </li>
         </xsl:if>
     </xsl:template>
+
+    <xsl:template name="about">
+    	<li class="dropdown">
+    		<a id="language-dropdown-toggle" href="#" role="button" class="dropdown-toggle" data-toggle="dropdown">
+            	<span class="hidden-xs">
+            		<i18n:text>xmlui.unerdigital.title.que-es-riuner</i18n:text>
+            		<xsl:text>&#160;</xsl:text>
+            		<b class="caret"/>
+            	</span>
+            </a>
+            <ul class="dropdown-menu pull-right" role="menu" aria-labelledby="language-dropdown-toggle" data-no-collapse="true">
+            	<li>
+	            	<!-- Qué es RIUNER -->
+	            	<xsl:call-template name="add-static-page-anchor">
+		            	<xsl:with-param name="static-page-i18n-key-uri">xmlui.unerdigital.staticPage.que-es-riuner.uri</xsl:with-param>
+						<xsl:with-param name="static-page-i18n-key-title">xmlui.unerdigital.title.about</xsl:with-param>
+		            </xsl:call-template>
+				</li>
+            	<li>
+		            <!-- Políticas del repositorio -->
+	            	<xsl:call-template name="add-static-page-anchor">
+		            	<xsl:with-param name="static-page-i18n-key-uri">xmlui.unerdigital.staticPage.politicas-del-repositorio.uri</xsl:with-param>
+						<xsl:with-param name="static-page-i18n-key-title">xmlui.unerdigital.title.politicas-del-repositorio</xsl:with-param>
+		            </xsl:call-template>
+				</li>
+            </ul>
+		</li>
+    </xsl:template>
     
+    <xsl:template name="howTo">
+       <li>
+    		<!-- Cómo subir material -->
+    		<xsl:call-template name="add-static-page-anchor">
+			    <xsl:with-param name="static-page-i18n-key-uri">xmlui.unerdigital.staticPage.como-subir-material.uri</xsl:with-param>
+				<xsl:with-param name="static-page-i18n-key-title">xmlui.unerdigital.title.como-subir-material</xsl:with-param>
+			</xsl:call-template>
+    	</li>
+    </xsl:template>
+
+
     <xsl:template name="topright-element">
         <xsl:param name="element"></xsl:param>
     	<xsl:param name="elementId" select="concat('aspect.viewArtifacts.Navigation.list.',$element)" />

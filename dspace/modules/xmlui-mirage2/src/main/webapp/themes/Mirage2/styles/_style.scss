@@ -402,3 +402,37 @@ div#aspect\.discovery\.SiteRecentSubmissions\.div\.total-items{
 	background-color: #eeeeee;
 	padding: 15px;
 }
+
+/* line 396, _style.scss */
+#ds-search-form .radio {
+  margin-left: 10px;
+}
+
+/* line 400, _style.scss */
+ul.nav.navbar-nav > li > a, a:active {
+  color: #eeeeee;
+  text-decoration: none;
+  background-color: #974478;
+}
+
+/* line 406, _style.scss */
+ul.nav.navbar-nav > li > a:hover {
+  color: #eeeeee;
+  background-color: #b86198;
+  text-decoration: none;
+}
+
+/* line 412, _style.scss */
+.nav.navbar-nav > li:hover, .nav.navbar-nav > li:focus, .nav.navbar-nav > li:active {
+  background-color: #b35691;
+}
+
+/* line 416, _style.scss */
+.nav.navbar-nav .open > a, .nav.navbar-nav .open > a:hover, .nav.navbar-nav .open > a:focus {
+  background-color: #b35691;
+}
+
+/* line 420, _style.scss */
+.trail-wrapper .breadcrumb {
+  margin-left: 15px;
+}

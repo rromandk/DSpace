@@ -48,6 +48,9 @@
                 <div id="ds-search-option" class="ds-option-set">
                     <!-- The form, complete with a text box and a button, all built from attributes referenced
                  from under pageMeta. -->
+					<h2 class="ds-option-set-head h6">
+		            	<i18n:text>xmlui.ArtifactBrowser.Navigation.search</i18n:text>
+		            </h2>
                     <form id="ds-search-form" class="" method="post">
                         <xsl:attribute name="action">
                             <xsl:value-of select="/dri:document/dri:meta/dri:pageMeta/dri:metadata[@element='contextPath']"/>
@@ -128,21 +131,25 @@
             </xsl:if>
             
             <!-- Cambio el orden para respetar el prototipo sugerido en https://github.com/uner-digital/DSpace/issues/24 -->
-            <xsl:apply-templates select="dri:list[@n='browse']"/>
+            <xsl:if test="not(contains(/dri:document/dri:meta/dri:pageMeta/dri:metadata[@element='request'][@qualifier='URI'], 'discover'))">
+	            <xsl:apply-templates select="dri:list[@n='browse']"/>
+            </xsl:if>
             <xsl:apply-templates select="dri:list[@n='account']"/>
             <xsl:apply-templates select="dri:list[@n='context']"/>
             <xsl:apply-templates select="dri:list[@n='administrative']"/>
-            <xsl:call-template name="addStaticPages"/>
+<!--             <xsl:call-template name="addStaticPages"/> -->
+            <xsl:if test="/dri:document/dri:meta/dri:userMeta/dri:metadata[@qualifier='group'][@element='identifier']/text() = 'Administrator'">
+	            <xsl:apply-templates select="dri:list[@n='statistics']"/>
+	        </xsl:if>
                         
             <xsl:choose>
                 <xsl:when test="contains(/dri:document/dri:meta/dri:pageMeta/dri:metadata[@element='request'][@qualifier='URI'], 'discover')">
 		            <xsl:apply-templates select="dri:list[@n='discovery']"/>
                 </xsl:when>
                 <xsl:otherwise>
-                    <xsl:apply-templates select="dri:list[@n='discovery']/dri:list[@n!='author']"/>
+                    <xsl:apply-templates select="dri:list[@n='discovery']/dri:list[@n!='author']/.."/>
                 </xsl:otherwise>
             </xsl:choose>
-            <xsl:apply-templates select="dri:list[@n='statistics']"/>
             
             
         </div>
@@ -217,7 +224,6 @@
     </xsl:template>
 
     <xsl:template match="dri:options/dri:list" priority="3">
-        <xsl:if test="@n!='statistics'">
         <xsl:choose>
         	<xsl:when test="@n='account' or @n='administrative'or @n='context'">
             <xsl:apply-templates select="dri:head"/>
@@ -241,7 +247,6 @@
 	        </xsl:otherwise>
         </xsl:choose>
 
-        </xsl:if>
     </xsl:template>
 
 

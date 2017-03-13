@@ -82,6 +82,7 @@
 	<!-- UNER Static pages titles-->
 <message key="xmlui.unerdigital.title.test">Página de prueba</message>
 <message key="xmlui.unerdigital.title.que-es-riuner">¿Qué es RIUNER?</message>
+<message key="xmlui.unerdigital.title.about">Acerca de</message>
 <message key="xmlui.unerdigital.title.politicas-del-repositorio">Políticas del repositorio</message>
 <message key="xmlui.unerdigital.title.como-subir-material">Cómo subir material</message>
 
@@ -333,6 +334,9 @@
 <message key="xmlui.ArtifactBrowser.Navigation.head_this_collection">Esta colección</message>
 <message key="xmlui.ArtifactBrowser.Navigation.head_this_community">Esta comunidad</message>
 <message key="xmlui.ArtifactBrowser.Navigation.help_static_page">Ayuda</message>
+<message key="xmlui.ArtifactBrowser.Navigation.search">Buscar</message>
+
+<message key="xmlui.discovery.AbstractFiltersTransformer.filters.head">Filtrar</message>
 
 	<!-- org.dspace.app.xmlui.artifactbrowser.SimpleSearch.java -->
 <message key="xmlui.ArtifactBrowser.SimpleSearch.title">Buscar</message>
@@ -2253,9 +2257,9 @@ Para más infomación, visite
 <message key="xmlui.dri2xhtml.structural.logout">Salir</message>
 <message key="xmlui.dri2xhtml.structural.login">Mi RIUNER</message>
 
-<message key="xmlui.dri2xhtml.structural.search">Buscar en RIUNER</message>
+<message key="xmlui.dri2xhtml.structural.search">En todo el repositorio</message>
 <message key="xmlui.dri2xhtml.structural.search-advanced">Búsqueda avanzada</message>
-<message key="xmlui.dri2xhtml.structural.search-in-community">Esta comunidad</message>
+<message key="xmlui.dri2xhtml.structural.search-in-community">En esta comunidad</message>
 <message key="xmlui.dri2xhtml.structural.search-in-collection">Esta colección</message>
 
 <message key="xmlui.dri2xhtml.structural.pagination-previous">Página anterior</message>
