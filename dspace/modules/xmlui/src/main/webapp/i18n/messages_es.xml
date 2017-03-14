@@ -2648,6 +2648,9 @@ Cuando se usa QDC para los elementos de RIUNER se recomienda el uso de crosswalk
 	<message key="xmlui.dri2xhtml.METS-1.0.locale.en">Ingles</message>
 	<message key="xmlui.dri2xhtml.METS-1.0.locale.es">Español</message>
 	<message key="xmlui.dri2xhtml.METS-1.0.locale.pt">Portuges</message>
+	<message key="xmlui.dri2xhtml.METS-1.0.locale.de">Alemán</message>
+	<message key="xmlui.dri2xhtml.METS-1.0.locale.fr">Francés</message>
+	<message key="xmlui.dri2xhtml.METS-1.0.locale.it">Italiano</message>
 	<message key="xmlui.aspect.sherpa.submission.consult">Para comprobar los derechos de copia y las políticas de autoarchivo por revista o editor, por favor, consulte </message>
 	<message key="xmlui.aspect.sherpa.submission.title">Información del editor</message>
 	<message key="xmlui.aspect.sherpa.submission.journal">Revista:</message>

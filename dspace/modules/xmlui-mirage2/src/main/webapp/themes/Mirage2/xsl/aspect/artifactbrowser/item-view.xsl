@@ -344,10 +344,13 @@
 
 <xsl:template name="render-abstract">
 	<xsl:param name="abstract"></xsl:param>
+	<div class="simple-item-view-description item-page-field-wrapper table">
 	<xsl:for-each select="$abstract">
 		<xsl:choose>
 			<xsl:when test="node()">
-				<xsl:value-of select="." disable-output-escaping="yes"/>
+				<xsl:variable name="language" select="concat('xmlui.dri2xhtml.METS-1.0.locale.',./@language)"/>
+				<h5><i18n:text>xmlui.dri2xhtml.METS-1.0.item-dcterms_abstract</i18n:text><xsl:text>&#160;</xsl:text>(<i18n:text><xsl:value-of select="$language" /> </i18n:text>):</h5>
+				<p><xsl:value-of select="." disable-output-escaping="yes"/></p>
 			</xsl:when>
 			<xsl:otherwise>
 				<xsl:text>&#160;</xsl:text>
@@ -357,6 +360,7 @@
 			<div class="spacer">&#160;</div>
 		</xsl:if>
 	</xsl:for-each>
+	</div>
 </xsl:template>
 
     <xsl:template name="itemSummaryView-DIM-authors">
