@@ -240,6 +240,26 @@
 <message key="xmlui.ArtifactBrowser.ConfigurableBrowse.trail.item.dateaccessioned">Listar {0} por fecha de carga</message>
 
 
+<!-- org.dspace.app.xmlui.administrative.WithdrawnItems.java -->
+<message key="xmlui.Administrative.WithdrawnItems.title.item.title">Items eliminados por título</message>
+<message key="xmlui.Administrative.WithdrawnItems.trail.item.title">Items eliminados por título</message>
+
+<message key="xmlui.Administrative.WithdrawnItems.title.item.dateissued">Items eliminados por Issue Date</message>
+<message key="xmlui.Administrative.WithdrawnItems.trail.item.dateissued">Items eliminados por Issue Date</message>
+
+<message key="xmlui.Administrative.WithdrawnItems.title.item.dateaccessioned">Items eliminados por fecha de envío</message>
+<message key="xmlui.Administrative.WithdrawnItems.trail.item.dateaccessioned">Items eliminados por fecha de envío</message>
+
+<!-- org.dspace.app.xmlui.administrative.PrivateItems.java -->
+<message key="xmlui.Administrative.PrivateItems.title.item.title">Items privados por título</message>
+<message key="xmlui.Administrative.PrivateItems.trail.item.title">Items privados por título</message>
+
+<message key="xmlui.Administrative.PrivateItems.title.item.dateissued">Items privados por Issue Date</message>
+<message key="xmlui.Administrative.PrivateItems.trail.item.dateissued">Items privados por Issue Date</message>
+
+<message key="xmlui.Administrative.PrivateItems.title.item.dateaccessioned">Items privados por fecha de envío</message>
+<message key="xmlui.Administrative.PrivateItems.trail.item.dateaccessioned">Items privados por fecha de envío</message>
+
 	<!-- org.dspace.app.xmlui.artifactbrowser.CollectionViewer.java -->
 <message key="xmlui.ArtifactBrowser.CollectionViewer.search_scope">Ámbito de búsqueda</message>
 <message key="xmlui.ArtifactBrowser.CollectionViewer.all_of_dspace">Todo el repositorio</message>
