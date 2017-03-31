@@ -1,29 +1,149 @@
 <?xml version="1.0"?>
 <!--
-  - local-types.xml
+  - uner-types.xml
   -
-  - An empty registry for instance-specific, local metadata. Any non-standard
-  - metadata fields should be added here to avoid polluting the standard
-  - namespaces.
+  - Version:  $Revision$
+  -
+  - Date:     $Date$
+  -e
   - 
+  - <dc-type>
+  -   <schema></schema>
+  -   <element></element>
+  -   
+  -   <scope_note></scope_note>
+  - </dc-type>
   -->
+
+<!-- start of XML -->
 <dspace-dc-types>
 
   <dspace-header>
-    <title>Registry of instance-specific metadata fields</title>
-    <contributor.author>Ivan Mas&#xE1;r</contributor.author>
-    <contributor.editor>$Author$</contributor.editor>
+    <title>UNER Registry</title>
     <date.created>$Date$</date.created>
     <description>$Log$</description>
     <description.version>$Revision$</description.version>
   </dspace-header>
+
+
+                <schema>dcterms</schema>
+  <dc-schema>
+    <name>thesis</name>
+    <namespace>http://www.ndltd.org/standards/metadata/etdms/1.1/</namespace>
+  </dc-schema>
+
+  <dc-type>
+    <schema>dc</schema>
+    <element>type</element>
+    <qualifier>version</qualifier>
+    <scope_note>Version de la obra  (ver https://guidelines.openaire.eu/en/latest/literature/field_publicationversion.html)</scope_note>
+  </dc-type>
+  
+  <dc-type>
+    <schema>thesis</schema>
+    <element>degree</element>
+    <qualifier>name</qualifier>
+    <scope_note>Grado al que se aspira con el trabajo de tesis realizado</scope_note>
+  </dc-type>
+
+  <dc-type>
+    <schema>thesis</schema>
+    <element>degree</element>
+    <qualifier>grantor</qualifier>
+    <scope_note>Insitución que otorgó el título</scope_note>
+  </dc-type>
+
+  <dc-type>
+    <schema>dc</schema>
+    <element>description</element>
+    <qualifier>fulltext</qualifier>
+    <scope_note>Indica si el recurso está disponible a texto completo en uno o más de los archivos que tiene asociados en el repositorio.</scope_note>
+  </dc-type>
+
+  <dc-type>
+    <schema>dcterms</schema>
+    <element>isPartOf</element>
+    <qualifier>project</qualifier>
+    <scope_note>En caso que la obra haya sido generada en el marco de un proyecto de financiamiento, indicar identificación del mismo. Ej: CONICET/PIP/11220130100320CO/AR</scope_note>
+  </dc-type>
+
+  <dc-type>
+    <schema>dcterms</schema>
+    <element>relation</element>
+    <qualifier>dataset</qualifier>
+    <scope_note>Conjunto de datos fuente utilizado para la realización de la presente obra.</scope_note>
+  </dc-type>
+
+
+        <dc-type>
+                <schema>dcterms</schema>
+                <element>creator</element>
+                <qualifier>author</qualifier>
+                <scope_note>Autor de la obra. En caso de ser varios autores indicarlos de a uno.</scope_note>
+        </dc-type>
+
+        <dc-type>
+                <schema>dcterms</schema>
+                <element>creator</element>
+                <qualifier>compilator</qualifier>
+                <scope_note>Persona responsable de compilar, reunir o antologar materiales de la obra.</scope_note>
+        </dc-type>
+
+        <dc-type>
+                <schema>dcterms</schema>
+                <element>creator</element>
+                <qualifier>editor</qualifier>
+                <scope_note>Persona física o institucional responsable de realizar tareas de edición sobre los contenidos de la obra. No confundir con la editorial.</scope_note>
+        </dc-type>
+
+        <dc-type>
+                <schema>dcterms</schema>
+                <element>creator</element>
+                <qualifier>corporate</qualifier>
+                <scope_note>Institucion creadora del contenido intelectual de la obra.</scope_note>
+        </dc-type>
+
+        <dc-type>
+                <schema>dcterms</schema>
+                <element>contributor</element>
+                <qualifier>director</qualifier>
+                <scope_note>Persona que dirige la realización de la tesis.</scope_note>
+        </dc-type>
+
+        <dc-type>
+                <element>subject</element>
+                <qualifier>materia</qualifier>
+                <scope_note>Materia (en sentido amplio) a que se refiere el item (ejemplo: Física).</scope_note>
+        </dc-type>
+
+        <dc-type>
+                <schema>dcterms</schema>
+                <element>isPartOf</element>
+                <qualifier>item</qualifier>
+                <scope_note>Informe o libro del cual el documento actual es parte.</scope_note>
+        </dc-type>
+
+        <dc-type>
+                <schema>dcterms</schema>
+                <element>isPartOf</element>
+                <qualifier>issue</qualifier>
+                <scope_note>Identificacion del issue (con vol+nro+tomo y link) que contiene el artículo de revista) o 2) Nombre del evento (congreso, seminario, jornada, etc.) en el que este item fue presentado con link.</scope_note>
+        </dc-type>
+
+        <dc-type>
+                <schema>dcterms</schema>
+                <element>isPartOf</element>
+                <qualifier>series</qualifier>
+                <scope_note>Titulo de la revista o nombre del evento en la que este item fue publicado /presentado.</scope_note>
+        </dc-type>
+
+<!--
 
   <dc-schema>
     <name>local</name>
     <namespace>http://dspace.org/namespace/local/</namespace>
   </dc-schema>
 
-<!--
   <dc-type>
     <schema>local</schema>
     <element></element>
