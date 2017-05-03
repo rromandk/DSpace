@@ -46,12 +46,6 @@ dspace.ui = xmlui
 # In this case, make sure to remove the /${dspace.ui} from the dspace.url property.
 #dspace.url = ${dspace.baseUrl}/${dspace.ui}
 
-# Name of the site
-dspace.name = DSpace at My University
-
-# Default language for metadata values
-default.language = es
-
 # Solr server/webapp.
 # DSpace uses Solr for all search/browse capability (and for usage statistics by default).
 # The included 'solr' webapp MUST be deployed to Tomcat for DSpace to function.
@@ -203,7 +197,3 @@ handle.canonical.prefix = http://uner.sedici.unlp.edu.ar/handle/
 # Authentication by Password (encrypted in DSpace's database). See authentication-password.cfg for default configuration.
 # Enabled by default in authentication.cfg
 #plugin.sequence.org.dspace.authenticate.AuthenticationMethod = org.dspace.authenticate.PasswordAuthentication
-
-##### TEMPORAL-FIX
-##- Ver Ticket #4036
-sparql-authorities.sparql-authorities.endpoint.url = http://digital.cic.gba.gob.ar/auth/sparql?output=xml
