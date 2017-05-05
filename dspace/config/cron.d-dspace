@@ -32,6 +32,8 @@ PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
  
 # Set JAVA_OPTS with defaults for DSpace Cron Jobs.
 JAVA_OPTS="-Xmx1024M -Dfile.encoding=UTF-8"
+
+MAILTO=dspace
  
 #--------------
 # HOURLY TASKS (Recommended to be run multiple times per day, if possible)

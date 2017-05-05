@@ -3,7 +3,7 @@
 DSPACE_BACKUP_DIR=/var/dspace/backups
 DSPACE_SOURCE_DIR=/var/dspace/dspace-src
 DSPACE_INSTALL_DIR=/var/dspace/install
-
+MAILTO=dspace
 SOLR_SERVER=127.0.0.1/solr
 
 DATESTR="date +%Y-%m-%d_%H%M"
@@ -11,7 +11,7 @@ DATESTR="date +%Y-%m-%d_%H%M"
 ##################################################################################
 ##  SYS SYS SYS SYS SYS SYS SYS SYS SYS SYS SYS SYS SYS SYS SYS SYS SYS SYS SYS ##
 ##################################################################################
-1 12 3,24 * *   root    tar --directory / -czf $DSPACE_BACKUP_DIR/etc/etc.backup.$($DATESTR).tgz etc/
+1 12 3,24 * *   dspace    tar --directory / -czf $DSPACE_BACKUP_DIR/etc/etc.backup.$($DATESTR).tgz etc/
 
 ##################################################################################
 ## DSPACE DSPACE DSPACE DSPACE DSPACE DSPACE DSPACE DSPACE DSPACE DSPACE DSPACE ##
@@ -27,17 +27,17 @@ DATESTR="date +%Y-%m-%d_%H%M"
 5 23 * * sun    dspace  date && $DSPACE_INSTALL_DIR/bin/dspace packager -d -a -t AIP -e facundo@sedici.unlp.edu.ar -u -i 123456789/0 $DSPACE_BACKUP_DIR/aip/aip-site.zip && date
 
 #backups de configuraciones (todos los 1ro de mes a las 4:38hs)
-38 4 2 * *      root    tar --directory $DSPACE_INSTALL_DIR -czf $DSPACE_BACKUP_DIR/config/config.backup.$($DATESTR).tgz config/
+38 4 2 * *      dspace    tar --directory $DSPACE_INSTALL_DIR -czf $DSPACE_BACKUP_DIR/config/config.backup.$($DATESTR).tgz config/
 
 ##################################################################################
 ##  SOLR
 ##################################################################################
 
 #backups del core de estadisticas de solr (todos los miercoles y domino a las 19:00hs)
-0 19 * * 0      root    tar --directory $DSPACE_INSTALL_DIR -czf $DSPACE_BACKUP_DIR/solr/statistics.backup.domingo.tgz solr/statistics/
-0 19 * * 3      root    tar --directory $DSPACE_INSTALL_DIR -czf $DSPACE_BACKUP_DIR/solr/statistics.backup.miercoles.tgz solr/statistics/
+0 19 * * 0      dspace    tar --directory $DSPACE_INSTALL_DIR -czf $DSPACE_BACKUP_DIR/solr/statistics.backup.domingo.tgz solr/statistics/
+0 19 * * 3      dspace    tar --directory $DSPACE_INSTALL_DIR -czf $DSPACE_BACKUP_DIR/solr/statistics.backup.miercoles.tgz solr/statistics/
 
 #backups de cores de solr. Todos los días a las 5AM. 
-0 5 * * *	root	{ echo "Realizo backup del core statistics a las $($DATESTR)"; wget -q -O - "http://$SOLR_SERVER/statistics/replication?command=backup&location=$DSPACE_BACKUP_DIR/solr/statistics/&numberToKeep=3"; }>> $DSPACE_INSTALL_DIR/log/solr-backups.log  
-5 5 * * *	root	{ echo "Realizo backup del core oai a las $($DATESTR)"; wget -q -O - "http://$SOLR_SERVER/oai/replication?command=backup&location=$DSPACE_BACKUP_DIR/solr/oai/&numberToKeep=3"; }>> $DSPACE_INSTALL_DIR/log/solr-backups.log  
-10 5 * * *	root	{ echo "Realizo backup del core search a las $($DATESTR)"; wget -q -O - "http://$SOLR_SERVER/search/replication?command=backup&location=$DSPACE_BACKUP_DIR/solr/search/&numberToKeep=3"; }>> $DSPACE_INSTALL_DIR/log/solr-backups.log
+0 5 * * *	dspace	{ echo "Realizo backup del core statistics a las $($DATESTR)"; wget -q -O - "http://$SOLR_SERVER/statistics/replication?command=backup&location=$DSPACE_BACKUP_DIR/solr/statistics/&numberToKeep=3"; }>> $DSPACE_INSTALL_DIR/log/solr-backups.log  
+5 5 * * *	dspace	{ echo "Realizo backup del core oai a las $($DATESTR)"; wget -q -O - "http://$SOLR_SERVER/oai/replication?command=backup&location=$DSPACE_BACKUP_DIR/solr/oai/&numberToKeep=3"; }>> $DSPACE_INSTALL_DIR/log/solr-backups.log  
+10 5 * * *	dspace	{ echo "Realizo backup del core search a las $($DATESTR)"; wget -q -O - "http://$SOLR_SERVER/search/replication?command=backup&location=$DSPACE_BACKUP_DIR/solr/search/&numberToKeep=3"; }>> $DSPACE_INSTALL_DIR/log/solr-backups.log
