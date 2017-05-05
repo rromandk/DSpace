@@ -20,7 +20,7 @@
     		<Filter ref="snrdFilter"/>
     		<Set ref="snrdSet"/>
     		<Format ref="oaidc"/>
-    		<Format ref="xoai"/>
+<!--    		<Format ref="xoai"/> -->
     		
     		<Description>
     			This context complies with SNRD rules.
