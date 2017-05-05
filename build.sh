@@ -6,15 +6,15 @@ set -e
 ###################################
 cwd=`pwd`
 #Directorio del código fuente de la aplicación
-DSPACE_SRC=$(dirname $(readlink -f $0))
+DSPACE_SRC=$(dirname $(readlink -f -- $0))
 #Directorio de instalación de la aplicación
-DSPACE_DIR=$DSPACE_SRC/install
+DSPACE_DIR=$DSPACE_SRC/../install
 #Directorio de backups de la aplicación
-DSPACE_BKP_DIR=$DSPACE_SRC/backups
+DSPACE_BKP_DIR=$DSPACE_SRC/../backups
 #Ruta al script de actualización de la base de datos. Si no existe, se tirará una advertencia y se seguirá con la actualización
 DATABASE_BKP_SCRIPT_FULLPATH=
 #Usuario con el que se debe ejecutar la actualización de DSpace
-DSPACE_USER=`whoami`
+DSPACE_USER=dspace
 #Nombre del servicio para ejecutar tomcat
 TOMCAT="tomcat8"
 
@@ -27,9 +27,6 @@ MIRAGE2_PROPERTIES="-Dmirage2.on=true -Dmirage2.deps.included=false"
 
 update()
 {
-    show_message "Introduce tu contraseña de superusuario para poder continuar"
-    sudo echo "[ÉXITO!] Continuamos..."
-        
 	show_message "Actualizando la instalacion de DSpace. Esta operación suele demorar un par de minutos."
 	
 	show_message "Actualizamos el código fuente de github."
@@ -49,8 +46,8 @@ update()
 	sudo /etc/init.d/$TOMCAT stop
 	
 	#Limpiar cache XMLUI/Cocoon
-	#sudo rm /var/lib/$TOMCAT/work/Catalina/localhost/_/cache-dir/cocoon-ehcache.data
-	#sudo rm /var/lib/$TOMCAT/work/Catalina/localhost/_/cache-dir/cocoon-ehcache.index
+	#rm /var/lib/$TOMCAT/work/Catalina/localhost/_/cache-dir/cocoon-ehcache.data
+	#rm /var/lib/$TOMCAT/work/Catalina/localhost/_/cache-dir/cocoon-ehcache.index
 
 	show_message "Actualizamos los sources..."
 	cd dspace/target/dspace-installer
